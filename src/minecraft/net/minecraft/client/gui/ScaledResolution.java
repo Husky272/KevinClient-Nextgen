@@ -64,4 +64,12 @@ public class ScaledResolution
     {
         return this.scaleFactor;
     }
+
+    public float component1() {
+        return scaledWidth;
+    }
+
+    public float component2() {
+        return scaledHeight;
+    }
 }

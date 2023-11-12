@@ -34,13 +34,12 @@ import kevin.module.modules.render.ClickGui.NewClickGui
 import kevin.module.modules.render.Renderer
 import kevin.persional.milk.guis.clickgui.MilkClickGui
 import kevin.plugin.PluginManager
-import kevin.script.ScriptManager
+import kevin.script.ScriptLoader
 import kevin.skin.SkinManager
 import kevin.utils.CombatManager
 import kevin.utils.RotationUtils
 import kevin.via.ViaVersion
 import org.lwjgl.opengl.Display
-import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -49,7 +48,7 @@ import java.util.concurrent.Executors
 
 object KevinClient {
     var name = "Kevin"
-    var version = "u2.5.0" // u - updated
+    var version = "u2.5.1" // u - updated
 
     var isStarting = true
 
@@ -88,7 +87,7 @@ object KevinClient {
         eventManager.registerListener(FontGC)
         Renderer.load()
         moduleManager.load()
-        ScriptManager.load()
+        ScriptLoader.load()
         Display.setTitle("Kevin Client is loading...")
 
         fileManager.loadConfig(fileManager.modulesConfig)

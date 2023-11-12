@@ -22,6 +22,7 @@ import net.minecraft.client.gui.FontRenderer
 import org.lwjgl.opengl.Display
 import java.awt.Font
 import java.io.*
+import java.nio.file.Files
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -190,10 +191,15 @@ class FontManager : MinecraftInstance(){
 
     fun getFont(fontName: String, size: Int): Font {
         return try {
-            val inputStream = FontManager::class.java.getResourceAsStream("/kevin/font/fonts/$fontName")
-            var awtClientFont = Font.createFont(Font.TRUETYPE_FONT, inputStream)
+            val inputStream = FontManager::class.java.getResourceAsStream("/kevin/font/fonts/$fontName")!!
+            val file = File(KevinClient.fileManager.intFontsDir, fontName)
+            if (!file.exists()) {
+                Files.copy(inputStream, file.toPath())
+            }
+            inputStream.close()
+            // loading font via input stream will create a lot of temp files
+            var awtClientFont = Font.createFont(Font.TRUETYPE_FONT, file)
             awtClientFont = awtClientFont.deriveFont(Font.PLAIN, size.toFloat())
-            inputStream!!.close()
             awtClientFont
         } catch (e: Exception) {
             e.printStackTrace()

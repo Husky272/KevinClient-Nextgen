@@ -54,7 +54,7 @@ object TimerRange: Module("TimerRange", "Make you walk to target faster", catego
     private val reverseValue = BooleanValue("Reverse", false)
     private val maxReverseRange : FloatValue = object : FloatValue("MaxReverseRange", 2.8f, 1f, 4f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
-            if (newValue > minDistance.get()) set(minDistance.get())
+            if (newValue > minDistance.get() && minDistance.get() > minReverseRange.get()) set(minDistance.get())
             else if (newValue < minReverseRange.get()) set(minReverseRange.get())
         }
     }

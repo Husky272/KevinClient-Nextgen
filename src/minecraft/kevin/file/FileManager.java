@@ -19,10 +19,12 @@ import com.google.gson.GsonBuilder;
 import kevin.main.KevinClient;
 import kevin.utils.ChatUtils;
 import kevin.utils.MinecraftInstance;
+import net.minecraft.client.Minecraft;
 
 import java.io.*;
 import java.lang.reflect.Field;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class FileManager extends MinecraftInstance {
     public static final Gson PRETTY_GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -38,6 +40,8 @@ public class FileManager extends MinecraftInstance {
     public final File scripts = new File(dir,"Scripts");
     public final File plugins = new File(dir,"Plugins");
     public final File via = new File(dir,"Via");
+    public final File libraries = new File(dir, "libraries");
+    public final File intFontsDir = new File(dir, "internal_font");
     public final FileConfig modulesConfig = new ModulesConfig(new File(dir, "modules.json"));
     public final FileConfig hudConfig = new HudConfig(new File(dir, "hud.json"));
     public final FileConfig bindCommandConfig = new BindCommandConfig(new File(dir, "bindCommand.json"));
@@ -54,6 +58,7 @@ public class FileManager extends MinecraftInstance {
         if (!configsDir.exists()) configsDir.mkdir();
         if (!killMessages.exists()) killMessages.mkdir();
         if (!playerModels.exists()) playerModels.mkdir();
+        if (!libraries.exists()) libraries.mkdir();
         if (!scripts.exists()) scripts.mkdir();
         if (!plugins.exists()) {
             plugins.mkdir();
@@ -70,8 +75,11 @@ public class FileManager extends MinecraftInstance {
                     out.flush();
                     outputStream.flush();
                 }
-            } catch (IOException ignored) {}
+            } catch (IOException e) {
+                Minecraft.logger.warn("", e);
+            }
         }
+        if (!intFontsDir.exists()) intFontsDir.mkdir();
         if (!via.exists()) via.mkdir();
     }
 

@@ -27,6 +27,10 @@ object PacketUtils : MinecraftInstance(), Listenable {
         mc.netHandler.addToSendQueue(packet)
     }
 
+    fun sendPacket(packet: Packet<*>) {
+        mc.netHandler.addToSendQueue(packet)
+    }
+
     @EventTarget
     fun onWorld(event: WorldEvent) {
         packetList.clear()

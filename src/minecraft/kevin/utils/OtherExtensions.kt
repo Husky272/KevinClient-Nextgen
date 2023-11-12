@@ -28,7 +28,7 @@ fun Vec3.multiply(value: Double): Vec3 {
 }
 
 fun AxisAlignedBB.getLookingTargetRange(thePlayer: EntityPlayerSP, rotation: Rotation? = null, range: Double=6.0): Double {
-    val eyes = thePlayer.getPositionEyes(1F)
+    val eyes = thePlayer.eyesLoc
     val movingObj = this.calculateIntercept(eyes, (rotation ?: RotationUtils.bestServerRotation()).toDirection().multiply(range).add(eyes)) ?: return Double.MAX_VALUE
     return movingObj.hitVec.distanceTo(eyes)
 }
@@ -60,3 +60,49 @@ fun AxisAlignedBB.getBlockStatesIncluded(): List<IBlockState> {
 
     return tmpArr
 }
+
+/**
+ * Provides:
+ * ```
+ * val (x, y, z) = vec
+ */
+operator fun Vec3.component1() = xCoord
+operator fun Vec3.component2() = yCoord
+operator fun Vec3.component3() = zCoord
+
+/**
+ * Provides:
+ * `vec + othervec`, `vec - othervec`, `vec * number`, `vec / number`
+ * */
+operator fun Vec3.plus(vec: Vec3): Vec3 = add(vec)
+operator fun Vec3.minus(vec: Vec3): Vec3 = subtract(vec)
+operator fun Vec3.times(number: Double) = Vec3(xCoord * number, yCoord * number, zCoord * number)
+operator fun Vec3.times(number: Float) = Vec3(xCoord * number, yCoord * number, zCoord * number)
+operator fun Vec3.div(number: Double) = times(1 / number)
+
+
+/**
+ * Provides: (step is 0.1 by default)
+ * ```
+ *      for (x in 0.1..0.9 step 0.05) {}
+ *      for (y in 0.1..0.9) {}
+ */
+class RangeIterator(private val range: ClosedFloatingPointRange<Double>, private val step: Double = 0.1): Iterator<Double> {
+    private var value = range.start
+
+    override fun hasNext() = value < range.endInclusive
+
+    override fun next(): Double {
+        val returned = value
+        value = (value + step).coerceAtMost(range.endInclusive)
+        return returned
+    }
+}
+operator fun ClosedFloatingPointRange<Double>.iterator() = RangeIterator(this)
+infix fun ClosedFloatingPointRange<Double>.step(step: Double) = RangeIterator(this, step)
+
+/**
+ * Conditionally shuffles an `Iterable`
+ * @param shuffle determines if the returned `Iterable` is shuffled
+ */
+fun <T> Iterable<T>.shuffled(shuffle: Boolean) = toMutableList().apply { if (shuffle) shuffle() }

@@ -1,6 +1,7 @@
 package net.minecraft.util;
 
 import com.google.common.base.Objects;
+import org.jetbrains.annotations.NotNull;
 
 public class Vec3i implements Comparable<Vec3i>
 {
@@ -139,5 +140,10 @@ public class Vec3i implements Comparable<Vec3i>
     public String toString()
     {
         return Objects.toStringHelper(this).add("x", this.getX()).add("y", this.getY()).add("z", this.getZ()).toString();
+    }
+
+    @NotNull
+    public Vec3 getVec3() {
+        return new Vec3(x, y, z);
     }
 }

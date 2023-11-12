@@ -16,8 +16,10 @@ package kevin.command.commands
 
 import kevin.command.ICommand
 import kevin.main.KevinClient
-import kevin.script.ScriptManager
+import kevin.module.modules.render.ClickGui
 import kevin.utils.ChatUtils
+import net.minecraft.client.Minecraft
+import java.util.ArrayList
 
 class ClearMainConfigCommand : ICommand {
     override fun run(args: Array<out String>?) {
@@ -25,8 +27,27 @@ class ClearMainConfigCommand : ICommand {
         KevinClient.eventManager.unregisterListener(KevinClient.moduleManager)
         KevinClient.moduleManager.getModules().clear()
         KevinClient.moduleManager.load()
-        ScriptManager.reAdd()
+//        ScriptManager.reAdd()
+        KevinClient.clickGUI = ClickGui.ClickGUI()
+        KevinClient.newClickGui = ClickGui.NewClickGui()
+        Minecraft.logger.info("[ScriptManager] Reloaded ClickGui.")
+        reAddHook.forEach {
+            it.reAdd()
+        }
         KevinClient.fileManager.saveConfig(KevinClient.fileManager.modulesConfig)
         ChatUtils.messageWithStart("§aCleared main config.")
+    }
+
+    interface IReAddHook {
+        fun reAdd()
+    }
+
+    companion object {
+        private val reAddHook: MutableList<IReAddHook> = ArrayList()
+
+        fun addHook(hook: IReAddHook) {
+            if (reAddHook.contains(hook)) return
+            reAddHook.add(hook)
+        }
     }
 }

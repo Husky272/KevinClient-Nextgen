@@ -20,7 +20,7 @@ import kevin.utils.FallingPlayer
 
 object LegitNoFall: NoFallMode("Legit") {
     var working = false
-    override fun onUpdate(event: UpdateEvent) {
+    override fun onNoFall(event: UpdateEvent) {
         val thePlayer = mc.thePlayer ?: return
         if (mc.thePlayer.fallDistance > 3) {
             val fallingPlayer = FallingPlayer(

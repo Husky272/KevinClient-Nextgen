@@ -129,6 +129,9 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
         {
             texture = Config.getMojangLogoTexture(texture);
         }
+        else if (name.equals("kevin_logo")) {
+            texture = Config.getKevinLogoTexture(texture);
+        }
 
         Integer integer = this.mapTextureCounters.get(name);
 

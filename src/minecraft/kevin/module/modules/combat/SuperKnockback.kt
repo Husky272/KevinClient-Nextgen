@@ -54,6 +54,7 @@ class SuperKnockback : Module("SuperKnockback", "Increases knockback dealt to ot
     private val timer = MSTimer()
     var delay = 0L
     var stopSprint = false
+    var cancelSprint = false
     val stopTimer = MSTimer()
     private var isHit = false
     private val attackTimer = MSTimer()
@@ -114,7 +115,8 @@ class SuperKnockback : Module("SuperKnockback", "Increases knockback dealt to ot
     fun onUpdate(event: UpdateEvent) {
         if  (modeValue equal "LegitFast") {
             if (isHit) {
-                mc.thePlayer.sprintingTicksLeft = 0
+                isHit = false
+                cancelSprint = true
                 stopTimer.reset()
             }
         }

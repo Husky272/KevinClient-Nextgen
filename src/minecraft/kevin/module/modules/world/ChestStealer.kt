@@ -16,14 +16,11 @@ package kevin.module.modules.world
 
 import kevin.event.EventTarget
 import kevin.event.PacketEvent
-import kevin.event.Render3DEvent
 import kevin.event.UpdateEvent
 import kevin.main.KevinClient
-import kevin.module.BooleanValue
-import kevin.module.IntegerValue
-import kevin.module.Module
-import kevin.module.ModuleCategory
+import kevin.module.*
 import kevin.module.modules.player.InventoryCleaner
+import kevin.utils.InventoryUtils.MouseSimulator.SHARED as mouseSimulator
 import kevin.utils.ItemUtils
 import kevin.utils.MSTimer
 import kevin.utils.TimeUtils
@@ -86,6 +83,10 @@ class ChestStealer : Module("ChestStealer", description = "Automatically steals 
 
     var chestItems = mutableListOf<ItemStack?>()
 
+    private val simulateMouseMove by BooleanValue("SimulateMouseMoveSimply", false)
+    private val mouseSpeed by FloatValue("MouseSpeed", 6f, 0.1f..30f)
+
+    private var targetSlot: Slot? = null
     /**
      * VALUES
      */
@@ -109,15 +110,35 @@ class ChestStealer : Module("ChestStealer", description = "Automatically steals 
             if (delayOnFirstValue.get())
                 delayTimer.reset()
             autoCloseTimer.reset()
+            targetSlot = null
             return
+        }
+
+        val screen = mc.currentScreen!! as GuiChest
+
+        if (simulateMouseMove) {
+            val slot = targetSlot
+            if (slot != null) {
+                delayTimer.reset()
+                var x = slot.slotNumber % 9
+                var y = slot.slotNumber / 9
+                // better for calculate
+                x *= 10
+                y *= 10
+                // check if clickable first
+                mouseSimulator.moveTo(x, y, mouseSpeed)
+                if (mouseSimulator.ableToClick(x, y, 5)) {
+                    screen.handleMouseClick(slot, slot.slotNumber, 0, 1)
+                    targetSlot = null
+                }
+                return
+            }
         }
 
         if (!delayTimer.hasTimePassed(nextDelay)) {
             autoCloseTimer.reset()
             return
         }
-
-        val screen = mc.currentScreen!! as GuiChest
 
         // No Compass
         if (noCompassValue.get() && thePlayer.inventory.getCurrentItem()?.item?.unlocalizedName == "item.compass")
@@ -147,16 +168,18 @@ class ChestStealer : Module("ChestStealer", description = "Automatically steals 
             if (takeRandomizedValue.get()) {
                 do {
                     val items = mutableListOf<Slot>()
+                    for (rows in 0..screen.inventoryRows) {
+                        val reverse = rows % 2 == 0
+                        val base = rows * 9
+                        for (slotIndex in if (reverse) (-8..0) else (0 until 9)) {
+                            val slot = screen.inventorySlots!!.getSlot(slotIndex + base)
 
-                    for (slotIndex in 0 until screen.inventoryRows * 9) {
-                        val slot = screen.inventorySlots!!.getSlot(slotIndex)
+                            val stack = slot.stack
 
-                        val stack = slot.stack
-
-                        if (stack != null && (!onlyItemsValue.get() || stack.item !is ItemBlock) && (!inventoryCleaner.state || inventoryCleaner.isUseful(stack, -1)))
-                            items.add(slot)
+                            if (stack != null && (!onlyItemsValue.get() || stack.item !is ItemBlock) && (!inventoryCleaner.state || inventoryCleaner.isUseful(stack, -1)))
+                                items.add(slot)
+                        }
                     }
-
                     val randomSlot = Random.nextInt(items.size)
                     val slot = items[randomSlot]
 
@@ -190,12 +213,16 @@ class ChestStealer : Module("ChestStealer", description = "Automatically steals 
         }
     }
 
-    private inline fun shouldTake(stack: ItemStack?, inventoryCleaner: InventoryCleaner): Boolean {
+    private fun shouldTake(stack: ItemStack?, inventoryCleaner: InventoryCleaner): Boolean {
         return stack != null && !ItemUtils.isStackEmpty(stack) && (!onlyItemsValue.get() || stack.item !is ItemBlock) && (!inventoryCleaner.state || inventoryCleaner.isUseful(stack, -1))
     }
 
     private fun move(screen: GuiChest, slot: Slot) {
-        screen.handleMouseClick(slot, slot.slotNumber, 0, 1)
+        if (simulateMouseMove) {
+            targetSlot = slot
+        } else {
+            screen.handleMouseClick(slot, slot.slotNumber, 0, 1)
+        }
         delayTimer.reset()
         nextDelay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
     }

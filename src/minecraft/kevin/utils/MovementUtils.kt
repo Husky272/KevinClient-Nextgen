@@ -45,7 +45,6 @@ object MovementUtils : MinecraftInstance() {
     }
 
     @JvmStatic
-    @JvmOverloads
     fun strafeDouble(speed: Double) {
         if (!isMoving) return
         val yaw = direction

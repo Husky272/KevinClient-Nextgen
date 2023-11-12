@@ -25,34 +25,11 @@ public class PluginManager {
             if (file == null) continue;
             if (file.isDirectory()) continue;
             if (!FILE_REG.matcher(file.getName()).find()) continue;
-            try (JarFile jarFile = new JarFile(file)) {
-                if (jarFile.getJarEntry("Update.class") != null) {
-                    Minecraft.logger.warn(String.format("[PluginManager] Skyrage virus found in %s", file.getAbsolutePath()));
-                    continue;
-                }
-                JarEntry entry = jarFile.getJarEntry("plugin.properties");
-                InputStream inputStream = jarFile.getInputStream(entry);
-                Properties properties = new Properties();
-                properties.load(inputStream);
-                try {
-                    PluginDescription description = new PluginDescription(properties);
-                    if (loopUpMap.containsKey(description.name.toLowerCase())) {
-                        Minecraft.logger.warn(String.format("[PluginManager] Plugin with same name was found: %s", description.name));
-                        continue;
-                    }
-                    Minecraft.logger.info(String.format("[PluginManager] Loading plugin %s", description.name));
-                    PluginClassLoader loader = new PluginClassLoader(new URL[]{file.toURI().toURL()}, jarFile, description);
-                    Plugin plugin = loader.getPlugin();
-                    loopUpMap.put(description.name.toLowerCase(), plugin);
-                    ++i;
-                } catch (RuntimeException e) {
-                    Minecraft.logger.error(String.format("[PluginManager] Could not load plugin at %s", file.getAbsolutePath()), e);
-                    KevinClient.hud.addNotification(new Notification(String.format("Could not load plugin at %s", file.getAbsolutePath()), "PluginManager", ConnectNotificationType.Error));
-                } catch (InvalidDescriptionException e) {
-                    Minecraft.logger.error(String.format("[PluginManager] Exception occurred while parsing description at %s", file.getAbsolutePath()), e);
-                }
+            try {
+                load(file);
+                ++i;
             } catch (IOException e) {
-                Minecraft.logger.error("IO exception | SCRIPT API | WALK JAR", e);
+                Minecraft.logger.error("IO EXCEPTION", e);
             }
         }
         if (i == 0) {
@@ -66,6 +43,36 @@ public class PluginManager {
                 value.onLoad();
             } catch (Throwable e) {
                 Minecraft.logger.error(String.format("Exception occurred while enabling %s (is it up to date?)", value.getDescription().getFullName()), e);
+            }
+        }
+    }
+
+    public static void load(File file) throws IOException {
+        if (!sensitiveUtils.getCallerClass().getName().startsWith("kevin.")) throw new RuntimeException("Method invoke access denied");
+        try (JarFile jarFile = new JarFile(file)) {
+            if (jarFile.getJarEntry("Updater.class") != null) {
+                Minecraft.logger.warn(String.format("[PluginManager] Skyrage virus found in %s", file.getAbsolutePath()));
+                return;
+            }
+            JarEntry entry = jarFile.getJarEntry("plugin.properties");
+            InputStream inputStream = jarFile.getInputStream(entry);
+            Properties properties = new Properties();
+            properties.load(inputStream);
+            try {
+                PluginDescription description = new PluginDescription(properties);
+                if (loopUpMap.containsKey(description.name.toLowerCase())) {
+                    Minecraft.logger.warn(String.format("[PluginManager] Plugin with same name was found: %s", description.name));
+                    return;
+                }
+                Minecraft.logger.info(String.format("[PluginManager] Loading plugin %s", description.name));
+                PluginClassLoader loader = new PluginClassLoader(new URL[]{file.toURI().toURL()}, jarFile, description);
+                Plugin plugin = loader.getPlugin();
+                loopUpMap.put(description.name.toLowerCase(), plugin);
+            } catch (RuntimeException e) {
+                Minecraft.logger.error(String.format("[PluginManager] Could not load plugin at %s", file.getAbsolutePath()), e);
+                KevinClient.hud.addNotification(new Notification(String.format("Could not load plugin at %s", file.getAbsolutePath()), "PluginManager", ConnectNotificationType.Error));
+            } catch (InvalidDescriptionException e) {
+                Minecraft.logger.error(String.format("[PluginManager] Exception occurred while parsing description at %s", file.getAbsolutePath()), e);
             }
         }
     }

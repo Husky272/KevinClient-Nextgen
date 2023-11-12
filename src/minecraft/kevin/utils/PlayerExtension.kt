@@ -17,6 +17,7 @@ package kevin.utils
 import kevin.module.modules.misc.ClientFriend
 import kevin.utils.ColorUtils.COLOR_PATTERN
 import kevin.utils.ColorUtils.stripColor
+import kevin.utils.MinecraftInstance.mc
 import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.Entity
 import net.minecraft.entity.boss.EntityDragon
@@ -34,16 +35,9 @@ import net.minecraft.util.MovingObjectPosition
 import net.minecraft.util.Vec3
 import kotlin.math.*
 
-fun Entity.getDistanceToEntityBox(entity: Entity): Double {
-    val eyes = this.getPositionEyes(1F)
-    val pos = getNearestPointBB(eyes, entity.entityBoundingBox)
-    val xDist = abs(pos.xCoord - eyes.xCoord)
-    val yDist = abs(pos.yCoord - eyes.yCoord)
-    val zDist = abs(pos.zCoord - eyes.zCoord)
-    return sqrt(xDist.pow(2) + yDist.pow(2) + zDist.pow(2))
-}
+fun Entity.getDistanceToEntityBox(entity: Entity): Double = this.eyesLoc.distanceTo(entity.entityBoundingBox)
 fun Entity.getLookDistanceToEntityBox(entity: Entity=this, rotation: Rotation? = null, range: Double=10.0): Double {
-    val eyes = this.getPositionEyes(1F)
+    val eyes = this.eyesLoc
     val end = (rotation?: RotationUtils.bestServerRotation()).toDirection().multiply(range).add(eyes)
     return entity.entityBoundingBox.calculateIntercept(eyes, end)?.hitVec?.distanceTo(eyes) ?: Double.MAX_VALUE
 }
@@ -52,6 +46,14 @@ fun Entity.rayTraceWithServerSideRotation(range: Double): MovingObjectPosition {
     val eyes = this.getPositionEyes(1f)
     val end = RotationUtils.bestServerRotation().toDirection().multiply(range).add(eyes)
     return this.worldObj.rayTraceBlocks(eyes, end, false, false, true)
+}
+
+fun Vec3.distanceTo(bb: AxisAlignedBB): Double {
+    val pos = getNearestPointBB(this, bb)
+    val xDist = abs(pos.xCoord - this.xCoord)
+    val yDist = abs(pos.yCoord - this.yCoord)
+    val zDist = abs(pos.zCoord - this.zCoord)
+    return sqrt(xDist.pow(2) + yDist.pow(2) + zDist.pow(2))
 }
 
 fun getNearestPointBB(eye: Vec3, box: AxisAlignedBB): Vec3 {
@@ -90,3 +92,12 @@ fun EntityPlayer.isClientFriend(): Boolean {
     //return LiquidBounce.fileManager.friendsConfig.isFriend(stripColor(entityName))
 //    return false
 }
+
+val Entity.eyesLoc: Vec3
+    get() = getPositionEyes(1f)
+
+fun Entity.interpolatedPosition() = Vec3(
+    prevPosX + (posX - prevPosX) * mc.timer.renderPartialTicks,
+    prevPosY + (posY - prevPosY) * mc.timer.renderPartialTicks,
+    prevPosZ + (posZ - prevPosZ) * mc.timer.renderPartialTicks
+)

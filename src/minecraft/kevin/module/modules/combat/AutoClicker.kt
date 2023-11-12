@@ -62,6 +62,7 @@ class AutoClicker : Module("AutoClicker", "Constantly clicks when holding down a
 
     @EventTarget
     fun onRender(event: Render3DEvent) {
+        if (mc.currentScreen != null) return
         // Left click
         if (mc.gameSettings.keyBindAttack.isKeyDown && leftValue.get() &&
             System.currentTimeMillis() - leftLastSwing >= leftDelay && mc.playerController.curBlockDamageMP == 0F) {

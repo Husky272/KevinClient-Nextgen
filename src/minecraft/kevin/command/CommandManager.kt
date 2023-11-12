@@ -19,7 +19,6 @@ import kevin.command.commands.*
 import kevin.main.KevinClient
 import kevin.module.modules.misc.AdminDetector
 import kevin.module.modules.misc.AutoDisable
-import kevin.script.ScriptManager
 import kevin.utils.ChatUtils
 
 class CommandManager {
@@ -56,7 +55,7 @@ class CommandManager {
 
         commands[arrayOf("AutoDisableSet")] = AutoDisable
 
-        commands[arrayOf("ReloadScripts","ReloadScript")] = ScriptManager
+//        commands[arrayOf("ReloadScripts","ReloadScript")] = ScriptManager
 
         commands[arrayOf("Admin")] = AdminDetector
 
@@ -99,4 +98,7 @@ class CommandManager {
         return null
     }
 
+    fun registerCommand(arr: Array<String>, commandObject: ICommand) {
+        commands[arr] = commandObject;
+    }
 }

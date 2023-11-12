@@ -88,6 +88,7 @@ open class IntegerValue(name: String, value: Int, val minimum: Int = 0, val maxi
             value = element.asInt
     }
 
+    constructor(name: String, value: Int, range: IntRange) : this(name, value, range.first, range.last)
 }
 
 /**
@@ -107,6 +108,7 @@ open class FloatValue(name: String, value: Float, val minimum: Float = 0F, val m
             value = element.asFloat
     }
 
+    constructor(name: String, value: Float, range: ClosedFloatingPointRange<Float>) : this(name, value, range.start, range.endInclusive)
 }
 
 /**

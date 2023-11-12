@@ -94,7 +94,6 @@ class ModuleManager : Listenable {
             AntiShop(),
             AutoCommand(),
             AutoDisable,
-            AutoGC,
             AutoL(),
             ChatControl,
             ComponentOnHover,
@@ -195,7 +194,7 @@ class ModuleManager : Listenable {
             XRay()
         )
         worldList = arrayListOf(
-            BlockFly(),
+//            BlockFly,
             Breaker(),
             ChestStealer(),
             FastBreak(),

@@ -12,19 +12,24 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package kevin.script
+package client.script
 
 import kevin.command.ICommand
+import kevin.command.commands.ClearMainConfigCommand
+import kevin.depends.LibraryManager
+import kevin.depends.MavenDependency
 import kevin.main.KevinClient
 import kevin.module.modules.render.ClickGui
+import kevin.plugin.Plugin
 import net.minecraft.client.Minecraft
+import java.net.URLClassLoader
 
-object ScriptManager : ICommand {
+class ScriptManager : Plugin(), ICommand, ClearMainConfigCommand.IReAddHook {
     private val scripts = arrayListOf<Script>()
     override fun run(args: Array<out String>?) {
         load()
     }
-    fun load(){
+    private fun load(){
         val dir = KevinClient.fileManager.scripts
         if (!dir.exists()) return
         val files = dir.listFiles() ?: return
@@ -32,6 +37,8 @@ object ScriptManager : ICommand {
             Minecraft.logger.info("[ScriptManager] There is no script to load")
             return
         }
+        // implementation group: 'org.python', name: 'jython-standalone', version: '2.7.2'
+        LibraryManager.loadDependency(MavenDependency("org.python", "jython-standalone", "2.7.2"), javaClass.classLoader as URLClassLoader)
         Minecraft.logger.info("[ScriptManager] Loading scripts...")
         val time = System.currentTimeMillis()
         //KevinClient.fileManager.saveConfig(KevinClient.fileManager.modulesConfig)
@@ -57,7 +64,7 @@ object ScriptManager : ICommand {
         Minecraft.logger.info("[ScriptManager] Reloaded ClickGui.")
     }
 
-    fun reAdd() {
+    override fun reAdd() {
         val dir = KevinClient.fileManager.scripts
         if (!dir.exists()) return
         val files = dir.listFiles() ?: return
@@ -74,8 +81,11 @@ object ScriptManager : ICommand {
             }
         }
         Minecraft.logger.info("[ScriptManager] Re add ${scripts.size} script(s),${System.currentTimeMillis()-time}ms.")
-        KevinClient.clickGUI = ClickGui.ClickGUI()
-        KevinClient.newClickGui = ClickGui.NewClickGui()
-        Minecraft.logger.info("[ScriptManager] Reloaded ClickGui.")
+    }
+
+    override fun onLoad() {
+        KevinClient.commandManager.registerCommand(arrayOf("ReloadScripts","ReloadScript"), this)
+        ClearMainConfigCommand.addHook(this)
+        load()
     }
 }

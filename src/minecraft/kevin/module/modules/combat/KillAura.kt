@@ -28,7 +28,6 @@ import kevin.module.modules.render.FreeCam
 import kevin.module.modules.world.Scaffold
 import kevin.utils.*
 import net.minecraft.client.gui.inventory.GuiContainer
-import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -76,6 +75,7 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
     private val noSpamClick = BooleanValue("NoSpamClick", true)
     private val hurtTimeValue = IntegerValue("HurtTime", 10, 0, 10)
     private val smartAttackValue = BooleanValue("SmartAttack", false)
+    private val extraRandomCPS = ListValue("ExtraCPSRandomization", arrayOf("Off", "Simple", "RangeBase"), "Off")
 
     // Range (public because velocity...)
     val rangeValue: FloatValue = object : FloatValue("Range", 3.7f, 1f, 8f) {
@@ -624,7 +624,18 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
         // prevent duplicated swing / attack
         if (hightVersionAttackDelay.get()) return
 
-        if (currentTarget != null && attackTimer.hasTimePassed(attackDelay + if (!smartAttackValue.get() || mc.thePlayer.hurtTime != 0 || (target !is EntityLivingBase || (target as EntityLivingBase).hurtTime <= (3 + (mc.thePlayer.getPing() / 50.0).toInt()))) 0 else 500) &&
+        var timeAdder = if (!smartAttackValue.get() || mc.thePlayer.hurtTime != 0 || (target !is EntityLivingBase || (target as EntityLivingBase).hurtTime <= (3 + (mc.thePlayer.getPing() / 50.0).toInt()))) 0 else 500
+
+        if (extraRandomCPS equal "Simple") {
+            timeAdder += RandomUtils.nextInt(-50, 200)
+        } else if (extraRandomCPS equal "RangeBase") {
+            val distance = mc.thePlayer.getLookDistanceToEntityBox(target!!)
+            if (target is EntityLivingBase && distance in (rangeValue.get() + 0.01f)..(rangeValue.get() + 0.4f)) {
+                timeAdder += 200
+            }
+        }
+
+        if (currentTarget != null && attackTimer.hasTimePassed(attackDelay + timeAdder) &&
             (currentTarget !is EntityLivingBase || (currentTarget as EntityLivingBase).hurtTime <= hurtTimeValue.get())) {
             ++clicks
             rotationTime = 3

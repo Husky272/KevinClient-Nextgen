@@ -3,6 +3,7 @@ package net.minecraft.client.entity;
 import kevin.event.*;
 import kevin.main.KevinClient;
 import kevin.module.modules.combat.KillAura;
+import kevin.module.modules.combat.SuperKnockback;
 import kevin.module.modules.exploit.AntiHunger;
 import kevin.module.modules.exploit.PortalMenu;
 import kevin.module.modules.misc.NoCommand;
@@ -918,6 +919,11 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
         if (this.isSprinting() && ((!(sprint.getState() && sprint.getAllDirectionsValue().get()) && this.movementInput.moveForward < f) || this.isCollidedHorizontally || !flag3))
         {
+            this.setSprinting(false);
+        }
+
+        if (KevinClient.moduleManager.getModule(SuperKnockback.class).getCancelSprint()) {
+            KevinClient.moduleManager.getModule(SuperKnockback.class).setCancelSprint(false);
             this.setSprinting(false);
         }
 

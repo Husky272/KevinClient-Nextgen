@@ -45,7 +45,11 @@ public class LogUtils {
             }
             StringBuilder sb = new StringBuilder();
             buildMessage(sb);
-            logger.info(sb.toString());
+            output(sb.toString());
+        }
+
+        public void output(String s) {
+            logger.info(s);
         }
 
         public String getMessage() {

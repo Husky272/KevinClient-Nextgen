@@ -1,4 +1,4 @@
-package kevin.script
+package client.script
 
 import kevin.command.ICommand
 import kevin.main.KevinClient

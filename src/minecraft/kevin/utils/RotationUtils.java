@@ -316,23 +316,24 @@ public final class RotationUtils extends MinecraftInstance implements Listenable
             lastRandomDeltaRotation[0] *= 0.5f;
             lastRandomDeltaRotation[1] *= 0.5f;
             if (RotationUtils.random.nextGaussian() > 0.2) {
-                lastRandomDeltaRotation[0] += RandomUtils.INSTANCE.nextFloat(-5, 5);
+                lastRandomDeltaRotation[0] += RandomUtils.nextFloat(-5, 5);
                 rot.setYaw(lastRandomDeltaRotation[0] + rot.getYaw());
             }
             if (RotationUtils.random.nextGaussian() > 0.2) {
-                lastRandomDeltaRotation[1] += RandomUtils.INSTANCE.nextFloat(-5, 5);
+                lastRandomDeltaRotation[1] += RandomUtils.nextFloat(-2.5f, 2.5f);
                 rot.setPitch(lastRandomDeltaRotation[1] + rot.getPitch());
             }
             if (outborder) {
                 return new VecRotation(nearestPointBB, rot);
             }
         }
+        Rotation nearestRot = toRotation(new Vec3((bb.minX + bb.maxX) / 2, nearestPointBB.yCoord, (bb.minZ + bb.maxZ) / 2), predict);
+        nearestRot.setYaw(nearestRot.getYaw() + RandomUtils.nextFloat(-2.5f, 2.5f));
+        nearestRot.setPitch(nearestRot.getPitch() + RandomUtils.nextFloat(-1, 1));
 
-        Rotation nearestRot = toRotation(nearestPointBB, predict);
-
-        for(double xSearch = 0.15D; xSearch < 0.85D; xSearch += 0.1D) {
-            for (double ySearch = 0D; ySearch < 1D; ySearch += 0.02D) {
-                for (double zSearch = 0.15D; zSearch < 0.85D; zSearch += 0.1D) {
+        for(double xSearch = 0.1D; xSearch < 0.9D; xSearch += 0.1D) {
+            for (double ySearch = 0.1D; ySearch < 0.9D; ySearch += 0.02D) {
+                for (double zSearch = 0.1D; zSearch < 0.9D; zSearch += 0.1D) {
                     final Vec3 vec3 = new Vec3(
                             bb.minX + (bb.maxX - bb.minX) * xSearch,
                             bb.minY + (bb.maxY - bb.minY) * ySearch,
@@ -350,7 +351,7 @@ public final class RotationUtils extends MinecraftInstance implements Listenable
                         if (vecRotation == null || getRotationDifference(currentVec.getRotation(), rot) < getRotationDifference(vecRotation.getRotation(), rot))
                             vecRotation = currentVec;
                         else if (!lastHitable) {
-                            if ((getRotationDifference(currentVec.getRotation(), rot) + getRotationDifference(currentVec.getRotation(), nearestRot)) / 2 < (getRotationDifference(vecRotation.getRotation(), rot) + getRotationDifference(vecRotation.getRotation(), nearestRot)) / 2) {
+                            if ((getRotationDifference(currentVec.getRotation(), rot) + getRotationDifference(currentVec.getRotation(), nearestRot)) / 1.3 < (getRotationDifference(vecRotation.getRotation(), rot) + getRotationDifference(vecRotation.getRotation(), nearestRot)) / 1.3) {
                                 vecRotation = currentVec;
                             }
                         }

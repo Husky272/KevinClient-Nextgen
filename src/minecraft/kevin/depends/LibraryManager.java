@@ -1,0 +1,116 @@
+package kevin.depends;
+
+import kevin.depends.reflectives.ClassWrapper;
+import kevin.main.KevinClient;
+import net.minecraft.client.Minecraft;
+import org.apache.logging.log4j.Logger;
+import org.lwjgl.opengl.Display;
+
+import java.io.*;
+import java.net.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
+import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
+
+// this is a tool help us load libraries only when need
+public class LibraryManager {
+    private static final HashMap<URLClassLoader, URLClassLoaderAccess> URL_INJECTORS = new HashMap<>();
+    public static void loadDependency(MavenDependency dependency, URLClassLoader classLoader) {
+        String name = dependency.getArtifactId() + "-" + dependency.getVersion();
+
+        URLClassLoaderAccess URL_INJECTOR = URL_INJECTORS.get(classLoader);
+        if (URL_INJECTOR == null) {
+            URL_INJECTORS.put(classLoader, URL_INJECTOR = URLClassLoaderAccess.create(classLoader));
+        }
+
+        Logger logger = Minecraft.logger;
+        File saveLocation = new File(getLibFolder(), name + ".jar");
+        if (!saveLocation.exists()) {
+            File tempLocation = new File(getLibFolder(), name + ".temp");
+            try {
+                mavenMirror(dependency);
+                logger.info("Dependency '" + name + "' is not already in the libraries folder. Attempting to download...");
+                String title = Display.getTitle();
+                URL url = dependency.getUrl();
+                URLConnection urlConnection = url.openConnection();
+                urlConnection.setConnectTimeout(10000);
+                urlConnection.setReadTimeout(10000);
+                String base = String.format("Downloading dependency: %s:%s from maven ", dependency.getArtifactId(), dependency.getVersion());
+                Display.setTitle(base + "(" + dependency.getRepoUrl() + " | no connection) ");
+                final AtomicLong count = new AtomicLong(0);
+                AtomicBoolean done = new AtomicBoolean(false);
+                try (InputStream is = urlConnection.getInputStream();
+                    FileOutputStream stream = new FileOutputStream(tempLocation)) {
+                    logger.info("connected to " + url);
+//                    double total = urlConnection.getContentLengthLong() / 1024.0 / 1024.0;
+
+                    new Thread(() -> {
+                        int c = 0;
+                        double last = 0;
+                        while (!done.get()){
+                            try {
+                                Thread.sleep(1000L);
+                            } catch (Exception ignored) {}
+                            String e = "-";
+                            switch (++c % 4) {
+                                case 0: e = "\\"; break;
+                                case 1: e = "|"; break;
+                                case 2: e = "/"; break;
+                                case 3: e = "-"; break;
+                            }
+                            double downloaded = count.get() / 1024.0 / 1024.0;
+                            Display.setTitle(String.format("%s %s (%.3f MB) (%.3f MB/s)", base, e, downloaded, downloaded - last));
+                            last = downloaded;
+                        }
+                        Display.setTitle(title);
+                    });
+                    int i;
+                    while ((i = is.read()) != -1) {
+                        stream.write(i);
+                        count.incrementAndGet();
+                    }
+                    stream.flush();
+                }
+                if (!tempLocation.renameTo(saveLocation)) {
+                    Files.copy(tempLocation.toPath(), saveLocation.toPath());
+                    tempLocation.deleteOnExit();
+                }
+                done.set(true);
+            } catch (Exception e) {
+                Minecraft.logger.warn(e.getMessage());
+            }
+
+            logger.info("Dependency '" + name + "' successfully downloaded.");
+        }
+
+        if (!saveLocation.exists()) {
+            throw new RuntimeException("Unable to download dependency: " + dependency);
+        }
+
+        try {
+            URL_INJECTOR.addURL(saveLocation.toURI().toURL());
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to load dependency: " + saveLocation, e);
+        }
+
+        logger.info("Loaded dependency '" + name + "' successfully.");
+    }
+
+    private static void mavenMirror(MavenDependency dependency) {
+        if ("CN".equalsIgnoreCase(System.getProperty("user.country")))
+//            dependency.setRepoUrl("https://maven.aliyun.com/repository/central");
+            dependency.setRepoUrl("https://repo.huaweicloud.com/repository/maven");
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private static File getLibFolder() {
+        File libraries = KevinClient.fileManager.libraries;
+        if (!libraries.exists()) {
+            libraries.mkdir();
+        }
+        return libraries;
+    }
+}

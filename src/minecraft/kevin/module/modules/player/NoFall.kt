@@ -67,7 +67,6 @@ class NoFall : Module("NoFall","Prevents you from taking fall damage.", category
         VerusNoFall2,
         VulcanNoFall,
         VulcanNoFall2,
-        BuzzNoFall.INSTANCE,
         SpartanNoFall,
         MedusaNoFall,
         CubeCraftNoFall,

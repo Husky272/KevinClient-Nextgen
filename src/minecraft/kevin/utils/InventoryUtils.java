@@ -14,15 +14,22 @@
  */
 package kevin.utils;
 
+import kotlin.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public final class InventoryUtils extends MinecraftInstance {
 
@@ -53,6 +60,42 @@ public final class InventoryUtils extends MinecraftInstance {
         }
 
         return false;
+    }
+
+    public static int findBlockInHotbar() {
+        EntityPlayerSP player = mc.thePlayer;
+        if (player == null) return -1;
+        Container inventory = player.openContainer;
+
+        return IntStream.range(36, 44).filter(it -> {
+            ItemStack stack = inventory.getSlot(it).getStack();
+            if (stack == null) return false;
+
+            Block block;
+            if (stack.getItem() instanceof ItemBlock)
+                block = ((ItemBlock) stack.getItem()).getBlock();
+            else return false;
+
+            return stack.getItem() instanceof ItemBlock && stack.stackSize > 0 && BLOCK_BLACKLIST.contains(block) && !(block instanceof BlockBush);
+        }).min().orElse(-1);
+    }
+
+    public static int  findLargestBlockStackInHotbar() {
+        EntityPlayerSP player = mc.thePlayer;
+        if (player == null) return -1;
+        Container inventory = player.openContainer;
+
+        return IntStream.range(36, 44).filter(it -> {
+            ItemStack stack = inventory.getSlot(it).getStack();
+            if (stack == null) return false;
+
+            Block block;
+            if (stack.getItem() instanceof ItemBlock)
+                block = ((ItemBlock) stack.getItem()).getBlock();
+            else return false;
+
+            return stack.getItem() instanceof ItemBlock && stack.stackSize > 0 && BLOCK_BLACKLIST.contains(block) && !(block instanceof BlockBush);
+        }).mapToObj(it -> new Pair<>(it, inventory.getSlot(it).getStack().stackSize)).max(Comparator.comparingInt(Pair::getSecond)).orElse(new Pair<>(-1, 0)).getFirst();
     }
 
     public static int findAutoBlockBlock() {
@@ -91,5 +134,54 @@ public final class InventoryUtils extends MinecraftInstance {
 
     public static boolean canPlaceBlock(Block block) {
         return block.isFullCube() && !BLOCK_BLACKLIST.contains(block);
+    }
+
+    public static class MouseSimulator {
+        public static final MouseSimulator SHARED = new MouseSimulator();
+        public double mouseX, mouseY;
+
+        public void moveTo(int x, int y, double speed) {
+            moveTo0(x, y, speed);
+        }
+
+        public void moveTo(int x, int y, float speed) {
+            moveTo0(x, y, speed);
+        }
+
+        public void moveTo(double x, double y, float speed) {
+            moveTo0(x, y, speed);
+        }
+
+        public void moveTo(double x, double y, double speed) {
+            moveTo0(x, y, speed);
+        }
+
+        private void moveTo0(double x, double y, double speed) {
+            Vec3 current = new Vec3(mouseX, 0.0, mouseY);
+            Vec3 target = new Vec3(x, 0.0, y);
+            Vec3 diff = target.subtract(current);
+            speed = Math.min(speed, diff.lengthVector()) + RandomUtils.nextDouble(-0.01, 0.01);
+            Vec3 dir = new Vec3(0.0, 0.0, Math.toRadians(90.0) * 0.5);
+            double direction = Math.acos(MathHelper.clamp_double(dir.dotProduct(diff) / (dir.lengthVector() * diff.lengthVector()), -1, 1));
+            mouseX += Math.sin(direction) * speed * Math.signum(x - mouseX) + RandomUtils.nextDouble(-0.01, 0.01);
+            mouseY += Math.cos(direction) * speed + RandomUtils.nextDouble(-0.01, 0.01);
+        }
+
+        public boolean ableToClick(double x, double y, double tolerance) {
+            return Math.abs(x - mouseX) <= tolerance && Math.abs(y - mouseY) <= tolerance;
+        }
+
+        public boolean ableToClick(int x, int y, int tolerance) {
+            return Math.abs(x - mouseX) <= tolerance && Math.abs(y - mouseY) <= tolerance;
+        }
+
+        public void set(double x, double y) {
+            mouseX = x;
+            mouseY = y;
+        }
+
+        public void reset() {
+            mouseX = mouseY = 0;
+        }
     }
 }

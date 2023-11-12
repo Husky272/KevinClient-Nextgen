@@ -2541,6 +2541,37 @@ public class Config
         }
     }
 
+    public static DynamicTexture getKevinLogoTexture(DynamicTexture p) {
+        try
+        {
+            ResourceLocation resourcelocation = new ResourceLocation("textures/gui/title/kevin.png");
+            InputStream inputstream = getResourceStream(resourcelocation);
+
+            if (inputstream == null)
+            {
+                return p;
+            }
+            else
+            {
+                BufferedImage bufferedimage = ImageIO.read(inputstream);
+
+                if (bufferedimage == null)
+                {
+                    return p;
+                }
+                else
+                {
+                    return new DynamicTexture(bufferedimage);
+                }
+            }
+        }
+        catch (Exception exception)
+        {
+            warn(exception.getClass().getName() + ": " + exception.getMessage());
+            return p;
+        }
+    }
+
     public static void writeFile(File p_writeFile_0_, String p_writeFile_1_) throws IOException
     {
         FileOutputStream fileoutputstream = new FileOutputStream(p_writeFile_0_);

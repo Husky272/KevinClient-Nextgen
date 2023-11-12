@@ -286,6 +286,10 @@ class AntiKnockback : Module("AntiKnockback","Allows you to modify the amount of
             "grimac" -> {
                 --grimDisable
                 if (grimTicks > 0) {
+                    if (velocityInput) {
+                        mc.netHandler.addToSendQueue(C03PacketPlayer(mc.thePlayer.onGround))
+                        velocityInput = false
+                    }
                     --grimTicks
                     mc.netHandler.addToSendQueue(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, BlockPos(thePlayer.posX, thePlayer.posY, thePlayer.posZ), EnumFacing.UP))
                 }
@@ -326,8 +330,6 @@ class AntiKnockback : Module("AntiKnockback","Allows you to modify the amount of
                 }
 
                 "aac", "reverse", "smoothreverse", "aaczero", "allowfirst", "down", "intavejump" -> velocityInput = true
-
-                "testgrimac" -> if (thePlayer.onGround) { velocityInput = true }
 
                 "hypixelreverse" -> {
                     if (MovementUtils.isMoving) {
@@ -397,6 +399,7 @@ class AntiKnockback : Module("AntiKnockback","Allows you to modify the amount of
                         return
                     }
                     event.cancelEvent()
+                    velocityInput = true
                     grimTicks = grimACTicks.get()
                 }
                 "click" -> {
