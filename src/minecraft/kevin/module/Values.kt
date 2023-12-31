@@ -141,7 +141,7 @@ open class ListValue(name: String, val values: Array<String>, value: String) : V
         this.value = value
     }
 
-    infix fun equal(other: String):Boolean{
+    infix fun equal(other: String): Boolean{
         return this.get().equals(other,true)
     }
 

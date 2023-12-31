@@ -34,6 +34,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
+@SuppressWarnings({"CallToPrintStackTrace", "unused"})
 public class Reflector
 {
     //private static boolean logForge = logEntry("*** Reflector Forge ***");
@@ -42,7 +43,7 @@ public class Reflector
 
 
 
-    private static boolean logVanilla = logEntry("*** Reflector Vanilla ***");
+    private static final boolean logVanilla = logEntry("*** Reflector Vanilla ***");
     public static ReflectorClass ChunkProviderClient = new ReflectorClass(ChunkProviderClient.class);
     public static ReflectorField ChunkProviderClient_chunkMapping = new ReflectorField(ChunkProviderClient, LongHashMap.class);
     public static ReflectorClass EntityVillager = new ReflectorClass(EntityVillager.class);
@@ -161,11 +162,11 @@ public class Reflector
                 return;
             }
 
-            method.invoke((Object)null, params);
+            method.invoke(null, params);
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
         }
     }
 
@@ -181,13 +182,12 @@ public class Reflector
             }
             else
             {
-                Boolean obool = (Boolean)method.invoke((Object)null, params);
-                return obool;
+                return (Boolean)method.invoke(null, params);
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return false;
         }
     }
@@ -204,13 +204,12 @@ public class Reflector
             }
             else
             {
-                Integer integer = (Integer)method.invoke((Object)null, params);
-                return integer;
+                return (Integer)method.invoke(null, params);
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return 0;
         }
     }
@@ -227,13 +226,12 @@ public class Reflector
             }
             else
             {
-                Float f = (Float)method.invoke((Object)null, params);
-                return f;
+                return (Float)method.invoke(null, params);
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return 0.0F;
         }
     }
@@ -250,13 +248,12 @@ public class Reflector
             }
             else
             {
-                Double d0 = (Double)method.invoke((Object)null, params);
-                return d0;
+                return (Double)method.invoke(null, params);
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return 0.0D;
         }
     }
@@ -273,13 +270,12 @@ public class Reflector
             }
             else
             {
-                String s = (String)method.invoke((Object)null, params);
-                return s;
+                return (String)method.invoke(null, params);
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return null;
         }
     }
@@ -296,13 +292,12 @@ public class Reflector
             }
             else
             {
-                Object object = method.invoke((Object)null, params);
-                return object;
+                return method.invoke(null, params);
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return null;
         }
     }
@@ -343,8 +338,7 @@ public class Reflector
             }
             else
             {
-                Boolean obool = (Boolean)method.invoke(obj, params);
-                return obool;
+                return (Boolean)method.invoke(obj, params);
             }
         }
         catch (Throwable throwable)
@@ -366,8 +360,7 @@ public class Reflector
             }
             else
             {
-                Integer integer = (Integer)method.invoke(obj, params);
-                return integer;
+                return (Integer)method.invoke(obj, params);
             }
         }
         catch (Throwable throwable)
@@ -389,8 +382,7 @@ public class Reflector
             }
             else
             {
-                Float f = (Float)method.invoke(obj, params);
-                return f;
+                return (Float)method.invoke(obj, params);
             }
         }
         catch (Throwable throwable)
@@ -412,8 +404,7 @@ public class Reflector
             }
             else
             {
-                Double d0 = (Double)method.invoke(obj, params);
-                return d0;
+                return (Double)method.invoke(obj, params);
             }
         }
         catch (Throwable throwable)
@@ -435,8 +426,7 @@ public class Reflector
             }
             else
             {
-                String s = (String)method.invoke(obj, params);
-                return s;
+                return (String)method.invoke(obj, params);
             }
         }
         catch (Throwable throwable)
@@ -458,8 +448,7 @@ public class Reflector
             }
             else
             {
-                Object object = method.invoke(obj, params);
-                return object;
+                return method.invoke(obj, params);
             }
         }
         catch (Throwable throwable)
@@ -471,7 +460,7 @@ public class Reflector
 
     public static Object getFieldValue(ReflectorField refField)
     {
-        return getFieldValue((Object)null, refField);
+        return getFieldValue(null, refField);
     }
 
     public static Object getFieldValue(Object obj, ReflectorField refField)
@@ -486,8 +475,7 @@ public class Reflector
             }
             else
             {
-                Object object = field.get(obj);
-                return object;
+                return field.get(obj);
             }
         }
         catch (Throwable throwable)
@@ -509,8 +497,7 @@ public class Reflector
             }
             else
             {
-                boolean flag = field.getBoolean((Object)null);
-                return flag;
+                return field.getBoolean(null);
             }
         }
         catch (Throwable throwable)
@@ -532,8 +519,7 @@ public class Reflector
             }
             else
             {
-                boolean flag = field.getBoolean(obj);
-                return flag;
+                return field.getBoolean(obj);
             }
         }
         catch (Throwable throwable)
@@ -567,8 +553,7 @@ public class Reflector
             }
             else
             {
-                float f = field.getFloat(obj);
-                return f;
+                return field.getFloat(obj);
             }
         }
         catch (Throwable throwable)
@@ -590,8 +575,7 @@ public class Reflector
             }
             else
             {
-                int i = field.getInt(obj);
-                return i;
+                return field.getInt(obj);
             }
         }
         catch (Throwable throwable)
@@ -613,8 +597,7 @@ public class Reflector
             }
             else
             {
-                long i = field.getLong(obj);
-                return i;
+                return field.getLong(obj);
             }
         }
         catch (Throwable throwable)
@@ -626,7 +609,7 @@ public class Reflector
 
     public static boolean setFieldValue(ReflectorField refField, Object value)
     {
-        return setFieldValue((Object)null, refField, value);
+        return setFieldValue(null, refField, value);
     }
 
     public static boolean setFieldValue(Object obj, ReflectorField refField, Object value)
@@ -654,7 +637,7 @@ public class Reflector
 
     public static boolean setFieldValueInt(ReflectorField refField, int value)
     {
-        return setFieldValueInt((Object)null, refField, value);
+        return setFieldValueInt(null, refField, value);
     }
 
     public static boolean setFieldValueInt(Object obj, ReflectorField refField, int value)
@@ -693,7 +676,7 @@ public class Reflector
 
     public static Object newInstance(ReflectorConstructor constr, Object... params)
     {
-        Constructor constructor = constr.getTargetConstructor();
+        Constructor<?> constructor = constr.getTargetConstructor();
 
         if (constructor == null)
         {
@@ -703,8 +686,7 @@ public class Reflector
         {
             try
             {
-                Object object = constructor.newInstance(params);
-                return object;
+                return constructor.newInstance(params);
             }
             catch (Throwable throwable)
             {
@@ -787,8 +769,7 @@ public class Reflector
 
             if (throwable instanceof RuntimeException)
             {
-                RuntimeException runtimeexception = (RuntimeException)throwable;
-                throw runtimeexception;
+                throw (RuntimeException)throwable;
             }
             else
             {
@@ -860,7 +841,7 @@ public class Reflector
         }
     }
 
-    private static ReflectorField[] getReflectorFields(ReflectorClass parentClass, Class fieldType, int count)
+    private static ReflectorField[] getReflectorFields(ReflectorClass parentClass, Class<?> fieldType, int count)
     {
         ReflectorField[] areflectorfield = new ReflectorField[count];
 

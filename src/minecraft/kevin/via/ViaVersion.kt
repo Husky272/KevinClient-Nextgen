@@ -38,7 +38,7 @@ object ViaVersion {
     var eventLoop: EventLoop? = null
     val versions: Array<ProtocolCollection>
     init {
-        val value = ProtocolCollection.values()
+        val value = ProtocolCollection.entries.toTypedArray()
         value.sortBy { it.protocolVersion.version }
         versions = value
     }

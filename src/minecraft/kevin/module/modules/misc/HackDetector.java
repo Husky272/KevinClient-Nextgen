@@ -99,7 +99,8 @@ public class HackDetector extends Module {
                     z = packet.getZ() - entityIn.serverPosZ;
                     id = packet.getEntityId();
                 }
-                playersChecks.get(id).positionUpdate(x / 32.0, y / 32.0, z / 32.0);
+                CheckManager manager = playersChecks.get(id);
+                if (manager != null) manager.positionUpdate(x / 32.0, y / 32.0, z / 32.0);
             });
         }
     }

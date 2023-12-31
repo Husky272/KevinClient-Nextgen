@@ -327,7 +327,7 @@ public final class RotationUtils extends MinecraftInstance implements Listenable
                 return new VecRotation(nearestPointBB, rot);
             }
         }
-        Rotation nearestRot = toRotation(new Vec3((bb.minX + bb.maxX) / 2, nearestPointBB.yCoord, (bb.minZ + bb.maxZ) / 2), predict);
+        Rotation nearestRot = toRotation(new Vec3((bb.minX + bb.maxX) / 2 + lastRandomDeltaRotation[0], nearestPointBB.yCoord, (bb.minZ + bb.maxZ) / 2 + lastRandomDeltaRotation[1]), predict);
         nearestRot.setYaw(nearestRot.getYaw() + RandomUtils.nextFloat(-2.5f, 2.5f));
         nearestRot.setPitch(nearestRot.getPitch() + RandomUtils.nextFloat(-1, 1));
 

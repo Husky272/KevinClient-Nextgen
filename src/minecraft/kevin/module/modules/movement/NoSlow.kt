@@ -246,27 +246,27 @@ class NoSlow : Module("NoSlow", "Cancels slowness effects caused by soulsand and
 
     @EventTarget
     fun onClick(event: ClickUpdateEvent) {
-        if (packetMode notEqual "Bug") return
-        val player = mc.thePlayer ?: return
-        val currentItem = player.currentEquippedItem
-        if (currentItem != null && (player.isUsingItem || isBlocking) && (player.moveForward != 0.0f || player.moveStrafing != 0.0f) && currentItem.item !is ItemBow) {
-            if (lastItem != null && lastItem!! != currentItem) {
+        if (packetMode equal "Bug") {
+            val player = mc.thePlayer ?: return
+            val currentItem = player.currentEquippedItem
+            if (currentItem != null && (player.isUsingItem || isBlocking) && (player.moveForward != 0.0f || player.moveStrafing != 0.0f) && currentItem.item !is ItemBow) {
+                if (lastItem != null && lastItem!! != currentItem) {
+                    count = 0
+                }
+                val state = if (currentItem.item is ItemSword) 1 else 3
+                if (count != state) {
+                    event.cancelEvent()
+                    mc.netHandler.networkManager.sendPacketNoEvent(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
+                    player.stopUsingItem()
+                    player.closeScreen()
+                    count = state
+                }
+                if (event.isCancelled) mc.sendClickBlockToController(mc.currentScreen == null && mc.gameSettings.keyBindAttack.isKeyDown && mc.inGameHasFocus)
+                lastItem = currentItem
+            } else {
                 count = 0
             }
-            val state = if (currentItem.item is ItemSword) 1 else 3
-            if (count != state) {
-                event.cancelEvent()
-                mc.netHandler.networkManager.sendPacketNoEvent(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
-                player.stopUsingItem()
-                player.closeScreen()
-                count = state
-            }
-            if (event.isCancelled) mc.sendClickBlockToController(mc.currentScreen == null && mc.gameSettings.keyBindAttack.isKeyDown && mc.inGameHasFocus)
-            lastItem = currentItem
-        } else {
-            count = 0
         }
-
     }
 
     override val tag: String

@@ -18,7 +18,7 @@ import com.viaversion.viabackwards.api.ViaBackwardsPlatform
 import java.io.File
 import java.util.logging.Logger
 
-class BackwardsLoader(var fileIn: File?) : ViaBackwardsPlatform {
+class BackwardsLoader(fileIn: File?) : ViaBackwardsPlatform {
     private val file = File(fileIn, "ViaBackwards")
     init {
         init(file)

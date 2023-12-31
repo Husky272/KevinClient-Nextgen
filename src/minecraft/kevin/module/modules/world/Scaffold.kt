@@ -97,6 +97,8 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
             else -> false
         }
     private val autoJump = BooleanValue("AutoJump",false)
+    private val jumpDelay = IntegerValue("JumpDelay", 0, 0..5000)
+    private val timeToJump = MSTimer()
     private val swingValue = BooleanValue("Swing", true)
     private val searchValue = BooleanValue("Search", true)
     private val advancedSearchValue = BooleanValue("AdvancedSearch", true)
@@ -104,7 +106,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
     private val placeModeValue = ListValue("PlaceTiming", arrayOf("Update", "Pre", "Post"), "Update")
 
     // Eagle
-    private val eagleValue = ListValue("Eagle", arrayOf("Normal", "Smart", "Silent", "Off"), "Normal")
+    private val eagleValue = ListValue("Eagle", arrayOf("Normal", "Smart", "OnlyChangeRot", "Silent", "Off"), "Normal")
     private val blocksToEagleValue = IntegerValue("BlocksToEagle", 0, 0, 10)
     private val edgeDistanceValue = FloatValue("EagleEdgeDistance", 0f, 0f, 0.5f)
 
@@ -216,6 +218,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
     private val sameYJumpUp = BooleanValue("SameYJumpUp", false)
     private val safeWalkValue = BooleanValue("SafeWalk", true)
     private val airSafeValue = BooleanValue("AirSafe", false)
+    private val round45 by BooleanValue("RotationYawRound45", false)
     private val grimACRotation = BooleanValue("GrimACRotation", false)
     private val hitableCheck = ListValue("HitableCheck", arrayOf("Strict", "Simple", "Normal", "None"), "Normal")
     private val invalidPlaceFacingMode = ListValue("WhenPlaceFacingInvalid", arrayOf("CancelIt", "FixIt", "IgnoreIt"), "FixIt")
@@ -457,13 +460,26 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
             && !mc.thePlayer.inWeb
             && !mc.thePlayer.isOnLadder
             && !mc.gameSettings.keyBindJump.isKeyDown
-            && autoJump.get()){
+            && autoJump.get()
+            && timeToJump.hasTimePassed(jumpDelay.get())){
             mc.thePlayer.jump()
+            timeToJump.reset()
         }
         if (slowValue.get()) {
-            mc.thePlayer!!.motionX = mc.thePlayer!!.motionX * slowSpeed.get()
-            mc.thePlayer!!.motionZ = mc.thePlayer!!.motionZ * slowSpeed.get()
+            mc.thePlayer!!.motionX *= slowSpeed.get()
+            mc.thePlayer!!.motionZ *= slowSpeed.get()
         }
+
+        // Lock Rotation
+        if (rotationsOn
+            && (keepRotationValue.get() || !lockRotationTimer.hasTimePassed(keepLengthValue.get()))
+            && lockRotation != null
+            && strafeMode.get().equals("Off", true)
+        ) {
+            setRotation(lockRotation!!)
+            lockRotationTimer.update()
+        }
+
         if (mc.thePlayer!!.onGround) {
             when (zitterMode.get().lowercase(Locale.getDefault())) {
                 //"off" -> return //LiquidBounce B73, WTF is this?? if you turn off zitter u can't use eagle??????
@@ -490,8 +506,8 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
                     MovementUtils.strafe(zitterSpeed.get())
                     val yaw: Double =
                         Math.toRadians(mc.thePlayer!!.rotationYaw + if (zitterDirection) 90.0 else -90.0)
-                    mc.thePlayer!!.motionX = mc.thePlayer!!.motionX - sin(yaw) * zitterStrength.get()
-                    mc.thePlayer!!.motionZ = mc.thePlayer!!.motionZ + cos(yaw) * zitterStrength.get()
+                    mc.thePlayer!!.motionX -= sin(yaw) * zitterStrength.get()
+                    mc.thePlayer!!.motionZ += cos(yaw) * zitterStrength.get()
                     zitterDirection = !zitterDirection
                 }
             }
@@ -500,7 +516,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
         if (!eagleValue.get().equals("Off", true) && !shouldGoDown) {
             var dif = 0.5
             if (edgeDistanceValue.get() > 0) {
-                for (facingType in EnumFacing.values()) {
+                for (facingType in EnumFacing.entries) {
                     if (facingType != EnumFacing.NORTH && facingType != EnumFacing.EAST && facingType != EnumFacing.SOUTH && facingType != EnumFacing.WEST)
                         continue
                     val blockPosition = BlockPos(
@@ -538,6 +554,11 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
                         )
                     }
                     eagleSneaking = shouldEagle
+                } else if (eagleValue equal "OnlyChangeRot") {
+                    if (eagleSneaking) {
+                        if (RandomUtils.random.nextBoolean() && !shouldEagle) eagleSneaking = false
+                        mc.gameSettings.keyBindSneak.pressed = true
+                    } else mc.gameSettings.keyBindSneak.pressed = false
                 } else {
                     mc.gameSettings.keyBindSneak.pressed = shouldEagle
                     placedBlocksWithoutEagle = 0
@@ -548,6 +569,29 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
         }
         grimRotationBoolean = lockRotation != null
         update()
+        if (rotationsOn
+            && round45
+            && (keepRotationValue.get() || !lockRotationTimer.hasTimePassed(keepLengthValue.get()))
+            && lockRotation != null
+        ) {
+            if (targetPlace == null) {
+                var yaw = 0F
+                for (i in 0..7) {
+                    if (abs(
+                            RotationUtils.getAngleDifference(
+                                lockRotation!!.yaw,
+                                (i * 45).toFloat()
+                            )
+                        ) < abs(RotationUtils.getAngleDifference(lockRotation!!.yaw, yaw))
+                    ) {
+                        yaw = wrapAngleTo180_float((i * 45).toFloat())
+                    }
+                }
+                lockRotation!!.yaw = yaw
+            }
+            setRotation(lockRotation!!)
+            lockRotationTimer.update()
+        }
         if ((facesBlock || !rotationsOn || hitableCheck equal "None") && placeModeValue equal "Update") {
             place()
             timer.update()
@@ -577,32 +621,10 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
             return
 
 //        update()
-        if (rotationsOn
-            && (keepRotationValue.get() || !lockRotationTimer.hasTimePassed(keepLengthValue.get()))
-            && lockRotation != null
-        ) {
-            if (targetPlace == null) {
-                var yaw = 0F
-                for (i in 0..7) {
-                    if (abs(
-                            RotationUtils.getAngleDifference(
-                                lockRotation!!.yaw,
-                                (i * 45).toFloat()
-                            )
-                        ) < abs(RotationUtils.getAngleDifference(lockRotation!!.yaw, yaw))
-                    ) {
-                        yaw = wrapAngleTo180_float((i * 45).toFloat())
-                    }
-                }
-                lockRotation!!.yaw = yaw
-            }
-            setRotation(lockRotation!!)
-            lockRotationTimer.update()
-        }
         // not null
         lockRotation?.let {
             if (strafeMode.get().equals("AAC", true)) {
-                it.applyStrafeToPlayer(event)
+                event.yaw = it.yaw - 180
             } else { // strafeMode.get().equals("Strict", true)
                 var strafe: Float = event.strafe
                 var forward: Float = event.forward
@@ -660,17 +682,6 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
         if (motionSpeedEnabled.get())
             MovementUtils.setMotion(motionSpeedValue.get().toDouble())
 
-        // Lock Rotation
-        if (rotationsOn
-            && (keepRotationValue.get() || !lockRotationTimer.hasTimePassed(keepLengthValue.get()))
-            && lockRotation != null
-            && strafeMode.get().equals("Off", true)
-        ) {
-            setRotation(lockRotation!!)
-            if (eventState == EventState.POST)
-                lockRotationTimer.update()
-        }
-
         // Face block
         if ((facesBlock || !rotationsOn || hitableCheck equal "None") && placeModeValue.get()
                 .equals(eventState.stateName, true)
@@ -715,6 +726,11 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
     }
 
     private fun setRotation(rotation: Rotation) {
+        if (eagleValue equal "OnlyChangeRot") {
+            val rotS = RotationUtils.serverRotation
+            eagleSneaking = if (rotS == null) true
+            else RotationUtils.getRotationDifference(rotS, rotation) > 0.005 || eagleSneaking
+        }
         if (silentRotationValue.get()) {
             RotationUtils.setTargetRotation(rotation, 0)
         } else {
@@ -1122,8 +1138,8 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
 
             if (mc.thePlayer!!.onGround) {
                 val modifier: Float = speedModifierValue.get()
-                mc.thePlayer!!.motionX = mc.thePlayer!!.motionX * modifier
-                mc.thePlayer!!.motionZ = mc.thePlayer!!.motionZ * modifier
+                mc.thePlayer!!.motionX *= modifier
+                mc.thePlayer!!.motionZ *= modifier
             }
 
             if (swingValue.get()) {
@@ -1292,19 +1308,17 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
         val xzSSV = if (towerState) calcTowerStepSize(xzRV.toFloat()) else calcStepSize(xzRV.toFloat())
         val yRV = if (towerState) towerYRangeValue.get().toDouble() else yRangeValue.get().toDouble()
         val ySSV = if (towerState) calcTowerStepSize(yRV.toFloat()) else calcStepSize(yRV.toFloat())
-        val eyesPos = Vec3(
-            mc.thePlayer!!.posX,
-            mc.thePlayer!!.entityBoundingBox.minY + mc.thePlayer!!.eyeHeight,
-            mc.thePlayer!!.posZ
-        )
+
+        val eyesPos = Vec3(mc.thePlayer!!.posX, mc.thePlayer!!.entityBoundingBox.minY + mc.thePlayer!!.eyeHeight, mc.thePlayer!!.posZ)
         var placeRotation: PlaceRotation? = null
+
         if ((if (towerState) towerSearchMode else searchMode) equal "Sigma" && !shouldGoDown) { // Sigma的搜索无法处理下降
             val data = getBlockData(blockPosition)
             if (data != null) {
                 placeRotation = PlaceRotation(PlaceInfo(data.first, data.second, getVec3(data.first, data.second)), getRotations(data.first, data.second))
             } else return false
         } else {
-            for (facingType in EnumFacing.values()) {
+            for (facingType in EnumFacing.entries) {
                 val neighbor = blockPosition.offset(facingType)
                 if (!canBeClicked(neighbor)) continue
                 val dirVec = Vec3(facingType.directionVec)

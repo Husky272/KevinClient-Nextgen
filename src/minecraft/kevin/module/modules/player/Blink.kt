@@ -56,8 +56,8 @@ class Blink : Module("Blink", "Suspends all movement packets.", category = Modul
             faker.renderYawOffset = thePlayer.renderYawOffset;
             faker.copyLocationAndAnglesFrom(thePlayer)
             faker.rotationYawHead = thePlayer.rotationYawHead
-            mc.theWorld!!.addEntityToWorld(-1337, faker)
-
+            faker.entityId = -1337
+            RenderUtils.regFakePlayer(faker)
 
             fakePlayer = faker
         }
@@ -77,7 +77,7 @@ class Blink : Module("Blink", "Suspends all movement packets.", category = Modul
         val faker = fakePlayer
 
         if (faker != null) {
-            mc.theWorld?.removeEntityFromWorld(faker.entityId)
+            RenderUtils.removeFakePlayer(faker)
             fakePlayer = null
         }
     }

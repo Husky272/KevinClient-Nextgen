@@ -31,6 +31,7 @@ import kotlin.math.sqrt
 class LagBackDetector : Module("LagBackDetector", "Detect lag back from server.") {
     private val countValue = BooleanValue("Count", true)
     private val distanceCheckValue = BooleanValue("DistanceCheck", true)
+    private val withTimeStamp by BooleanValue("WithTimeStamp", false)
     private val modeValue = ListValue("Mode", arrayOf("Chat", "Notification"), "Notification")
     var count = 0
     override fun onDisable() {
@@ -52,7 +53,7 @@ class LagBackDetector : Module("LagBackDetector", "Detect lag back from server."
         if (distanceCheckValue.get()) {
             if (sqrt((packet.x - mc.thePlayer.posX).pow(2) + (packet.z - mc.thePlayer.posZ).pow(2)) > 10) return
         }
-        val message = "Flag detected${if (countValue.get()) ", count: ${++count}" else ""}"
+        val message = "${if (withTimeStamp) "${(System.currentTimeMillis() / 1000.0) % 120}> " else ""}Flag detected${if (countValue.get()) ", count: ${++count}" else ""}"
         when (modeValue.get()) {
             "Chat" -> ChatUtils.messageWithStart("[LagBackDetector] $message")
             "Notification" -> KevinClient.hud.addNotification(Notification(message, "LagBackDetector", ConnectNotificationType.Warn))

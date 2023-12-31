@@ -53,7 +53,7 @@ object ConfigsManager : Module("ConfigsManager", "Manage configs") { // good cod
         }
     }
     private val loadWithProxy = BooleanValue("WithProxy", false)
-    private val PreferredAPI = ListValue("PreferredAPI", arrayOf("https://raw.githubusercontent.com/", "https://raw.fastgit.org/"), "https://raw.fastgit.org/")
+    private val PreferredAPI = ListValue("PreferredAPI", arrayOf("https://raw.githubusercontent.com/", "https://raw.fgit.cf/"), "https://raw.fgit.cf/")
     private val refresh: BooleanValue = object : BooleanValue("Refresh", false) {
         override fun onChanged(oldValue: Boolean, newValue: Boolean) {
             if (newValue) {
@@ -67,7 +67,7 @@ object ConfigsManager : Module("ConfigsManager", "Manage configs") { // good cod
     get() = PreferredAPI.get()
 
     private val apiSecond: String
-    get() = "https://raw.githubusercontent.com/https://raw.fastgit.org/".replace(PreferredAPI.get(), "")
+    get() = "https://raw.githubusercontent.com/https://raw.fgit.cf/".replace(PreferredAPI.get(), "")
 
     private val proxy: Proxy?
         get() = if (loadWithProxy.get()) ProxyManager.proxyInstance else null

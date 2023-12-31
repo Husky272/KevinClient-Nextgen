@@ -23,7 +23,6 @@ import kevin.module.*
 import kevin.utils.*
 import kevin.utils.PacketUtils.packetList
 import net.minecraft.client.entity.EntityOtherPlayerMP
-import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -37,10 +36,8 @@ import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.server.*
 import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.Vec3
-import org.lwjgl.Sys
 import org.lwjgl.opengl.GL11.*
 import java.awt.Color
-import java.util.LinkedHashMap
 import java.util.LinkedList
 import kotlin.math.abs
 import kotlin.math.ceil
@@ -64,6 +61,11 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
         }
     }
     private val mode = ListValue("Mode", arrayOf("Legacy", "Smooth"), "Legacy")
+    private val smoothRangeToKeep by object : FloatValue("Smooth-RangeToKeep", 3f, 2f..6f) {
+        override fun onChanged(oldValue: Float, newValue: Float) {
+            if (newValue > maxDistance.get()) set(maxDistance.get())
+        }
+    }
     private val minTime : IntegerValue = object : IntegerValue("MinTime", 100, 0, 500) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             if (newValue > maxTime.get()) set(maxTime.get())
@@ -111,7 +113,43 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
 
     private val storagePackets = ArrayList<ServerPacketStorage>()
     private val storageSendPackets = ArrayList<Packet<INetHandlerPlayServer>>()
-    private val storageEntities = ArrayList<Entity>()
+    private val storageEntities : ArrayList<Entity> = object : ArrayList<Entity>() {
+        override fun add(element: Entity): Boolean {
+            if (element is EntityOtherPlayerMP && espMode equal "Model") {
+                val mp = EntityOtherPlayerMP(mc.theWorld, element.gameProfile)
+                mp.entityId = mdfId(element.entityId)
+                mp.isInvisible = false
+                mp.posX = element.serverPosX / 32.0
+                mp.posY = element.serverPosY / 32.0
+                mp.posZ = element.serverPosZ / 32.0
+                mp.prevPosX = mp.posX
+                mp.prevPosY = mp.posY
+                mp.prevPosZ = mp.posZ
+                mp.lastTickPosX = mp.prevPosX
+                mp.lastTickPosY = mp.prevPosY
+                mp.lastTickPosZ = mp.prevPosZ
+                mp.rotationYaw = element.rotationYaw
+                mp.rotationPitch = element.rotationPitch
+                mp.rotationYawHead = element.rotationYawHead
+                mp.prevRotationYaw = mp.rotationYaw
+                mp.prevRotationPitch = mp.rotationPitch
+                mp.prevRotationYawHead = mp.rotationYawHead
+                mp.swingProgress = element.swingProgress
+                mp.swingProgressInt = element.swingProgressInt
+                mp.hurtTime = element.hurtTime
+                mp.hurtResistantTime = element.hurtResistantTime
+                element.getInventory().copyInto(mp.getInventory())
+                RenderUtils.regFakePlayer(mp)
+            }
+            return super.add(element)
+        }
+
+        override fun removeAt(index: Int): Entity {
+            val removeAt = super.removeAt(index)
+            if (removeAt is EntityOtherPlayerMP) RenderUtils.removeFakePlayer(mdfId(removeAt.entityId))
+            return removeAt
+        }
+    }
 
     private val storageEntityMove = LinkedList<EntityPacketLoc>()
 
@@ -180,7 +218,7 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
                         }
                     } else {
                         if (smartPacket.get()) {
-                            if (afterRange < beforeRange) {
+                            if (afterRange < beforeRange && (mode notEqual "Smooth" || afterRange <= smoothRangeToKeep - 0.7)) {
                                 if (needFreeze) releasePackets()
                             }
                         }
@@ -332,11 +370,42 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
                 }
                 if (release) releasePackets()
             }
+            if (espMode equal "Model") {
+                for (entity in storageEntities) {
+                    if (entity !is EntityOtherPlayerMP) return
+                    RenderUtils.getFakePlayer(mdfId(entity.entityId))?.let {mp ->
+                        mp.entityId = mdfId(entity.entityId)
+                        mp.prevPosX = mp.posX
+                        mp.prevPosY = mp.posY
+                        mp.prevPosZ = mp.posZ
+                        mp.posX = entity.serverPosX / 32.0
+                        mp.posY = entity.serverPosY / 32.0
+                        mp.posZ = entity.serverPosZ / 32.0
+                        mp.lastTickPosX = mp.prevPosX
+                        mp.lastTickPosY = mp.prevPosY
+                        mp.lastTickPosZ = mp.prevPosZ
+                        mp.rotationYaw = entity.rotationYaw
+                        mp.rotationPitch = entity.rotationPitch
+                        mp.rotationYawHead = entity.rotationYawHead
+                        mp.prevRotationYaw = mp.rotationYaw
+                        mp.prevRotationPitch = mp.rotationPitch
+                        mp.prevRotationYawHead = mp.rotationYawHead
+                        mp.swingProgress = entity.swingProgress
+                        mp.swingProgressInt = entity.swingProgressInt
+                        mp.hurtTime = entity.hurtTime
+                        mp.hurtResistantTime = entity.hurtResistantTime
+                        mp.isInvisible = false
+                    }
+                }
+            }
         }
     }
 
     @EventTarget fun onWorld(event: WorldEvent) {
         attacked = null
+        storageEntities.forEach {
+            RenderUtils.removeFakePlayer(mdfId(it.entityId))
+        }
         storageEntities.clear()
         if (event.worldClient == null) storagePackets.clear()
     }
@@ -349,43 +418,9 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
             RenderUtils.drawAxisAlignedBB(AxisAlignedBB(vec.xCoord - 0.4, vec.yCoord + 0.2, vec.zCoord - 0.4, vec.xCoord + 0.4, vec.yCoord, vec.zCoord + 0.4), Color(37, 126, 255, 70))
         }
 
-        if (espMode equal "None" || !needFreeze) return
+        if (espMode equal "None" || !needFreeze || espMode equal "Model") return
 
         val entitiesToRender = if (alwaysRenderESP.get()) mc.theWorld.loadedEntityList else storageEntities
-        if (espMode equal "Model") {
-            glPushMatrix()
-            glEnable(GL_TEXTURE_2D)
-            for (entity in entitiesToRender) {
-                if (entity !is EntityOtherPlayerMP) return
-                val mp = EntityOtherPlayerMP(mc.theWorld, entity.gameProfile)
-                mp.posX = entity.serverPosX / 32.0
-                mp.posY = entity.serverPosY / 32.0
-                mp.posZ = entity.serverPosZ / 32.0
-                mp.prevPosX = mp.posX
-                mp.prevPosY = mp.posY
-                mp.prevPosZ = mp.posZ
-                mp.lastTickPosX = mp.posX
-                mp.lastTickPosY = mp.posY
-                mp.lastTickPosZ = mp.posZ
-                mp.rotationYaw = entity.rotationYaw
-                mp.rotationPitch = entity.rotationPitch
-                mp.rotationYawHead = entity.rotationYawHead
-                mp.prevRotationYaw = mp.rotationYaw
-                mp.prevRotationPitch = mp.rotationPitch
-                mp.prevRotationYawHead = mp.rotationYawHead
-                mp.isInvisible = false
-                mp.swingProgress = entity.swingProgress
-                mp.swingProgressInt = entity.swingProgressInt
-                mp.hurtTime = entity.hurtTime
-                mp.hurtResistantTime = entity.hurtResistantTime
-                mc.renderManager.renderEntitySimple(mp, event.partialTicks)
-            }
-            glDisable(GL_TEXTURE_2D)
-            GlStateManager.resetColor()
-            glMatrixMode(GL_MODELVIEW)
-            glPopMatrix()
-            return
-        }
 
         var outline = false
         var filled = false
@@ -463,6 +498,7 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
         glEnable(GL_DEPTH_TEST)
         glPopMatrix()
     }
+    private fun mdfId(id: Int) = id shl 4 or 0xFA00000
 
     private fun releasePackets() {
         attacked = null
@@ -486,6 +522,7 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
                     val y = entity.serverPosY.toDouble() / 32.0
                     val z = entity.serverPosZ.toDouble() / 32.0
                     if (setPosOnStop.get()) entity.setPosition(x, y, z)
+                    else entity.setPositionAndRotation2(x, y, z, entity.rotationYaw, entity.rotationPitch, 3, true)
                 }
             }
         }
@@ -496,7 +533,6 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
     private fun releasePacket(untilNS: Long) {
         val netHandler: INetHandlerPlayClient = mc.netHandler
         if (storagePackets.isEmpty()) return
-        smoothPointer = untilNS
         while (storagePackets.isNotEmpty()) {
             val it = storagePackets[0]
             val packet = it.packet
@@ -511,13 +547,15 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
                 break
             }
         }
+        smoothPointer = untilNS
         while (storageEntityMove.isNotEmpty()) {
             val first = storageEntityMove.first
             if (first.time <= untilNS) {
-                storageEntityMove.remove(first)
-                val entity = first.entity
-                if (entity is EntityOtherPlayerMP) entity.setPositionAndRotation2(first.x, first.y, first.z, entity.otherPlayerMPYaw.toFloat(), entity.otherPlayerMPPitch.toFloat(), 3, true)
-                else entity.setPositionAndUpdate(first.x, first.y, first.z)
+                val loc = storageEntityMove.removeFirst()
+                val entity = loc.entity
+                if (entity is EntityOtherPlayerMP) entity.setPositionAndRotation2(loc.x, loc.y, loc.z, entity.otherPlayerMPYaw.toFloat(), entity.otherPlayerMPPitch.toFloat(), 3, true)
+                else if (entity is EntityLivingBase) entity.setPositionAndRotation2(loc.x, loc.y, loc.z, entity.rotationYawHead, entity.rotationPitch, 3, true)
+                else entity.setPositionAndUpdate(loc.x, loc.y, loc.z)
             }
             else break
         }
@@ -537,8 +575,8 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
                 val height = it.entity.height
                 val bb = AxisAlignedBB(it.x - width, it.y, it.z - width, it.x + width, it.y + height, it.z + width).expands(0.1)
                 val range = mc.thePlayer.eyesLoc.distanceTo(bb)
-                if (range < minDistance.get() && range < minDistance.get() ||
-                    mc.thePlayer.getPositionEyes(3F).distanceTo(bb) < minDistance.get() - 0.1) {
+                if (range < smoothRangeToKeep && range < smoothRangeToKeep ||
+                    mc.thePlayer.getPositionEyes(3F).distanceTo(bb) < smoothRangeToKeep - 0.1) {
                     bestTimeStamp = max(bestTimeStamp, it.time)
                 }
             }

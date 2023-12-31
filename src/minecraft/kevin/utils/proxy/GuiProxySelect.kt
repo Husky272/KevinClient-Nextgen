@@ -15,13 +15,26 @@
 package kevin.utils.proxy
 
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService
-import com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService
+import kevin.main.KevinClient
+import kevin.main.KevinClient.pool
+import kevin.utils.ServerUtils
+import kevin.utils.ServerUtils.sendGet
+import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.GuiTextField
 import org.lwjgl.input.Keyboard
+import java.lang.System.nanoTime
+import java.net.InetSocketAddress
 import java.net.Proxy
+import java.util.HashSet
+import java.util.LinkedList
 import java.util.UUID
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.ConcurrentLinkedDeque
+import java.util.concurrent.atomic.AtomicInteger
+import javax.swing.JOptionPane
+import javax.swing.UIManager
 
 class GuiProxySelect(private val prevGui: GuiScreen) : GuiScreen() {
 
@@ -36,10 +49,11 @@ class GuiProxySelect(private val prevGui: GuiScreen) : GuiScreen() {
         textField.isFocused = true
         textField.text = ProxyManager.proxy
         textField.maxStringLength = 114514
-        buttonList.add(GuiButton(1, width / 2 - 100, height / 4 + 96, "").also { type = it })
-        buttonList.add(GuiButton(2, width / 2 - 100, height / 4 + 120, "").also { stat = it })
-        buttonList.add(GuiButton(3, width / 2 - 100, height / 4 + 144, "SyncAuthServiceProxy").also { auth = it })
-        buttonList.add(GuiButton(0, width / 2 - 100, height / 4 + 168, "Back"))
+        buttonList.add(GuiButton(1, width / 2 - 100, height / 4 + 76, "").also { type = it })
+        buttonList.add(GuiButton(2, width / 2 - 100, height / 4 + 100, "").also { stat = it })
+        buttonList.add(GuiButton(3, width / 2 - 100, height / 4 + 124, "SyncAuthServiceProxy").also { auth = it })
+        buttonList.add(GuiButton(4, width / 2 - 100, height / 4 + 172, "FreeProxy"))
+        buttonList.add(GuiButton(0, width / 2 - 100, height / 4 + 148, "Back"))
         updateButtonStat()
     }
 
@@ -78,6 +92,9 @@ class GuiProxySelect(private val prevGui: GuiScreen) : GuiScreen() {
                 mc.sessionService = YggdrasilAuthenticationService(if (ProxyManager.isEnable) ProxyManager.proxyInstance else Proxy.NO_PROXY, UUID.randomUUID().toString()).createMinecraftSessionService()
                 auth.displayString = "Auth service's proxy was set to: ${if (ProxyManager.isEnable) "§aEnabled" else "§cDisabled"}"
             }
+            4 -> {
+                FreeProxyManager.update(this)
+            }
         }
         updateButtonStat()
     }
@@ -107,5 +124,115 @@ class GuiProxySelect(private val prevGui: GuiScreen) : GuiScreen() {
     override fun updateScreen() {
         textField.updateCursorCounter()
         super.updateScreen()
+    }
+
+    data object FreeProxyManager {
+        private val proxies = LinkedList<Pair<Proxy, String>>()
+        private var initialized = false
+        private val pings = ConcurrentHashMap<String, String>()
+        private fun init() {
+            if (proxies.isEmpty() && !initialized) {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
+                initialized = true
+                val sockets = arrayOf(
+                    "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks4.txt",
+                    "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks5.txt",
+                    "https://raw.githubusercontent.com/zloi-user/hideip.me/main/socks4.txt",
+                    "https://raw.githubusercontent.com/zloi-user/hideip.me/main/socks5.txt"
+                )
+                var i = 0
+
+                for (it in sockets) {
+                    var get = sendGet(it)
+                    if (get.second != 0) {
+                        get = sendGet(it.replace("https://raw.githubusercontent.com/", "https://raw.fgit.cf/"))
+                    }
+                    if (get.second != 0) continue
+                    val s = get.first ?: continue
+                    Minecraft.logger.info("[Proxy] got socks proxies from $it")
+                    for (s1 in HashSet(s.split("\n"))) {
+                        val split = s1.split(":")
+                        if (split.size == 1) continue
+                        proxies.add(Proxy(Proxy.Type.SOCKS, InetSocketAddress(split[0], split[1].toInt())) to "SOCKET ${if (split.size > 2) split[2] else "unknown country"} ${i++}")
+                    }
+                }
+                val https = arrayOf(
+                    "https://raw.githubusercontent.com/zloi-user/hideip.me/main/http.txt",
+                    "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt"
+                )
+                for (url in https) {
+                    var http = sendGet(url)
+                    if (http.second != 0) {
+                        http = sendGet(url.replace("https://raw.githubusercontent.com/", "https://raw.fgit.cf/"))
+                    }
+                    if (http.second == 0) {
+                        Minecraft.logger.info("[Proxy] got http proxies from $url")
+                        for (s in HashSet(http.first?.split("\n")?: continue)) {
+                            val split = s.split(":")
+                            if (split.size == 1) continue
+                            proxies.add(Proxy(Proxy.Type.HTTP, InetSocketAddress(split[0], split[1].toInt())) to "HTTP ${if (split.size > 2) split[2] else "unknown country"} ${i++}")
+                        }
+                    }
+                }
+                ping()
+            }
+        }
+
+        fun ping() {
+            val brr = ArrayList(proxies)
+            brr.shuffle()
+            val arr = ConcurrentLinkedDeque(brr)
+            // I know, it isn't smart to create a lot of threads
+            pool.execute {
+                while (arr.isNotEmpty()) {
+                    val proxy = arr.poll()
+                    pool.execute {
+                        ping0(proxy)
+                    }
+                    Thread.sleep(25)
+                }
+            }
+        }
+
+        private fun ping0(proxy: Pair<Proxy, String>?) {
+            proxy ?: return
+            val start = nanoTime() / 1000000
+            val result = sendGet("http://www.vpngate.net/api/iphone/", proxy.first)
+            val end = nanoTime() / 1000000
+            val ping = end - start
+            if (result.second == 0) {
+                pings[proxy.second] = "${ping}ms"
+            } else {
+                pings[proxy.second] = "time out"
+            }
+        }
+
+        fun update(gui: GuiProxySelect) {
+            init()
+            if (proxies.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Failed to get proxy list",
+                    "Proxy selector",
+                    JOptionPane.INFORMATION_MESSAGE
+                )
+                return
+            }
+            val str = JOptionPane.showInputDialog(
+                null,
+                "Select proxy:\n",
+                "Proxy selector",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                proxies.map { "${pings.getOrDefault(it.second, "no ping")}| ${it.second}" }.filter { !it.endsWith("time out", true) }.sorted().toTypedArray(),
+                null
+            ) as String
+            proxies.find { str.endsWith(it.second, true) }?.apply {
+                ProxyManager.proxyType = first.type()
+                gui.textField.text = first.address().toString().run {
+                    this.substring(this.indexOf("/") + 1, this.length)
+                }
+            }
+        }
     }
 }

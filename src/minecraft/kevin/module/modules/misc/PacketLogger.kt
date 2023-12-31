@@ -3,10 +3,7 @@ package kevin.module.modules.misc
 import kevin.event.EventTarget
 import kevin.event.PacketEvent
 import kevin.main.KevinClient
-import kevin.module.BooleanValue
-import kevin.module.Module
-import kevin.module.ModuleCategory
-import kevin.module.Value
+import kevin.module.*
 import kevin.utils.ChatUtils
 import net.minecraft.network.EnumPacketDirection
 import net.minecraft.network.Packet
@@ -20,10 +17,12 @@ import java.util.LinkedList
 class PacketLogger: Module("PacketLogger", "Allow you know what packet we receive and send.", category = ModuleCategory.MISC) {
     private val logClientBoundPacket = BooleanValue("LogClientBoundPacket", true)
     private val logServerBoundPacket = BooleanValue("LogServerBoundPacket", true)
+    private val printTimeStamp = BooleanValue("PrintTimeStamp", true)
+    private val outPutFormat = ListValue("OutPutFormat", arrayOf("Full", "Flat", "Simple"), "Full")
     private val clientBoundPackets: HashMap<Class<out Packet<*>>, BooleanValue> = HashMap()
     private val serverBoundPackets: HashMap<Class<out Packet<*>>, BooleanValue> = HashMap()
 
-    private val vals = LinkedList<BooleanValue>()
+    private val vals = LinkedList<Value<*>>()
     private val start = "§l§7[§l§9Packet§l§7] "
 
     @EventTarget fun onPacket(event: PacketEvent) {
@@ -49,14 +48,18 @@ class PacketLogger: Module("PacketLogger", "Allow you know what packet we receiv
     private fun output(clz: Class<out Packet<*>>, packet: Packet<*>) {
         val strBuilder = StringBuilder()
         strBuilder.append(start)
-        strBuilder.append(clz.simpleName).append(':')
+        if (printTimeStamp.get()) strBuilder.append("[${(System.currentTimeMillis() / 1000.0) % 120}] ")
+        strBuilder.append(clz.simpleName)
+        if (outPutFormat equal "Simple")
+        strBuilder.append(':')
         for (field in clz.declaredFields) {
-            strBuilder.append("\n§7    ").append(field.name).append(": ")
+            (if (outPutFormat equal "Full") strBuilder.append("\n    ") else strBuilder.append(" "))
+                .append("§7").append(field.name).append(": ")
             try {
                 field.isAccessible = true
                 strBuilder.append(field.get(packet))
             } catch (_: Exception) {
-                strBuilder.append("Error when get")
+                strBuilder.append("GET FAILED")
             }
         }
         ChatUtils.message(strBuilder.toString())
@@ -73,8 +76,12 @@ class PacketLogger: Module("PacketLogger", "Allow you know what packet we receiv
     }
 
     init { // Copied form EnumConnectionState because I am lazy lol~
-        vals.add(logClientBoundPacket)
-        vals.add(logServerBoundPacket)
+        vals.apply {
+            add(logClientBoundPacket)
+            add(logServerBoundPacket)
+            add(printTimeStamp)
+            add(outPutFormat)
+        }
         this.registerPacket(EnumPacketDirection.CLIENTBOUND, S00PacketKeepAlive::class.java)
         this.registerPacket(EnumPacketDirection.CLIENTBOUND, S01PacketJoinGame::class.java)
         this.registerPacket(EnumPacketDirection.CLIENTBOUND, S02PacketChat::class.java)

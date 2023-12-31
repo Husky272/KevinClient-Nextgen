@@ -22,6 +22,10 @@ public final class MSTimer {
         return System.currentTimeMillis() >= time + MS;
     }
 
+    public boolean hasTimePassed(final int MS) {
+        return System.currentTimeMillis() >= time + MS;
+    }
+
     public long hasTimeLeft(final long MS) {
         return (MS + time) - System.currentTimeMillis();
     }

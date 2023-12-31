@@ -183,14 +183,16 @@ public class EntityPlayerSP extends AbstractClientPlayer
      */
     public void onUpdateWalkingPlayer() {
         try {
-            final MotionEvent preEvent = new MotionEvent(this.posX, this.getEntityBoundingBox().minY, this.posZ,EventState.PRE);
+            final MotionEvent preEvent = new MotionEvent(this.posX, this.getEntityBoundingBox().minY, this.posZ, this.onGround, EventState.PRE);
             KevinClient.eventManager.callEvent(preEvent);
             if (preEvent.isCancelled()) {
-                MotionEvent event = new MotionEvent(lastReportedPosX, lastReportedPosY, lastReportedPosZ, EventState.POST);
+                MotionEvent event = new MotionEvent(lastReportedPosX, lastReportedPosY, lastReportedPosZ, this.onGround, EventState.POST);
                 event.cancelEvent();
                 KevinClient.eventManager.callEvent(event);
                 return;
             }
+
+            final boolean isOnGround = preEvent.getOnGround();
             final double posX = preEvent.getPosX(), posY = preEvent.getPosY(), posZ = preEvent.getPosZ();
             final InvMove invMove = KevinClient.moduleManager.getModule(InvMove.class);
             final boolean fakeSprint =
@@ -249,24 +251,24 @@ public class EntityPlayerSP extends AbstractClientPlayer
                 {
                     if (moved && rotated)
                     {
-                        this.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(posX, posY, posZ, yaw, pitch, this.onGround));
+                        this.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(posX, posY, posZ, yaw, pitch, isOnGround));
                     }
                     else if (moved)
                     {
-                        this.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(posX, posY, posZ, this.onGround));
+                        this.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(posX, posY, posZ, isOnGround));
                     }
                     else if (rotated)
                     {
-                        this.sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(yaw, pitch, this.onGround));
+                        this.sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(yaw, pitch, isOnGround));
                     }
                     else
                     {
-                        this.sendQueue.addToSendQueue(new C03PacketPlayer(this.onGround));
+                        this.sendQueue.addToSendQueue(new C03PacketPlayer(isOnGround));
                     }
                 }
                 else
                 {
-                    this.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(this.motionX, -999.0D, this.motionZ, yaw, pitch, this.onGround));
+                    this.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(this.motionX, -999.0D, this.motionZ, yaw, pitch, isOnGround));
                     moved = false;
                 }
 
@@ -287,7 +289,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
                 }
             }
 
-            KevinClient.eventManager.callEvent(new MotionEvent(lastReportedPosX, lastReportedPosY, lastReportedPosZ, EventState.POST));
+            KevinClient.eventManager.callEvent(new MotionEvent(lastReportedPosX, lastReportedPosY, lastReportedPosZ, isOnGround, EventState.POST));
         }catch (final Exception e) {
             e.printStackTrace();
         }

@@ -422,7 +422,7 @@ class TargetHUD : Element() {
                     GlStateManager.enableAlpha()
                     GlStateManager.enableBlend()
                     GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0)
-                    // Draw targets armor and tools and weapons and shows the enchants.
+                    // Draw targets armor and tools and weapons and shows the enchantments.
                     drawEquippedShit(28, 20)
                     GlStateManager.disableAlpha()
                     GlStateManager.disableBlend()

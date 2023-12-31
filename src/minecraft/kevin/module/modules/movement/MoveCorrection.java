@@ -1,10 +1,8 @@
 package kevin.module.modules.movement;
 
 import kevin.event.*;
-import kevin.module.BooleanValue;
 import kevin.module.Module;
 import kevin.module.ModuleCategory;
-import kevin.utils.RotationUtils;
 import net.minecraft.util.MathHelper;
 import org.lwjgl.input.Keyboard;
 

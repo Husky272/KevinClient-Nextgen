@@ -21,7 +21,7 @@ public class Util
         }
         catch (ExecutionException executionexception)
         {
-            logger.fatal("Error executing task", (Throwable)executionexception);
+            logger.fatal("Error executing task", executionexception);
 
             if (executionexception.getCause() instanceof OutOfMemoryError)
             {
@@ -30,10 +30,10 @@ public class Util
         }
         catch (InterruptedException interruptedexception)
         {
-            logger.fatal("Error executing task", (Throwable)interruptedexception);
+            logger.fatal("Error executing task", interruptedexception);
         }
 
-        return (V)(null);
+        return null;
     }
 
     public enum EnumOS
@@ -42,6 +42,6 @@ public class Util
         SOLARIS,
         WINDOWS,
         OSX,
-        UNKNOWN;
+        UNKNOWN
     }
 }

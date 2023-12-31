@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.Callable;
 
 import kevin.event.MoveEvent;
 import kevin.event.StepConfirmEvent;
@@ -1308,10 +1307,9 @@ public abstract class Entity implements ICommandSender
 
     public int getBrightnessForRender(float partialTicks)
     {
-        if (PerformanceBooster.INSTANCE.getFastEntityLightning()) {
-            World world = this.worldObj;
-            BlockPos bp = new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY + (double)this.getEyeHeight()), MathHelper.floor_double(this.posZ));
-            return world.isBlockLoaded(bp) ? world.getCombinedLight(bp, 0) : 0;
+        if (PerformanceBooster.INSTANCE.getStaticEntityLightning()) {
+            // 15 << 20 | 15 << 4
+            return 0xf000f0;
         }
 
         BlockPos blockpos = new BlockPos(this.posX, this.posY + (double)this.getEyeHeight(), this.posZ);
@@ -1323,12 +1321,10 @@ public abstract class Entity implements ICommandSender
      */
     public float getBrightness(float partialTicks)
     {
-        if (PerformanceBooster.INSTANCE.getFastEntityLightning()) {
-            World world = this.worldObj;
-            BlockPos bp = new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY + (double) this.getEyeHeight()), MathHelper.floor_double(this.posZ));
-            return world.isBlockLoaded(bp) ? world.getLightBrightness(bp) : 0.0f;
+        if (PerformanceBooster.INSTANCE.getStaticEntityLightning()) {
+            // 15 << 20 | 15 << 4
+            return 0xf000f0;
         }
-
         BlockPos blockpos = new BlockPos(this.posX, this.posY + (double)this.getEyeHeight(), this.posZ);
         return this.worldObj.isBlockLoaded(blockpos) ? this.worldObj.getLightBrightness(blockpos) : 0.0F;
     }

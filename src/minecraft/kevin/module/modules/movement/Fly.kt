@@ -36,6 +36,7 @@ class Fly : Module("Fly","Allow you fly", Keyboard.KEY_F,ModuleCategory.MOVEMENT
 //        ACD,
         FunCraft,
         Teleport,
+        FlagFly,
         VerusAuto,
         NCPPacket,
         NCPFly,

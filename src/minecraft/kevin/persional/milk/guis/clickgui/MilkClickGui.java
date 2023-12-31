@@ -1,6 +1,5 @@
 package kevin.persional.milk.guis.clickgui;
 
-import blur.*;
 import kevin.persional.milk.guis.font.FontLoaders;
 import kevin.persional.milk.utils.StencilUtil;
 import kevin.persional.milk.utils.key.ClickUtils;
@@ -85,7 +84,7 @@ public class MilkClickGui extends ClickGui {
         }else{
             y = actY;
         }
-        float nextY = y;
+//        float nextY = y;
 
         int animAlpha = Math.max((int)(animJoin * 240),0);
         int animAlpha2 = Math.max((int)(animJoin * 200),0);
@@ -97,7 +96,7 @@ public class MilkClickGui extends ClickGui {
         GlStateManager.disableBlend();
         GlStateManager.enableAlpha();
         Color white = new Color(230, 230, 230, animAlpha);
-        Color white2 = new Color(60, 60, 60, animAlpha);
+//        Color white2 = new Color(60, 60, 60, animAlpha);
         // title
         KevinClient.fontManager.fontMisans32.drawString("Kevin", x - 34, y + 12, white.getRGB());
         FontLoaders.novo16.drawString(KevinClient.INSTANCE.getVersion(), x - 8 + 3 - 1, y + 9, white.getRGB());
@@ -114,7 +113,7 @@ public class MilkClickGui extends ClickGui {
             animForModulePanel = 0;
         }
         int categoryY = 30 + y;
-        for(ModuleCategory category : ModuleCategory.values()) {
+        for(ModuleCategory category : ModuleCategory.getEntries()) {
             float moduleY = y + 10 + scroll;
             if(category == selectCategory) {
                 animForModules = (float) anim5.animateHigh(1.0, animForModules, 0.3);
@@ -178,7 +177,7 @@ public class MilkClickGui extends ClickGui {
             selectPanel.clickPanel(x + 5, y, mouseX, mouseY, scroll2);
         }
         int categoryY = 30 + y;
-        for(ModuleCategory category : ModuleCategory.values()) {
+        for(ModuleCategory category : ModuleCategory.getEntries()) {
             float moduleY = y + 10 + scroll;
             if(category == selectCategory) {
                 int categoryX = (int) (-400 + 400 * animForModules);

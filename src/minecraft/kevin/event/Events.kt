@@ -48,7 +48,7 @@ object ClickUpdateEvent : CancellableEvent() {
     }
 }
 
-class MotionEvent(var posX: Double, var posY: Double, var posZ: Double,val eventState: EventState) : CancellableEvent()
+class MotionEvent(var posX: Double, var posY: Double, var posZ: Double, var onGround: Boolean, val eventState: EventState) : CancellableEvent()
 
 class SlowDownEvent(var strafe: Float, var forward: Float) : Event()
 

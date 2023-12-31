@@ -34,11 +34,11 @@ import java.util.*
 
 object PerformanceBooster : Module("PerformanceBooster", "Optimize to improve performance.") {
     private val staticParticleColorValue = BooleanValue("StaticParticleColor", false)
-    private val fastEntityLightningValue = BooleanValue("FastEntityLightning", false)
+    private val fastEntityLightningValue = BooleanValue("StaticEntityLightning", false)
     private val fastBlockLightningValue = BooleanValue("FastBlockLightning", false)
     val staticParticleColor
         get() = this.state && staticParticleColorValue.get()
-    val fastEntityLightning
+    val staticEntityLightning
         get() = this.state && fastEntityLightningValue.get()
     val fastBlockLightning
         get() = this.state && fastBlockLightningValue.get()

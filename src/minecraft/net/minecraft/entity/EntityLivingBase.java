@@ -157,11 +157,11 @@ public abstract class EntityLivingBase extends Entity
     protected int newPosRotationIncrements;
 
     /** The new X position to be applied to the entity. */
-    protected double newPosX;
+    public double newPosX;
 
     /** The new Y position to be applied to the entity. */
-    protected double newPosY;
-    protected double newPosZ;
+    public double newPosY;
+    public double newPosZ;
 
     /** The new yaw rotation to be applied to the entity. */
     protected double newRotationYaw;

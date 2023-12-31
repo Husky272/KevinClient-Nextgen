@@ -19,6 +19,7 @@ import kevin.utils.render.GL.DirectTessCallback;
 import kevin.utils.render.GL.VertexData;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.*;
@@ -31,6 +32,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
+import net.minecraft.util.Timer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
 import org.lwjgl.util.glu.GLUtessellator;
@@ -41,10 +43,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -61,6 +60,7 @@ public final class RenderUtils extends MinecraftInstance{
             shadowPanelTop = getShadowImage("PanelTop"),
             shadowPanelBottom = getShadowImage("PanelBottom");
     private static final Map<String, Map<Integer, Boolean>> glCapMap = new HashMap<>();
+    private static final Map<Integer, EntityOtherPlayerMP> fakePlayers = new HashMap<>();
     private static final int[] DISPLAY_LISTS_2D = new int[4];
 
     public static void drawGradientSideways(final double left, final double top, final double right, final double bottom, final int col1, final int col2) {
@@ -132,6 +132,33 @@ public final class RenderUtils extends MinecraftInstance{
         quickDrawRect(-7.3F, -20.3F, -4F, -20F);
 
         glEndList();
+    }
+
+    public static void regFakePlayer(EntityOtherPlayerMP mp) {
+        if (mp == null) return;
+        int entityId = mp.getEntityId();
+        fakePlayers.put(entityId, mp);
+    }
+
+    public static void removeFakePlayer(EntityOtherPlayerMP mp) {
+        if (mp == null) return;
+        removeFakePlayer(mp.getEntityId());
+    }
+
+    public static EntityOtherPlayerMP getFakePlayer(int id) {
+        return fakePlayers.get(id);
+    }
+
+    public static Collection<EntityOtherPlayerMP> getFakePlayers() {
+        return fakePlayers.values();
+    }
+
+    public static boolean hasFakePlayers() {
+        return !fakePlayers.isEmpty();
+    }
+
+    public static void removeFakePlayer(int id) {
+        fakePlayers.remove(id);
     }
 
     public static void drawCircle(final Entity entity, double rad, final Color color, final boolean shade) {
@@ -1253,8 +1280,8 @@ public final class RenderUtils extends MinecraftInstance{
         RenderHelper.enableStandardItemLighting();
         GlStateManager.rotate(-135.0f, 0.0f, 1.0f, 0.0f);
         GlStateManager.rotate((float) (-Math.atan(pitch / 40.0f) * 20.0), 1.0f, 0.0f, 0.0f);
-        entityLivingBase.renderYawOffset = yaw - yaw / yaw * 0.4f;
-        entityLivingBase.rotationYaw = yaw - yaw / yaw * 0.2f;
+        entityLivingBase.renderYawOffset = yaw - 0.4f;
+        entityLivingBase.rotationYaw = yaw - 0.2f;
         entityLivingBase.rotationPitch = pitch;
         entityLivingBase.rotationYawHead = entityLivingBase.rotationYaw;
         entityLivingBase.prevRotationYawHead = entityLivingBase.rotationYaw;
