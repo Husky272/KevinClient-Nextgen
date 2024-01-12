@@ -5,8 +5,10 @@ import kevin.event.*
 import kevin.main.KevinClient
 import kevin.module.modules.player.Blink
 import kevin.module.modules.render.FreeCam
+import kevin.utils.RandomUtils
 import net.minecraft.network.play.client.*
 import net.minecraft.network.play.client.C03PacketPlayer.*
+import net.minecraft.util.Vec3
 
 // From IDK where originally(FDP maybe), but I changed something
 class BadPacketPrevention: Module("AntiBadPackets", "Prevent you get flags from some bad packets we sent", category = ModuleCategory.MISC) {
@@ -16,6 +18,8 @@ class BadPacketPrevention: Module("AntiBadPackets", "Prevent you get flags from 
     private val fixItemSwap = BooleanValue("FixItemSwap", true)
     private val fixGround = BooleanValue("FixMathGround", true)
     private val fixIdleFly = BooleanValue("NoPacketWhenIdle", false)
+    private val fixAB = BooleanValue("FixAutoBlockBadPacket", false)
+    private val fixAutoBlockInteract = BooleanValue("FixAutoBlockInteract", false)
 
     // local variables
     private var x = 0.0
@@ -26,6 +30,8 @@ class BadPacketPrevention: Module("AntiBadPackets", "Prevent you get flags from 
     private var jam = 0
     private var packetCount = 0
     private var prevSlot = -1
+    private var hasAction = false
+    private var attackPacket: C02PacketUseEntity? = null
 
     // events
     override fun onEnable() {
@@ -107,6 +113,33 @@ class BadPacketPrevention: Module("AntiBadPackets", "Prevent you get flags from 
                     event.cancelEvent()
             } else {
                 packetCount = 0
+            }
+        }
+
+        if (fixAB.get()) {
+            when (packet) {
+                is C02PacketUseEntity -> {
+                    if (hasAction) {
+                        event.cancelEvent()
+                    } else attackPacket =
+                        if (packet.action == C02PacketUseEntity.Action.ATTACK) packet
+                        else null
+                }
+                is C03PacketPlayer -> {
+                    hasAction = false
+                    attackPacket = null
+                }
+                is C07PacketPlayerDigging -> {
+                    if (attackPacket == null) {
+                        if (packet.status == C07PacketPlayerDigging.Action.RELEASE_USE_ITEM) hasAction = true
+                    } else event.cancelEvent()
+                }
+                is C08PacketPlayerBlockPlacement -> {
+                    if (fixAutoBlockInteract.get()) attackPacket?.let {
+                        val entity = it.getEntityFromWorld(mc.theWorld)
+                        mc.netHandler.networkManager.sendPacketNoEvent(C02PacketUseEntity(entity, Vec3(RandomUtils.nextDouble(-0.1, 0.1), RandomUtils.nextDouble(0.0, 0.5), RandomUtils.nextDouble(-0.1, 0.1))))
+                    }
+                }
             }
         }
     }

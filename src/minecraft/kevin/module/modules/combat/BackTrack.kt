@@ -21,7 +21,6 @@ import kevin.hud.element.elements.Notification
 import kevin.main.KevinClient
 import kevin.module.*
 import kevin.utils.*
-import kevin.utils.PacketUtils.packetList
 import net.minecraft.client.entity.EntityOtherPlayerMP
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -510,7 +509,7 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
                 val packet = it.packet
                 try {
                     val packetEvent = PacketEvent(packet)
-                    if (!packetList.contains(packet)) KevinClient.eventManager.callEvent(packetEvent)
+                    KevinClient.eventManager.callEvent(packetEvent)
                     if (!packetEvent.isCancelled) packet.processPacket(netHandler)
                 } catch (_: ThreadQuickExitException) { }
             }
@@ -540,7 +539,7 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
                 storagePackets.remove(it)
                 try {
                     val packetEvent = PacketEvent(packet)
-                    if (!packetList.contains(packet)) KevinClient.eventManager.callEvent(packetEvent)
+                    KevinClient.eventManager.callEvent(packetEvent)
                     if (!packetEvent.isCancelled) packet.processPacket(netHandler)
                 } catch (_: ThreadQuickExitException) {}
             } else {
@@ -593,7 +592,7 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
             storageSendPackets.removeAt(0).let {
                 try {
                     val packetEvent = PacketEvent(it)
-                    if (!packetList.contains(it)) KevinClient.eventManager.callEvent(packetEvent)
+                    KevinClient.eventManager.callEvent(packetEvent)
                     if (!packetEvent.isCancelled) mc.netHandler.networkManager.sendPacketNoEvent(it)
                 } catch (e: Exception) {
                     KevinClient.hud.addNotification(Notification("Something went wrong when sending packet reversing", "BackTrack"))

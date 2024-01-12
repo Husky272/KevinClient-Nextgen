@@ -72,6 +72,10 @@ class HUD : Module("HUD","Toggles visibility of the HUD.",category = ModuleCateg
         KevinClient.hud.handleKey('a', event.key)
     }
 
+    init {
+        state = true
+    }
+
     val currentSlot: Int
         get() = if (hotBarShowCurrentSlot.get()) currentPacketSlot else mc.thePlayer.inventory.currentItem
 

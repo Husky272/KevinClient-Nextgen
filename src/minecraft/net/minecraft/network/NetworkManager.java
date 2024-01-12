@@ -188,7 +188,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
                 if (disabler == null) {
                     disabler = KevinClient.moduleManager.getModule(Disabler.class);
                 }
-                if (disabler.getState() && !PacketUtils.INSTANCE.getPacketList().contains(p_channelRead0_2_)) {
+                if (disabler.getState()) {
                     try {
                         disabler.onPacket(packetEvent);
                     } catch (Exception e) {
@@ -197,9 +197,9 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
                     if (packetEvent.isCancelled()) return;
                 }
 
-                if (!PacketUtils.INSTANCE.getPacketList().contains(p_channelRead0_2_)) KevinClient.eventManager.callEvent(packetEvent);
+                KevinClient.eventManager.callEvent(packetEvent);
                 if (packetEvent.isCancelled()) return;
-                p_channelRead0_2_.processPacket(this.packetListener);
+                ((Packet<INetHandler>) packetEvent.getPacket()).processPacket(this.packetListener);
             }
             catch (ThreadQuickExitException ignored) {}
         }
@@ -234,7 +234,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
         if (disabler == null) {
             disabler = KevinClient.moduleManager.getModule(Disabler.class);
         }
-        if (disabler.getState() && !PacketUtils.INSTANCE.getPacketList().contains(packetIn)) {
+        if (disabler.getState()) {
             try {
                 disabler.onPacket(event);
             } catch (Exception e) {
@@ -242,12 +242,12 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
             }
             if (event.isCancelled()) return;
         }
-        if (!PacketUtils.INSTANCE.getPacketList().contains(packetIn)) KevinClient.eventManager.callEvent(event);
+        KevinClient.eventManager.callEvent(event);
         if(event.isCancelled()) return;
         if (this.isChannelOpen())
         {
             this.flushOutboundQueue();
-            this.dispatchPacket(packetIn, null);
+            this.dispatchPacket(event.getPacket(), null);
         }
         else
         {

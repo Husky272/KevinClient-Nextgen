@@ -51,7 +51,7 @@ public class ModulesConfig extends FileConfig {
                 module.setKeyBind(jsonModule.get("KeyBind").getAsInt());
                 if (jsonModule.get("Hide")!=null) module.setArray(!jsonModule.get("Hide").getAsBoolean());
                 if (jsonModule.get("AutoDisable")!=null) module.setAutoDisable(new Pair<>(!Objects.equals(jsonModule.get("AutoDisable").getAsString(), "Disable"), Objects.equals(jsonModule.get("AutoDisable").getAsString(), "Disable") ? "" : jsonModule.get("AutoDisable").getAsString()));
-                for (final Value moduleValue : module.getValues()) {
+                for (final Value<?> moduleValue : module.getValues()) {
                     final JsonElement element = jsonModule.get(moduleValue.getName());
 
                     if (element != null) moduleValue.fromJson(element);

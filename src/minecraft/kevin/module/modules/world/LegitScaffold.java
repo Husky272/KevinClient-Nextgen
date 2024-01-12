@@ -152,10 +152,10 @@ public class LegitScaffold extends Module {
         if(this.start) {
             rot.setPitch(80.34F);
             rot.setYaw(mc.thePlayer.rotationYaw + yawOffset.get());
-            rot = RotationUtils.limitAngleChange(RotationUtils.serverRotation, rot, yawSpeed.get() + RandomUtils.INSTANCE.nextFloat(0, 2), pitchSpeed.get() - RandomUtils.INSTANCE.nextFloat(0, 2));
+            rot = RotationUtils.limitAngleChange(RotationUtils.serverRotation, rot, yawSpeed.get() + RandomUtils.nextFloat(0, 2), pitchSpeed.get() - RandomUtils.nextFloat(0, 2));
         } else {
             rot.setYaw(mc.thePlayer.rotationYaw + yawOffset.get());
-            rot = RotationUtils.limitAngleChange(RotationUtils.serverRotation, rot, yawSpeed.get() + RandomUtils.INSTANCE.nextFloat(0, 2), pitchSpeed.get() + RandomUtils.INSTANCE.nextFloat(0, 2));
+            rot = RotationUtils.limitAngleChange(RotationUtils.serverRotation, rot, yawSpeed.get() + RandomUtils.nextFloat(0, 2), pitchSpeed.get() + RandomUtils.nextFloat(0, 2));
             double x = mc.thePlayer.posX;
             double z = mc.thePlayer.posZ;
             double add1 = 1.288D;
@@ -271,7 +271,6 @@ public class LegitScaffold extends Module {
         }
 
         if(difference.x >= 0.0D && difference.y > 0.0D) {
-            ;
         }
 
         if(difference.y <= -1.0D && difference.x < -1.0D) {

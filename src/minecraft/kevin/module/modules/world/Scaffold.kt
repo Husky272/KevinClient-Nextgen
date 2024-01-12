@@ -101,7 +101,6 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
     private val timeToJump = MSTimer()
     private val swingValue = BooleanValue("Swing", true)
     private val searchValue = BooleanValue("Search", true)
-    private val advancedSearchValue = BooleanValue("AdvancedSearch", true)
     private val downValue = BooleanValue("Down", true)
     private val placeModeValue = ListValue("PlaceTiming", arrayOf("Update", "Pre", "Post"), "Update")
 
@@ -120,7 +119,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
     get() = expandLengthValue.get()!=0&&!(jumpCheckValue.get()&&mc.gameSettings.keyBindJump.isKeyDown)&&!(downCheckValue.get()&&shouldGoDown)&&(!expandOnlyMove.get()||(MovementUtils.isMoving||(expandOnlyMoveOnlyGround.get()&&!mc.thePlayer.onGround)))
 
     // Rotation Options
-    private val rotationValues = arrayOf("Off", "Normal", "AAC", "LimitedAAC", "MoveDirection", "Custom")
+    private val rotationValues = arrayOf("Off", "Normal", "AAC", "MoveDirection", "Custom")
     private val strafeMode = ListValue("Strafe", arrayOf("Off", "AAC", "Strict"), "Off")
     private val rotationsValue = ListValue("Rotations", rotationValues, "Normal")
     private val towerRotationsValue = ListValue("TowerRotations", rotationValues, "Normal")
@@ -257,6 +256,9 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
     // Eagle
     private var placedBlocksWithoutEagle = 0
     private var eagleSneaking: Boolean = false
+
+    // Bypass
+    private var lastEmptyBlockUnder = false
 
     // Downwards
     private var shouldGoDown: Boolean = false
@@ -777,7 +779,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
             !(block is BlockSnow && block.getBlockBoundsMaxY() > 0.125)
         } else false
     }
-    private fun getExpandCords(x: Double, z: Double, forward: Double, strafe: Double, YAW: Float, expandLength: Double): Pair<Double,Double> {
+    private fun getExpandCords(x: Double, z: Double, forward: Double, strafe: Double, yaw: Float, expandLength: Double): Pair<Double,Double> {
         var underPos = BlockPos(x, mc.thePlayer.posY - 1, z)
         var underBlock = mc.theWorld.getBlockState(underPos).block
         var xCalc = x//-999.0
@@ -791,8 +793,8 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
             if (dist > expandDist) {
                 dist = expandDist
             }
-            xCalc += (forward * 0.45 * cos(Math.toRadians(YAW + 90.0)) + strafe * 0.45 * sin(Math.toRadians(YAW + 90.0))) * dist
-            zCalc += (forward * 0.45 * sin(Math.toRadians(YAW + 90.0)) - strafe * 0.45 * cos(Math.toRadians(YAW + 90.0))) * dist
+            xCalc += (forward * 0.45 * cos(Math.toRadians(yaw + 90.0)) + strafe * 0.45 * sin(Math.toRadians(yaw + 90.0))) * dist
+            zCalc += (forward * 0.45 * sin(Math.toRadians(yaw + 90.0)) - strafe * 0.45 * cos(Math.toRadians(yaw + 90.0))) * dist
             if (dist == expandDist) {
                 break
             }
@@ -965,7 +967,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
                     mc.thePlayer!!.posY,
                     mc.thePlayer!!.posZ
                 ).down()))
-        if (!expand && (!isReplaceable(blockPosition) || search(blockPosition, !shouldGoDown)))
+        if (!expand && (expSearch() || !isReplaceable(blockPosition) || search(blockPosition, !shouldGoDown)))
             return
 
         if (expand) {
@@ -1014,23 +1016,10 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
                 }
             }
         } else if (searchValue.get()) {
-            if (advancedSearchValue.get() && lastPlace != null) {
-                if (search(lastPlace!!, !shouldGoDown)) {
-                    return
-                }
-                for (x in -1..1) {
-                    for (z in -1..1) {
-                        if (search(blockPosition.add(x, 0, z), !shouldGoDown)) {
-                            return
-                        }
-                    }
-                }
-            } else {
-                for (x in -1..1) {
-                    for (z in -1..1) {
-                        if (search(blockPosition.add(x, 0, z), !shouldGoDown)) {
-                            return
-                        }
+            for (x in -1..1) {
+                for (z in -1..1) {
+                    if (search(blockPosition.add(x, 0, z), !shouldGoDown)) {
+                        return
                     }
                 }
             }
@@ -1284,11 +1273,50 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
             else -> rotation
         } else when(rotationsValue.get()) {
             "AAC" -> Rotation(mc.thePlayer.rotationYaw + (((if (mc.thePlayer.movementInput.moveForward < 0) 0 else 180) - aacYawOffsetValue.get()) * if (aacRotationPositive) 1 else -1), rotation.pitch)
-            "LimitedAAC" -> Rotation(mc.thePlayer.rotationYaw + (((if (mc.thePlayer.movementInput.moveForward < 0) 0 else 180) - aacYawOffsetValue.get()) * if (aacRotationPositive) 1 else -1), customPitchValue.get())
             "MoveDirection" -> Rotation(MovementUtils.movingYaw - 180, customPitchValue.get())
             "Custom" -> Rotation(mc.thePlayer.rotationYaw + customYawValue.get(), customPitchValue.get())
             else -> rotation
         }
+    }
+
+    private fun expSearch(): Boolean {
+        if (shouldGoDown) return false
+        val base = when {
+            rotationsValue equal "AAC" -> {
+                aacYawOffsetValue.get().toFloat() + (mc.thePlayer.rotationYaw / 45f).toInt().times(45f)
+            }
+            rotationsValue equal "MoveDirection" -> {
+                MovementUtils.direction.toFloat()
+            }
+            else -> return false
+        }
+        val blockPos = BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 0.5, mc.thePlayer.posZ)
+        val block = mc.theWorld.getBlockState(blockPos).block
+        val isEmptyBlockUnder = isAirBlock(block) || block is BlockAir
+        val lUnder = lastEmptyBlockUnder
+        lastEmptyBlockUnder = isEmptyBlockUnder
+        if (!(isEmptyBlockUnder && lUnder) && RotationUtils.targetRotation != null && !towerState) return true
+        val eyesLoc = mc.thePlayer.eyesLoc
+        var target : PlaceRotation? = null
+        val serverRotation = RotationUtils.serverRotation
+        for (i in arrayOf(180.0f, 135.0f, 225.0f, 90.0f, 270f, 45.0f, 315f, 0.0f)) {
+            val dir = i + base
+            for (p in 55f..90f step 0.2f) {
+                val rotation = Rotation(dir, p)
+                rotation.fixedSensitivity()
+                val rayTraceBlocks = mc.theWorld.rayTraceBlocks(eyesLoc, rotation.toDirection().multiply(4.4).add(eyesLoc), false, false, true)
+                if (rayTraceBlocks.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && rayTraceBlocks.sideHit != EnumFacing.DOWN && (mc.thePlayer.motionY > -0.15 || rayTraceBlocks.sideHit != EnumFacing.UP) && rayTraceBlocks.blockPos.y <= mc.thePlayer.posY - 0.9 && (!mc.thePlayer.onGround || rayTraceBlocks.blockPos.y >= mc.thePlayer.posY - 1.5)) {
+                    if (target == null || RotationUtils.getRotationDifference(rotation, serverRotation) < RotationUtils.getRotationDifference(target.rotation, serverRotation)) {
+                        target = PlaceRotation(PlaceInfo(rayTraceBlocks.blockPos, rayTraceBlocks.sideHit, rayTraceBlocks.hitVec), rotation)
+                    }
+                }
+            }
+        }
+        if (target != null) {
+            targetPlace = target.placeInfo
+            doRotationChange(target.rotation)
+        }
+        return true
     }
 
     /**
@@ -1298,7 +1326,6 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
      * @param checks        visible
      * @return
      */
-
     private fun search(blockPosition: BlockPos, checks: Boolean): Boolean {
         facesBlock = false
         if (!isReplaceable(blockPosition)) return false
@@ -1383,15 +1410,8 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
                                 zSearch += if (auto) 0.1 else xzSSV
                                 continue
                             }
-                            if (advancedSearchValue.get()) {
-                                val rot = Rotation(wrapAngleTo180_float(MovementUtils.direction.toFloat() - 180F), RotationUtils.bestServerRotation().pitch)
-                                if (placeRotation == null || RotationUtils.getRotationDifference(rotation, rot) < RotationUtils.getRotationDifference(placeRotation.rotation, rot)) {
-                                    placeRotation = PlaceRotation(PlaceInfo(neighbor, facingType.opposite, hitVec), rotation)
-                                }
-                            } else {
-                                if (placeRotation == null || RotationUtils.getRotationDifference(rotation) < RotationUtils.getRotationDifference(placeRotation.rotation)) {
-                                    placeRotation = PlaceRotation(PlaceInfo(neighbor, facingType.opposite, hitVec), rotation)
-                                }
+                            if (placeRotation == null || RotationUtils.getRotationDifference(rotation) < RotationUtils.getRotationDifference(placeRotation.rotation)) {
+                                placeRotation = PlaceRotation(PlaceInfo(neighbor, facingType.opposite, hitVec), rotation)
                             }
 
                             zSearch += if (auto) 0.1 else xzSSV
@@ -1405,38 +1425,47 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
         if (placeRotation == null) return false
         if (rotationsOn) {
             val calculatedRotation = calculateRotation(placeRotation.rotation)
-            if (minTurnSpeedValue.get() < 180) {
-                val limitedRotation = RotationUtils.limitAngleChange(
-                    RotationUtils.serverRotation,
-                    calculatedRotation,
-                    (Math.random() * (maxTurnSpeedValue.get() - minTurnSpeedValue.get()) + minTurnSpeedValue.get()).toFloat()
-                )
-
-                if ((10 * wrapAngleTo180_float(limitedRotation.yaw)).roundToInt() == (10 * wrapAngleTo180_float(calculatedRotation.yaw)).roundToInt() &&
-                    (10 * wrapAngleTo180_float(limitedRotation.pitch)).roundToInt() == (10 * wrapAngleTo180_float(calculatedRotation.pitch)).roundToInt()) {
-                    setRotation(calculatedRotation)
-                    lockRotation = calculatedRotation
-                    facesBlock = true
-                } else {
-                    setRotation(limitedRotation)
-                    lockRotation = limitedRotation
-                    facesBlock = false
-                }
-            } else {
-                setRotation(calculatedRotation)
-                lockRotation = calculatedRotation
-                facesBlock = true
-            }
-            lockRotationTimer.reset()
+            doRotationChange(calculatedRotation)
         }
         targetPlace = placeRotation.placeInfo
         return true
     }
 
+    private fun doRotationChange(calculatedRotation: Rotation) {
+        if (minTurnSpeedValue.get() < 180) {
+            val limitedRotation = RotationUtils.limitAngleChange(
+                RotationUtils.serverRotation,
+                calculatedRotation,
+                (Math.random() * (maxTurnSpeedValue.get() - minTurnSpeedValue.get()) + minTurnSpeedValue.get()).toFloat()
+            )
+
+            if ((10 * wrapAngleTo180_float(limitedRotation.yaw)).roundToInt() == (10 * wrapAngleTo180_float(
+                    calculatedRotation.yaw
+                )).roundToInt() &&
+                (10 * wrapAngleTo180_float(limitedRotation.pitch)).roundToInt() == (10 * wrapAngleTo180_float(
+                    calculatedRotation.pitch
+                )).roundToInt()
+            ) {
+                setRotation(calculatedRotation)
+                lockRotation = calculatedRotation
+                facesBlock = true
+            } else {
+                setRotation(limitedRotation)
+                lockRotation = limitedRotation
+                facesBlock = false
+            }
+        } else {
+            setRotation(calculatedRotation)
+            lockRotation = calculatedRotation
+            facesBlock = true
+        }
+        lockRotationTimer.reset()
+    }
+
     private fun calcStepSize(range: Float): Double {
         var accuracy: Double = searchAccuracyValue.get().toDouble()
-        accuracy += accuracy % 2 // If it is set to uneven it changes it to even. Fixes a bug
-        return if (range / accuracy < 0.01) 0.01 else (range / accuracy)
+        accuracy += accuracy % 2 // If it is set to uneven, it changes it to even. Fixes a bug
+        return (range / accuracy).coerceAtLeast(0.01)
     }
 
     private fun calcTowerStepSize(range: Float): Double {

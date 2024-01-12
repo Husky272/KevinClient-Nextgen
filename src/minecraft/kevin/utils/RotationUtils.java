@@ -22,6 +22,7 @@ import kevin.event.TickEvent;
 import kevin.main.KevinClient;
 import kevin.module.modules.combat.FastBow;
 import kevin.module.modules.player.FastUse;
+import kevin.module.modules.render.Rotations;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -501,27 +502,18 @@ public final class RotationUtils extends MinecraftInstance implements Listenable
      */
     public static void reset() {
         keepLength = 0;
-        targetRotation = null;
-    }
-
-    /**
-     * reset your target rotation smooth
-     */
-    public static void smoothReset() {
-        keepLength = 0;
-    }
-
-    public static Rotation positionRotation(double posX, double posY, double posZ, Rotation lastRots, float yawSpeed, float pitchSpeed, boolean random) {
-        double x = posX - mc.thePlayer.posX;
-        double y = posY - (mc.thePlayer.posY + (double)mc.thePlayer.getEyeHeight());
-        double z = posZ - mc.thePlayer.posZ;
-        Rotation calcRot = new Rotation((float) (MathHelper.atan2((double) z, (double) x) * 180.0 / Math.PI - 90.0), (float) (-(MathHelper.atan2((double) y, (double) MathHelper.sqrt_double((double) (x * x + z * z))) * 180.0 / Math.PI)));
-        Rotation changed = limitAngleChange(lastRots, calcRot, yawSpeed, pitchSpeed);
-        if (random) {
-            changed.setYaw(changed.getYaw() + (float) ThreadLocalRandom.current().nextGaussian());
-            changed.setPitch(changed.getPitch() + (float) ThreadLocalRandom.current().nextGaussian());
+        if (Rotations.doSb() && targetRotation != null) {
+            final float yawSpeed = Rotations.sbYawSpeed(), pitchSpeed = Rotations.sbPitchSpeed();
+            final Rotation currentRotation = targetRotation;
+            final EntityPlayerSP thePlayer = mc.thePlayer;
+            final Rotation rotation = new Rotation(thePlayer.rotationYaw, thePlayer.rotationPitch);
+            if (getAngleDifference(currentRotation.getYaw(), rotation.getYaw()) > yawSpeed || Math.abs(rotation.getPitch() - currentRotation.getPitch()) > pitchSpeed) {
+                targetRotation = limitAngleChange(currentRotation, rotation, yawSpeed, pitchSpeed);
+                targetRotation.fixedSensitivity();
+                return;
+            }
         }
-        return changed;
+        targetRotation = null;
     }
 
     @EventTarget(ignoreCondition = true)

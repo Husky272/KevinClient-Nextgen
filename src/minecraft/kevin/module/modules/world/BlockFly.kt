@@ -34,8 +34,6 @@ import java.awt.Color
 import javax.vecmath.Color3f
 import kotlin.math.*
 
-private fun Number.toRadians(): Double = Math.toRadians(toDouble())
-
 object BlockFly : Module("BlockFly", "Scaffold skidded from lb b85", 0, ModuleCategory.WORLD) {
     private val mode by ListValue(
         "Mode",

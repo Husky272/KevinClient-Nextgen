@@ -114,7 +114,7 @@ class SuperKnockback : Module("SuperKnockback", "Increases knockback dealt to ot
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         if  (modeValue equal "LegitFast") {
-            if (isHit) {
+            if (isHit && stopTimer.hasTimePassed(80)) {
                 isHit = false
                 cancelSprint = true
                 stopTimer.reset()

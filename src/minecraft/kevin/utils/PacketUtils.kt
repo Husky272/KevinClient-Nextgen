@@ -23,8 +23,7 @@ object PacketUtils : MinecraftInstance(), Listenable {
     val packetList = arrayListOf<Packet<*>>()
 
     fun sendPacketNoEvent(packet: Packet<*>){
-        packetList.add(packet)
-        mc.netHandler.addToSendQueue(packet)
+        mc.netHandler.networkManager.sendPacketNoEvent(packet)
     }
 
     fun sendPacket(packet: Packet<*>) {
@@ -32,9 +31,7 @@ object PacketUtils : MinecraftInstance(), Listenable {
     }
 
     @EventTarget
-    fun onWorld(event: WorldEvent) {
-        packetList.clear()
-    }
+    fun onWorld(event: WorldEvent) {}
 
     override fun handleEvents() = true
 }

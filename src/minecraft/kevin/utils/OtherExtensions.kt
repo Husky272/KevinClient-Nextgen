@@ -61,6 +61,9 @@ fun AxisAlignedBB.getBlockStatesIncluded(): List<IBlockState> {
     return tmpArr
 }
 
+
+internal fun Number.toRadians(): Double = Math.toRadians(toDouble())
+
 /**
  * Provides:
  * ```
@@ -100,6 +103,21 @@ class RangeIterator(private val range: ClosedFloatingPointRange<Double>, private
 }
 operator fun ClosedFloatingPointRange<Double>.iterator() = RangeIterator(this)
 infix fun ClosedFloatingPointRange<Double>.step(step: Double) = RangeIterator(this, step)
+
+class FloatIterator(private val range: ClosedFloatingPointRange<Float>, private val step: Float = 0.1f): Iterator<Float> {
+    private var value = range.start
+
+    override fun hasNext() = value < range.endInclusive
+
+    override fun next(): Float {
+        val returned = value
+        value = (value + step).coerceAtMost(range.endInclusive)
+        return returned
+    }
+}
+operator fun ClosedFloatingPointRange<Float>.iterator() = FloatIterator(this)
+infix fun ClosedFloatingPointRange<Float>.step(step: Float) = FloatIterator(this, step)
+
 
 /**
  * Conditionally shuffles an `Iterable`

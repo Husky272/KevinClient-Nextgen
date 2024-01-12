@@ -21,14 +21,33 @@ import kevin.module.FloatValue
 import kevin.module.Module
 import kevin.module.ModuleCategory
 import kevin.module.modules.combat.KillAura
+import kevin.utils.RandomUtils
 import kevin.utils.RotationUtils
 import net.minecraft.network.play.client.C03PacketPlayer
 
-object Rotations : Module("Rotations", description = "Allows you to see server-sided head and body rotations.", category = ModuleCategory.RENDER){
+object Rotations : Module("Rotations", description = "Allows you to see server-sided head and body rotations.", category = ModuleCategory.RENDER) {
     private val bodyValue = BooleanValue("Body", true)
-    val smoothBackValue = BooleanValue("SmoothBackRotation", true)
-    val smoothBackYawSpeed = FloatValue("SmoothBackYawSpeed", 40F, 1F, 180F)
-    val smoothBackPitchSpeed = FloatValue("SmoothBackPitchSpeed", 30F, 1F, 180F)
+    private val smoothBackValue by BooleanValue("SmoothBackRotation", true)
+    private val smoothBackMinYawSpeed: Float by object : FloatValue("SmoothBackMinYawSpeed", 30F, 1F..180F) {
+        override fun onChanged(oldValue: Float, newValue: Float) {
+            if (newValue > smoothBackMaxYawSpeed) set(smoothBackMaxYawSpeed)
+        }
+    }
+    private val smoothBackMaxYawSpeed: Float by object : FloatValue("SmoothBackMaxYawSpeed", 80F, 1F..180F) {
+        override fun onChanged(oldValue: Float, newValue: Float) {
+            if (newValue < smoothBackMinYawSpeed) set(smoothBackMinYawSpeed)
+        }
+    }
+    private val smoothBackMinPitchSpeed: Float by object : FloatValue("SmoothBackMinPitchSpeed", 10F, 1F..180F) {
+        override fun onChanged(oldValue: Float, newValue: Float) {
+            if (newValue > smoothBackMaxPitchSpeed) set(smoothBackMaxPitchSpeed)
+        }
+    }
+    private val smoothBackMaxPitchSpeed: Float by object : FloatValue("SmoothBackMaxPitchSpeed", 70F, 1F..180F) {
+        override fun onChanged(oldValue: Float, newValue: Float) {
+            if (newValue < smoothBackMinYawSpeed) set(smoothBackMinPitchSpeed)
+        }
+    }
 
     private var playerYaw: Float? = null
 
@@ -79,9 +98,16 @@ object Rotations : Module("Rotations", description = "Allows you to see server-s
                 getState(ChestAura::class.java)**/
     }
 
-    @JvmStatic
-    fun sbYawSpeed() = if (smoothBackValue.get()) smoothBackYawSpeed.get() else 180F
+    init {
+        state = true
+    }
 
     @JvmStatic
-    fun sbPitchSpeed() = if (smoothBackValue.get()) smoothBackPitchSpeed.get() else 180F
+    fun doSb() = smoothBackValue
+
+    @JvmStatic
+    fun sbYawSpeed() = if (smoothBackValue) RandomUtils.nextFloat(smoothBackMinYawSpeed, smoothBackMaxYawSpeed) else 180F
+
+    @JvmStatic
+    fun sbPitchSpeed() = if (smoothBackValue) RandomUtils.nextFloat(smoothBackMinPitchSpeed, smoothBackMaxPitchSpeed) else 180F
 }

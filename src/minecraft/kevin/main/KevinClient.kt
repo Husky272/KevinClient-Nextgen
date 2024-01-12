@@ -88,6 +88,7 @@ object KevinClient {
         Renderer.load()
         moduleManager.load()
         ScriptLoader.load()
+        PluginManager.initialize()
         Display.setTitle("Kevin Client is loading...")
 
         fileManager.loadConfig(fileManager.modulesConfig)
@@ -110,9 +111,8 @@ object KevinClient {
         ConfigManager.load()
         ConfigsManager.updateValue()
         combatManager = CombatManager()
-        Display.setTitle("Kevin Client is loading..... [plugins]")
+        Display.setTitle("Kevin Client is loading..... [via]")
         ViaVersion.start()
-        PluginManager.initialize()
         Display.setTitle("$name $version | Minecraft 1.8.9")
         isStarting = false
         // ?!

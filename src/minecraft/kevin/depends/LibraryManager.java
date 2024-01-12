@@ -1,6 +1,5 @@
 package kevin.depends;
 
-import kevin.depends.reflectives.ClassWrapper;
 import kevin.main.KevinClient;
 import net.minecraft.client.Minecraft;
 import org.apache.logging.log4j.Logger;
@@ -9,8 +8,6 @@ import org.lwjgl.opengl.Display;
 import java.io.*;
 import java.net.*;
 import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
@@ -42,43 +39,46 @@ public class LibraryManager {
                 Display.setTitle(base + "(" + dependency.getRepoUrl() + " | no connection) ");
                 final AtomicLong count = new AtomicLong(0);
                 AtomicBoolean done = new AtomicBoolean(false);
-                try (InputStream is = urlConnection.getInputStream();
-                    FileOutputStream stream = new FileOutputStream(tempLocation)) {
-                    logger.info("connected to " + url);
+                new Thread(() -> {
+                    try (InputStream is = urlConnection.getInputStream();
+                         FileOutputStream stream = new FileOutputStream(tempLocation)) {
+                        logger.info("connected to " + url);
 //                    double total = urlConnection.getContentLengthLong() / 1024.0 / 1024.0;
 
-                    new Thread(() -> {
-                        int c = 0;
-                        double last = 0;
-                        while (!done.get()){
-                            try {
-                                Thread.sleep(1000L);
-                            } catch (Exception ignored) {}
-                            String e = "-";
-                            switch (++c % 4) {
-                                case 0: e = "\\"; break;
-                                case 1: e = "|"; break;
-                                case 2: e = "/"; break;
-                                case 3: e = "-"; break;
-                            }
-                            double downloaded = count.get() / 1024.0 / 1024.0;
-                            Display.setTitle(String.format("%s %s (%.3f MB) (%.3f MB/s)", base, e, downloaded, downloaded - last));
-                            last = downloaded;
+                        int i;
+                        while ((i = is.read()) != -1) {
+                            stream.write(i);
+                            count.incrementAndGet();
                         }
-                        Display.setTitle(title);
-                    });
-                    int i;
-                    while ((i = is.read()) != -1) {
-                        stream.write(i);
-                        count.incrementAndGet();
+                        stream.flush();
+                        if (!tempLocation.renameTo(saveLocation)) {
+                            Files.copy(tempLocation.toPath(), saveLocation.toPath());
+                            tempLocation.delete();
+                        }
+                    } catch (IOException e) {
+                        Minecraft.logger.warn(e.getMessage());
                     }
-                    stream.flush();
+                    done.set(true);
+                });
+
+                int c = 0;
+                double last = 0;
+                while (!done.get()){
+                    try {
+                        Thread.sleep(1000L);
+                    } catch (Exception ignored) {}
+                    String e = "-";
+                    switch (++c % 4) {
+                        case 0: e = "\\"; break;
+                        case 1: e = "|"; break;
+                        case 2: e = "/"; break;
+                        case 3: e = "-"; break;
+                    }
+                    double downloaded = count.get() / 1024.0 / 1024.0;
+                    Display.setTitle(String.format("%s %s (%.3f MB) (%.3f MB/s)", base, e, downloaded, downloaded - last));
+                    last = downloaded;
                 }
-                if (!tempLocation.renameTo(saveLocation)) {
-                    Files.copy(tempLocation.toPath(), saveLocation.toPath());
-                    tempLocation.deleteOnExit();
-                }
-                done.set(true);
+                Display.setTitle(title);
             } catch (Exception e) {
                 Minecraft.logger.warn(e.getMessage());
             }
