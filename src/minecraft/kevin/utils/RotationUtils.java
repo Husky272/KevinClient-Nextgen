@@ -352,7 +352,7 @@ public final class RotationUtils extends MinecraftInstance implements Listenable
                         if (vecRotation == null || getRotationDifference(currentVec.getRotation(), rot) < getRotationDifference(vecRotation.getRotation(), rot))
                             vecRotation = currentVec;
                         else if (!lastHitable) {
-                            if ((getRotationDifference(currentVec.getRotation(), rot) + getRotationDifference(currentVec.getRotation(), nearestRot)) / 1.3 < (getRotationDifference(vecRotation.getRotation(), rot) + getRotationDifference(vecRotation.getRotation(), nearestRot)) / 1.3) {
+                            if (getRotationDifference(currentVec.getRotation(), rot) + getRotationDifference(currentVec.getRotation(), nearestRot) / 2 < getRotationDifference(vecRotation.getRotation(), rot) + getRotationDifference(vecRotation.getRotation(), nearestRot) / 2) {
                                 vecRotation = currentVec;
                             }
                         }
