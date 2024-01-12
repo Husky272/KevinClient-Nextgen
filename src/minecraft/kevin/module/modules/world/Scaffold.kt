@@ -728,11 +728,6 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
     }
 
     private fun setRotation(rotation: Rotation) {
-        if (eagleValue equal "OnlyChangeRot") {
-            val rotS = RotationUtils.serverRotation
-            eagleSneaking = if (rotS == null) true
-            else RotationUtils.getRotationDifference(rotS, rotation) > 0.005 || eagleSneaking
-        }
         if (silentRotationValue.get()) {
             RotationUtils.setTargetRotation(rotation, 0)
         } else {
@@ -1450,6 +1445,9 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
                 lockRotation = calculatedRotation
                 facesBlock = true
             } else {
+                if (eagleValue equal "OnlyChangeRot") {
+                    eagleSneaking = true
+                }
                 setRotation(limitedRotation)
                 lockRotation = limitedRotation
                 facesBlock = false
