@@ -48,7 +48,7 @@ object ConfigsManager : Module("ConfigsManager", "Manage configs") { // good cod
         override fun onChanged(oldValue: Boolean, newValue: Boolean) {
             if (newValue) {
                 set(false)
-                loadCloud(cloudConfigs.get())
+//                loadCloud(cloudConfigs.get())
             }
         }
     }
@@ -94,9 +94,9 @@ object ConfigsManager : Module("ConfigsManager", "Manage configs") { // good cod
     }
 
     fun loadCloud(name: String) {
-        var res = ServerUtils.sendGet("${apiFirst}siuank/KevinClient-Reborn/master/cfg/$name.json", proxy)
+        var res = ServerUtils.sendGet("${apiFirst}RE-KevinClient/KevinClient-Reborn/master/cfg/$name.json", proxy)
         if (res.second > 0) {
-            res = ServerUtils.sendGet("${apiSecond}siuank/KevinClient-Reborn/master/cfg/$name.json", proxy)
+            res = ServerUtils.sendGet("${apiSecond}RE-KevinClient/KevinClient-Reborn/master/cfg/$name.json", proxy)
         }
         if (res.second > 0) {
             ChatUtils.messageWithStart("§cFailed to load config §b${name}.§cFile not found.")
@@ -170,9 +170,9 @@ object ConfigsManager : Module("ConfigsManager", "Manage configs") { // good cod
         Thread {
             try {
                 val resStrArray: Array<String>
-                var res = ServerUtils.sendGet("${apiFirst}siuank/KevinClient-Reborn/master/cfg/configs.bb", proxy)
+                var res = ServerUtils.sendGet("${apiFirst}RE-KevinClient/KevinClient-Reborn/master/cfg/configs.bb", proxy)
                 if (res.second > 0) {
-                    res = ServerUtils.sendGet("${apiSecond}siuank/KevinClient-Reborn/master/cfg/configs.bb", proxy)
+                    res = ServerUtils.sendGet("${apiSecond}RE-KevinClient/KevinClient-Reborn/master/cfg/configs.bb", proxy)
                 }
                 if (res.second == 0) {
                     resStrArray = res.first.split("\n").toTypedArray()

@@ -8,7 +8,7 @@ import java.util.Collection;
 
 /**
  * Provides access to {@link URLClassLoader}#addURL.
- * skidded from Kauri
+ * Skidded from Kauri
  */
 public abstract class URLClassLoaderAccess {
 

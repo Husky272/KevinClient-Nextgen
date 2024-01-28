@@ -31,23 +31,17 @@ import kotlin.random.Random
 
 class AutoClicker : Module("AutoClicker", "Constantly clicks when holding down a mouse button.", category = ModuleCategory.COMBAT) {
     private val maxCPSValue: IntegerValue = object : IntegerValue("MaxCPS", 8, 1, 20) {
-
         override fun onChanged(oldValue: Int, newValue: Int) {
             val minCPS = minCPSValue.get()
-            if (minCPS > newValue)
-                set(minCPS)
+            if (minCPS > newValue) set(minCPS)
         }
-
     }
 
     private val minCPSValue: IntegerValue = object : IntegerValue("MinCPS", 5, 1, 20) {
-
         override fun onChanged(oldValue: Int, newValue: Int) {
             val maxCPS = maxCPSValue.get()
-            if (maxCPS < newValue)
-                set(maxCPS)
+            if (maxCPS < newValue) set(maxCPS)
         }
-
     }
 
     private val rightValue = BooleanValue("Right", true)

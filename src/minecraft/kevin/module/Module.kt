@@ -20,6 +20,7 @@ import kevin.hud.element.elements.Notification
 import kevin.main.KevinClient
 import kevin.utils.ClassUtils
 import kevin.utils.ColorUtils.stripColor
+import kevin.utils.MSTimer
 import kevin.utils.MinecraftInstance
 import net.minecraft.client.Minecraft
 import net.minecraft.client.audio.PositionedSoundRecord
@@ -36,6 +37,8 @@ open class Module(var name: String,
             field = keyBind
             if (!KevinClient.isStarting) KevinClient.fileManager.saveConfig(KevinClient.fileManager.modulesConfig)
     }
+    val enabledTimer = MSTimer()
+    val disabledTimer = MSTimer()
     var state = false
         set(value) {
             if (field == value) return
@@ -54,7 +57,13 @@ open class Module(var name: String,
                 ))
             }
             field = value
-            if (value) onEnable() else onDisable()
+            if (value) {
+                onEnable()
+                enabledTimer.reset()
+            } else {
+                onDisable()
+                disabledTimer.reset()
+            }
             KevinClient.fileManager.saveConfig(KevinClient.fileManager.modulesConfig)
     }
     val hue = Math.random().toFloat()

@@ -47,6 +47,7 @@ public class ModulePanel {
         Color color2 = module.getState() ? new Color(39, 206, 39, ia) : new Color(232, 42, 42, ia);
         int oy = (int) scroll;
         for(Button button : buttons){
+            if (!button.show()) continue;
             button.drawButton(x + 60, y + 50 + oy, mx, my, pticks, anim);
             oy += 13 + button.add;
         }
@@ -90,6 +91,7 @@ public class ModulePanel {
         if (ClickUtils.isClickable(x, y, x + 400, y + 40, mx, my)) return;
         int oy = (int) scroll;
         for(Button button : buttons){
+            if (!button.show()) continue;
             button.clickButton(x + 60, y + 50 + oy, mx, my);
             oy += 13 + button.add;
         }

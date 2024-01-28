@@ -72,8 +72,6 @@ public class FileManager extends MinecraftInstance {
                             "You need to note that: we can't guarantee that plugins from third parties are free of any malicious code,\n" +
                             "please check it yourself before using it, we are not responsible for any damages caused by plugins from third parties!");
                     writer.flush();
-                    out.flush();
-                    outputStream.flush();
                 }
             } catch (IOException e) {
                 Minecraft.logger.warn("", e);

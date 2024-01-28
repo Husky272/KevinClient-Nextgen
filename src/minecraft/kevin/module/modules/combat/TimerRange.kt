@@ -41,6 +41,8 @@ object TimerRange: Module("TimerRange", "Make you walk to target faster", catego
         override fun onChanged(oldValue: Float, newValue: Float) {
             if (newValue < minDistance.get()) set(minDistance.get())
         }
+
+        override fun isSupported(): Boolean = rangeMode equal "Setting"
     }
     private val rangeMode = ListValue("RangeMode", arrayOf("Setting", "Smart"), "Smart")
     private val maxTimeValue = IntegerValue("MaxTime", 3, 0, 20)

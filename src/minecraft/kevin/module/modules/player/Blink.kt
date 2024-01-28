@@ -38,7 +38,7 @@ class Blink : Module("Blink", "Suspends all movement packets.", category = Modul
     private val positions = LinkedList<DoubleArray>()
     private val pulseValue = BooleanValue("Pulse", false)
     private val pulseDelayValue = IntegerValue("PulseDelay", 1000, 500, 5000)
-    private val grimAC = ListValue("GrimAC-TimerMode", arrayOf("None", "Storage", "Cancel"), "None")
+    private val pingMode = ListValue("PingMode", arrayOf("None", "Storage", "Cancel"), "None")
     private val pulseTimer = MSTimer()
     private val colorRainbow = BooleanValue("ColorRainbow",true)
     private val colorRedValue = IntegerValue("R",255,0,255)
@@ -52,10 +52,13 @@ class Blink : Module("Blink", "Suspends all movement packets.", category = Modul
             val faker = EntityOtherPlayerMP(mc.theWorld!!, thePlayer.gameProfile)
 
 
-            faker.rotationYawHead = thePlayer.rotationYawHead;
-            faker.renderYawOffset = thePlayer.renderYawOffset;
-            faker.copyLocationAndAnglesFrom(thePlayer)
             faker.rotationYawHead = thePlayer.rotationYawHead
+            faker.renderYawOffset = thePlayer.renderYawOffset
+            faker.prevRotationYawHead = faker.rotationYawHead
+            faker.prevRenderYawOffset = faker.renderYawOffset
+            faker.copyLocationAndAnglesFrom(thePlayer)
+            faker.prevRotationYaw = faker.rotationYaw
+            faker.prevRotationPitch = faker.rotationPitch
             faker.entityId = -1337
             RenderUtils.regFakePlayer(faker)
 
@@ -78,8 +81,8 @@ class Blink : Module("Blink", "Suspends all movement packets.", category = Modul
 
         if (faker != null) {
             RenderUtils.removeFakePlayer(faker)
-            fakePlayer = null
         }
+        fakePlayer = null
     }
 
     @EventTarget
@@ -101,9 +104,9 @@ class Blink : Module("Blink", "Suspends all movement packets.", category = Modul
             packets.add(packet)
         }
 
-        if ((packet)is C0FPacketConfirmTransaction && grimAC notEqual "None") {
+        if ((packet) is C0FPacketConfirmTransaction || (packet) is C00PacketKeepAlive && pingMode notEqual "None") {
             event.cancelEvent()
-            if (grimAC equal "Storage") c0fs.add(packet)
+            if (pingMode equal "Storage") c0fs.add(packet)
         }
     }
 

@@ -42,7 +42,8 @@ data class Rotation(var yaw: Float, var pitch: Float) : MinecraftInstance() {
      *
      * @see net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender
      */
-    fun fixedSensitivity(sensitivity: Float) {
+    @JvmOverloads
+    fun fixedSensitivity(sensitivity: Float = mc.gameSettings.mouseSensitivity): Rotation {
         val f = sensitivity * 0.6F + 0.2F
         val gcd = f * f * f * 1.2F
 
@@ -58,9 +59,8 @@ data class Rotation(var yaw: Float, var pitch: Float) : MinecraftInstance() {
         var deltaPitch = pitch - rotation.pitch
         deltaPitch -= deltaPitch % gcd
         pitch = rotation.pitch + deltaPitch
+        return this
     }
-
-    fun fixedSensitivity() = fixedSensitivity(mc.gameSettings.mouseSensitivity)
 
     /**
      * Apply strafe to player

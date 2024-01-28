@@ -1,5 +1,6 @@
 package net.minecraft.util;
 
+import kevin.module.modules.combat.TimerRange;
 import net.minecraft.client.Minecraft;
 
 public class Timer
@@ -105,6 +106,6 @@ public class Timer
             this.elapsedTicks = 10;
         }
 
-        this.renderPartialTicks = this.elapsedPartialTicks;
+        if (!TimerRange.freezeAnimation()) this.renderPartialTicks = this.elapsedPartialTicks;
     }
 }

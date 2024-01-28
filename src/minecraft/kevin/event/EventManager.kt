@@ -53,7 +53,7 @@ class EventManager {
                 if (!invokableEventTarget.eventClass.handleEvents() && !invokableEventTarget.isIgnoreCondition)
                     continue
 
-                invokableEventTarget.method.invoke(invokableEventTarget.eventClass, event)
+                invokableEventTarget.call(event)
             } catch (throwable: Throwable) {
                 throwable.printStackTrace()
                 if (KevinClient.debug) {

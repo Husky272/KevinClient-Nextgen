@@ -108,8 +108,8 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
     private val scaffoldCheck = BooleanValue("ScaffoldCheck", true)
 
     //Timing
-    private val hightVersionAttackDelay = BooleanValue("HighVersionAttackDelay", false)
-    private val hightVersionAttackSwing = BooleanValue("HighVersionAttackSwing", false)
+    private val highVersionAttackDelay = BooleanValue("HighVersionAttackDelay", false)
+    private val highVersionAttackSwing = BooleanValue("HighVersionAttackSwing", false)
     private val attackTimingValue = ListValue("AttackTiming", arrayOf("Legit", "Pre", "Post"), "Legit")
     private val extraBlockTimingValue // vanilla will send block packet at pre
     = ListValue("ExtraBlockTiming", arrayOf("NoExtra", "Pre", "Post", "Update", "Pre&Post", "Update&Pre", "Update&Post", "Update&Pre&Post"), "NoExtra")
@@ -117,20 +117,22 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
 
     // AutoBlock
     private val autoBlockValue = ListValue("AutoBlock", arrayOf("Off", "Packet", "AfterTick", "Keep", "Vulcan"), "Off")
-    private val interactAutoBlockValue = BooleanValue("InteractAutoBlock", true)
-    private val blockStatusCheck = BooleanValue("BlockStatusCheck", true)
-    private val blockRate = IntegerValue("BlockRate", 100, 1, 100)
+    private val interactAutoBlockValue = BooleanValue("InteractAutoBlock", true) { autoBlockValue notEqual  "Off" }
+    private val blockStatusCheck = BooleanValue("BlockStatusCheck", true) { autoBlockValue notEqual  "Off" }
+    private val blockRate = IntegerValue("BlockRate", 100, 1, 100) { autoBlockValue notEqual  "Off" }
     private val blockRange: FloatValue = object : FloatValue("BlockRange", rangeValue.get(), 0f, 8f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
             val i = discoverRangeValue.get()
             if (i < newValue) set(i)
         }
+
+        override fun isSupported(): Boolean = autoBlockValue notEqual  "Off"
     }
 
     // Raycast
     private val raycastValue = BooleanValue("RayCast", true)
-    private val raycastIgnoredValue = BooleanValue("RayCastIgnored", false)
-    private val livingRaycastValue = BooleanValue("LivingRayCast", true)
+    private val raycastIgnoredValue = BooleanValue("RayCastIgnored", false) { raycastValue.get() }
+    private val livingRaycastValue = BooleanValue("LivingRayCast", true) { raycastValue.get() }
 
     // Bypass
     private val keepRotationTickValue = IntegerValue("KeepRotationTick", 0, 0, 30)
@@ -180,6 +182,8 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
             val v = minPredictSize.get()
             if (v > newValue) set(v)
         }
+
+        override fun isSupported(): Boolean = predictValue.get()
     }
 
     private val minPredictSize: FloatValue = object : FloatValue("MinPredictSize", 1f, 0.1f, 5f) {
@@ -187,6 +191,8 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
             val v = maxPredictSize.get()
             if (v < newValue) set(v)
         }
+
+        override fun isSupported(): Boolean = predictValue.get()
     }
 
     // Bypass
@@ -194,8 +200,8 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
     private val failRateValue = FloatValue("FailRate", 0f, 0f, 100f)
     private val fakeSwingValue = BooleanValue("FakeSwing", true)
     private val noInventoryAttackValue = BooleanValue("NoInvAttack", false)
-    private val noInventoryDelayValue = IntegerValue("NoInvDelay", 200, 0, 500)
-    private val limitedMultiTargetsValue = IntegerValue("LimitedMultiTargets", 0, 0, 50)
+    private val noInventoryDelayValue = IntegerValue("NoInvDelay", 200, 0, 500) { noInventoryAttackValue.get() }
+    private val limitedMultiTargetsValue = IntegerValue("LimitedMultiTargets", 0, 0, 50) { targetModeValue equal "Multi" }
 
     // Advanced
     private val hitBoxMode = ListValue("HitBoxMode", arrayOf("1.8", "HigherVersion"), "1.8")
@@ -437,7 +443,7 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
             false
         }
         attackTickTimer.update()
-        if (hightVersionAttackDelay.get()) {
+        if (highVersionAttackDelay.get()) {
             var delayValue = 4
 
             if (mc.thePlayer.heldItem != null) {
@@ -619,7 +625,7 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
         target ?: return
 
         // prevent duplicated swing / attack
-        if (hightVersionAttackDelay.get()) return
+        if (highVersionAttackDelay.get()) return
 
         var timeAdder = if (!smartAttackValue.get() || mc.thePlayer.hurtTime != 0 || (target !is EntityLivingBase || (target as EntityLivingBase).hurtTime <= (3 + (mc.thePlayer.getPing() / 50.0).toInt()))) 0 else 500
 
@@ -829,7 +835,7 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
         KevinClient.eventManager.callEvent(AttackEvent(entity))
 
         // Attack target
-        val highVersionSwing = hightVersionAttackSwing.get()
+        val highVersionSwing = highVersionAttackSwing.get()
         if (!highVersionSwing) doSwing()
 
         mc.netHandler.addToSendQueue(C02PacketUseEntity(entity, C02PacketUseEntity.Action.ATTACK))

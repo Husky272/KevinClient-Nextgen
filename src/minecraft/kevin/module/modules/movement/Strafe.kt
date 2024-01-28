@@ -29,10 +29,10 @@ import kotlin.math.sqrt
 
 class Strafe : Module("Strafe","Allows you to freely move in mid air.", Keyboard.KEY_NONE, ModuleCategory.MOVEMENT){
 
-    private var strengthValue= FloatValue("Strength", 0.5F, 0F, 1F)
-    private var noMoveStopValue = BooleanValue("NoMoveStop", false)
-    private var onGroundStrafeValue = BooleanValue("OnGroundStrafe", false)
-    var allDirectionsJumpValue = BooleanValue("AllDirectionsJump", false)
+    private val strengthValue= FloatValue("Strength", 0.5F, 0F, 1F)
+    private val noMoveStopValue = BooleanValue("NoMoveStop", false)
+    private val onGroundStrafeValue = BooleanValue("OnGroundStrafe", false)
+    val allDirectionsJumpValue = BooleanValue("AllDirectionsJump", false)
 
     private var wasDown: Boolean = false
     private var jump: Boolean = false

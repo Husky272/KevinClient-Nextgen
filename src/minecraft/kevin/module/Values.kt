@@ -18,9 +18,10 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonPrimitive
 import kevin.main.KevinClient
 import java.util.*
+import java.util.function.Supplier
 import kotlin.reflect.KProperty
 
-abstract class Value<T>(val name: String, protected var value: T) {
+abstract class Value<T>(val name: String, protected var value: T, protected val isSupported: (() -> Boolean)? = null) {
 
     fun set(newValue: T) {
         if (newValue == value)
@@ -38,11 +39,13 @@ abstract class Value<T>(val name: String, protected var value: T) {
         }
     }
 
-    fun get() = value
+    open fun get() = value
 
     open fun changeValue(value: T) {
         this.value = value
     }
+
+    open fun isSupported(): Boolean = isSupported?.invoke() ?: true
 
     abstract fun toJson(): JsonElement?
     abstract fun fromJson(element: JsonElement)
@@ -60,7 +63,7 @@ abstract class Value<T>(val name: String, protected var value: T) {
 /**
  * Bool value represents a value with a boolean
  */
-open class BooleanValue(name: String, value: Boolean) : Value<Boolean>(name, value) {
+open class BooleanValue @JvmOverloads constructor(name: String, value: Boolean, isSupported: (() -> Boolean)? = null) : Value<Boolean>(name, value, isSupported) {
 
     override fun toJson() = JsonPrimitive(value)
 
@@ -69,13 +72,14 @@ open class BooleanValue(name: String, value: Boolean) : Value<Boolean>(name, val
             value = element.asBoolean || element.asString.equals("true", ignoreCase = true)
     }
 
+    override fun get(): Boolean = isSupported() && super.get()
 }
 
 /**
  * Integer value represents a value with a integer
  */
-open class IntegerValue(name: String, value: Int, val minimum: Int = 0, val maximum: Int = Integer.MAX_VALUE)
-    : Value<Int>(name, value) {
+open class IntegerValue(name: String, value: Int, val minimum: Int = 0, val maximum: Int = Integer.MAX_VALUE, isSupported: (() -> Boolean)? = null)
+    : Value<Int>(name, value, isSupported) {
 
     fun set(newValue: Number) {
         set(newValue.toInt())
@@ -88,14 +92,15 @@ open class IntegerValue(name: String, value: Int, val minimum: Int = 0, val maxi
             value = element.asInt
     }
 
-    constructor(name: String, value: Int, range: IntRange) : this(name, value, range.first, range.last)
+    constructor(name: String, value: Int, range: IntRange, isSupported: (() -> Boolean)? = null) : this(name, value, range.first, range.last, isSupported)
+    constructor(name: String, value: Int, minimum: Int = 0, maximum: Int = Integer.MAX_VALUE) : this(name, value, minimum, maximum, null) // provide to java
 }
 
 /**
  * Float value represents a value with a float
  */
-open class FloatValue(name: String, value: Float, val minimum: Float = 0F, val maximum: Float = Float.MAX_VALUE)
-    : Value<Float>(name, value) {
+open class FloatValue(name: String, value: Float, val minimum: Float = 0F, val maximum: Float = Float.MAX_VALUE, isSupported: (() -> Boolean)? = null)
+    : Value<Float>(name, value, isSupported) {
 
     fun set(newValue: Number) {
         set(newValue.toFloat())
@@ -109,12 +114,13 @@ open class FloatValue(name: String, value: Float, val minimum: Float = 0F, val m
     }
 
     constructor(name: String, value: Float, range: ClosedFloatingPointRange<Float>) : this(name, value, range.start, range.endInclusive)
+    constructor(name: String, value: Float, minimum: Float = 0F, maximum: Float = Float.MAX_VALUE) : this(name, value, minimum, maximum, null)
 }
 
 /**
  * Text value represents a value with a string
  */
-open class TextValue(name: String, value: String) : Value<String>(name, value) {
+open class TextValue @JvmOverloads constructor(name: String, value: String, isSupported: (() -> Boolean)? = null) : Value<String>(name, value, isSupported) {
 
     override fun toJson() = JsonPrimitive(value)
 
@@ -127,12 +133,12 @@ open class TextValue(name: String, value: String) : Value<String>(name, value) {
 /**
  * Block value represents a value with a block
  */
-class BlockValue(name: String, value: Int) : IntegerValue(name, value, 1, 197)
+class BlockValue @JvmOverloads constructor(name: String, value: Int, isSupported: (() -> Boolean)? = null) : IntegerValue(name, value, 1, 197, isSupported)
 
 /**
  * List value represents a selectable list of values
  */
-open class ListValue(name: String, val values: Array<String>, value: String) : Value<String>(name, value) {
+open class ListValue @JvmOverloads constructor(name: String, val values: Array<String>, value: String, isSupported: (() -> Boolean)? = null) : Value<String>(name, value, isSupported) {
 
     @JvmField
     var openList = false

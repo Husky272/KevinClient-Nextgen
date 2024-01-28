@@ -66,7 +66,9 @@ class PacketLogger: Module("PacketLogger", "Allow you know what packet we receiv
     }
 
     private fun registerPacket(direction: EnumPacketDirection, clz: Class<out Packet<*>>) {
-        val bv = BooleanValue(clz.simpleName, false)
+        val bv = object : BooleanValue(clz.simpleName, false) {
+            override fun isSupported(): Boolean = (direction == EnumPacketDirection.CLIENTBOUND && logClientBoundPacket.get()) || (direction == EnumPacketDirection.SERVERBOUND && logServerBoundPacket.get())
+        }
         if (direction == EnumPacketDirection.CLIENTBOUND) {
             clientBoundPackets[clz] = bv
         } else {

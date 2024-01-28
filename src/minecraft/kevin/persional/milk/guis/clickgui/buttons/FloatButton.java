@@ -45,4 +45,9 @@ public class FloatButton extends Button {
     public void clickButton(int x, int y, int mx, int my) {
         super.clickButton(x, y, mx, my);
     }
+
+    @Override
+    public boolean show() {
+        return value.isSupported();
+    }
 }

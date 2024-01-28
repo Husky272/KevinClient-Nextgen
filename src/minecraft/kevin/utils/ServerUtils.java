@@ -64,11 +64,10 @@ public final class ServerUtils extends MinecraftInstance {
             else connection = realUrl.openConnection(proxy);
             connection.setRequestProperty("accept", "*/*");
             connection.setRequestProperty("connection", "Keep-Alive");
-            connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-            connection.setConnectTimeout(3000);
+            connection.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
+            connection.setConnectTimeout(5000);
             connection.setReadTimeout(3000);
             connection.connect();
-
             in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;
             while ((line = in.readLine()) != null) {
@@ -80,8 +79,7 @@ public final class ServerUtils extends MinecraftInstance {
             } else {
                 conResult = 1;
             }
-        }
-        finally {
+        } finally {
             try {
                 if (in != null) {
                     in.close();

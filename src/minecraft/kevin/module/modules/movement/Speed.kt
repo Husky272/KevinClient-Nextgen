@@ -37,6 +37,7 @@ class Speed : Module("Speed","Allows you to move faster.", category = ModuleCate
         AutoJump,
         VerusYPort,
         VerusHop,
+        CollisionLowHop,
         MatrixNew, //from FDP
         VulcanHop, //from FDP
         VulcanGround, // from FDP
@@ -95,5 +96,7 @@ class Speed : Module("Speed","Allows you to move faster.", category = ModuleCate
         }
         nowMode.onPacket(event)
     }
+
+    @EventTarget fun onBB(event: BlockBBEvent) = nowMode.onBlockBB(event)
     override val values: List<Value<*>> = super.values.toMutableList().also { list -> speeds.forEach { speedMode -> list.addAll(speedMode.values) } }
 }

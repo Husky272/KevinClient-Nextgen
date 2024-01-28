@@ -19,6 +19,7 @@ import org.python.core.PyDictionary
 import org.python.core.PyList
 import org.python.core.PyObject
 
+@Suppress("unused")
 object Setting {
     @JvmStatic
     fun boolean(settingInfo: PyObject): BooleanValue {

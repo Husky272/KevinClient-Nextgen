@@ -14,12 +14,13 @@
  */
 package kevin.module.modules.movement.speeds.other
 
+import kevin.event.UpdateEvent
 import kevin.module.modules.movement.speeds.SpeedMode
 import kevin.utils.MovementUtils
 import kotlin.math.abs
 
 object Prediction : SpeedMode("Prediction") {
-    override fun onPreMotion() {
+    override fun onUpdate(event: UpdateEvent) {
         if (!MovementUtils.isMoving
             || mc.thePlayer.isInLava
             || mc.thePlayer.isInWater

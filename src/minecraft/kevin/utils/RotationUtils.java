@@ -399,6 +399,10 @@ public final class RotationUtils extends MinecraftInstance implements Listenable
         return Math.hypot(getAngleDifference(a.getYaw(), b.getYaw()), a.getPitch() - b.getPitch());
     }
 
+    public static boolean compareRotationDifferenceLesser(Rotation compareWith, Rotation toCompare1, Rotation toCompare2) {
+        return getRotationDifference(toCompare1, compareWith) < getRotationDifference(toCompare2, compareWith);
+    }
+
     /**
      * Limit your rotation using a turn speed
      *
@@ -508,8 +512,9 @@ public final class RotationUtils extends MinecraftInstance implements Listenable
             final EntityPlayerSP thePlayer = mc.thePlayer;
             final Rotation rotation = new Rotation(thePlayer.rotationYaw, thePlayer.rotationPitch);
             if (getAngleDifference(currentRotation.getYaw(), rotation.getYaw()) > yawSpeed || Math.abs(rotation.getPitch() - currentRotation.getPitch()) > pitchSpeed) {
-                targetRotation = limitAngleChange(currentRotation, rotation, yawSpeed, pitchSpeed);
-                targetRotation.fixedSensitivity();
+                Rotation limited = limitAngleChange(currentRotation, rotation, yawSpeed, pitchSpeed);
+                limited.fixedSensitivity();
+                setTargetRotation(limited);
                 return;
             }
         }

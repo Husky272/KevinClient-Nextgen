@@ -46,29 +46,29 @@ class AntiKnockback : Module("AntiKnockback","Allows you to modify the amount of
         "AllowFirst", "Click", "LegitSmart", "IntaveJump", "TestBuzzReverse", "MMC", "Down", "BlockCollection"), "Simple")
 
     // Simple
-    private val simpleCancelTransaction = BooleanValue("SimpleCancelTransactions", false)
-    private val simpleCancelTransactionCount = IntegerValue("SimpleCancelTransactionsCount", 6, 0, 20)
+    private val simpleCancelTransaction = BooleanValue("SimpleCancelTransactions", false) { modeValue equal "Simple" }
+    private val simpleCancelTransactionCount = IntegerValue("SimpleCancelTransactionsCount", 6, 0, 20) { modeValue equal "Simple" && simpleCancelTransaction.get() }
 
     // Reverse
-    private val reverseStrengthValue = FloatValue("ReverseStrength", 1F, 0.1F, 1F)
-    private val reverse2StrengthValue = FloatValue("SmoothReverseStrength", 0.05F, 0.02F, 0.1F)
+    private val reverseStrengthValue = FloatValue("ReverseStrength", 1F, 0.1F, 1F) { modeValue equal "Reverse" }
+    private val reverse2StrengthValue = FloatValue("SmoothReverseStrength", 0.05F, 0.02F, 0.1F) { modeValue equal "Reverse" }
 
     // AAC Push
-    private val aacPushXZReducerValue = FloatValue("AACPushXZReducer", 2F, 1F, 3F)
-    private val aacPushYReducerValue = BooleanValue("AACPushYReducer", true)
+    private val aacPushXZReducerValue = FloatValue("AACPushXZReducer", 2F, 1F, 3F) { modeValue equal "AACPush" }
+    private val aacPushYReducerValue = BooleanValue("AACPushYReducer", true) { modeValue equal "AACPush" }
 
     // AAc v4
-    private val aacv4MotionReducerValue = FloatValue("AACv4MotionReducer", 0.62F,0F,1F)
+    private val aacv4MotionReducerValue = FloatValue("AACv4MotionReducer", 0.62F,0F,1F) { modeValue equal  "AACv4" }
 
 
     // Click
-    private val clickCount = IntegerValue("ClickCount", 2, 1, 10)
-    private val clickTime = IntegerValue("ClickMinHurtTime", 8, 1, 10) // 10: only click when receive velocity packet
-    private val clickRange = FloatValue("ClickRange", 3.0F, 2.5F, 7F)
-    private val clickOnPacket = BooleanValue("ClickOnPacket", true)
-    private val clickSwing = BooleanValue("ClickSwing", false)
-    private val clickFakeSwing = BooleanValue("ClickFakeSwing", true)
-    private val clickOnlyNoBlocking = BooleanValue("ClickOnlyNoBlocking", false)
+    private val clickCount = IntegerValue("ClickCount", 2, 1, 10) { modeValue equal "Click" }
+    private val clickTime = IntegerValue("ClickMinHurtTime", 8, 1, 10) { modeValue equal "Click" } // 10: only click when receive velocity packet
+    private val clickRange = FloatValue("ClickRange", 3.0F, 2.5F, 7F) { modeValue equal "Click" }
+    private val clickOnPacket = BooleanValue("ClickOnPacket", true) { modeValue equal "Click" }
+    private val clickSwing = BooleanValue("ClickSwing", false) { modeValue equal "Click" }
+    private val clickFakeSwing = BooleanValue("ClickFakeSwing", true) { modeValue equal "Click" }
+    private val clickOnlyNoBlocking = BooleanValue("ClickOnlyNoBlocking", false) { modeValue equal "Click" }
 
     // explosion value
     private val cancelExplosionPacket = BooleanValue("CancelExplosionPacket",false)
@@ -112,8 +112,8 @@ class AntiKnockback : Module("AntiKnockback","Allows you to modify the amount of
 
         when (modeValue.get().lowercase()) {
             "jump" -> if (thePlayer.hurtTime > 7 && thePlayer.onGround) {
-                thePlayer.jump()
-            }
+                mc.gameSettings.keyBindJump.pressed = true
+            } else if (thePlayer.hurtTime > 5) mc.gameSettings.keyBindJump.pressed = mc.gameSettings.keyBindJump.isKeyDown
 
             "glitch" -> {
                 thePlayer.noClip = velocityInput

@@ -29,4 +29,9 @@ public class BooleanButton extends Button {
         }
         super.clickButton(x, y, mx, my);
     }
+
+    @Override
+    public boolean show() {
+        return value.isSupported();
+    }
 }

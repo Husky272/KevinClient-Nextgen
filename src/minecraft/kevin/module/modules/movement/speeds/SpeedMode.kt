@@ -14,6 +14,7 @@
  */
 package kevin.module.modules.movement.speeds
 
+import kevin.event.BlockBBEvent
 import kevin.event.MoveEvent
 import kevin.event.PacketEvent
 import kevin.event.UpdateEvent
@@ -35,4 +36,6 @@ abstract class SpeedMode(val modeName: String): MinecraftInstance() {
     open fun onUpdate(event: UpdateEvent) {}
     open fun onPacket(event: PacketEvent) {}
     open fun onPreMotion() {}
+
+    open fun onBlockBB(event: BlockBBEvent) {}
 }

@@ -48,6 +48,9 @@ fun Entity.rayTraceWithServerSideRotation(range: Double): MovingObjectPosition {
     return this.worldObj.rayTraceBlocks(eyes, end, false, false, true)
 }
 
+val Entity.rotation: Rotation
+    get() = Rotation(this.rotationYaw, this.rotationPitch)
+
 fun Vec3.distanceTo(bb: AxisAlignedBB): Double {
     val pos = getNearestPointBB(this, bb)
     val xDist = abs(pos.xCoord - this.xCoord)
