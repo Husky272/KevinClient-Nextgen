@@ -126,7 +126,6 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
 
     // Rotation Options
     private val rotationValues = arrayOf("Off", "Normal", "AAC", "GodBridge", "MoveDirection", "Custom")
-    private val strafeMode = ListValue("Strafe", arrayOf("Off", "AAC", "Strict"), "Off")
     private val rotationsValue = ListValue("Rotations", rotationValues, "Normal")
     private val towerRotationsValue = ListValue("TowerRotations", rotationValues, "Normal")
     private val aacYawOffsetValue = IntegerValue("AACYawOffset", 0, 0, 90)
@@ -500,7 +499,6 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
         if (rotationsOn
             && (keepRotationValue.get() || !lockRotationTimer.hasTimePassed(keepLengthValue.get()))
             && lockRotation != null
-            && strafeMode.get().equals("Off", true)
         ) {
             setRotation(lockRotation!!)
             lockRotationTimer.update()
@@ -578,66 +576,6 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
         val packet = event.packet
         if ((packet) is C09PacketHeldItemChange) {
             slot = packet.slotId
-        }
-    }
-
-    @EventTarget
-    fun onStrafe(event: StrafeEvent) {
-        if (strafeMode.get().equals("Off", true) || event.isCancelled)
-            return
-
-//        update()
-        // not null
-        lockRotation?.let {
-            if (strafeMode.get().equals("AAC", true)) {
-                event.yaw = it.yaw - 180
-            } else { // strafeMode.get().equals("Strict", true)
-                var strafe: Float = event.strafe
-                var forward: Float = event.forward
-                val deltaYaw = abs(RotationUtils.getAngleDifference(it.yaw, mc.thePlayer.rotationYaw))
-                if (strafe == 0f && deltaYaw > 45f && deltaYaw < 170 && forward != 0f) {
-                    val floorX = floor(mc.thePlayer.posX)
-                    val floorZ = floor(mc.thePlayer.posZ)
-                    val xChange = mc.thePlayer.posX - floorX
-                    val zChange = mc.thePlayer.posZ - floorZ
-                    val absForward = abs(forward)
-                    when (mc.thePlayer.getHorizontalFacing(mc.thePlayer.rotationYaw)) {
-                        EnumFacing.EAST -> strafe = if (zChange > 0.5) absForward else -absForward
-                            EnumFacing.WEST -> strafe = if (zChange < 0.5) absForward else -absForward
-                        EnumFacing.SOUTH -> strafe = if (xChange < 0.5) absForward else -absForward
-                        EnumFacing.NORTH -> strafe = if (xChange > 0.5) absForward else -absForward
-                        else -> {}
-                    }
-                    if (forward < 0f) {
-                        strafe = -strafe
-                    }
-                    if (!mc.thePlayer.isSprinting && abs(deltaYaw - 90f) < 18f) {
-                        forward = 0f
-                    }
-                }
-                if (deltaYaw >= 90) {
-                    strafe = -strafe
-                    forward = -forward
-                }
-
-                val friction: Float = event.friction
-                var f = strafe * strafe + forward * forward
-
-                if (f >= 1.0E-4f) {
-                    f = MathHelper.sqrt_float(f)
-                    if (f < 1.0f) {
-                        f = 1.0f
-                    }
-                    f = friction / f
-                    strafe *= f
-                    forward *= f
-                    val f1 = MathHelper.sin(RotationUtils.targetRotation.yaw * Math.PI.toFloat() / 180.0f)
-                    val f2 = MathHelper.cos(RotationUtils.targetRotation.yaw * Math.PI.toFloat() / 180.0f)
-                    mc.thePlayer.motionX += (strafe * f2 - forward * f1).toDouble()
-                    mc.thePlayer.motionZ += (forward * f2 + strafe * f1).toDouble()
-                }
-            }
-            event.cancelEvent()
         }
     }
 
@@ -1326,7 +1264,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
         var nearestDefault = Rotation(moveDirection.toFloat() + 180f, 75.2f)
         val base = when {
             rotationsValue equal "AAC" -> {
-                val dv = aacYawOffsetValue.get().toFloat() + (mc.thePlayer.rotationYaw / 45f).toInt().times(45f)
+                val dv = aacYawOffsetValue.get().toFloat() + mc.thePlayer.rotationYaw.div(45f).toInt().times(45f)
                 nearestDefault = Rotation(_basic8DRot.sortedBy { RotationUtils.getAngleDifference(dv + 180f, it) }[0],  76.8f)
                 dv
             }
@@ -1334,7 +1272,10 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
                 rotArr = _godBridgeRot
                 keepRotationValue.set(true)
                 // have no other ideas...
-                val block = BlockPos(mc.thePlayer.getPositionEyes(-2f))
+                val d = moveDirection + 180
+                val dz = cos(-d * 0.017453292f - Math.PI)
+                val dx = sin(-d * 0.017453292f - Math.PI)
+                val block = BlockPos(mc.thePlayer.posX + dx * 5, mc.thePlayer.posY, mc.thePlayer.posZ + dz * 5)
                 val x = block.x + 0.5 - mc.thePlayer.posX
                 val z = block.z + 0.5 - mc.thePlayer.posZ
                 var yaw = (atan2(z, x) * 180.0 / Math.PI).toFloat() - 90.0f
@@ -1367,6 +1308,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
         }
         val eyesLoc = mc.thePlayer.eyesLoc
         var target : PlaceRotation? = null
+        var distanceSq = 4.5
         // high priority
         if (targetRotation != null) {
             val ray = mc.theWorld.rayTraceBlocks(eyesLoc, targetRotation.toDirection().multiply(4.4).add(eyesLoc), false, false, true)
@@ -1378,11 +1320,23 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
             val dir = i + base
             for (p in min(55f, serverRotation.pitch - 20f)..max(serverRotation.pitch + 20f, 90f) step 0.1f) {
                 val rotation = Rotation(dir, p)
-                rotation.fixedSensitivity()
-                val rayTraceBlocks = mc.theWorld.rayTraceBlocks(eyesLoc, rotation.toDirection().multiply(4.4).add(eyesLoc), false, false, true)
-                if (rayTraceBlocks.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && rayTraceBlocks.sideHit != EnumFacing.DOWN && ((mc.thePlayer.motionY > -0.15 && !mc.thePlayer.onGround) || rayTraceBlocks.sideHit != EnumFacing.UP) && rayTraceBlocks.blockPos.y <= mc.thePlayer.posY - 1 && (!mc.thePlayer.onGround || rayTraceBlocks.blockPos.y >= mc.thePlayer.posY - 1.5)) {
-                    if (target == null || RotationUtils.compareRotationDifferenceLesser(serverRotation, rotation, target.rotation)) {
+                    .fixedSensitivity()
+                val rayTraceBlocks = mc.theWorld.rayTraceBlocks(eyesLoc, rotation.toDirection().multiply(4.4).add(eyesLoc), false, false, true) ?: continue
+
+                if (
+                    // if this block is able to place
+                    rayTraceBlocks.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && rayTraceBlocks.sideHit != EnumFacing.DOWN &&
+                    // and this block isn't up if needn't
+                    ((mc.thePlayer.motionY > -0.15 && !mc.thePlayer.onGround) || rayTraceBlocks.sideHit != EnumFacing.UP) &&
+                    // and check it is actually not place up
+                    rayTraceBlocks.blockPos.y <= mc.thePlayer.posY - 1 && (!mc.thePlayer.onGround || rayTraceBlocks.blockPos.y >= mc.thePlayer.posY - 1.5)
+                ) {
+                    val dis = rayTraceBlocks.blockPos.offset(rayTraceBlocks.sideHit).distanceSqToCenter(mc.thePlayer.posX, mc.thePlayer.posY - 0.5, mc.thePlayer.posZ)
+                    // prevent some stuff
+                    if (target == null || RotationUtils.compareRotationDifferenceLesser(serverRotation, rotation, target.rotation) || RotationUtils.compareRotationDifferenceLesser(nearestDefault, rotation, target.rotation)
+                        || dis < distanceSq) {
                         target = PlaceRotation(PlaceInfo(rayTraceBlocks.blockPos, rayTraceBlocks.sideHit, rayTraceBlocks.hitVec), rotation)
+                        distanceSq = dis
                     }
                 }
             }
@@ -1391,6 +1345,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
             targetPlace = target.placeInfo
             doRotationChange(target.rotation)
         } else if (unsafe) {
+            // TODO: If unsafe and no any search result
         }
         return true
     }

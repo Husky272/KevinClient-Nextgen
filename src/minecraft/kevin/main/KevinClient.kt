@@ -48,7 +48,7 @@ import java.util.concurrent.Executors
 
 object KevinClient {
     var name = "Kevin"
-    var version = "u2.5.4" // u - updated
+    var version = "u-FINAL" // GG
 
     var isStarting = true
 
