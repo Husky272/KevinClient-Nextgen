@@ -41,12 +41,12 @@ class ToggleCommand : ICommand {
                         return
                     }else {
                         module.toggle()
-                        ChatUtils.message("${KevinClient.cStart} §9${if (module.state) "§aEnable" else "§cDisable"} §e${module.name} §9Module")
+                        ChatUtils.message("${KevinClient.cStart} ${if (module.state) "Enable" else "Disable"} ${module.name}")
                         return
                     }
                 }else{
                     module.toggle()
-                    ChatUtils.message("${KevinClient.cStart} §9${if (module.state) "§aEnable" else "§cDisable"} §e${module.name} §9Module")
+                    ChatUtils.message("${KevinClient.cStart} ${if (module.state) "Enable" else "Disable"} ${module.name}")
                     return
                 }
             }

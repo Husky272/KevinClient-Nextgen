@@ -20,7 +20,6 @@ import kevin.event.UpdateEvent
 import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.modules.player.InventoryCleaner
-import kevin.utils.InventoryUtils.MouseSimulator.SHARED as mouseSimulator
 import kevin.utils.ItemUtils
 import kevin.utils.MSTimer
 import kevin.utils.TimeUtils
@@ -31,8 +30,8 @@ import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.network.play.server.S30PacketWindowItems
 import net.minecraft.util.ResourceLocation
-import java.util.LinkedList
 import kotlin.random.Random
+import kevin.utils.InventoryUtils.MouseSimulator.SHARED as mouseSimulator
 
 class ChestStealer : Module("ChestStealer", description = "Automatically steals all items from a chest.", category = ModuleCategory.WORLD) {
 
@@ -88,7 +87,6 @@ class ChestStealer : Module("ChestStealer", description = "Automatically steals 
     private val mouseSpeed by FloatValue("MouseSpeed", 6f, 0.1f..30f)
 
     private var targetSlot: Slot? = null
-    private var clickedSlots = LinkedList<Int>()
     /**
      * VALUES
      */
@@ -113,7 +111,6 @@ class ChestStealer : Module("ChestStealer", description = "Automatically steals 
                 delayTimer.reset()
             autoCloseTimer.reset()
             targetSlot = null
-            clickedSlots.clear()
             return
         }
 
@@ -171,13 +168,17 @@ class ChestStealer : Module("ChestStealer", description = "Automatically steals 
             if (takeRandomizedValue.get()) {
                 do {
                     val items = mutableListOf<Slot>()
-                    for (slotIndex in 0 until screen.inventoryRows * 9) {
-                        val slot = screen.inventorySlots!!.getSlot(slotIndex)
+                    for (rows in 0..screen.inventoryRows) {
+                        val reverse = rows % 2 == 0
+                        val base = rows * 9
+                        for (slotIndex in if (reverse) (-8..0) else (0 until 9)) {
+                            val slot = screen.inventorySlots!!.getSlot(slotIndex + base)
 
-                        val stack = slot.stack
+                            val stack = slot.stack
 
-                        if (stack != null && (!onlyItemsValue.get() || stack.item !is ItemBlock) && (!inventoryCleaner.state || inventoryCleaner.isUseful(stack, -1)))
-                            items.add(slot)
+                            if (stack != null && (!onlyItemsValue.get() || stack.item !is ItemBlock) && (!inventoryCleaner.state || inventoryCleaner.isUseful(stack, -1)))
+                                items.add(slot)
+                        }
                     }
                     val randomSlot = Random.nextInt(items.size)
                     val slot = items[randomSlot]
@@ -188,17 +189,13 @@ class ChestStealer : Module("ChestStealer", description = "Automatically steals 
             }
 
             // Non randomized
-            for (rows in 0..screen.inventoryRows) {
-                val reverse = rows % 2 == 0
-                val base = rows * 9
-                for (slotIndex in if (reverse) (-8..0) else (0 until 9)) {
-                    val slot = screen.inventorySlots!!.getSlot(slotIndex + base)
+            for (slotIndex in 0 until screen.inventoryRows * 9) {
+                val slot = screen.inventorySlots!!.getSlot(slotIndex)
 
-                    val stack = slot.stack
+                val stack = slot.stack
 
-                    if (delayTimer.hasTimePassed(nextDelay) && shouldTake(stack, inventoryCleaner)) {
-                        move(screen, slot)
-                    }
+                if (delayTimer.hasTimePassed(nextDelay) && shouldTake(stack, inventoryCleaner)) {
+                    move(screen, slot)
                 }
             }
         } else if (autoCloseValue.get() && screen.inventorySlots!!.windowId == contentReceived && autoCloseTimer.hasTimePassed(nextCloseDelay)) {
@@ -226,7 +223,6 @@ class ChestStealer : Module("ChestStealer", description = "Automatically steals 
         } else {
             screen.handleMouseClick(slot, slot.slotNumber, 0, 1)
         }
-        clickedSlots.add(slot.slotNumber)
         delayTimer.reset()
         nextDelay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
     }

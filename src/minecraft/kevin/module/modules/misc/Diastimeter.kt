@@ -70,15 +70,15 @@ class Diastimeter : Module("Diastimeter","Get distance to a block.(also can get 
                 vertexBlock.first==null&&vertexBlock.second==null -> {
                     vertexBlock = targetPos to null
                     blocks.add(targetPos)
-                    ChatUtils.messageWithStart("§l§7[§l§9Diastimeter§l§7] §l§9First pos set to X:${targetPos.x} Y:${targetPos.y} Z:${targetPos.z}.(Distance: ${getDistanceToBlock(targetPos)})")
+                    ChatUtils.messageWithStart("[Diastimeter] First pos set to X:${targetPos.x} Y:${targetPos.y} Z:${targetPos.z}.(Distance: ${getDistanceToBlock(targetPos)})")
                 }
                 vertexBlock.second==null -> {
                     vertexBlock = vertexBlock.first to targetPos
-                    ChatUtils.messageWithStart("§l§7[§l§9Diastimeter§l§7] §l§9Second pos set to X:${targetPos.x} Y:${targetPos.y} Z:${targetPos.z}.")
-                    ChatUtils.messageWithStart("§l§7[§l§9Diastimeter§l§7] §l§9To First Distance: ${getDistanceToBlock(vertexBlock.first!!)} To Second Distance: ${getDistanceToBlock(targetPos)}")
-                    ChatUtils.messageWithStart("§l§7[§l§9Diastimeter§l§7] §l§9Disparity: X: ${vertexBlock.first!!.getXDisparity(vertexBlock.second!!)} Y: ${vertexBlock.first!!.getYDisparity(vertexBlock.second!!)} Z: ${vertexBlock.first!!.getZDisparity(vertexBlock.second!!)}")
-                    if (areaValue.get()) ChatUtils.messageWithStart("§l§7[§l§9Diastimeter§l§7] §l§9Area: ${getArea(vertexBlock.first!!,vertexBlock.second!!)}")
-                    if (volumeValue.get()) ChatUtils.messageWithStart("§l§7[§l§9Diastimeter§l§7] §l§9Volume: ${getVolume(vertexBlock.first!!,vertexBlock.second!!)}")
+                    ChatUtils.messageWithStart("[Diastimeter] Second pos set to X:${targetPos.x} Y:${targetPos.y} Z:${targetPos.z}.")
+                    ChatUtils.messageWithStart("[Diastimeter] To First Distance: ${getDistanceToBlock(vertexBlock.first!!)} To Second Distance: ${getDistanceToBlock(targetPos)}")
+                    ChatUtils.messageWithStart("[Diastimeter] Disparity: X: ${vertexBlock.first!!.getXDisparity(vertexBlock.second!!)} Y: ${vertexBlock.first!!.getYDisparity(vertexBlock.second!!)} Z: ${vertexBlock.first!!.getZDisparity(vertexBlock.second!!)}")
+                    if (areaValue.get()) ChatUtils.messageWithStart("[Diastimeter] Area: ${getArea(vertexBlock.first!!,vertexBlock.second!!)}")
+                    if (volumeValue.get()) ChatUtils.messageWithStart("[Diastimeter] Volume: ${getVolume(vertexBlock.first!!,vertexBlock.second!!)}")
                     when{
                         volumeValue.get() -> {
                             for (x in min(vertexBlock.first!!.x,vertexBlock.second!!.x)..max(vertexBlock.first!!.x,vertexBlock.second!!.x)){
@@ -117,7 +117,7 @@ class Diastimeter : Module("Diastimeter","Get distance to a block.(also can get 
                 else -> {
                     vertexBlock = null to null
                     blocks.clear()
-                    ChatUtils.messageWithStart("§l§7[§l§9Diastimeter§l§7] §l§9Clear.")
+                    ChatUtils.messageWithStart("[Diastimeter] Clear.")
                 }
             }
         }

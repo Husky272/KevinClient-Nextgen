@@ -82,9 +82,6 @@ class AutoWeapon : Module("AutoWeapon", "Automatically selects the best weapon i
                 }
             }
 
-            beforeSlot = thePlayer.inventory.currentItem
-            if (switchBack.get()) spoofedSlot = ticksValue.get()
-
             if (slot == thePlayer.inventory.currentItem) // If in hand no need to swap
                 return
 
@@ -93,7 +90,9 @@ class AutoWeapon : Module("AutoWeapon", "Automatically selects the best weapon i
                 mc.netHandler.addToSendQueue(C09PacketHeldItemChange(slot))
                 spoofedSlot = ticksValue.get()
             } else {
+                beforeSlot = thePlayer.inventory.currentItem
                 thePlayer.inventory.currentItem = slot
+                if (switchBack.get()) spoofedSlot = ticksValue.get()
                 mc.playerController.updateController()
             }
 

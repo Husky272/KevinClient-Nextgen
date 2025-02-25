@@ -29,6 +29,7 @@ public class FileManager extends MinecraftInstance {
     public static final Gson PRETTY_GSON = new GsonBuilder().setPrettyPrinting().create();
 
     public final File dir = new File(mc.mcDataDir, KevinClient.INSTANCE.getName());
+    public final File soundsDir = new File(dir, "sounds");
     public final File fontsDir = new File(dir, "Fonts");
     public final File spammerDir = new File(dir,"SpammerMessages");
     public final File capesDir = new File(dir,"Capes");
@@ -50,6 +51,7 @@ public class FileManager extends MinecraftInstance {
 
     public void load(){
         if (!dir.exists()) dir.mkdir();
+        if(!soundsDir.exists()) soundsDir.mkdir();
         if (!fontsDir.exists()) fontsDir.mkdir();
         if (!spammerDir.exists()) spammerDir.mkdir();
         if (!capesDir.exists()) capesDir.mkdir();
@@ -72,6 +74,8 @@ public class FileManager extends MinecraftInstance {
                             "You need to note that: we can't guarantee that plugins from third parties are free of any malicious code,\n" +
                             "please check it yourself before using it, we are not responsible for any damages caused by plugins from third parties!");
                     writer.flush();
+                    out.flush();
+                    outputStream.flush();
                 }
             } catch (IOException e) {
                 Minecraft.logger.warn("", e);

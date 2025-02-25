@@ -51,7 +51,9 @@ class LoginCommand : ICommand {
         if (AltService().getCurrentService() != AltService.EnumAltService.MOJANG) {
             try {
                 AltService().switchService(AltService.EnumAltService.MOJANG)
-            } catch (e: NoSuchFieldException) { }
+            } catch (e: NoSuchFieldException) {
+                ChatUtils.message("$e")
+            }
         }
         val result: LoginUtils.LoginResult = LoginUtils.login(name, password)
         if (result === LoginUtils.LoginResult.LOGGED) {

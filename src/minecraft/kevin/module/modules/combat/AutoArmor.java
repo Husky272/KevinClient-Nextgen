@@ -15,7 +15,6 @@
 package kevin.module.modules.combat;
 
 import kevin.event.EventTarget;
-import kevin.event.Render3DEvent;
 import kevin.event.ScreenEvent;
 import kevin.event.UpdateEvent;
 import kevin.module.BooleanValue;

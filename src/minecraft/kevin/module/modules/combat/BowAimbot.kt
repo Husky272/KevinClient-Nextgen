@@ -25,6 +25,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.item.ItemBow
 import java.awt.Color
+import java.util.*
 
 class BowAimbot : Module("BowAimbot", "Automatically aims at players when using a bow.", category = ModuleCategory.COMBAT) {
     private val silentValue = BooleanValue("Silent", true)
@@ -58,7 +59,7 @@ class BowAimbot : Module("BowAimbot", "Automatically aims at players when using 
             it is EntityLivingBase && EntityUtils.isSelected(it, true) &&
                     (throughWalls || mc.thePlayer.canEntityBeSeen(it))
         }
-        return when (priorityMode.toUpperCase()) {
+        return when (priorityMode.uppercase(Locale.getDefault())) {
             "DISTANCE" -> targets.minByOrNull { mc.thePlayer.getDistanceToEntity(it) }
             "DIRECTION" -> targets.minByOrNull { RotationUtils.getRotationDifference(it) }
             "HEALTH" -> targets.minByOrNull { (it as EntityLivingBase).health }

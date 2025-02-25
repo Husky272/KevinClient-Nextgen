@@ -217,8 +217,13 @@ open class HUD : MinecraftInstance()  {
      * Add [element] to HUD
      */
     fun addElement(element: Element): HUD {
+        try{
         elements.add(element)
         element.updateElement()
+        }
+        catch(exception: Throwable){
+        net.minecraft.client.Minecraft.logger.warn("[Kevin / HUD] Catch exception $exception")
+        }
         return this
     }
 

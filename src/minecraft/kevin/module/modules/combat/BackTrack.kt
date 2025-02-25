@@ -21,6 +21,7 @@ import kevin.hud.element.elements.Notification
 import kevin.main.KevinClient
 import kevin.module.*
 import kevin.utils.*
+import kevin.utils.PacketUtils.packetList
 import net.minecraft.client.entity.EntityOtherPlayerMP
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -37,7 +38,7 @@ import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.Vec3
 import org.lwjgl.opengl.GL11.*
 import java.awt.Color
-import java.util.LinkedList
+import java.util.*
 import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.max
@@ -64,15 +65,11 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
         override fun onChanged(oldValue: Float, newValue: Float) {
             if (newValue > maxDistance.get()) set(maxDistance.get())
         }
-
-        override fun isSupported(): Boolean = mode equal "Smooth"
     }
     private val minTime : IntegerValue = object : IntegerValue("MinTime", 100, 0, 500) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             if (newValue > maxTime.get()) set(maxTime.get())
         }
-
-        override fun isSupported(): Boolean = mode equal "Legacy"
     }
     private val maxTime : IntegerValue = object : IntegerValue("MaxTime", 200, 0, 1000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
@@ -82,7 +79,7 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
     private val smartPacket = BooleanValue("Smart", true)
     private val maxHurtTime = IntegerValue("MaxHurtTime", 6, 0, 10)
     private val hurtTimeWithPing = BooleanValue("CalculateHurtTimeWithPing", true)
-    private val minAttackReleaseRange = FloatValue("MinAttackReleaseRange", 3.5F, 2f, 6f) { mode equal "Legacy" }
+    private val minAttackReleaseRange = FloatValue("MinAttackReleaseRange", 3.5F, 2f, 6f)
 
     private val onlyKillAura = BooleanValue("OnlyKillAura", true)
     private val onlyPlayer = BooleanValue("OnlyPlayer", true)
@@ -94,18 +91,14 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
     private val reverse = BooleanValue("Reverse", false)
     private val reverseRange : FloatValue = object : FloatValue("ReverseStartRange", 5f, 1f, 6f) {
         override fun onChanged(oldValue: Float, newValue: Float) = set(newValue.coerceAtMost(reverseMaxRange.get()))
-
-        override fun isSupported(): Boolean = reverse.get()
     }
 
     private val reverseMaxRange : FloatValue = object : FloatValue("ReverseMaxRange", 6f, 1f, 6f) {
         override fun onChanged(oldValue: Float, newValue: Float) = set(newValue.coerceAtLeast(reverseRange.get()))
-
-        override fun isSupported(): Boolean = reverse.get()
     }
-    private val reverseSelfMaxHurtTime = IntegerValue("ReverseSelfMaxHurtTime", 1, 0, 10) { reverse.get() }
-    private val reverseTargetMaxHurtTime = IntegerValue("ReverseTargetMaxHurtTime", 10, 0, 10) { reverse.get() }
-    private val maxReverseTime = IntegerValue("MaxReverseTime", 100, 1, 500) { reverse.get() }
+    private val reverseSelfMaxHurtTime = IntegerValue("ReverseSelfMaxHurtTime", 1, 0, 10)
+    private val reverseTargetMaxHurtTime = IntegerValue("ReverseTargetMaxHurtTime", 10, 0, 10)
+    private val maxReverseTime = IntegerValue("MaxReverseTime", 100, 1, 500)
 
     private val espMode = ListValue("ESPMode", arrayOf("FullBox", "OutlineBox", "NormalBox", "OtherOutlineBox", "OtherFullBox", "Model", "None"), "Box")
     private val espRed by IntegerValue("EspRed", 32, 0..255)
@@ -161,7 +154,7 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
     private val storageEntityMove = LinkedList<EntityPacketLoc>()
 
     private val killAura: KillAura by lazy { KevinClient.moduleManager.getModule(KillAura::class.java) }
-//    private var currentTarget : EntityLivingBase? = null
+    //    private var currentTarget : EntityLivingBase? = null
     private var timer = MSTimer()
     private val reverseTimer = MSTimer()
     private var hasAttackInReversing = false
@@ -172,7 +165,7 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
     var needFreeze = false
     var reversing = false
 
-//    @EventTarget
+    //    @EventTarget
     // for safety, see in met.minecraft.network.NetworkManager
     fun onPacket(event: PacketEvent) {
         mc.thePlayer ?: return
@@ -247,7 +240,7 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
                     entity.onGround = packet.onGround
                 }
                 event.cancelEvent()
-     //                storageEntities.add(entity)
+                //                storageEntities.add(entity)
             } else if (packet is S18PacketEntityTeleport) {
                 val entity = theWorld.getEntityByID(packet.entityId)
                 if (entity !is EntityLivingBase) return
@@ -517,7 +510,7 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
                 val packet = it.packet
                 try {
                     val packetEvent = PacketEvent(packet)
-                    KevinClient.eventManager.callEvent(packetEvent)
+                    if (!packetList.contains(packet)) KevinClient.eventManager.callEvent(packetEvent)
                     if (!packetEvent.isCancelled) packet.processPacket(netHandler)
                 } catch (_: ThreadQuickExitException) { }
             }
@@ -547,7 +540,7 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
                 storagePackets.remove(it)
                 try {
                     val packetEvent = PacketEvent(packet)
-                    KevinClient.eventManager.callEvent(packetEvent)
+                    if (!packetList.contains(packet)) KevinClient.eventManager.callEvent(packetEvent)
                     if (!packetEvent.isCancelled) packet.processPacket(netHandler)
                 } catch (_: ThreadQuickExitException) {}
             } else {
@@ -600,7 +593,7 @@ class BackTrack: Module("BackTrack", "Lets you attack people in their previous l
             storageSendPackets.removeAt(0).let {
                 try {
                     val packetEvent = PacketEvent(it)
-                    KevinClient.eventManager.callEvent(packetEvent)
+                    if (!packetList.contains(it)) KevinClient.eventManager.callEvent(packetEvent)
                     if (!packetEvent.isCancelled) mc.netHandler.networkManager.sendPacketNoEvent(it)
                 } catch (e: Exception) {
                     KevinClient.hud.addNotification(Notification("Something went wrong when sending packet reversing", "BackTrack"))

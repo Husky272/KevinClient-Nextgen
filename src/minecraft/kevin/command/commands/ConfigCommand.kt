@@ -74,6 +74,7 @@ class ConfigCommand : ICommand {
                             }
                         }
                     }
+
                     args[0].equals("Save",true) || args[0].equals("forceSave",true) || args[0].equals("Load",true) || args[0].equals("Delete",true) -> {
                         ChatUtils.messageWithStart("§cUsage: §9.§6config §b${args[0]} §c<ConfigName>")
                     }

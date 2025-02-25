@@ -1,6 +1,5 @@
 package kevin.module.modules.world
 
-import kevin.utils.PacketUtils.sendPacket
 import kevin.event.*
 import kevin.main.KevinClient
 import kevin.module.*
@@ -11,6 +10,7 @@ import kevin.utils.BlockUtils.getCenterDistance
 import kevin.utils.BlockUtils.isReplaceable
 import kevin.utils.MovementUtils.isMoving
 import kevin.utils.MovementUtils.strafe
+import kevin.utils.PacketUtils.sendPacket
 import kevin.utils.RandomUtils.nextFloat
 import kevin.utils.RenderUtils.drawBlockBox
 import kevin.utils.RenderUtils.drawBorderedRect
@@ -125,7 +125,7 @@ object BlockFly : Module("BlockFly", "Scaffold skidded from lb b85", 0, ModuleCa
 
     val eagle by eagleValue
 
-//    private val eagleSpeed by FloatValue("EagleSpeed", 0.3f, 0.3f..1.0f)
+    //    private val eagleSpeed by FloatValue("EagleSpeed", 0.3f, 0.3f..1.0f)
 //    val eagleSprint by BooleanValue("EagleSprint", false)
     private val blocksToEagle by IntegerValue("BlocksToEagle", 0, 0..10)
     private val edgeDistance by FloatValue("EagleEdgeDistance", 0f, 0f..0.5f)
@@ -381,7 +381,7 @@ object BlockFly : Module("BlockFly", "Scaffold skidded from lb b85", 0, ModuleCa
         val rotation = targetRotation
 
 
-        if (rotationMode != "Off" && keepRotation) {
+        if (rotationMode == "Off" && keepRotation) {
             setRotation(rotation, 1)
         }
 

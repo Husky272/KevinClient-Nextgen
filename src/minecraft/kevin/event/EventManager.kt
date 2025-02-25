@@ -31,7 +31,6 @@ class EventManager {
 
                 val eventClass = method.parameterTypes[0] as Class<out Event>
                 val eventTarget = method.getAnnotation(EventTarget::class.java)
-
                 val invokableEventTargets = registry.getOrDefault(eventClass, ArrayList())
                 invokableEventTargets.add(EventHook(listener, method, eventTarget))
                 registry[eventClass] = invokableEventTargets
@@ -53,7 +52,7 @@ class EventManager {
                 if (!invokableEventTarget.eventClass.handleEvents() && !invokableEventTarget.isIgnoreCondition)
                     continue
 
-                invokableEventTarget.call(event)
+                invokableEventTarget.method.invoke(invokableEventTarget.eventClass, event)
             } catch (throwable: Throwable) {
                 throwable.printStackTrace()
                 if (KevinClient.debug) {
@@ -65,8 +64,10 @@ class EventManager {
                                 ConnectNotificationType.Error
                             )
                         )
-                        Minecraft.logger.warn("Exception caught when calling ${event.javaClass.simpleName} in listener ${invokableEventTarget.eventClass.javaClass.simpleName}:\n" +
-                                throwable.targetException.stackTraceToString()
+                        Minecraft.logger.warn(
+                            "Exception caught when calling ${event.javaClass.simpleName} in listener ${invokableEventTarget.eventClass.javaClass.simpleName}:" +
+                            "\n" +
+                            throwable.targetException.stackTraceToString()
                         )
                     }
                 }

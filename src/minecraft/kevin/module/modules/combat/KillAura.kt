@@ -117,24 +117,24 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
 
     // AutoBlock
     private val autoBlockValue = ListValue("AutoBlock", arrayOf("Off", "Packet", "AfterTick", "Keep", "Vulcan"), "Off")
-    private val interactAutoBlockValue = BooleanValue("InteractAutoBlock", true) { autoBlockValue notEqual  "Off" }
-    private val blockStatusCheck = BooleanValue("BlockStatusCheck", true) { autoBlockValue notEqual  "Off" }
-    private val blockRate = IntegerValue("BlockRate", 100, 1, 100) { autoBlockValue notEqual  "Off" }
+    private val interactAutoBlockValue = BooleanValue("InteractAutoBlock", true)
+    private val blockStatusCheck = BooleanValue("BlockStatusCheck", true)
+    private val blockRate = IntegerValue("BlockRate", 100, 1, 100)
     private val blockRange: FloatValue = object : FloatValue("BlockRange", rangeValue.get(), 0f, 8f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
             val i = discoverRangeValue.get()
             if (i < newValue) set(i)
         }
-
-        override fun isSupported(): Boolean = autoBlockValue notEqual  "Off"
     }
 
     // Raycast
     private val raycastValue = BooleanValue("RayCast", true)
-    private val raycastIgnoredValue = BooleanValue("RayCastIgnored", false) { raycastValue.get() }
-    private val livingRaycastValue = BooleanValue("LivingRayCast", true) { raycastValue.get() }
+    private val raycastIgnoredValue = BooleanValue("RayCastIgnored", false)
+    private val livingRaycastValue = BooleanValue("LivingRayCast", true)
+    private val anythingsRayCast = BooleanValue("AnythingsRayCast", false)
 
     // Bypass
+    private val aacValue = BooleanValue("AAC", false)
     private val keepRotationTickValue = IntegerValue("KeepRotationTick", 0, 0, 30)
 
     // Turn Speed
@@ -182,8 +182,6 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
             val v = minPredictSize.get()
             if (v > newValue) set(v)
         }
-
-        override fun isSupported(): Boolean = predictValue.get()
     }
 
     private val minPredictSize: FloatValue = object : FloatValue("MinPredictSize", 1f, 0.1f, 5f) {
@@ -191,8 +189,6 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
             val v = maxPredictSize.get()
             if (v < newValue) set(v)
         }
-
-        override fun isSupported(): Boolean = predictValue.get()
     }
 
     // Bypass
@@ -200,10 +196,11 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
     private val failRateValue = FloatValue("FailRate", 0f, 0f, 100f)
     private val fakeSwingValue = BooleanValue("FakeSwing", true)
     private val noInventoryAttackValue = BooleanValue("NoInvAttack", false)
-    private val noInventoryDelayValue = IntegerValue("NoInvDelay", 200, 0, 500) { noInventoryAttackValue.get() }
-    private val limitedMultiTargetsValue = IntegerValue("LimitedMultiTargets", 0, 0, 50) { targetModeValue equal "Multi" }
+    private val noInventoryDelayValue = IntegerValue("NoInvDelay", 200, 0, 500)
+    private val limitedMultiTargetsValue = IntegerValue("LimitedMultiTargets", 0, 0, 50)
 
     // Advanced
+    private val delayRotationTick = IntegerValue("DelayRotationTick", 0, 0, 20)
     private val hitBoxMode = ListValue("HitBoxMode", arrayOf("1.8", "HigherVersion"), "1.8")
     private val reachCalculateMode = ListValue("ReachCalculateMode", arrayOf("Look", "DirectionDistance"), "Look")
 
@@ -235,8 +232,8 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
     private var containerOpen = -1L
 
     // Fake block status
-    var blockingStatus = false
-    var lastBlocking = false
+    public var blockingStatus = false
+    private var lastBlocking = false
 
     // Rotation delay
     private val delayedRotations = TimeList<Rotation>(1200)
@@ -245,16 +242,12 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
     private val expandHitBox: Boolean
     get() = hitBoxMode equal "1.8"
 
-    private val vectorReach: Boolean
-    get() = reachCalculateMode equal "Look"
-
     /**
      * Enable kill aura module
      */
     override fun onEnable() {
         mc.thePlayer ?: return
         mc.theWorld ?: return
-
         updateTarget()
     }
 
@@ -588,7 +581,9 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
 //                var vecRot = Rotation(lastRot.yaw + dYaw * partialTicks, lastRot.pitch * dPitch * partialTicks).toDirection().multiply(discoverRangeValue.get().toDouble()).add(vecEyes)
                 var vecRot = rot.toDirection().multiply(discoverRangeValue.get().toDouble()).add(vecEyes)
                 val obj = box.calculateIntercept(vecEyes, vecRot)
-                vecRot = obj.hitVec ?: vecRot
+                if (obj != null) {
+                    vecRot = obj.hitVec ?: vecRot
+                }
                 val renderPosX = mc.renderManager.renderPosX
                 val renderPosY = mc.renderManager.renderPosY
                 val renderPosZ = mc.renderManager.renderPosZ
@@ -687,7 +682,7 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
         val failRate = failRateValue.get()
         val swing = !(swingValue equal "OFF")
         val multi = targetModeValue.get().equals("Multi", ignoreCase = true)
-        val openInventory = /*aacValue.get() && */(mc.currentScreen) is GuiContainer
+        val openInventory = aacValue.get() && (mc.currentScreen) is GuiContainer
         val failHit = failRate > 0 && Random().nextInt(100) <= failRate
         val range = currentTarget!!.entityBoundingBox.expands(if (expandHitBox) currentTarget!!.collisionBorderSize.toDouble() else 0.0).getLookingTargetRange(mc.thePlayer)
 
@@ -721,7 +716,7 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
                 }
             }
 
-            prevTargetEntities.add(/*if (aacValue.get()) target!!.entityId else */currentTarget!!.entityId)
+            prevTargetEntities.add(if (aacValue.get()) target!!.entityId else currentTarget!!.entityId)
 
             if (target == currentTarget)
                 target = null
@@ -770,7 +765,7 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
             "livingtime" -> discoveredTargets.sortBy { -it.ticksExisted } // Sort by existence
         }
 
-        // Find the best target
+        // Find best target
         for (entity in discoveredTargets) {
             // Update rotations to current target
             if (!updateRotations(entity)) // when failed then try another target
@@ -803,10 +798,10 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
             if (EntityUtils.targetPlayer && entity is EntityPlayer) {
 
                 if (entity.isSpectator || AntiBot.isBot(entity)) return false
-/**
-                if (player.isClientFriend() && !LiquidBounce.moduleManager[NoFriends::class.java].state)
+
+                if (entity.isClientFriend())
                     return false
- **/
+
                 val antiShop = KevinClient.moduleManager.getModule(AntiShop::class.java)
                 if (antiShop.isShop(entity))
                     return false
@@ -899,7 +894,7 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
                 mc.thePlayer!!.getDistanceToEntityBox(entity) < throughWallsRangeValue.get(),
                 discoverRangeValue.get()
             ) ?: return false
-                RotationUtils.limitAngleChange(RotationUtils.serverRotation, rotation,
+                RotationUtils.limitAngleChange(aimingRotation, rotation,
                     (Math.random() * (yawMaxTurnSpeed.get() - yawMinTurnSpeed.get()) + yawMinTurnSpeed.get()).toFloat(),
                     (Math.random() * (pitchMaxTurnSpeed.get() - pitchMinTurnSpeed.get()) + pitchMinTurnSpeed.get()).toFloat()
                 )
@@ -907,7 +902,7 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
             val bb : AxisAlignedBB = entity.entityBoundingBox
             val thePlayer = mc.thePlayer
             RotationUtils.limitAngleChange(
-                RotationUtils.serverRotation,
+                aimingRotation,
                 RotationUtils.getOtherRotation(
                     boundingBox,
                     if (randomCenterValue.get()) {
@@ -937,13 +932,13 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
                 discoverRangeValue.get(),
                 rangeValue.get()
             ) ?: return false
-            RotationUtils.limitAngleChange(RotationUtils.serverRotation, rotation,
+            RotationUtils.limitAngleChange(aimingRotation, rotation,
                 (Math.random() * (yawMaxTurnSpeed.get() - yawMinTurnSpeed.get()) + yawMinTurnSpeed.get()).toFloat(),
                 (Math.random() * (pitchMaxTurnSpeed.get() - pitchMinTurnSpeed.get()) + pitchMinTurnSpeed.get()).toFloat()
             )
         } else {
             RotationUtils.limitAngleChange(
-                RotationUtils.serverRotation,
+                aimingRotation,
                 RotationUtils.getOtherRotation(
                     boundingBox,
                     RotationUtils.getCenter(entity.entityBoundingBox),
@@ -955,13 +950,18 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
                 (Math.random() * (pitchMaxTurnSpeed.get() - pitchMinTurnSpeed.get()) + pitchMinTurnSpeed.get()).toFloat()
             )
         }
+        if (delayRotationTick.get() > 0) {
+            delayedRotations.add(limitedRotation)
+            val rot = delayedRotations.getNearestAlive(delayRotationTick.get() * 50L) ?: limitedRotation
+            limitedRotation = rot
+        }
         if (!onlyRotationInAttack.get() || rotationTime-- > 0)
         when (silentRotationValue.get()) {
-            "Always" -> RotationUtils.setTargetRotation(limitedRotation, keepRotationTickValue.get())
+            "Always" -> RotationUtils.setTargetRotation(limitedRotation, if (aacValue.get() || keepRotationTickValue.get() > 0) keepRotationTickValue.get() + (if (aacValue.get()) 15 else 0) else 0)
             "Off" -> limitedRotation.toPlayer(mc.thePlayer!!)
             else -> {
                 if (MovementUtils.isMoving) limitedRotation.toPlayer(mc.thePlayer!!)
-                else RotationUtils.setTargetRotation(limitedRotation, keepRotationTickValue.get())
+                else RotationUtils.setTargetRotation(limitedRotation, if (aacValue.get() || keepRotationTickValue.get() > 0) keepRotationTickValue.get() + (if (aacValue.get()) 15 else 0) else 0)
             }
         }
 
@@ -989,7 +989,7 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
             val raycastedEntity = RaycastUtils.raycastEntity(reach, object : RaycastUtils.EntityFilter {
                 override fun canRaycast(entity: Entity?): Boolean {
                     return (!livingRaycastValue.get() || (((entity) is EntityLivingBase || HideAndSeekHack.isHider(entity)) && (entity) !is EntityArmorStand)) &&
-                            (isEnemy(entity) || raycastIgnoredValue.get() && mc.theWorld!!.getEntitiesWithinAABBExcludingEntity(entity, entity!!.entityBoundingBox).isNotEmpty())
+                            (isEnemy(entity) || raycastIgnoredValue.get() || aacValue.get() && (anythingsRayCast.get() || mc.theWorld!!.getEntitiesWithinAABBExcludingEntity(entity, entity!!.entityBoundingBox).isNotEmpty()))
                 }
 
             })
@@ -1074,7 +1074,8 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
     /**
      * Check if [entity] is alive
      */
-    private fun isAlive(entity: EntityLivingBase) = entity.isEntityAlive && entity.health > 0
+    private fun isAlive(entity: EntityLivingBase) = entity.isEntityAlive && entity.health > 0 ||
+            aacValue.get() && entity.hurtTime > 5
 
     /**
      * Check if player is able to block
@@ -1090,6 +1091,9 @@ class KillAura : Module("KillAura","Automatically attacks targets around you.", 
 
     private fun getRange(entity: Entity) =
         (if (mc.thePlayer!!.getDistanceToEntityBox(entity) >= throughWallsRangeValue.get()) rangeValue.get() else throughWallsRangeValue.get()) - if (mc.thePlayer!!.isSprinting) rangeSprintReducementValue.get() else 0F
+
+    private val aimingRotation: Rotation
+        get() = if (delayRotationTick.get() > 0 && delayedRotations.size() > 0) delayedRotations.getNearestAlive(0) else RotationUtils.serverRotation
 
     /**
      * HUD Tag

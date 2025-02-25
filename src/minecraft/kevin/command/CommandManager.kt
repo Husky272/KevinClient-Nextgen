@@ -59,6 +59,8 @@ class CommandManager {
 
         commands[arrayOf("Admin")] = AdminDetector
 
+        commands[arrayOf("ClientTitle")] = ClientTitleCommand
+
         commands[arrayOf("DisableAllModule")] = DisableAllCommand()
 
         commands[arrayOf("ClearMainConfig")] = ClearMainConfigCommand()
@@ -66,6 +68,8 @@ class CommandManager {
         commands[arrayOf("font", "fonts")] = FontCommand()
 
         commands[arrayOf("bindCommand")] = BindCommandManager
+
+        commands[arrayOf("Execute")] = ExecCommand()
     }
 
     fun execCommand(message: String): Boolean{

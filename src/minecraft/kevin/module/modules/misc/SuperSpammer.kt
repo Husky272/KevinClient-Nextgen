@@ -14,11 +14,10 @@
  */
 package kevin.module.modules.misc
 
-import kevin.event.EventTarget
-import kevin.event.UpdateEvent
-
 //import kevin.event.UpdateState
 
+import kevin.event.EventTarget
+import kevin.event.UpdateEvent
 import kevin.main.KevinClient
 import kevin.module.*
 import kevin.utils.MSTimer
@@ -27,7 +26,6 @@ import kevin.utils.TimeUtils
 import java.io.File
 import java.io.FileFilter
 import java.util.*
-import kotlin.collections.ArrayList
 
 class SuperSpammer : Module("SuperSpammer","Spams the chat with given messages.", category = ModuleCategory.MISC) {
     private val modeList = arrayListOf(
@@ -141,6 +139,7 @@ class SuperSpammer : Module("SuperSpammer","Spams the chat with given messages."
             "Custom" -> customPrefix.get()
             else -> ""
         }
+
         val first = if (randomCharacterAtFirst.get()) "$start${firstLeft.get()}${RandomUtils.randomString(firstLength)}${firstRight.get()}" else start
         val last = if (randomCharacterAtLast.get())"${lastLeft.get()}${RandomUtils.randomString(lastLength)}${lastRight.get()}" else ""
         if (msTimer.hasTimePassed(delay)) {

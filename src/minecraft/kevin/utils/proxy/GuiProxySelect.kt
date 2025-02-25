@@ -15,30 +15,16 @@
 package kevin.utils.proxy
 
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService
-import kevin.main.KevinClient
-import kevin.main.KevinClient.pool
-import kevin.utils.ServerUtils
-import kevin.utils.ServerUtils.sendGet
-import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.GuiTextField
 import org.lwjgl.input.Keyboard
-import java.lang.System.nanoTime
-import java.net.InetSocketAddress
 import java.net.Proxy
-import java.util.HashSet
-import java.util.LinkedList
-import java.util.UUID
-import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.ConcurrentLinkedDeque
-import java.util.concurrent.atomic.AtomicInteger
-import javax.swing.JOptionPane
-import javax.swing.UIManager
+import java.util.*
 
 class GuiProxySelect(private val prevGui: GuiScreen) : GuiScreen() {
 
-    lateinit var textField: GuiTextField
+    private lateinit var textField: GuiTextField
     private lateinit var type: GuiButton
     private lateinit var stat: GuiButton
     private lateinit var auth: GuiButton
@@ -49,11 +35,10 @@ class GuiProxySelect(private val prevGui: GuiScreen) : GuiScreen() {
         textField.isFocused = true
         textField.text = ProxyManager.proxy
         textField.maxStringLength = 114514
-        buttonList.add(GuiButton(1, width / 2 - 100, height / 4 + 76, "").also { type = it })
-        buttonList.add(GuiButton(2, width / 2 - 100, height / 4 + 100, "").also { stat = it })
-        buttonList.add(GuiButton(3, width / 2 - 100, height / 4 + 124, "SyncAuthServiceProxy").also { auth = it })
-        buttonList.add(GuiButton(4, width / 2 - 100, height / 4 + 172, "FreeProxy"))
-        buttonList.add(GuiButton(0, width / 2 - 100, height / 4 + 148, "Back"))
+        buttonList.add(GuiButton(1, width / 2 - 100, height / 4 + 96, "").also { type = it })
+        buttonList.add(GuiButton(2, width / 2 - 100, height / 4 + 120, "").also { stat = it })
+        buttonList.add(GuiButton(3, width / 2 - 100, height / 4 + 144, "SyncAuthServiceProxy").also { auth = it })
+        buttonList.add(GuiButton(0, width / 2 - 100, height / 4 + 168, "Back"))
         updateButtonStat()
     }
 
@@ -91,9 +76,6 @@ class GuiProxySelect(private val prevGui: GuiScreen) : GuiScreen() {
             3 -> {
                 mc.sessionService = YggdrasilAuthenticationService(if (ProxyManager.isEnable) ProxyManager.proxyInstance else Proxy.NO_PROXY, UUID.randomUUID().toString()).createMinecraftSessionService()
                 auth.displayString = "Auth service's proxy was set to: ${if (ProxyManager.isEnable) "§aEnabled" else "§cDisabled"}"
-            }
-            4 -> {
-                FreeProxyManager.update(this)
             }
         }
         updateButtonStat()

@@ -36,7 +36,7 @@ open class Module(var name: String,
         set(keyBind) {
             field = keyBind
             if (!KevinClient.isStarting) KevinClient.fileManager.saveConfig(KevinClient.fileManager.modulesConfig)
-    }
+        }
     val enabledTimer = MSTimer()
     val disabledTimer = MSTimer()
     var state = false
@@ -47,7 +47,7 @@ open class Module(var name: String,
                 Minecraft.getMinecraft().soundHandler.playSound(
                     PositionedSoundRecord.create(
                         ResourceLocation("gui.button.press"),
-                        if(value) 1f else 0.6114514191981f
+                        if(value) 1f else 0.6f/*114514191981 bruh?*/
                     )
                 )
                 KevinClient.hud.addNotification(Notification(
@@ -65,7 +65,7 @@ open class Module(var name: String,
                 disabledTimer.reset()
             }
             KevinClient.fileManager.saveConfig(KevinClient.fileManager.modulesConfig)
-    }
+        }
     val hue = Math.random().toFloat()
     var slide = 0F
     fun getTagName(tagleft:String,tagright:String):String{

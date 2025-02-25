@@ -20,7 +20,7 @@ import kevin.event.EventTarget
 import kevin.event.KeyEvent
 import kevin.event.Listenable
 import kevin.main.KevinClient
-import kevin.module.modules.*
+import kevin.module.modules.Targets
 import kevin.module.modules.combat.*
 import kevin.module.modules.exploit.*
 import kevin.module.modules.misc.*
@@ -82,7 +82,7 @@ class ModuleManager : Listenable {
             PingSpoof(),
             Plugins(),
             PortalMenu(),
-            ServerCrasher(),
+            //ServerCrasher(),
             ServerSidePacketDelayer(),
             TP(),
             VehicleOneHit()
@@ -90,8 +90,10 @@ class ModuleManager : Listenable {
         miscList = arrayListOf(
             AdminDetector,
             AntiBot,
+//            AntiCrash,
             AntiInvalidBlockPlacement(),
             AntiShop(),
+            AntiLogSpam,
             AutoCommand(),
             AutoDisable,
             AutoL(),
@@ -99,8 +101,9 @@ class ModuleManager : Listenable {
             ChatControl,
             ComponentOnHover,
             ConfigsManager,
-            Diastimeter(),
             ClientFriend,
+//            DiscordRPC(),
+            Diastimeter(),
             HackDetector.INSTANCE,
             HideAndSeekHack,
             KillerDetector(),
@@ -121,6 +124,7 @@ class ModuleManager : Listenable {
             AirJump(),
             AirLadder(),
             AntiVoid(),
+            //BadSprint(),
             Fly(),
             Freeze(),
             HighJump(),
@@ -151,9 +155,9 @@ class ModuleManager : Listenable {
             AutoSneak(),
             AutoTool(),
             Blink(),
+            CancelC03(),
             FastUse(),
             InventoryCleaner(),
-            NoC03(),
             NoFall(),
             Reach(),
             Regen()
@@ -183,7 +187,7 @@ class ModuleManager : Listenable {
             NoSwing(),
             Particles,
             Projectiles(),
-            Renderer,
+//            Renderer,
             RenderSettings,
             Rotations,
             SourceESP(),
@@ -195,7 +199,7 @@ class ModuleManager : Listenable {
             XRay()
         )
         worldList = arrayListOf(
-//            BlockFly,
+            BlockFly,
             Breaker(),
             ChestStealer(),
             FastBreak(),
@@ -204,7 +208,9 @@ class ModuleManager : Listenable {
             LegitScaffold(),
             NoSlowBreak(),
             Nuker(),
+            OldScaffold(),
             Scaffold(),
+            ExperimentalBlockFly(),
             TeleportUse(),
             Timer(),
             World

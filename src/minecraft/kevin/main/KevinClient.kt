@@ -12,8 +12,11 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package kevin.main
 
+//import kevin.module.modules.render.Renderer
+import cn.a114.skid.AudioManager
 import kevin.cape.CapeManager
 import kevin.command.CommandManager
 import kevin.command.bind.BindCommandManager
@@ -31,7 +34,6 @@ import kevin.module.ModuleManager
 import kevin.module.modules.misc.ConfigsManager
 import kevin.module.modules.render.ClickGui.ClickGUI
 import kevin.module.modules.render.ClickGui.NewClickGui
-import kevin.module.modules.render.Renderer
 import kevin.persional.milk.guis.clickgui.MilkClickGui
 import kevin.plugin.PluginManager
 import kevin.script.ScriptLoader
@@ -39,12 +41,14 @@ import kevin.skin.SkinManager
 import kevin.utils.CombatManager
 import kevin.utils.RotationUtils
 import kevin.via.ViaVersion
+import net.minecraft.client.Minecraft.logger
 import org.lwjgl.opengl.Display
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import org.lwjgl.Sys
 
 object KevinClient {
     var name = "Kevin"
@@ -52,8 +56,11 @@ object KevinClient {
 
     var isStarting = true
 
-    val debug = false
-    var wasStop = false
+
+    val debug = true
+    private var wasStop = false
+    val lwjglversion = /*org.lwjgl.Sys.getVersion()!!*/"2.9.4";
+
 
     lateinit var moduleManager: ModuleManager
     lateinit var fileManager: FileManager
@@ -66,57 +73,72 @@ object KevinClient {
     lateinit var hud: HUD
     lateinit var capeManager: CapeManager
     lateinit var combatManager: CombatManager
-
+    lateinit var audioManager: AudioManager
+//    lateinit var audioPlayer: AudioPlayer
     @JvmStatic
     val pool: ExecutorService = Executors.newCachedThreadPool()
 
-    var cStart = "§l§7[§l§9Kevin§l§7]"
+    var cStart = "[Kevin]"
 
     fun run() {
-        Display.setTitle("Kevin Client is loading")
+
         moduleManager = ModuleManager()
         fileManager = FileManager()
         fileManager.load()
-        Display.setTitle("Kevin Client is loading.")
         commandManager = CommandManager()
         eventManager = EventManager()
         fontManager = FontManager()
-        Display.setTitle("Kevin Client is loading. [fonts]")
         fontManager.loadFonts()
-        Display.setTitle("Kevin Client is loading..")
         eventManager.registerListener(FontGC)
-        Renderer.load()
-        moduleManager.load()
+//        Renderer.load()
+        try {
+            moduleManager.load()
+        }
+        catch (e: Exception) {
+            logger.error("Error while loading moduleManager\n$e")
+        }
         ScriptLoader.load()
         PluginManager.initialize()
-        Display.setTitle("Kevin Client is loading...")
 
         fileManager.loadConfig(fileManager.modulesConfig)
         fileManager.loadConfig(fileManager.bindCommandConfig)
+
         eventManager.registerListener(BindCommandManager)
         eventManager.registerListener(RotationUtils())
-        Display.setTitle("Kevin Client is loading....")
+        audioManager = AudioManager()
         hud = createDefault()
+
         fileManager.loadConfig(fileManager.hudConfig)
+
         commandManager.load()
         clickGUI = ClickGUI()
         newClickGui = NewClickGui()
         milkClickGui = MilkClickGui()
-        Display.setTitle("Kevin Client is loading.....")
+
         capeManager = CapeManager()
+
         capeManager.load()
+
         SkinManager.load()
         ImageManager.load()
         ResourceManager.init()
         ConfigManager.load()
         ConfigsManager.updateValue()
+
         combatManager = CombatManager()
-        Display.setTitle("Kevin Client is loading..... [via]")
+
         ViaVersion.start()
-        Display.setTitle("$name $version | Minecraft 1.8.9")
+        PluginManager.initialize()
+
+        Display.setTitle("Minecraft 1.8.9 | " + name + ' ' + version + " | LWJGL Version " + lwjglversion)
+
         isStarting = false
         // ?!
         Runtime.getRuntime().addShutdownHook(Thread(/* target = */ ::stop))
+        logger.info("Client loaded, enjoy the hack!")
+        Thread{ Thread.sleep(1500);PenisAudioPlayer().play() }.start()
+
+
     }
 
     fun stop() {
@@ -127,7 +149,7 @@ object KevinClient {
         capeManager.save()
         SkinManager.save()
         ImageManager.save()
-        val env = System.getenv("temp")
+        val env = System.getenv("TEMP")
         try {
             Files.walk(Paths.get(env)).use {
                 it.forEachOrdered { p: Path ->

@@ -28,8 +28,12 @@ object FontGC : Listenable {
     @EventTarget
     fun onTick(event: TickEvent) {
         if (gcTicks++ > GC_TICKS) {
+            try{
             activeFontRenderers.forEach { it.collectGarbage() }
             gcTicks = 0
+            } catch (exception: Throwable){
+                net.minecraft.client.Minecraft.logger.warn("[FontGC] $exception")
+            }
         }
     }
 

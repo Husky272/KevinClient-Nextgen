@@ -18,6 +18,7 @@ import com.google.gson.*
 import kevin.main.KevinClient
 import kevin.utils.MinecraftInstance
 import net.minecraft.client.Minecraft
+import net.minecraft.client.Minecraft.*
 import net.minecraft.client.gui.FontRenderer
 import org.lwjgl.opengl.Display
 import java.awt.Font
@@ -62,7 +63,7 @@ class FontManager : MinecraftInstance(){
     @FontDetails(fontName = "NotiFont", fontSize = 80)
     lateinit var notiFont: GameFontRenderer
     fun loadFonts(){
-        Display.setTitle("Kevin Client is loading. [fonts] [init]")
+        logger.info("Kevin Client is loading. [fonts] [init]")
         WaitingObject.addConcurrentTaskToWaitQueue {
             font35 = GameFontRenderer(getFont("Novo.ttf",35))
         }
@@ -93,7 +94,7 @@ class FontManager : MinecraftInstance(){
         WaitingObject.addConcurrentTaskToWaitQueue {
             loadCustomFonts()
         }
-        Display.setTitle("Kevin Client is loading. [fonts] [waiting...]")
+        logger.info("Kevin Client is loading. [fonts] [waiting...]")
         WaitingObject.waitAll()
     }
 
@@ -128,7 +129,7 @@ class FontManager : MinecraftInstance(){
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
-        Minecraft.logger.info("[FontManager] Loaded ${CUSTOM_FONT_RENDERERS.size} custom font(s)," + (System.currentTimeMillis() - l) + "ms.")
+        logger.info("[FontManager] Loaded ${CUSTOM_FONT_RENDERERS.size} custom font(s)," + (System.currentTimeMillis() - l) + "ms.")
     }
 
     fun getFontRenderer(name: String?, size: Int): FontRenderer {
@@ -242,9 +243,6 @@ private class WaitingObject {
         fun waitAll() {
             while (queue.isNotEmpty()) {
                 queue = queue.stream().filter { !it.isDone() }.toList() as MutableList<WaitingObject>
-                Display.setTitle("Kevin Client is loading. [fonts] [waiting... ${System.currentTimeMillis() - start} ms]")
-                Thread.sleep(50)
-                Display.setTitle("Kevin Client is loading. [fonts] [waiting... ${System.currentTimeMillis() - start} ms]")
             }
             queue = LinkedList<WaitingObject>()
         }
@@ -255,7 +253,7 @@ private class WaitingObject {
                 try {
                     runnable.run()
                 } catch (e: Exception) {
-                    Minecraft.logger.warn("Exception occ in waiting, details: \n${e.stackTraceToString()}")
+                    logger.warn("Exception occ in waiting, details: \n${e.stackTraceToString()}")
                 }
                 waitingObject.done()
             }

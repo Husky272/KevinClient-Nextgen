@@ -28,8 +28,6 @@ import net.minecraft.util.Vec3
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 import java.util.*
-import kotlin.ConcurrentModificationException
-import kotlin.collections.ArrayList
 
 class TeleportAttack : Module("TeleportAttack","Attack the target over a long distance!", category = ModuleCategory.COMBAT) {
     private val packetMode = ListValue("PacketMode", arrayOf("C04PacketPlayerPosition","C06PacketPlayerPosLook"),"C04PacketPlayerPosition")

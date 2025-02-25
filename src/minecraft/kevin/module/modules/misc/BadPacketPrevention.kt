@@ -143,5 +143,4 @@ class BadPacketPrevention: Module("AntiBadPackets", "Prevent you get flags from 
             }
         }
     }
-
 }

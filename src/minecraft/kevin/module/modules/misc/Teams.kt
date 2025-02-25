@@ -25,7 +25,6 @@ import kevin.utils.BlockUtils.getBlock
 import kevin.utils.MSTimer
 import kevin.utils.RandomUtils
 import net.minecraft.entity.EntityLivingBase
-import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemArmor
 import net.minecraft.item.ItemStack

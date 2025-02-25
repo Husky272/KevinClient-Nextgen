@@ -71,7 +71,7 @@ object Translator : Module("Translator","Translate chat messages from server.") 
         Thread {
             var chatMessage = msg
             try {
-                val request = HttpGet(getLink(msg.unformattedTextForChat))
+                val request = HttpGet(getLink(msg.unformattedTextForChat!!))
                 val response = client.execute(request)
 
                 if (response.statusLine.statusCode != 200) {
