@@ -17,7 +17,7 @@ package kevin.module.modules.player
 import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.module.BooleanValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import net.minecraft.block.BlockBush
 import net.minecraft.client.settings.GameSettings
@@ -25,7 +25,7 @@ import net.minecraft.init.Blocks
 import net.minecraft.item.ItemBlock
 import net.minecraft.util.BlockPos
 
-class AutoSneak : Module("AutoSneak", description = "Automatically sneak at the edge of the block.", category = ModuleCategory.PLAYER) {
+class AutoSneak : ClientModule("AutoSneak", description = "Automatically sneak at the edge of the block.", ModuleCategory.PLAYER) {
     private val onlyBlock by BooleanValue("OnlyBlockInHand", false)
 
     @EventTarget

@@ -19,7 +19,7 @@ import kevin.event.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.BooleanValue
 import kevin.module.FloatValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.ChatUtils
 import kevin.utils.MovementUtils
@@ -30,7 +30,7 @@ import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 import net.minecraft.network.play.client.C03PacketPlayer.C06PacketPlayerPosLook
 import net.minecraft.network.play.client.C0BPacketEntityAction
 
-class FreeCam : Module("FreeCam", "Allows you to move out of your body.", category = ModuleCategory.RENDER) {
+class FreeCam : ClientModule("FreeCam", "Allows you to move out of your body.", ModuleCategory.RENDER) {
     private val speedValue = FloatValue("Speed", 0.8f, 0.1f, 2f)
     private val flyValue = BooleanValue("Fly", true)
     private val noClipValue = BooleanValue("NoClip", true)

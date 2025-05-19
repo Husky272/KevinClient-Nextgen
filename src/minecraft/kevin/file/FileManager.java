@@ -97,7 +97,7 @@ public class FileManager extends MinecraftInstance {
                 config.createConfig();
             config.saveConfig();
         }catch(final Throwable t) {
-            ChatUtils.INSTANCE.messageWithStart("§cSaveConfig Error: " + t);
+            ChatUtils.messageWithStart("§cSaveConfig Error: " + t);
         }
     }
     public void loadConfigs(final FileConfig... configs) {

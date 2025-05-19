@@ -19,7 +19,7 @@ import kevin.event.EventTarget
 import kevin.event.MotionEvent
 import kevin.main.KevinClient
 import kevin.module.*
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.utils.*
 import net.minecraft.client.entity.EntityOtherPlayerMP
 import net.minecraft.entity.Entity
@@ -30,7 +30,7 @@ import kotlin.math.min
 /* Modified class:
  * Minecraft.java
  */
-object TimerRange: Module("TimerRange", "Make you walk to target faster", category = ModuleCategory.COMBAT) {
+object TimerRange: ClientModule("TimerRange", "Make you walk to target faster", ModuleCategory.COMBAT) {
     private val mode = ListValue("Mode", arrayOf("RayCast", "Radius"), "RayCast")
     private val minDistance: FloatValue = object : FloatValue("MinDistance", 3F, 0F, 4F) {
         override fun onChanged(oldValue: Float, newValue: Float) {

@@ -32,7 +32,7 @@ import org.lwjgl.opengl.GL11
 import java.awt.Color
 import java.util.concurrent.CopyOnWriteArrayList
 
-class TeleportUse : Module("TeleportUse", "Allows you to use items over a long distance.", category = ModuleCategory.WORLD) {
+class TeleportUse : ClientModule("TeleportUse", "Allows you to use items over a long distance.", ModuleCategory.WORLD) {
     private var points=CopyOnWriteArrayList<Vec3>()
     private var thread: Thread? = null
     private val doSwing=BooleanValue("Swing",true)

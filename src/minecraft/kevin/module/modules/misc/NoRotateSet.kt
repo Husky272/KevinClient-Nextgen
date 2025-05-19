@@ -17,10 +17,10 @@ package kevin.module.modules.misc
 import kevin.event.EventTarget
 import kevin.event.PacketEvent
 import kevin.module.BooleanValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.RotationUtils
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.server.S08PacketPlayerPosLook
 
-object NoRotateSet : Module("NoRotateSet", "Prevents the server from rotating your head.", category = ModuleCategory.MISC)
+object NoRotateSet : ClientModule("NoRotateSet", "Prevents the server from rotating your head.", ModuleCategory.MISC)

@@ -9,7 +9,7 @@ import net.minecraft.entity.projectile.EntityFireball
 import net.minecraft.network.play.client.C02PacketUseEntity
 import net.minecraft.network.play.client.C0APacketAnimation
 
-class AntiFireball : Module("AntiFireball", "", category = ModuleCategory.COMBAT) {
+class AntiFireball : ClientModule("AntiFireball", "", ModuleCategory.COMBAT) {
     private val timer = MSTimer()
 
     private val swingValue = ListValue("Swing", arrayOf("Normal", "Packet", "None"), "Normal")

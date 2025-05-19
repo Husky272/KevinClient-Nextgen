@@ -18,7 +18,7 @@ import kevin.event.EventTarget
 import kevin.event.Render3DEvent
 import kevin.module.IntegerValue
 import kevin.module.ListValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.ColorUtils
 import kevin.utils.RenderUtils
@@ -42,7 +42,7 @@ import kotlin.math.floor
 import kotlin.math.sin
 import kotlin.math.sqrt
 
-class Projectiles : Module("Projectiles", "Allows you to see where arrows will land.", category = ModuleCategory.RENDER) {
+class Projectiles : ClientModule("Projectiles", "Allows you to see where arrows will land.", ModuleCategory.RENDER) {
     private val colorMode = ListValue("Color", arrayOf("Custom", "BowPower", "Rainbow"), "Custom")
 
     private val colorRedValue = IntegerValue("R", 0, 0, 255)

@@ -30,7 +30,7 @@ import net.minecraft.util.BlockPos
 import net.minecraft.util.EnumFacing
 import java.awt.Color
 
-class BowAura : Module("BowAura","Bow KillAura.",category = ModuleCategory.COMBAT) {
+class BowAura : ClientModule("BowAura","Bow KillAura.",ModuleCategory.COMBAT) {
 
     private val silentValue = BooleanValue("Silent", true)
     private val predictValue = BooleanValue("Predict", true)

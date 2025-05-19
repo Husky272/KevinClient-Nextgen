@@ -22,7 +22,7 @@ import kevin.main.KevinClient
 import kevin.module.BooleanValue
 import kevin.module.IntegerValue
 import kevin.module.ListValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.utils.ChatUtils
 import kevin.utils.ColorUtils
 import kevin.utils.RenderUtils
@@ -43,7 +43,7 @@ import java.awt.Color
 import kotlin.math.max
 import kotlin.math.min
 
-object HideAndSeekHack : Module("HideAndSeekHack","Mark every hider.") {
+object HideAndSeekHack : ClientModule("HideAndSeekHack","Mark every hider.") {
     private val hiderBlocks = HashSet<BlockPos>()
     private val airs = HashSet<BlockPos>()
     private val searchingBlocks = HashSet<BlockPos>()

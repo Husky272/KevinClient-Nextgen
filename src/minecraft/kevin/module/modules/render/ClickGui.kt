@@ -40,7 +40,7 @@ import java.awt.Color
 import java.util.*
 import kotlin.collections.HashMap
 
-class ClickGui : Module("ClickGui","Opens the ClickGUI.", category = ModuleCategory.RENDER, keyBind = Keyboard.KEY_RSHIFT) {
+class ClickGui : ClientModule("ClickGui","Opens the ClickGUI.", ModuleCategory.RENDER, keyBind = Keyboard.KEY_RSHIFT) {
 
     private val mode = ListValue("Mode", arrayOf("Milk","New","Old"),"Milk")
 
@@ -465,8 +465,8 @@ class ClickGui : Module("ClickGui","Opens the ClickGUI.", category = ModuleCateg
                 }
             }
         }
-        private fun drawSettings(module: Module,start: Int,mouseX: Int,mouseY: Int){
-            val values = module.values
+        private fun drawSettings(clientModule: ClientModule, start: Int, mouseX: Int, mouseY: Int){
+            val values = clientModule.values
             var y = mc.currentScreen.height/4F + 5 - start
             canSettingRoll2 = false
             for (v in values){
@@ -581,8 +581,8 @@ class ClickGui : Module("ClickGui","Opens the ClickGUI.", category = ModuleCateg
             val dl = d * dv
             RenderUtils.drawRect( x + dl - 1,y + 3,x + dl + 1,y - 3,Color(0,111,255).rgb)
         }
-        private fun settingsClick(module: Module,start: Int,mouseX: Int,mouseY: Int){
-            val values = module.values
+        private fun settingsClick(clientModule: ClientModule, start: Int, mouseX: Int, mouseY: Int){
+            val values = clientModule.values
             var y = mc.currentScreen.height/4F + 5 - start
             for (v in values){
                 when(v){
@@ -1259,7 +1259,7 @@ class ClickGui : Module("ClickGui","Opens the ClickGUI.", category = ModuleCateg
             }
         }
 
-        private fun drawGuiModuleSetting(module: Module,yad: Float,isClick: Boolean,mouseX: Int,mouseY: Int){
+        private fun drawGuiModuleSetting(clientModule: ClientModule, yad: Float, isClick: Boolean, mouseX: Int, mouseY: Int){
             val startX = x1+(x2-x1)/2.0+2.0
             val endX = x2-2.0
             val startY = y1+radius*2.25 + 2.0
@@ -1280,12 +1280,12 @@ class ClickGui : Module("ClickGui","Opens the ClickGUI.", category = ModuleCateg
                     tx.toFloat()+tr.toFloat(),
                     ty.toFloat()+tr.toFloat()
                 )
-                if (l) module.toggle()
+                if (l) clientModule.toggle()
                 yO += KevinClient.fontManager.font35.fontHeight * 0.8F + 4F
                 //Description
                 val textList = arrayListOf<String>()
                 var text = ""
-                val t = module.description.split(" ").toMutableList()
+                val t = clientModule.description.split(" ").toMutableList()
                 var cou = 0
                 t.forEach {
                     if (KevinClient.fontManager.font35.getStringWidth("$text $it") * 0.7 < endX - startX) {
@@ -1302,8 +1302,8 @@ class ClickGui : Module("ClickGui","Opens the ClickGUI.", category = ModuleCateg
                 }
                 yO += 3F
                 //Settings
-                val moduleName = module.name
-                val settings = module.values
+                val moduleName = clientModule.name
+                val settings = clientModule.values
                 settings.forEach {
                     when (it) {
                         is BooleanValue -> {
@@ -1450,7 +1450,7 @@ class ClickGui : Module("ClickGui","Opens the ClickGUI.", category = ModuleCateg
                 glScissor(dStartX, dy1, dx2 - dStartX, dy2 - dStartY)
                 //RenderUtils.drawRect(0,0,mc.currentScreen.width,mc.currentScreen.height,Color(255,255,255,50).rgb)
 
-                val settings = module.values
+                val settings = clientModule.values
                 var yO = 1.5F - yad
                 //Open
                 glPushMatrix()
@@ -1481,7 +1481,7 @@ class ClickGui : Module("ClickGui","Opens the ClickGUI.", category = ModuleCateg
                 glScaled(0.7, 0.7, 0.7)
                 val textList = arrayListOf<String>()
                 var text = ""
-                val t = module.description.split(" ").toMutableList()
+                val t = clientModule.description.split(" ").toMutableList()
                 var cou = 0
                 t.forEach {
                     if (KevinClient.fontManager.font35.getStringWidth("$text $it") * 0.7 < endX - startX) {
@@ -1505,7 +1505,7 @@ class ClickGui : Module("ClickGui","Opens the ClickGUI.", category = ModuleCateg
                 yO += 3F
                 glPopMatrix()
                 //DrawSettings
-                val moduleName = module.name
+                val moduleName = clientModule.name
                 settings.forEach {
                     when (it) {
                         is BooleanValue -> {

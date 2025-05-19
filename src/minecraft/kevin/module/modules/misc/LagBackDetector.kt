@@ -22,13 +22,13 @@ import kevin.hud.element.elements.Notification
 import kevin.main.KevinClient
 import kevin.module.BooleanValue
 import kevin.module.ListValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.utils.ChatUtils
 import net.minecraft.network.play.server.S08PacketPlayerPosLook
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-class LagBackDetector : Module("LagBackDetector", "Detect lag back from server.") {
+class LagBackDetector : ClientModule("LagBackDetector", "Detect lag back from server.") {
     private val countValue = BooleanValue("Count", true)
     private val distanceCheckValue = BooleanValue("DistanceCheck", true)
     private val withTimeStamp by BooleanValue("WithTimeStamp", false)

@@ -19,13 +19,13 @@ import kevin.event.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.BooleanValue
 import kevin.module.ListValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.PacketUtils
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.server.S08PacketPlayerPosLook
 
-class Freeze : Module("Freeze", "Allows you to stay stuck in mid air.", category = ModuleCategory.MOVEMENT) {
+class Freeze : ClientModule("Freeze", "Allows you to stay stuck in mid air.", ModuleCategory.MOVEMENT) {
     private val mode = ListValue("Mode", arrayOf("SetDead","NoMove", "NoPacket"),"NoPacket")
     private val resetMotionValue = BooleanValue("ResetMotion",false)
     private val lockRotation = BooleanValue("LockRotation",true)

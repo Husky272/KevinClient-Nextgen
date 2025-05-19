@@ -18,12 +18,12 @@ import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.main.KevinClient
 import kevin.module.BooleanValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.module.modules.exploit.Ghost
 import net.minecraft.client.gui.GuiGameOver
 
-class AutoRespawn : Module("AutoRespawn", "Automatically respawns you after dying.", category = ModuleCategory.PLAYER) {
+class AutoRespawn : ClientModule("AutoRespawn", "Automatically respawns you after dying.", ModuleCategory.PLAYER) {
 
     private val instantValue = BooleanValue("Instant", true)
 

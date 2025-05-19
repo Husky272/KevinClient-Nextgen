@@ -17,10 +17,10 @@ package kevin.module.modules.movement
 import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.module.FloatValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 
-class NoClip : Module("NoClip", "Allows you to freely move through walls.", category = ModuleCategory.MOVEMENT) {
+class NoClip : ClientModule("NoClip", "Allows you to freely move through walls.", ModuleCategory.MOVEMENT) {
 
     private val speedValue = FloatValue("Speed",0.25F,0.01F,1F)
 

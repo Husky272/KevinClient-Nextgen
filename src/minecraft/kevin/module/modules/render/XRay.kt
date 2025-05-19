@@ -17,7 +17,7 @@ package kevin.module.modules.render
 import kevin.module.*
 import net.minecraft.init.Blocks
 
-class XRay : Module(name = "XRay", description = "Allows you to see through walls.", category = ModuleCategory.RENDER) {
+class XRay : ClientModule(name = "XRay", description = "Allows you to see through walls.", ModuleCategory.RENDER) {
     override fun onToggle(state: Boolean) {
         mc.renderGlobal.loadRenderers()
     }

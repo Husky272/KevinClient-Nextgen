@@ -23,7 +23,7 @@ import net.minecraft.client.settings.GameSettings
 import net.minecraft.client.settings.KeyBinding
 import java.util.*
 
-class AntiAFK : Module("AntiAFK", "Prevents you from getting kicked for being AFK.", category = ModuleCategory.PLAYER) {
+class AntiAFK : ClientModule("AntiAFK", "Prevents you from getting kicked for being AFK.", ModuleCategory.PLAYER) {
 
     private val swingDelayTimer = MSTimer()
     private val delayTimer = MSTimer()

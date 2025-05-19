@@ -20,14 +20,14 @@ import kevin.event.StrafeEvent
 import kevin.event.UpdateEvent
 import kevin.module.BooleanValue
 import kevin.module.FloatValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import org.lwjgl.input.Keyboard
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
 
-class Strafe : Module("Strafe","Allows you to freely move in mid air.", Keyboard.KEY_NONE, ModuleCategory.MOVEMENT){
+class Strafe : ClientModule("Strafe","Allows you to freely move in mid air.", Keyboard.KEY_NONE, ModuleCategory.MOVEMENT){
 
     private val strengthValue= FloatValue("Strength", 0.5F, 0F, 1F)
     private val noMoveStopValue = BooleanValue("NoMoveStop", false)

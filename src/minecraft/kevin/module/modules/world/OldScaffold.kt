@@ -30,7 +30,7 @@ import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.math.*
 
-class OldScaffold : Module("OldScaffold", "scaffolding", category = ModuleCategory.WORLD) {
+class OldScaffold : ClientModule("OldScaffold", "scaffolding", ModuleCategory.WORLD) {
     //private val modeValue = ListValue("Mode", arrayOf("Normal", "Expand"), "Normal")
     private val towerModeValue = ListValue(
         "TowerMode",

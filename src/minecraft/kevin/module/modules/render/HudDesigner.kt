@@ -18,7 +18,7 @@ import kevin.hud.designer.GuiHudDesigner
 import kevin.module.*
 import org.lwjgl.input.Keyboard
 
-class HudDesigner : Module("HudDesigner","HUD designer.",Keyboard.KEY_RCONTROL,category = ModuleCategory.RENDER) {
+class HudDesigner : ClientModule("HudDesigner","HUD designer.",Keyboard.KEY_RCONTROL,ModuleCategory.RENDER) {
     override fun onEnable() {
         mc.displayGuiScreen(GuiHudDesigner())
         state = false

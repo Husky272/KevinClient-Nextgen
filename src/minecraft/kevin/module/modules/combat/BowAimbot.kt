@@ -27,7 +27,7 @@ import net.minecraft.item.ItemBow
 import java.awt.Color
 import java.util.*
 
-class BowAimbot : Module("BowAimbot", "Automatically aims at players when using a bow.", category = ModuleCategory.COMBAT) {
+class BowAimbot : ClientModule("BowAimbot", "Automatically aims at players when using a bow.", ModuleCategory.COMBAT) {
     private val silentValue = BooleanValue("Silent", true)
     private val predictValue = BooleanValue("Predict", true)
     private val throughWallsValue = BooleanValue("ThroughWalls", false)

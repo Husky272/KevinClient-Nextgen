@@ -15,11 +15,12 @@
 package kevin.module.modules.misc
 
 import kevin.module.BooleanValue
-import kevin.module.Module
+import kevin.module.ClientModule
+import kevin.module.ModuleCategory
 import kevin.module.TextValue
 import net.minecraft.entity.EntityLivingBase
 
-class AntiShop : Module("AntiShop", "Attack modules will not attack the store.") {
+class AntiShop : ClientModule("AntiShop", "Attack modules will not attack the store.", ModuleCategory.MISC) {
     private val nameDetect = BooleanValue("NameDetect", false)
     private val nameDetectName = TextValue("NameDetectName", "NPC | SHOP||NPC | UPGRADES")
     private val armorDetect = BooleanValue("NoArmorDetect", true)

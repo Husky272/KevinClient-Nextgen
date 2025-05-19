@@ -8,7 +8,7 @@ import org.lwjgl.opengl.GL11.*
 import kotlin.math.cos
 import kotlin.math.sin
 
-class ChinaHat : Module("ChinaHat", "Gives you a chinese hat", category = ModuleCategory.RENDER) {
+class ChinaHat : ClientModule("ChinaHat", "Gives you a chinese hat", ModuleCategory.RENDER) {
     private val quality = ListValue("Quality", arrayOf("VeryVeryLow", "Umbrella", "VeryLow", "Low", "Normal", "High", "VeryHigh", "Smooth"), "Normal")
     private val firstPerson = BooleanValue("ShowInFirstPerson", false)
 

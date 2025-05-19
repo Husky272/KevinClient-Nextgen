@@ -28,7 +28,7 @@ import kevin.utils.TimeUtils
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.C0BPacketEntityAction
 
-class SuperKnockback : Module("SuperKnockback", "Increases knockback dealt to other entities.", category = ModuleCategory.COMBAT) {
+class SuperKnockback : ClientModule("SuperKnockback", "Increases knockback dealt to other entities.", ModuleCategory.COMBAT) {
     private val modeValue = ListValue("Mode", arrayOf("ExtraPacket", "Packet", "W-Tap", "Legit", "LegitFast"), "ExtraPacket")
     private val maxDelay: IntegerValue = object : IntegerValue("Legit-MaxDelay", 60, 0, 100) {
         override fun onChanged(oldValue: Int, newValue: Int) {

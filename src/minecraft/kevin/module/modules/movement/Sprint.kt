@@ -20,7 +20,7 @@ import kevin.event.UpdateEvent
 import kevin.main.KevinClient
 import kevin.module.BooleanValue
 import kevin.module.ListValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.module.modules.combat.SuperKnockback
 import kevin.utils.MovementUtils
@@ -30,7 +30,7 @@ import net.minecraft.network.play.client.C0BPacketEntityAction
 import net.minecraft.potion.Potion
 import org.lwjgl.input.Keyboard
 
-class Sprint : Module("Sprint","Automatically sprints all the time.", Keyboard.KEY_NONE,ModuleCategory.MOVEMENT) {
+class Sprint : ClientModule("Sprint","Automatically sprints all the time.", Keyboard.KEY_NONE,ModuleCategory.MOVEMENT) {
 
     val allDirectionsValue = BooleanValue("AllDirections", true)
     private val blindnessValue = BooleanValue("Blindness", true)

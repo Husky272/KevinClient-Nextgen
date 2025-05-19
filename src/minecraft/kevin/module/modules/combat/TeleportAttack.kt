@@ -29,7 +29,7 @@ import org.lwjgl.opengl.GL11
 import java.awt.Color
 import java.util.*
 
-class TeleportAttack : Module("TeleportAttack","Attack the target over a long distance!", category = ModuleCategory.COMBAT) {
+class TeleportAttack : ClientModule("TeleportAttack","Attack the target over a long distance!", ModuleCategory.COMBAT) {
     private val packetMode = ListValue("PacketMode", arrayOf("C04PacketPlayerPosition","C06PacketPlayerPosLook"),"C04PacketPlayerPosition")
     private val colorModeV = ListValue("ColorMode", arrayOf("Custom","Rainbow"),"Custom")
     private val colorR = IntegerValue("R",255,0,255)

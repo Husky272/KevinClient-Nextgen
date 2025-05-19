@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/minecraft" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
+    <orderEntry type="library" name="Apache-Http" level="project" />
+    <orderEntry type="library" name="GoofyAhhAPI" level="project" />
+    <orderEntry type="library" name="authlib-1521" level="project" />
+    <orderEntry type="library" name="OggWavCodec" level="project" />
+    <orderEntry type="library" name="Commons-IO-Codec-Compress-Language" level="project" />
+    <orderEntry type="library" name="Google-Gson-Guava" level="project" />
+    <orderEntry type="library" name="Apache-Http-Client-Core" level="project" />
+    <orderEntry type="library" name="ICU4J" level="project" />
+    <orderEntry type="library" name="Java-Input" level="project" />
+    <orderEntry type="library" name="Java-Native-Access" level="project" />
+    <orderEntry type="library" name="Java-Option-Parser" level="project" />
+    <orderEntry type="library" name="Jython" level="project" />
+    <orderEntry type="library" name="JavaSound" level="project" />
+    <orderEntry type="module-library">
+      <library name="wtf">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/run/libraries/log4j-api-2.0-beta9.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/log4j-core-2.0-beta9.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/lwjgl-2.9.4-nightly-20150209.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/lwjgl-platform-2.9.4-nightly-20150209-natives-windows.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/lwjgl_util-2.9.4-nightly-20150209.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/netty-1.7.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/netty-all-4.0.23.Final.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/oshi-core-1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/platform-3.4.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/realms-1.7.59.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/snakeyaml-1.29.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/soundsystem-20120107.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/TheAltening4j-d0771f42d3.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/trove4j-3.0.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/twitch-6.5.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/twitch-external-platform-4.5-natives-windows-64.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/twitch-platform-6.5-natives-windows-64.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/vecmath-1.5.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/ViaBackwards-4.0.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/viarewind-core-2.0.2-20210708.090911-106.jar!/" />
+          <root url="jar://$MODULE_DIR$/run/libraries/ViaVersion-4.0.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/run/libraries/TheAltening4j-d0771f42d3-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+  </component>
+</module>

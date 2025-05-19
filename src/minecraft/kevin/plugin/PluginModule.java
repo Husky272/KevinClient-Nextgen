@@ -1,10 +1,10 @@
 package kevin.plugin;
 
-import kevin.module.Module;
+import kevin.module.ClientModule;
 import kevin.module.ModuleCategory;
 import org.lwjgl.input.Keyboard;
 
-public class PluginModule extends Module {
+public class PluginModule extends ClientModule {
     public PluginModule(String name, String description, int keyBind, ModuleCategory category) {
         super(name, description, keyBind, category);
     }

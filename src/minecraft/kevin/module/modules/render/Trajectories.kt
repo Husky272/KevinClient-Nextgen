@@ -40,7 +40,7 @@ import java.awt.Color
 import kotlin.math.floor
 import kotlin.math.min
 
-class Trajectories : Module("Trajectories", description = "Shows the trajectory of the flying arrows.", category = ModuleCategory.RENDER) {
+class Trajectories : ClientModule("Trajectories", description = "Shows the trajectory of the flying arrows.", ModuleCategory.RENDER) {
 
     private val colorMode = ListValue("ColorMode", arrayOf("Custom","Rainbow", "Distance", "Speed"),"Rainbow")
     private val cColorR = IntegerValue("R",255,0,255)

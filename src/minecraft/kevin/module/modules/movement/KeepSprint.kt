@@ -18,13 +18,13 @@ import kevin.event.AttackEvent
 import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.module.IntegerValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.MSTimer
 import kevin.utils.TimeUtils
 import net.minecraft.entity.EntityLivingBase
 
-class KeepSprint : Module("KeepSprint","Keep sprint when you attack entity.",category = ModuleCategory.MOVEMENT) {
+class KeepSprint : ClientModule("KeepSprint","Keep sprint when you attack entity.",ModuleCategory.MOVEMENT) {
     private val maxDelay: IntegerValue = object : IntegerValue("MaxDelay", 200, 0, 500) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val i = minDelay.get()

@@ -30,7 +30,7 @@ import java.awt.Color
 import java.util.*
 import java.util.concurrent.LinkedBlockingQueue
 
-class Blink : Module("Blink", "Suspends all movement packets.", category = ModuleCategory.PLAYER) {
+class Blink : ClientModule("Blink", "Suspends all movement packets.", ModuleCategory.PLAYER) {
     private val packets = LinkedBlockingQueue<Packet<*>>()
     private val c0fs = LinkedBlockingQueue<Packet<*>>()
     private var fakePlayer: EntityOtherPlayerMP? = null

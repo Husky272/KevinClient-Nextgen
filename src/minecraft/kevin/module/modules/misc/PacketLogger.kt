@@ -2,7 +2,6 @@ package kevin.module.modules.misc
 
 import kevin.event.EventTarget
 import kevin.event.PacketEvent
-import kevin.main.KevinClient
 import kevin.module.*
 import kevin.utils.ChatUtils
 import net.minecraft.network.EnumPacketDirection
@@ -14,7 +13,7 @@ import net.minecraft.network.play.server.S14PacketEntity.*
 import java.util.LinkedList
 
 @Suppress("UNCHECKED_CAST")
-class PacketLogger: Module("PacketLogger", "Allow you know what packet we receive and send.", category = ModuleCategory.MISC) {
+class PacketLogger: ClientModule("PacketLogger", "Allow you know what packet we receive and send.", ModuleCategory.MISC) {
     private val logClientBoundPacket = BooleanValue("LogClientBoundPacket", true)
     private val logServerBoundPacket = BooleanValue("LogServerBoundPacket", true)
     private val printTimeStamp = BooleanValue("PrintTimeStamp", true)

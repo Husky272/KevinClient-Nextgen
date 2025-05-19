@@ -18,13 +18,13 @@ import kevin.event.ClientShutdownEvent
 import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.module.ListValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
 import java.util.*
 
-class FullBright : Module("FullBright", "Brightens up the world around you.", category = ModuleCategory.RENDER) {
+class FullBright : ClientModule("FullBright", "Brightens up the world around you.", ModuleCategory.RENDER) {
     private val modeValue = ListValue("Mode", arrayOf("Gamma", "NightVision"), "Gamma")
     private var prevGamma = -1f
 

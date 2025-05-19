@@ -16,7 +16,7 @@
 package kevin.main
 
 //import kevin.module.modules.render.Renderer
-import cn.a114.skid.AudioManager
+//import cn.a114.skid.AudioManager
 import kevin.cape.CapeManager
 import kevin.command.CommandManager
 import kevin.command.bind.BindCommandManager
@@ -73,7 +73,7 @@ object KevinClient {
     lateinit var hud: HUD
     lateinit var capeManager: CapeManager
     lateinit var combatManager: CombatManager
-    lateinit var audioManager: AudioManager
+//    lateinit var audioManager: AudioManager
 //    lateinit var audioPlayer: AudioPlayer
     @JvmStatic
     val pool: ExecutorService = Executors.newCachedThreadPool()
@@ -105,7 +105,7 @@ object KevinClient {
 
         eventManager.registerListener(BindCommandManager)
         eventManager.registerListener(RotationUtils())
-        audioManager = AudioManager()
+//        audioManager = AudioManager()
         hud = createDefault()
 
         fileManager.loadConfig(fileManager.hudConfig)
@@ -134,7 +134,7 @@ object KevinClient {
 
         isStarting = false
         // ?!
-        Runtime.getRuntime().addShutdownHook(Thread(/* target = */ ::stop))
+        Runtime.getRuntime().addShutdownHook(Thread(/* task = */ ::stop))
         logger.info("Client loaded, enjoy the hack!")
         Thread{ Thread.sleep(1500);PenisAudioPlayer().play() }.start()
 

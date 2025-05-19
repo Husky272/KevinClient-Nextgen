@@ -28,7 +28,7 @@ import net.minecraft.util.BlockPos
 import net.minecraft.util.EnumFacing
 
 @Suppress("unused_parameter")
-class NoSlow : Module(name = "NoSlow", description = "Modify slowness caused by using items.", category = ModuleCategory.MOVEMENT) {
+class NoSlow : ClientModule(name = "NoSlow", description = "Modify slowness caused by using items.", ModuleCategory.MOVEMENT) {
 
     private val sword = BooleanValue(name= "Sword", value = false)
     private val consume = BooleanValue(name = "Consume", value = false)

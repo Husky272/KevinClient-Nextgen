@@ -22,7 +22,7 @@ import kevin.event.UpdateEvent
 import kevin.main.KevinClient
 import kevin.module.BooleanValue
 import kevin.module.ListValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.module.modules.combat.KillAura
 import kevin.utils.MinecraftInstance
@@ -55,7 +55,7 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.math.cos
 
-object Renderer : Module("Renderer","Allows you to modify some renderings.",category = ModuleCategory.RENDER) {
+object Renderer : ClientModule("Renderer","Allows you to modify some renderings.",ModuleCategory.RENDER) {
     val noArmor = BooleanValue("NoArmor",false)
     val noRightArm = BooleanValue("NoRightArm",false)
     private var playerModel = ListValue("PlayerModel", arrayOf("Fox","Snow_Fox","Player"),"Player")

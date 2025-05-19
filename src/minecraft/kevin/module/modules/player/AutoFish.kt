@@ -16,12 +16,12 @@ package kevin.module.modules.player
 
 import kevin.event.EventTarget
 import kevin.event.UpdateEvent
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.MSTimer
 import net.minecraft.item.ItemFishingRod
 
-class AutoFish : Module("AutoFish", "Automatically catches fish when using a rod.", category = ModuleCategory.PLAYER) {
+class AutoFish : ClientModule("AutoFish", "Automatically catches fish when using a rod.", ModuleCategory.PLAYER) {
     private val rodOutTimer = MSTimer()
 
     @EventTarget

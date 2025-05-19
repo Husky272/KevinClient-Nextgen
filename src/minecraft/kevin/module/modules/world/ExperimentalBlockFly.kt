@@ -21,7 +21,7 @@ import kotlin.math.atan2
 import kotlin.math.min
 
 class ExperimentalBlockFly :
-    Module("ExperimentalFeature", "Auto place blocks under your feet.", Keyboard.KEY_NONE, ModuleCategory.WORLD) {
+    ClientModule("ExperimentalFeature", "Auto place blocks under your feet.", Keyboard.KEY_NONE, ModuleCategory.WORLD) {
     private var rot = Rotation(0f, 0f)
     private var currentRot: Rotation? = Rotation(0f, 0f)
     private val maxHorizontalRotationSpeed = FloatValue("MaxHorizontalRotationSpeed", 50f, 0.01f, 180f)

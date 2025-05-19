@@ -22,14 +22,14 @@ import kevin.event.UpdateEvent
 
 import kevin.module.BooleanValue
 import kevin.module.IntegerValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.RandomUtils
 import kevin.utils.TimeUtils
 import net.minecraft.client.settings.KeyBinding
 import kotlin.random.Random
 
-class AutoClicker : Module("AutoClicker", "Constantly clicks when holding down a mouse button.", category = ModuleCategory.COMBAT) {
+class AutoClicker : ClientModule("AutoClicker", "Constantly clicks when holding down a mouse button.", ModuleCategory.COMBAT) {
     private val maxCPSValue: IntegerValue = object : IntegerValue("MaxCPS", 8, 1, 20) {
 
         override fun onChanged(oldValue: Int, newValue: Int) {

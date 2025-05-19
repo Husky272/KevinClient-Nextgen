@@ -40,7 +40,7 @@ public class CheckManager {
             try {
                 check.onLivingUpdate();
                 if (check.wasFailed()) {
-                    if (HackDetector.shouldAlert()) ChatUtils.INSTANCE.message(String.format("§l§7[§l§9HackDetector§l§7]§r §4%s§7 maybe using §c%s§7 hack§8: §7%s", check.handlePlayer.getName(), check.name, check.description()));
+                    if (HackDetector.shouldAlert()) ChatUtils.message(String.format("§l§7[§l§9HackDetector§l§7]§r §4%s§7 maybe using §c%s§7 hack§8: §7%s", check.handlePlayer.getName(), check.name, check.description()));
                     totalVL += check.getPoint();
                     if (HackDetector.catchPlayer(check.handlePlayer.getName(), check.reportName(), totalVL)) {
                         totalVL = -5;

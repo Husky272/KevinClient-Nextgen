@@ -28,7 +28,7 @@ import kotlin.math.floor
 import kotlin.math.max
 
 @Suppress("unused_parameter")
-class LongJump : Module("LongJump", "Allows you to jump further.", category = ModuleCategory.MOVEMENT) {
+class LongJump : ClientModule("LongJump", "Allows you to jump further.", ModuleCategory.MOVEMENT) {
     private val modeValue = ListValue("Mode", arrayOf("NCP", "NCP2", "AACv1", "AACv2", "Buzz", "BuzzBoost", "PikaNew", "AACv3", "Mineplex", "Mineplex2", "Mineplex3", "Redesky", "Vulcan", "VulcanExtreme", "HyCraft", "ExplosionBoost"), "NCP")
     private val ncpBoostValue = FloatValue("NCPBoost", 4.25f, 1f, 10f)
     private val ncp2YAdderValue = FloatValue("NCP2MotionYAdder", 0.1f, -0.5f, 0.5f)

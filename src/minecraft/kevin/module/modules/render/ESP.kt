@@ -41,7 +41,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 
-class ESP : Module("ESP", "Allows you to see targets through walls.", category = ModuleCategory.RENDER) {
+class ESP : ClientModule("ESP", "Allows you to see targets through walls.", ModuleCategory.RENDER) {
     @JvmField
     val modeValue = ListValue("Mode", arrayOf("Box", "OtherBox","2D","Another2D","Outline","WireFrame"),"Box")
     private val colorRedValue = IntegerValue("R", 255, 0, 255)

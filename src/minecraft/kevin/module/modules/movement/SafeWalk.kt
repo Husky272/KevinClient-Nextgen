@@ -17,11 +17,11 @@ package kevin.module.modules.movement
 import kevin.event.EventTarget
 import kevin.event.MoveEvent
 import kevin.module.BooleanValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import net.minecraft.item.ItemBlock
 
-class SafeWalk : Module("SafeWalk", "Prevents you from falling down as if you were sneaking.", category = ModuleCategory.MOVEMENT) {
+class SafeWalk : ClientModule("SafeWalk", "Prevents you from falling down as if you were sneaking.", ModuleCategory.MOVEMENT) {
     private val airSafeValue = BooleanValue("AirSafe", false)
     private val onlyBlock by BooleanValue("OnlyBlockInHand", false)
 

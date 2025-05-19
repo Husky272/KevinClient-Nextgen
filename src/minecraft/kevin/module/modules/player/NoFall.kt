@@ -17,7 +17,7 @@ package kevin.module.modules.player
 import kevin.event.*
 import kevin.main.KevinClient
 import kevin.module.ListValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.module.Value
 import kevin.module.modules.player.nofalls.NoFallMode
@@ -34,7 +34,7 @@ import kevin.utils.BlockUtils.collideBlock
 import net.minecraft.block.BlockLiquid
 import net.minecraft.util.AxisAlignedBB
 
-class NoFall : Module("NoFall","Prevents you from taking fall damage.", category = ModuleCategory.PLAYER) {
+class NoFall : ClientModule("NoFall","Prevents you from taking fall damage.", ModuleCategory.PLAYER) {
     private val noFalls = arrayOf(
         SpoofGroundNoFall,
         SpoofGroundNoFall2,

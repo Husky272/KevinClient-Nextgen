@@ -16,7 +16,7 @@ package kevin.module.modules.render
 
 import kevin.module.*
 
-class Animations : Module("Animations","Changes animations.", category = ModuleCategory.RENDER) {
+class Animations : ClientModule("Animations","Changes animations.", ModuleCategory.RENDER) {
     val animations = ListValue(
         "Preset", arrayOf(
             "Akrien", "Avatar", "ETB", "Exhibition", "Kevin", "Push", "Reverse",

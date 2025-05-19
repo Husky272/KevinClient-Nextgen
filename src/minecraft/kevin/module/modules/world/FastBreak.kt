@@ -18,10 +18,10 @@ import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.main.KevinClient
 import kevin.module.FloatValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 
-class FastBreak : Module("FastBreak", "Allows you to break blocks faster.", category = ModuleCategory.WORLD) {
+class FastBreak : ClientModule("FastBreak", "Allows you to break blocks faster.", ModuleCategory.WORLD) {
 
     private val breakDamage = FloatValue("BreakDamage", 0.8F, 0.1F, 1F)
 

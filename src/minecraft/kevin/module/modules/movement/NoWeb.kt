@@ -19,12 +19,12 @@ import kevin.event.JumpEvent
 import kevin.event.UpdateEvent
 import kevin.module.FloatValue
 import kevin.module.ListValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.MovementUtils
 import java.util.*
 
-class NoWeb : Module("NoWeb", "Prevents you from getting slowed down in webs.", category = ModuleCategory.MOVEMENT) {
+class NoWeb : ClientModule("NoWeb", "Prevents you from getting slowed down in webs.", ModuleCategory.MOVEMENT) {
 
     private val modeValue = ListValue("Mode", arrayOf("None", "AAC", "LAAC", "Rewinside", "Horizon", "Spartan", "AAC4", "AAC5", "Matrix", "TestIntave", "Test"), "None")
     private val horizonSpeed = FloatValue("HorizonSpeed", 0.1F, 0.01F, 0.8F)

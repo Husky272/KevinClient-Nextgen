@@ -31,7 +31,7 @@ import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sin
 
-class Step : Module("Step", "Allows you to step up/down blocks.", category = ModuleCategory.MOVEMENT) {
+class Step : ClientModule("Step", "Allows you to step up/down blocks.", ModuleCategory.MOVEMENT) {
 
     private val modeValue = ListValue("Mode", arrayOf(
         "Vanilla", "Jump", "NCP", "SigmaNCP", "MotionNCP", "OldNCP", "AAC", "LAAC", "AAC3.3.4", "Spartan", "Rewinside"

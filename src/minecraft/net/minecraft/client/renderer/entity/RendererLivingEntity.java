@@ -105,7 +105,6 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
         for (f = par2 - par1; f < -180.0F; f += 360.0F)
         {
-            ;
         }
 
         while (f >= 180.0F)
@@ -150,9 +149,8 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             float f1 = this.interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, partialTicks);
             float f2 = f1 - f;
 
-            if (this.mainModel.isRiding && entity.ridingEntity instanceof EntityLivingBase)
+            if (this.mainModel.isRiding && entity.ridingEntity instanceof EntityLivingBase entitylivingbase)
             {
-                EntityLivingBase entitylivingbase = (EntityLivingBase)entity.ridingEntity;
                 f = this.interpolateRotation(entitylivingbase.prevRenderYawOffset, entitylivingbase.renderYawOffset, partialTicks);
                 f2 = f1 - f;
                 float f3 = MathHelper.wrapAngleTo180_float(f2);
@@ -283,7 +281,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
         }
         catch (Exception exception1)
         {
-            logger.error("Couldn't render entity", (Throwable)exception1);
+            logger.error("Couldn't render entity", exception1);
         }
 
         GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
@@ -401,7 +399,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                         break;
                     case "outline":
                         if (mc.gameSettings.ofFastRender) {
-                            ChatUtils.INSTANCE.messageWithStart("§cPlease Turn OFF Fast Render!");
+                            ChatUtils.messageWithStart("§cPlease Turn OFF Fast Render!");
                             esp.setState(false);
                             return;
                         }
@@ -790,10 +788,10 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                     Tessellator tessellator = Tessellator.getInstance();
                     WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                     worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-                    worldrenderer.pos((double)(-i - 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos((double)(-i - 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos((double)(i + 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos((double)(i + 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos(-i - 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos(-i - 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos(i + 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos(i + 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
                     tessellator.draw();
                     GlStateManager.enableTexture2D();
                     GlStateManager.depthMask(true);

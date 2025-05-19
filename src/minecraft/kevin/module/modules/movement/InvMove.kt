@@ -17,7 +17,7 @@ package kevin.module.modules.movement
 import kevin.event.*
 import kevin.module.BooleanValue
 import kevin.module.ListValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.MovementUtils
 import net.minecraft.client.gui.GuiChat
@@ -26,7 +26,7 @@ import net.minecraft.client.settings.GameSettings
 import net.minecraft.network.play.client.C16PacketClientStatus
 import org.lwjgl.input.Keyboard
 
-class InvMove : Module("InvMove","Allows you to walk while an inventory is opened.",Keyboard.KEY_NONE,ModuleCategory.MOVEMENT){
+class InvMove : ClientModule("InvMove","Allows you to walk while an inventory is opened.",Keyboard.KEY_NONE,ModuleCategory.MOVEMENT){
     private val sprintMode = ListValue("Sprint", arrayOf("Ignore", "AlwaysFake", "StopWhenOpen", "FakeWhenOpen"), "Ignore")
     private val allowSneak = BooleanValue("AllowSneak", true)
     private val bypass = BooleanValue("Bypass",false)

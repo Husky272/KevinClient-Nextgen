@@ -27,7 +27,7 @@ import java.io.File
 import java.io.FileFilter
 import java.util.*
 
-class SuperSpammer : Module("SuperSpammer","Spams the chat with given messages.", category = ModuleCategory.MISC) {
+class SuperSpammer : ClientModule("SuperSpammer","Spams the chat with given messages.", ModuleCategory.MISC) {
     private val modeList = arrayListOf(
         "Single",
         "Switch",

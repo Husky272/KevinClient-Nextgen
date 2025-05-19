@@ -22,7 +22,7 @@ import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.potion.Potion
 import java.util.*
 
-class Regen : Module("Regen", "Regenerates your health much faster.", category = ModuleCategory.PLAYER) {
+class Regen : ClientModule("Regen", "Regenerates your health much faster.", ModuleCategory.PLAYER) {
 
     private val modeValue = ListValue("Mode", arrayOf("Vanilla", "Spartan", "AAC4NoFire"), "Vanilla")
     private val healthValue = IntegerValue("Health", 18, 0, 20)

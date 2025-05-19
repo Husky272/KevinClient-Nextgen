@@ -17,13 +17,13 @@ package kevin.module.modules.misc
 import kevin.event.EventTarget
 import kevin.event.TextEvent
 import kevin.main.KevinClient
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.module.TextValue
 import kevin.utils.ColorUtils.translateAlternateColorCodes
 import kevin.utils.StringUtils
 
-class NameProtect : Module(name = "NameProtect", description = "Changes playernames clientside.", category = ModuleCategory.MISC) {
+class NameProtect : ClientModule(name = "NameProtect", description = "Changes playernames clientside.", ModuleCategory.MISC) {
 
     private val fakeNameValue = TextValue("FakeName", "&cKevinUser")
 

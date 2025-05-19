@@ -19,12 +19,12 @@ import kevin.event.PacketEvent
 import kevin.hud.element.elements.Notification
 import kevin.main.KevinClient
 import kevin.module.ListValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.ChatUtils
 import net.minecraft.network.play.server.S2CPacketSpawnGlobalEntity
 
-object LightningDetector : Module("LightningDetector","Detect lightning.",category = ModuleCategory.WORLD) {
+object LightningDetector : ClientModule("LightningDetector","Detect lightning.",ModuleCategory.WORLD) {
     private val mode = ListValue("MessageMode", arrayOf("Chat","Notification"),"Notification")
     @EventTarget
     fun onPacket(event: PacketEvent) {

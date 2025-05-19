@@ -26,7 +26,7 @@ import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 
-object Crosshair : Module("Crosshair",category = ModuleCategory.RENDER) {
+object Crosshair : ClientModule("Crosshair",ModuleCategory.RENDER) {
     //Color
     private val colorModeValue = ListValue("Color", arrayOf("Custom", "Slowly", "Rainbow"), "Custom")
     private val colorRedValue = IntegerValue("Red", 255, 0, 255)
@@ -92,7 +92,7 @@ object Crosshair : Module("Crosshair",category = ModuleCategory.RENDER) {
 
     private val crosshairColor: Color
         get() =
-            when (colorModeValue.get().lowercase()) {
+            when (colorModeValue.get().toLowerCase()) {
                 "custom" -> Color(colorRedValue.get(), colorGreenValue.get(), colorBlueValue.get(), colorAlphaValue.get())
                 "slowly" -> ColorUtils.reAlpha(ColorUtils.slowlyRainbow(System.nanoTime(), 0, saturationValue.get(), brightnessValue.get()),
                     colorAlphaValue.get())

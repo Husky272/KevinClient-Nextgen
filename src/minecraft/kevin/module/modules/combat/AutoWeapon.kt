@@ -26,7 +26,7 @@ import net.minecraft.item.ItemTool
 import net.minecraft.network.play.client.C02PacketUseEntity
 import net.minecraft.network.play.client.C09PacketHeldItemChange
 
-class AutoWeapon : Module("AutoWeapon", "Automatically selects the best weapon in your hotbar.", category = ModuleCategory.COMBAT) {
+class AutoWeapon : ClientModule("AutoWeapon", "Automatically selects the best weapon in your hotbar.", ModuleCategory.COMBAT) {
     private val mode = ListValue("Mode", arrayOf("Direct", "Spoof"), "Direct")
     private val silentValue : Boolean
         get() = mode equal "Spoof"

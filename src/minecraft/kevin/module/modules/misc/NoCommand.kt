@@ -14,6 +14,6 @@
  */
 package kevin.module.modules.misc
 
-import kevin.module.Module
+import kevin.module.ClientModule
 
-object NoCommand : Module("NoCommand", "Disable client command.")
+object NoCommand : ClientModule("NoCommand", "Disable client command.")

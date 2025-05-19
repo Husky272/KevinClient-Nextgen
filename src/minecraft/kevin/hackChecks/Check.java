@@ -27,7 +27,7 @@ public class Check extends MinecraftInstance {
 
     public void flag(String verbose, double vl) {
         violationLevel += vl;
-        if (debug) ChatUtils.INSTANCE.message(String.format("§l§7[§l§9HackDetector§l§7]§r §c%s§3 failed§2 %s §r§7(x§4%s§7) %s", handlePlayer.getName(), name, (int) violationLevel, verbose));
+        if (debug) ChatUtils.message(String.format("§l§7[§l§9HackDetector§l§7]§r §c%s§3 failed§2 %s §r§7(x§4%s§7) %s", handlePlayer.getName(), name, (int) violationLevel, verbose));
     }
 
     public void reward() {

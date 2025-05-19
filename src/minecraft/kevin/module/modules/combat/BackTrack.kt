@@ -43,7 +43,7 @@ import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.max
 
-class BackTrack: Module("BackTrack", "Lets you attack people in their previous locations", category = ModuleCategory.COMBAT) {
+class BackTrack: ClientModule("BackTrack", "Lets you attack people in their previous locations", ModuleCategory.COMBAT) {
     private val minDistance: FloatValue = object : FloatValue("MinDistance", 2.9f, 2f, 4f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
             if (newValue > maxStartDistance.get()) set(maxStartDistance.get())

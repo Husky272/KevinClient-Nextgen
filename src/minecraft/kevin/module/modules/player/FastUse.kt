@@ -30,7 +30,7 @@ import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.server.S19PacketEntityStatus
 import java.util.*
 
-class FastUse : Module("FastUse", "Allows you to use items faster.", category = ModuleCategory.PLAYER) {
+class FastUse : ClientModule("FastUse", "Allows you to use items faster.", ModuleCategory.PLAYER) {
     private val modeValue = ListValue("Mode", arrayOf("Instant", "NCP", "AAC", "Matrix", "Semi", "Custom"), "NCP")
 
     private val noMoveValue = BooleanValue("NoMove", false)

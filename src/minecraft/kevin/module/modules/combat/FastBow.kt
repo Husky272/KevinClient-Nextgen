@@ -17,7 +17,7 @@ package kevin.module.modules.combat
 import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.module.IntegerValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.RotationUtils
 import net.minecraft.item.ItemBow
@@ -27,7 +27,7 @@ import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement
 import net.minecraft.util.BlockPos
 import net.minecraft.util.EnumFacing
 
-class FastBow : Module("FastBow", "Allows you to use bow faster.", category = ModuleCategory.COMBAT) {
+class FastBow : ClientModule("FastBow", "Allows you to use bow faster.", ModuleCategory.COMBAT) {
     private val packetsValue = IntegerValue("Packets", 20, 3, 20)
     @EventTarget
     fun onUpdate(event: UpdateEvent) {

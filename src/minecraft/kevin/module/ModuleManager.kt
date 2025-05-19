@@ -31,15 +31,15 @@ import kevin.module.modules.world.*
 
 class ModuleManager : Listenable {
 
-    private val modules = ArrayList<Module>()
+    private val clientModules = ArrayList<ClientModule>()
 
-    private var combatList:ArrayList<Module>? = null
-    private var exploitList:ArrayList<Module>? = null
-    private var miscList:ArrayList<Module>? = null
-    private var movementList:ArrayList<Module>? = null
-    private var playerList:ArrayList<Module>? = null
-    private var renderList:ArrayList<Module>? = null
-    private var worldList:ArrayList<Module>? = null
+    private var combatList:ArrayList<ClientModule>? = null
+    private var exploitList:ArrayList<ClientModule>? = null
+    private var miscList:ArrayList<ClientModule>? = null
+    private var movementList:ArrayList<ClientModule>? = null
+    private var playerList:ArrayList<ClientModule>? = null
+    private var renderList:ArrayList<ClientModule>? = null
+    private var worldList:ArrayList<ClientModule>? = null
 
     val xRay by lazy { getModule(XRay::class.java) }
 
@@ -63,6 +63,7 @@ class ModuleManager : Listenable {
             TeleportAttack(),
             TimerRange
         )
+
         exploitList = arrayListOf(
             AbortBreaking(),
             AntiHunger(),
@@ -87,13 +88,14 @@ class ModuleManager : Listenable {
             TP(),
             VehicleOneHit()
         )
+
         miscList = arrayListOf(
             AdminDetector,
             AntiBot,
 //            AntiCrash,
             AntiInvalidBlockPlacement(),
             AntiShop(),
-            AntiLogSpam,
+//            AntiLogSpam,
             AutoCommand(),
             AutoDisable,
             AutoL(),
@@ -155,7 +157,7 @@ class ModuleManager : Listenable {
             AutoSneak(),
             AutoTool(),
             Blink(),
-            CancelC03(),
+//            CancelC03(),
             FastUse(),
             InventoryCleaner(),
             NoFall(),
@@ -216,36 +218,36 @@ class ModuleManager : Listenable {
             World
         )
 
-        modules.add(Targets())
-        modules.addAll(combatList!!)
-        modules.addAll(exploitList!!)
-        modules.addAll(miscList!!)
-        modules.addAll(movementList!!)
-        modules.addAll(playerList!!)
-        modules.addAll(renderList!!)
-        modules.addAll(worldList!!)
-        modules.forEach { KevinClient.eventManager.registerListener(it) }
+        clientModules.add(Targets())
+        clientModules.addAll(combatList!!)
+        clientModules.addAll(exploitList!!)
+        clientModules.addAll(miscList!!)
+        clientModules.addAll(movementList!!)
+        clientModules.addAll(playerList!!)
+        clientModules.addAll(renderList!!)
+        clientModules.addAll(worldList!!)
+        clientModules.forEach { KevinClient.eventManager.registerListener(it) }
         KevinClient.eventManager.registerListener(this)
     }
 
-    fun getModules(): ArrayList<Module>{
-        return modules
+    fun getModules(): ArrayList<ClientModule>{
+        return clientModules
     }
 
-    fun getModuleByName(name: String): Module?{
-        for (module in modules){
+    fun getModuleByName(name: String): ClientModule?{
+        for (module in clientModules){
             if (module.name.equals(name,ignoreCase = true))return module
         }
         return null
     }
 
-    fun <T: Module> getModule(module: Class<T>) = modules.first { it.javaClass == module } as T
+    fun <T: ClientModule> getModule(module: Class<T>) = clientModules.first { it.javaClass == module } as T
 
-    operator fun <T: Module> get(module: Class<T>) = getModule(module)
+    operator fun <T: ClientModule> get(module: Class<T>) = getModule(module)
 
     @EventTarget
     fun onKey(key: KeyEvent){
-        for (module in modules){
+        for (module in clientModules){
             if (module.keyBind == key.key) module.toggle()
         }
     }
@@ -254,13 +256,13 @@ class ModuleManager : Listenable {
         return true
     }
 
-    fun registerModule(module: Module) {
-        modules += module
-        KevinClient.eventManager.registerListener(module)
+    fun registerModule(clientModule: ClientModule) {
+        clientModules += clientModule
+        KevinClient.eventManager.registerListener(clientModule)
     }
 
-    fun unregisterModule(module: Module) {
-        modules.remove(module)
-        KevinClient.eventManager.unregisterListener(module)
+    fun unregisterModule(clientModule: ClientModule) {
+        clientModules.remove(clientModule)
+        KevinClient.eventManager.unregisterListener(clientModule)
     }
 }

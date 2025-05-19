@@ -34,7 +34,7 @@ import net.minecraft.util.EnumFacing
 import java.util.*
 import kotlin.math.floor
 
-class AntiKnockback : Module("AntiKnockback","Allows you to modify the amount of knockback you take.", category = ModuleCategory.COMBAT) {
+class AntiKnockback : ClientModule("AntiKnockback","Allows you to modify the amount of knockback you take.", ModuleCategory.COMBAT) {
     private val horizontalValue = FloatValue("Horizontal", 0F, -1F, 1F)
     private val verticalValue = FloatValue("Vertical", 0F, -1F, 1F)
     private val modeValue = ListValue("Mode", arrayOf(

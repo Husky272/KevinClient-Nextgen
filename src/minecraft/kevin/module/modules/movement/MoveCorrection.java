@@ -3,14 +3,14 @@ package kevin.module.modules.movement;
 import kevin.event.*;
 import kevin.main.KevinClient;
 import kevin.module.BooleanValue;
-import kevin.module.Module;
+import kevin.module.ClientModule;
 import kevin.module.ModuleCategory;
 import net.minecraft.util.MathHelper;
 import org.lwjgl.input.Keyboard;
 
 import static kevin.utils.RotationUtils.targetRotation;
 
-public class MoveCorrection extends Module {
+public class MoveCorrection extends ClientModule {
     private final BooleanValue fixSprintSwitch = new BooleanValue("FixSprint", true);
     public static MoveCorrection INSTANCE;
     private float fixedYaw = 0f;

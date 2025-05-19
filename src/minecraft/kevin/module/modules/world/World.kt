@@ -21,7 +21,7 @@ import kevin.module.*
 import net.minecraft.network.play.server.S03PacketTimeUpdate
 import net.minecraft.network.play.server.S2BPacketChangeGameState
 
-object World : Module("World","Change the world!",category = ModuleCategory.WORLD) {
+object World : ClientModule("World","Change the world!",ModuleCategory.WORLD) {
     private val timeModeValue = ListValue("TimeMode", arrayOf("Normal","Custom","Set"), "Normal")
     private val weatherModeValue = ListValue("WeatherMode", arrayOf("Normal","Sun","Rain","Thunder"), "Normal")
     private val customWorldTimeValue = IntegerValue("CustomTime", 1000, 0, 24000)

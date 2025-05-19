@@ -16,7 +16,7 @@ package kevin.module.modules.movement
 
 import kevin.event.*
 import kevin.module.*
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.BlockUtils.collideBlock
 import kevin.utils.BlockUtils.getBlock
@@ -28,7 +28,7 @@ import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.BlockPos
 import java.util.*
 
-class LiquidWalk : Module(name = "LiquidWalk", description = "Allows you to walk on water.", category = ModuleCategory.MOVEMENT) {
+class LiquidWalk : ClientModule(name = "LiquidWalk", description = "Allows you to walk on water.", ModuleCategory.MOVEMENT) {
     val modeValue = ListValue("Mode", arrayOf("Vanilla", "NCP", "AAC", "AAC3.3.11", "AACFly", "Spartan", "Dolphin"), "NCP")
     private val noJumpValue = BooleanValue("NoJump", false)
     private val aacFlyValue = FloatValue("AACFlyMotion", 0.5f, 0.1f, 1f)

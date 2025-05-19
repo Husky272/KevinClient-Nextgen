@@ -9,6 +9,7 @@ import kevin.hud.element.elements.ConnectNotificationType;
 import kevin.hud.element.elements.Notification;
 import kevin.main.KevinClient;
 import kevin.module.*;
+import kevin.module.ClientModule;
 import kevin.utils.ChatUtils;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.entity.Entity;
@@ -23,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class HackDetector extends Module {
+public class HackDetector extends ClientModule {
     public static final HackDetector INSTANCE = new HackDetector();
     public final ConcurrentHashMap<Integer, CheckManager> playersChecks = new ConcurrentHashMap<>();
 
@@ -131,7 +132,7 @@ public class HackDetector extends Module {
 
     public void warning(String player, String module) {
         if (warningMode.equal("Chat")) {
-            ChatUtils.INSTANCE.message("§l§7[§l§9HackDetector§l§7]§r " + completeMessage(player, module, warningMessageValue.get()));
+            ChatUtils.message("§l§7[§l§9HackDetector§l§7]§r " + completeMessage(player, module, warningMessageValue.get()));
         } else {
             KevinClient.hud.addNotification(new Notification(completeMessage(player, module, warningMessageValue.get()), "HackerDetector", ConnectNotificationType.Warn));
         }

@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.render
 
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 
-class CameraClip : Module("CameraClip", "Allows you to see through walls in third person view.", category = ModuleCategory.RENDER)
+class CameraClip : ClientModule("CameraClip", "Allows you to see through walls in third person view.", ModuleCategory.RENDER)

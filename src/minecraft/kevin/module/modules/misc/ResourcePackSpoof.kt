@@ -16,14 +16,14 @@ package kevin.module.modules.misc
 
 import kevin.event.EventTarget
 import kevin.event.PacketEvent
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import net.minecraft.network.play.client.C19PacketResourcePackStatus
 import net.minecraft.network.play.server.S48PacketResourcePackSend
 import java.net.URI
 import java.net.URISyntaxException
 
-class ResourcePackSpoof : Module("ResourcePackSpoof", "Prevents servers from forcing you to download their resource pack.", category = ModuleCategory.MISC) {
+class ResourcePackSpoof : ClientModule("ResourcePackSpoof", "Prevents servers from forcing you to download their resource pack.", ModuleCategory.MISC) {
     @EventTarget
     fun onPacket(event: PacketEvent) {
         if ((event.packet)is S48PacketResourcePackSend) {

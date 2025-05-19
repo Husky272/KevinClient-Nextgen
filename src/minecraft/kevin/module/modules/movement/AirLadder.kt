@@ -17,14 +17,14 @@ package kevin.module.modules.movement
 import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.module.BooleanValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.BlockUtils
 import net.minecraft.block.BlockLadder
 import net.minecraft.block.BlockVine
 import net.minecraft.util.BlockPos
 
-class AirLadder : Module("AirLadder", "Allows you to climb up ladders/vines without touching them.", category = ModuleCategory.MOVEMENT) {
+class AirLadder : ClientModule("AirLadder", "Allows you to climb up ladders/vines without touching them.", ModuleCategory.MOVEMENT) {
     private val antiCheat = BooleanValue("Bypass",true)
     @EventTarget
     fun onUpdate(event: UpdateEvent) {

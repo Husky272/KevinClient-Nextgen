@@ -29,7 +29,7 @@ import net.minecraft.network.play.client.C14PacketTabComplete
 import net.minecraft.network.play.server.S3APacketTabComplete
 import java.io.File
 
-object AdminDetector : Module("AdminDetector","Detect server admins."),ICommand {
+object AdminDetector : ClientModule("AdminDetector","Detect server admins."),ICommand {
     private val adminNamesFile:File by lazy {
         if (!KevinClient.fileManager.adminNamesFile.exists()) KevinClient.fileManager.adminNamesFile.createNewFile()
         KevinClient.fileManager.adminNamesFile

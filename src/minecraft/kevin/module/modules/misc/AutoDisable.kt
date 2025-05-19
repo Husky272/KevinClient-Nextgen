@@ -22,13 +22,13 @@ import kevin.hud.element.elements.ConnectNotificationType
 import kevin.hud.element.elements.Notification
 import kevin.main.KevinClient
 import kevin.module.BooleanValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.utils.ChatUtils
 import kevin.utils.MSTimer
 import net.minecraft.network.play.server.S08PacketPlayerPosLook
 import java.util.*
 
-object AutoDisable : Module("AutoDisable","Auto disable modules.(Use Command .AutoDisableSet <ModuleName> <add/remove> <World/SetBack/All>)"),ICommand {
+object AutoDisable : ClientModule("AutoDisable","Auto disable modules.(Use Command .AutoDisableSet <ModuleName> <add/remove> <World/SetBack/All>)"),ICommand {
     override fun run(args: Array<out String>?) {
         if (args.isNullOrEmpty()||args.size<2) {
             usageMessage()
@@ -56,14 +56,14 @@ object AutoDisable : Module("AutoDisable","Auto disable modules.(Use Command .Au
             } else usageMessage()
         }
     }
-    private fun add(module: Module,mode: String){
-        module.autoDisable = true to mode.lowercase(Locale.getDefault())
+    private fun add(clientModule: ClientModule, mode: String){
+        clientModule.autoDisable = true to mode.lowercase(Locale.getDefault())
         ChatUtils.messageWithStart("§aModule successfully added to list.")
         if (!this.state) ChatUtils.messageWithStart("§eDon't forget to open AutoDisable module!")
         KevinClient.fileManager.saveConfig(KevinClient.fileManager.modulesConfig)
     }
-    private fun remove(module: Module) {
-        module.autoDisable = false to ""
+    private fun remove(clientModule: ClientModule) {
+        clientModule.autoDisable = false to ""
         ChatUtils.messageWithStart("§aModule successfully removed from list.")
         KevinClient.fileManager.saveConfig(KevinClient.fileManager.modulesConfig)
     }

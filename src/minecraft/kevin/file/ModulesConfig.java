@@ -19,7 +19,7 @@ import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import kevin.main.KevinClient;
-import kevin.module.Module;
+import kevin.module.ClientModule;
 import kevin.module.Value;
 import kotlin.Pair;
 
@@ -41,16 +41,16 @@ public class ModulesConfig extends FileConfig {
             return;
 
         for (Map.Entry<String, JsonElement> entry : jsonElement.getAsJsonObject().entrySet()) {
-            final Module Module = KevinClient.moduleManager.getModuleByName(entry.getKey());
+            final ClientModule ClientModule = KevinClient.moduleManager.getModuleByName(entry.getKey());
 
-            if (Module != null) {
+            if (ClientModule != null) {
                 final JsonObject jsonModule = (JsonObject) entry.getValue();
 
-                Module.setState(jsonModule.get("State").getAsBoolean());
-                Module.setKeyBind(jsonModule.get("KeyBind").getAsInt());
-                if (jsonModule.get("Hide")!=null) Module.setArray(!jsonModule.get("Hide").getAsBoolean());
-                if (jsonModule.get("AutoDisable")!=null) Module.setAutoDisable(new Pair<>(!Objects.equals(jsonModule.get("AutoDisable").getAsString(), "Disable"), Objects.equals(jsonModule.get("AutoDisable").getAsString(), "Disable") ? "" : jsonModule.get("AutoDisable").getAsString()));
-                for (final Value<?> moduleValue : Module.getValues()) {
+                ClientModule.setState(jsonModule.get("State").getAsBoolean());
+                ClientModule.setKeyBind(jsonModule.get("KeyBind").getAsInt());
+                if (jsonModule.get("Hide")!=null) ClientModule.setArray(!jsonModule.get("Hide").getAsBoolean());
+                if (jsonModule.get("AutoDisable")!=null) ClientModule.setAutoDisable(new Pair<>(!Objects.equals(jsonModule.get("AutoDisable").getAsString(), "Disable"), Objects.equals(jsonModule.get("AutoDisable").getAsString(), "Disable") ? "" : jsonModule.get("AutoDisable").getAsString()));
+                for (final Value<?> moduleValue : ClientModule.getValues()) {
                     final JsonElement element = jsonModule.get(moduleValue.getName());
 
                     if (element != null) moduleValue.fromJson(element);
@@ -63,14 +63,14 @@ public class ModulesConfig extends FileConfig {
     protected void saveConfig() throws IOException {
         final JsonObject jsonObject = new JsonObject();
 
-        for (final Module Module : KevinClient.moduleManager.getModules()) {
+        for (final ClientModule ClientModule : KevinClient.moduleManager.getModules()) {
             final JsonObject jsonMod = new JsonObject();
-            jsonMod.addProperty("State", Module.getState());
-            jsonMod.addProperty("KeyBind", Module.getKeyBind());
-            jsonMod.addProperty("Hide", !Module.getArray());
-            jsonMod.addProperty("AutoDisable", Module.getAutoDisable().getFirst() ? Module.getAutoDisable().getSecond() : "Disable");
-            Module.getValues().forEach(value -> jsonMod.add(value.getName(), value.toJson()));
-            jsonObject.add(Module.getName(), jsonMod);
+            jsonMod.addProperty("State", ClientModule.getState());
+            jsonMod.addProperty("KeyBind", ClientModule.getKeyBind());
+            jsonMod.addProperty("Hide", !ClientModule.getArray());
+            jsonMod.addProperty("AutoDisable", ClientModule.getAutoDisable().getFirst() ? ClientModule.getAutoDisable().getSecond() : "Disable");
+            ClientModule.getValues().forEach(value -> jsonMod.add(value.getName(), value.toJson()));
+            jsonObject.add(ClientModule.getName(), jsonMod);
         }
 
         final PrintWriter printWriter = new PrintWriter(new FileWriter(getFile()));

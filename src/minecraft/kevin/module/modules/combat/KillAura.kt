@@ -48,7 +48,7 @@ import java.util.*
 import kotlin.math.*
 
 @Suppress("unused_parameter")
-class KillAura : Module("KillAura","Automatically attacks targets around you.", Keyboard.KEY_R, ModuleCategory.COMBAT) {
+class KillAura : ClientModule("KillAura","Automatically attacks targets around you.", Keyboard.KEY_R, ModuleCategory.COMBAT) {
     /**
      * OPTIONS
      */

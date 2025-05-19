@@ -15,11 +15,11 @@
 package kevin.module.modules.render
 
 import kevin.main.KevinClient
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import org.lwjgl.input.Keyboard
 
-class CapeManager : Module("CapeManager","Cape manager.",Keyboard.KEY_RMENU,category = ModuleCategory.RENDER) {
+class CapeManager : ClientModule("CapeManager","Cape manager.",Keyboard.KEY_RMENU,ModuleCategory.RENDER) {
     override fun onEnable() {
         mc.displayGuiScreen(KevinClient.capeManager)
         state = false

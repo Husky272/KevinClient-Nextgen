@@ -21,7 +21,7 @@ import com.google.gson.JsonParser
 import kevin.command.bind.BindCommand
 import kevin.command.bind.BindCommandManager
 import kevin.main.KevinClient
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.Value
 import kevin.utils.ChatUtils
 import org.apache.commons.io.FileUtils
@@ -89,7 +89,7 @@ object ConfigManager {
         val hudConfigEx = hudConfig.isNotEmpty() && hudConfig[0].exists() && hudConfig[0].isFile
         var returnValue = 0
         val warns = mutableMapOf<String,String>()
-        val setModules = arrayListOf<Module>()
+        val setClientModules = arrayListOf<ClientModule>()
         var bindCommandEx = false
         BindCommandManager.bindCommandList.clear()
         //LoadModules
@@ -115,7 +115,7 @@ object ConfigManager {
                     //Modules
                     val module = KevinClient.moduleManager.getModuleByName(key)
                     if (module != null) {
-                        setModules.add(module)
+                        setClientModules.add(module)
                         val jsonModule = value as JsonObject
                         module.state = jsonModule["State"].asBoolean
                         module.keyBind = jsonModule["KeyBind"].asInt
@@ -141,7 +141,7 @@ object ConfigManager {
                 warns["BindCommandManager"] = "Bind command list not exist."
             }
             KevinClient.moduleManager.getModules().forEach {
-                if (it !in setModules) {
+                if (it !in setClientModules) {
                     warns[it.name] = "The parameters for this module are not saved in the config file(OldConfig?)."
                 }
             }

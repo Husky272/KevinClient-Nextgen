@@ -19,7 +19,7 @@ import kevin.event.ScreenEvent;
 import kevin.event.UpdateEvent;
 import kevin.module.BooleanValue;
 import kevin.module.IntegerValue;
-import kevin.module.Module;
+import kevin.module.ClientModule;
 import kevin.module.ModuleCategory;
 import kevin.utils.*;
 import net.minecraft.client.gui.inventory.GuiInventory;
@@ -36,7 +36,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class AutoArmor extends Module {
+public class AutoArmor extends ClientModule {
 
     public static final ArmorComparator ARMOR_COMPARATOR = new ArmorComparator();
     private final IntegerValue minDelayValue = new IntegerValue("MinDelay", 100, 0, 500) {

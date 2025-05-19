@@ -33,7 +33,7 @@ import net.minecraft.util.ResourceLocation
 import kotlin.random.Random
 import kevin.utils.InventoryUtils.MouseSimulator.SHARED as mouseSimulator
 
-class ChestStealer : Module("ChestStealer", description = "Automatically steals all items from a chest.", category = ModuleCategory.WORLD) {
+class ChestStealer : ClientModule("ChestStealer", description = "Automatically steals all items from a chest.", ModuleCategory.WORLD) {
 
     private val maxDelayValue: IntegerValue = object : IntegerValue("MaxDelay", 200, 0, 400) {
         override fun onChanged(oldValue: Int, newValue: Int) {

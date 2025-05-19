@@ -35,7 +35,7 @@ import java.util.*
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.collections.ArrayList
 
-object AntiBot : Module("AntiBot","Prevents KillAura from attacking AntiCheat bots.", category = ModuleCategory.MISC) {
+object AntiBot : ClientModule("AntiBot","Prevents KillAura from attacking AntiCheat bots.", ModuleCategory.MISC) {
     private val modeValue = ListValue("Mode", arrayOf("Custom","NoColorArmor","UnusualArmor"),"Custom")
     private val removeFromWorld = BooleanValue("RemoveFromWord", false)
     private val debugValue = BooleanValue("Debug", true)

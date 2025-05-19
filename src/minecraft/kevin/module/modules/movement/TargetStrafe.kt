@@ -25,7 +25,7 @@ import java.awt.Color
 import kotlin.math.cos
 import kotlin.math.sin
 
-object TargetStrafe : Module("TargetStrafe","Strafe around your target.", category = ModuleCategory.MOVEMENT) {
+object TargetStrafe : ClientModule("TargetStrafe","Strafe around your target.", ModuleCategory.MOVEMENT) {
     private val radius = FloatValue("Radius", 2.0f, 0.1f, 4.0f)
     private val strengthValue= FloatValue("Strength", 0.5F, 0F, 1F)
     private val render = BooleanValue("Render", true)

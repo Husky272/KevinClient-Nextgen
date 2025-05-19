@@ -33,7 +33,7 @@ import java.util.*
 import kotlin.math.cos
 import kotlin.math.sin
 
-class HighJump : Module("HighJump", "Allows you to jump higher.", category = ModuleCategory.MOVEMENT) {
+class HighJump : ClientModule("HighJump", "Allows you to jump higher.", ModuleCategory.MOVEMENT) {
     private val heightValue = FloatValue("Height", 2f, 0.5f, 5f)
     private val modeValue = ListValue("Mode", arrayOf("Vanilla", "Damage", "AACv3", "DAC", "Mineplex", "Timer", "VulcanLong", "Matrix","MatrixWater"), "Vanilla")
     private val glassValue = BooleanValue("OnlyGlassPane", false)

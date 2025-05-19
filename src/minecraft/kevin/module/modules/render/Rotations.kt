@@ -18,14 +18,14 @@ import kevin.event.*
 import kevin.main.KevinClient
 import kevin.module.BooleanValue
 import kevin.module.FloatValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.module.modules.combat.KillAura
 import kevin.utils.RandomUtils
 import kevin.utils.RotationUtils
 import net.minecraft.network.play.client.C03PacketPlayer
 
-object Rotations : Module("Rotations", description = "Allows you to see server-sided head and body rotations.", category = ModuleCategory.RENDER) {
+object Rotations : ClientModule("Rotations", description = "Allows you to see server-sided head and body rotations.", ModuleCategory.RENDER) {
     private val bodyValue = BooleanValue("Body", true)
     private val smoothBackValue by BooleanValue("SmoothBackRotation", true)
     private val smoothBackMinYawSpeed: Float by object : FloatValue("SmoothBackMinYawSpeed", 30F, 1F..180F) {

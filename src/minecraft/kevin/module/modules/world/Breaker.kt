@@ -43,7 +43,7 @@ import net.minecraft.util.Vec3
 import java.awt.Color
 import java.util.*
 
-class Breaker : Module("Breaker",description = "Destroys selected blocks around you.", category = ModuleCategory.WORLD) {
+class Breaker : ClientModule("Breaker",description = "Destroys selected blocks around you.", ModuleCategory.WORLD) {
 
     /**
      * SETTINGS

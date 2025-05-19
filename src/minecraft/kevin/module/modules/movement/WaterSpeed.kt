@@ -17,12 +17,12 @@ package kevin.module.modules.movement
 import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.module.FloatValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.BlockUtils.getBlock
 import net.minecraft.block.BlockLiquid
 
-class WaterSpeed : Module("WaterSpeed", "Allows you to swim faster.", category = ModuleCategory.MOVEMENT) {
+class WaterSpeed : ClientModule("WaterSpeed", "Allows you to swim faster.", ModuleCategory.MOVEMENT) {
     private val speedValue = FloatValue("Speed", 1.2f, 1.1f, 1.5f)
 
     @EventTarget

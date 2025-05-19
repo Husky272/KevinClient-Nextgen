@@ -17,11 +17,11 @@ package kevin.module.modules.misc
 import kevin.event.EventTarget
 import kevin.event.PacketEvent
 import kevin.module.BooleanValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.via.ViaVersion
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement
 
-class AntiInvalidBlockPlacement : Module("AntiInvalidBlockPlacement", "Anti invalid block placement caused by via-version.") {
+class AntiInvalidBlockPlacement : ClientModule("AntiInvalidBlockPlacement", "Anti invalid block placement caused by via-version.") {
     private val versionCheck = BooleanValue("VersionCheck", true)
     @EventTarget
     fun onPacket(event: PacketEvent) {

@@ -37,7 +37,7 @@ import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
 
-class VehicleJump : Module("VehicleJump","Use vehicle long/high jump.",category = ModuleCategory.MOVEMENT) {
+class VehicleJump : ClientModule("VehicleJump","Use vehicle long/high jump.",ModuleCategory.MOVEMENT) {
     private val mode = ListValue("Mode", arrayOf("Motion","SetPos"),"Motion")
     private val motionLong = FloatValue("MotionLong",5F,0.1F,20F)
     private val motionHigh = FloatValue("MotionHigh",.9F,0.1F,20F)

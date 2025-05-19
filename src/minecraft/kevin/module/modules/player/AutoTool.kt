@@ -19,13 +19,13 @@ import kevin.event.EventTarget
 import kevin.event.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.BooleanValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.MSTimer
 import net.minecraft.network.play.client.C09PacketHeldItemChange
 import net.minecraft.util.BlockPos
 
-class AutoTool : Module(name = "AutoTool", description = "Automatically selects the best tool in your inventory to mine a block.", category = ModuleCategory.PLAYER) {
+class AutoTool : ClientModule(name = "AutoTool", description = "Automatically selects the best tool in your inventory to mine a block.", ModuleCategory.PLAYER) {
     val silentValue = BooleanValue("Silent", true)
     var nowSlot = 0
     private val switchTimer = MSTimer()

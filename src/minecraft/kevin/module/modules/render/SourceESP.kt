@@ -29,7 +29,7 @@ import java.awt.Color
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SourceESP: Module("SourceESP", "Allow you to see the source of lava/water.", category = ModuleCategory.RENDER) {
+class SourceESP: ClientModule("SourceESP", "Allow you to see the source of lava/water.", ModuleCategory.RENDER) {
     private val waterMode = ListValue("WaterMode", arrayOf("Box", "2D"), "Box")
     private val waterRadiusValue = IntegerValue("WaterRadius", 40, 5, 120)
     private val waterLimitValue = IntegerValue("WaterLimit", 128, 0, 1024)

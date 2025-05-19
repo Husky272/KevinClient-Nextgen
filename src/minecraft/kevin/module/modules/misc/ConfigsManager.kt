@@ -25,14 +25,14 @@ import kevin.hud.element.elements.Notification
 import kevin.main.KevinClient
 import kevin.module.BooleanValue
 import kevin.module.ListValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.utils.ChatUtils
 import kevin.utils.ServerUtils
 import kevin.utils.proxy.ProxyManager
 import net.minecraft.client.Minecraft
 import java.net.Proxy
 
-object ConfigsManager : Module("ConfigsManager", "Manage configs") { // good code? lol
+object ConfigsManager : ClientModule("ConfigsManager", "Manage configs") { // good code? lol
     private var localConfigs: ListValue = ListValue("LocalConfigs", arrayOf(""), "")
     private var cloudConfigs: ListValue = ListValue("CloudConfigs", arrayOf(""), "")
 
@@ -103,7 +103,7 @@ object ConfigsManager : Module("ConfigsManager", "Manage configs") { // good cod
             return
         }
         val jsonElement = JsonParser().parse(res.first)
-        val setModules = arrayListOf<Module>()
+        val setClientModules = arrayListOf<ClientModule>()
         val warns = mutableMapOf<String,String>()
         if (jsonElement !is JsonNull) {
             KevinClient.moduleManager.getModules().forEach { it.state = false }
@@ -124,7 +124,7 @@ object ConfigsManager : Module("ConfigsManager", "Manage configs") { // good cod
                 //Modules
                 val module = KevinClient.moduleManager.getModuleByName(key)
                 if (module != null) {
-                    setModules.add(module)
+                    setClientModules.add(module)
                     val jsonModule = value as JsonObject
                     module.state = jsonModule["State"].asBoolean
                     module.keyBind = jsonModule["KeyBind"].asInt

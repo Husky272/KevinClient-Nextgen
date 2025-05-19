@@ -24,7 +24,7 @@ import net.minecraft.entity.player.EntityPlayer
 import java.io.File
 import java.io.FileFilter
 
-class AutoL : Module("AutoL","Send messages automatically when you kill a player.") {
+class AutoL : ClientModule("AutoL","Send messages automatically when you kill a player.", ModuleCategory.MISC) {
     //从文件夹加载
     private val modeList = arrayListOf("Single", "SkidMa", "Cum")
 

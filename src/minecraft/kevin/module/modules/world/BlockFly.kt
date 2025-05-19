@@ -34,7 +34,7 @@ import java.awt.Color
 import javax.vecmath.Color3f
 import kotlin.math.*
 
-object BlockFly : Module("BlockFly", "Scaffold skidded from lb b85", 0, ModuleCategory.WORLD) {
+object BlockFly : ClientModule("BlockFly", "Scaffold skidded from lb b85", 0, ModuleCategory.WORLD) {
     private val mode by ListValue(
         "Mode",
         arrayOf("Normal", "Rewinside", "Expand", "Telly", "GodBridge"),

@@ -19,12 +19,12 @@ import kevin.hud.designer.GuiHudDesigner
 import kevin.hud.element.elements.ScoreboardElement
 import kevin.main.KevinClient
 import kevin.module.BooleanValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import net.minecraft.network.play.client.C09PacketHeldItemChange
 import net.minecraft.network.play.server.S09PacketHeldItemChange
 
-class HUD : Module("HUD","Toggles visibility of the HUD.",category = ModuleCategory.RENDER) {
+class HUD : ClientModule("HUD","Toggles visibility of the HUD.",ModuleCategory.RENDER) {
     var keepScoreboard = BooleanValue("KeepScoreboard", true)
     private var hotBarShowCurrentSlot = BooleanValue("HotBarShowCurrentSlot", true)
 

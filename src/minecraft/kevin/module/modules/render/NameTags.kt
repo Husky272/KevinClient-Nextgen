@@ -31,7 +31,7 @@ import java.awt.Color
 import java.util.*
 import kotlin.math.roundToInt
 
-class NameTags : Module("NameTags", "Changes the scale of the nametags so you can always read them.", category = ModuleCategory.RENDER) {
+class NameTags : ClientModule("NameTags", "Changes the scale of the nametags so you can always read them.", ModuleCategory.RENDER) {
     private val modeValue = ListValue("Mode", arrayOf("Simple","Liquid","Jello"),"Simple")
     private val healthValue = BooleanValue("Health", true)
     private val pingValue = BooleanValue("Ping", true)

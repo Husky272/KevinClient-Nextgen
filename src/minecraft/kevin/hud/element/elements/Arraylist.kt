@@ -48,7 +48,7 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
                 .toDouble() < 0.5) -(v1 / 360.0).toFloat() else (v1 / 360.0).toFloat(), st, bright).rgb
     }
     private var fontValue = FontLoaders.novo20
-    private var modules = emptyList<Module>()
+    private var clientModules = emptyList<ClientModule>()
 
     private val tagMode = ListValue("ArrayList-TagMode", arrayOf("<>","[]","None"),"<>")
     private val fontMode = ListValue("Font-Mode", arrayOf("16","18","20","22"),"20")
@@ -175,7 +175,7 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
         if(blurMode.get() != "None") {
             StencilUtil.initStencilToWrite()
             GL11.glColor3f(0f, 0f, 0f)
-            modules.forEachIndexed { index, module ->
+            clientModules.forEachIndexed { index, module ->
                 val xPos = -module.slide - 2 + renderX.toFloat()
                 val yPos = renderY.toFloat() + (if (side.vertical == Side.Vertical.DOWN) -textSpacer else textSpacer) *
                         (if (side.vertical == Side.Vertical.DOWN) index + 1 else index)
@@ -197,7 +197,7 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
             bloomFramebuffer = createFrameBuffer(bloomFramebuffer)
             bloomFramebuffer!!.framebufferClear()
             bloomFramebuffer!!.bindFramebuffer(true)
-            modules.forEachIndexed { index, module ->
+            clientModules.forEachIndexed { index, module ->
                 val xPos = -module.slide - 2 + renderX.toFloat()
                 val yPos = renderY.toFloat() + (if (side.vertical == Side.Vertical.DOWN) -textSpacer else textSpacer) *
                         (if (side.vertical == Side.Vertical.DOWN) index + 1 else index)
@@ -214,7 +214,7 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
             BloomUtil.renderBlur(bloomFramebuffer!!.framebufferTexture, 6, 2 , Color(0,0,0))
         }
         GL11.glTranslated(renderX, renderY, 0.0)
-        modules.forEachIndexed { index, module ->
+        clientModules.forEachIndexed { index, module ->
             var displayString = if (!tags.get())
                 module.name
             else if (tagsArrayColor.get())
@@ -297,8 +297,8 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
                         3/*rectMode.equals("all",true)*/ -> {
                             RenderUtils.drawRect(xPos - rectWidth.get()*2 - 3, yPos, xPos - 3 - rectWidth.get(), yPos + textHeight, rectColor)
                             RenderUtils.drawRect(-rectWidth.get()+1.1F, yPos, 0.0F, yPos + textHeight, rectColor)
-                            if (index + 1 <= modules.size - 1){
-                                val m = modules[index+1]
+                            if (index + 1 <= clientModules.size - 1){
+                                val m = clientModules[index+1]
                                 val mPosX = -m.slide - 2
                                 val x1 = xPos - rectWidth.get()*2 - 3
                                 val x2 = mPosX - rectWidth.get()*2 - 3
@@ -319,14 +319,14 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
             hasChanged = true
             var x2 = Int.MIN_VALUE
 
-            if (modules.isEmpty()) {
+            if (clientModules.isEmpty()) {
                 return if (side.horizontal == Side.Horizontal.LEFT)
                     Border(0F, -1F, 20F, 20F)
                 else
                     Border(0F, -1F, -20F, 20F)
             }
 
-            for (module in modules) {
+            for (module in clientModules) {
                 when (side.horizontal) {
                     Side.Horizontal.RIGHT, Side.Horizontal.MIDDLE -> {
                         val xPos = -module.slide.toInt() - 2
@@ -338,7 +338,7 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
                     }
                 }
             }
-            val y2 = (if (side.vertical == Side.Vertical.DOWN) -textSpacer else textSpacer) * modules.size
+            val y2 = (if (side.vertical == Side.Vertical.DOWN) -textSpacer else textSpacer) * clientModules.size
 
             return Border(0F, 0F, x2 - 7F, y2 - if (side.vertical == Side.Vertical.DOWN) 1F else 0F)
         }
@@ -396,7 +396,7 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
         val tags = arrayListTags
         val upperCaseValue = arrayListUpperCaseValue
         val tagsArrayColor = arrayListTagsArrayColor
-        modules = KevinClient.moduleManager.getModules()
+        clientModules = KevinClient.moduleManager.getModules()
             .filter { it.array && it.slide > 0 && (!hideRenderModuleValue.get() || it.category != ModuleCategory.RENDER) }
             .sortedBy { -fontValue.getStringWidth(if (upperCaseValue.get()) (if (!tags.get()) it.name else if (tagsArrayColor.get()) it.getColorlessTagName(tagLeft,tagRight) else it.getTagName(tagLeft,tagRight)).uppercase() else if (!tags.get()) it.name else if (tagsArrayColor.get()) it.getColorlessTagName(tagLeft,tagRight) else it.getTagName(tagLeft,tagRight)) }
     }

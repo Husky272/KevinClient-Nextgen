@@ -21,7 +21,7 @@ import kevin.module.Value
 import net.minecraft.client.Minecraft
 import org.python.core.*
 
-class ScriptModule(name: String, description: String, category: ModuleCategory, moduleObject: PyObject) : Module(name,description,category = category) {
+class ScriptModule(name: String, description: String, category: ModuleCategory, moduleObject: PyObject) : Module(name,description,category) {
     private val events = HashMap<String, PyObject>()
     private val _values = LinkedHashMap<String, Value<*>>()
     private var _tag: String? = null

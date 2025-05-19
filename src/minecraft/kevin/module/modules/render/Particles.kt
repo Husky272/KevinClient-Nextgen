@@ -16,10 +16,10 @@ package kevin.module.modules.render
 
 import kevin.module.BooleanValue
 import kevin.module.FloatValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 
-object Particles : Module("Particles", "Particles control.", category = ModuleCategory.RENDER) {
+object Particles : ClientModule("Particles", "Particles control.", ModuleCategory.RENDER) {
     private val noCriticalParticlesValue = BooleanValue("NoCriticalParticles", true)
     val noCriticalParticles
         get() = this.state && noCriticalParticlesValue.get()

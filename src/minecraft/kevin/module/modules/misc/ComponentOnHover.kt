@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.misc
 
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 
-object ComponentOnHover : Module("ComponentOnHover", "Allows you to see onclick action and value of chat message components when hovered.", category = ModuleCategory.MISC)
+object ComponentOnHover : ClientModule("ComponentOnHover", "Allows you to see onclick action and value of chat message components when hovered.", ModuleCategory.MISC)

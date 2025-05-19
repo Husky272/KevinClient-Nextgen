@@ -28,7 +28,7 @@ import kevin.utils.*
 import org.lwjgl.input.Keyboard
 import java.awt.Color
 
-class Fly : Module("Fly","Allow you fly", Keyboard.KEY_F,ModuleCategory.MOVEMENT) {
+class Fly : ClientModule("Fly","Allow you fly", Keyboard.KEY_F,ModuleCategory.MOVEMENT) {
     private val flys = arrayListOf(
         Vanilla,
         Creative,

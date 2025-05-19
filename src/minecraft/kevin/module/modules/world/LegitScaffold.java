@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 
-public class LegitScaffold extends Module {
+public class LegitScaffold extends ClientModule {
     private final MSTimer startTimeHelper = new MSTimer();
     private final MSTimer startTimeHelper2 = new MSTimer();
     private final MSTimer adTimeHelper = new MSTimer();

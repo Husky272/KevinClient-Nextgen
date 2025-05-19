@@ -40,7 +40,7 @@ import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.max
 
-class AntiVoid : Module("AntiVoid","Automatically setbacks you after falling a certain distance.", category = ModuleCategory.MOVEMENT) {
+class AntiVoid : ClientModule("AntiVoid","Automatically setbacks you after falling a certain distance.", ModuleCategory.MOVEMENT) {
     private val modeValue = ListValue("Mode", arrayOf("TeleportBack", "FlyFlag", "OnGroundSpoof", "VulcanGhost", "Freeze", "OldHypixel-Flag", "MotionTeleport-Flag", "MineMora-Blink"), "FlyFlag")
     private val maxFallDistance =FloatValue("MaxFallDistance", 10f, 0f, 255f)
     private val maxDistanceWithoutGround = FloatValue("MaxDistanceToSetback", 2.5f, 1f, 30f)

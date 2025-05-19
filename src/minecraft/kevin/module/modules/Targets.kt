@@ -18,10 +18,10 @@ import kevin.event.EventTarget
 import kevin.event.TickEvent
 //import kevin.event.UpdateEvent
 import kevin.module.BooleanValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.utils.EntityUtils
 
-class Targets : Module("Targets") {
+class Targets : ClientModule("Targets") {
     private val players = BooleanValue("Players",true)
     private val mobs = BooleanValue("Mobs",true)
     private val animals = BooleanValue("Animals",false)

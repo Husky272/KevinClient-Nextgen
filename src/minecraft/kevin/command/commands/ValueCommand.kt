@@ -31,54 +31,54 @@ class ValueCommand : ICommand {
             return
         }
         for (m in KevinClient.moduleManager.getModules()){
-            if (m.name.equals(args[0],true)){
+            if (m.getName().equals(args[0],true)){
                 if (args.size == 1){
                     var values = ""
                     for (v in m.values){
                         if (v != m.values.last()) values += v.name +"/"
                         else values += v.name
                     }
-                    ChatUtils.messageWithStart("§6${m.name} §c<$values>")
+                    ChatUtils.messageWithStart("§6${m.getName()} §c<$values>")
                     return
                 }
                 val value = m.getValue(args[1])
                 if (value == null) {
-                    ChatUtils.messageWithStart("§cModule '${m.name}' has no '${args[1]}' option!")
+                    ChatUtils.messageWithStart("§cModule '${m.getName()}' has no '${args[1]}' option!")
                     return
                 }
                 if (value is BooleanValue) {
                     if (args.size == 2) {
                         val newValue = !value.get()
                         value.set(newValue)
-                        ChatUtils.messageWithStart("§6${m.name} §b${args[1]}§9 was toggled ${if (newValue) "§aOn§9" else "§cOff§9"}.")
+                        ChatUtils.messageWithStart("§6${m.getName()} §b${args[1]}§9 was toggled ${if (newValue) "§aOn§9" else "§cOff§9"}.")
                         playSound()
                         return
                     }else if (args[2].equals("On",true)){
                         val newValue = true
                         value.set(newValue)
-                        ChatUtils.messageWithStart("§6${m.name} §b${args[1]}§9 was toggled §aOn§9.")
+                        ChatUtils.messageWithStart("§6${m.getName()} §b${args[1]}§9 was toggled §aOn§9.")
                         playSound()
                         return
                     }else if (args[2].equals("Off",true)){
                         val newValue = false
                         value.set(newValue)
-                        ChatUtils.messageWithStart("§6${m.name} §b${args[1]}§9 was toggled §cOff§9.")
+                        ChatUtils.messageWithStart("§6${m.getName()} §b${args[1]}§9 was toggled §cOff§9.")
                         playSound()
                         return
                     }else{
                         val newValue = !value.get()
                         value.set(newValue)
-                        ChatUtils.messageWithStart("§6${m.name} §b${args[1]}§9 was toggled ${if (newValue) "§aOn§9" else "§cOff§9"}.")
+                        ChatUtils.messageWithStart("§6${m.getName()} §b${args[1]}§9 was toggled ${if (newValue) "§aOn§9" else "§cOff§9"}.")
                         playSound()
                         return
                     }
                 } else {
                     if (args.size < 3) {
                         if (value is IntegerValue || value is FloatValue || value is TextValue)
-                            ChatUtils.messageWithStart("§cUsage: §9.§6${m.name} §b${args[1].lowercase(Locale.getDefault())} §c<value>")
+                            ChatUtils.messageWithStart("§cUsage: §9.§6${m.getName()} §b${args[1].lowercase(Locale.getDefault())} §c<value>")
                         else if (value is ListValue)
                             ChatUtils.messageWithStart(
-                                "§6${m.name} §b${args[1].lowercase(Locale.getDefault())} §c<${
+                                "§6${m.getName()} §b${args[1].lowercase(Locale.getDefault())} §c<${
                                     value.values.joinToString(
                                         separator = "/"
                                     ).lowercase(Locale.getDefault())
@@ -89,7 +89,6 @@ class ValueCommand : ICommand {
                     try {
                         when (value) {
                             is BlockValue -> {
-
                                 val id: Int = try {
                                     args[2].toInt()
                                 } catch (exception: NumberFormatException) {
@@ -105,7 +104,7 @@ class ValueCommand : ICommand {
 
                                 value.set(id)
                                 ChatUtils.messageWithStart(
-                                    "§6${m.name} §b${args[1].lowercase(Locale.getDefault())}§9 was set to §b${
+                                    "§6${m.getName()} §b${args[1].lowercase(Locale.getDefault())}§9 was set to §b${
                                         Block.getBlockById(
                                             id
                                         ).localizedName
@@ -118,7 +117,7 @@ class ValueCommand : ICommand {
                             is ListValue -> {
                                 if (!value.contains(args[2])) {
                                     ChatUtils.messageWithStart(
-                                        "§6${m.name} §b${args[1].lowercase(Locale.getDefault())} §c<${
+                                        "§6${m.getName()} §b${args[1].lowercase(Locale.getDefault())} §c<${
                                             value.values.joinToString(
                                                 separator = "/"
                                             ).lowercase(Locale.getDefault())
@@ -130,7 +129,7 @@ class ValueCommand : ICommand {
                             }
                             is TextValue -> value.set(toCompleteString(args, 2))
                         }
-                        ChatUtils.messageWithStart("§6${m.name} §b${args[1]}§9 was set to §b${value.get()}§9.")
+                        ChatUtils.messageWithStart("§6${m.getName()} §b${args[1]}§9 was set to §b${value.get()}§9.")
                         playSound()
                         return
                     } catch (e: NumberFormatException) {

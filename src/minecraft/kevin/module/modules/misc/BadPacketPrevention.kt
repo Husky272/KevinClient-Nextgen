@@ -11,7 +11,7 @@ import net.minecraft.network.play.client.C03PacketPlayer.*
 import net.minecraft.util.Vec3
 
 // From IDK where originally(FDP maybe), but I changed something
-class BadPacketPrevention: Module("AntiBadPackets", "Prevent you get flags from some bad packets we sent", category = ModuleCategory.MISC) {
+class BadPacketPrevention: ClientModule("AntiBadPackets", "Prevent you get flags from some bad packets we sent", ModuleCategory.MISC) {
     // settings
     private val fixBlinkAndFreecam = BooleanValue("CancelKeepAliveWhenPacketFreeze", true)
     private val fixPacketPlayer = BooleanValue("FixC03Streak", true)

@@ -16,11 +16,11 @@ package kevin.module.modules.movement
 
 import kevin.event.EventTarget
 import kevin.event.UpdateEvent
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.MovementUtils
 
-class Parkour: Module("Parkour", "Automatically jumps when reaching the edge of a block.", category = ModuleCategory.MOVEMENT) {
+class Parkour: ClientModule("Parkour", "Automatically jumps when reaching the edge of a block.", ModuleCategory.MOVEMENT) {
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         val thePlayer = mc.thePlayer ?: return

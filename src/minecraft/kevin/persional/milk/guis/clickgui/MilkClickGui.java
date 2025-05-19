@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 import kevin.hud.ClickGui;
 import kevin.main.KevinClient;
 import kevin.module.ModuleCategory;
-import kevin.module.Module;
+import kevin.module.ClientModule;
 import kevin.utils.ColorUtils;
 import kevin.utils.RenderUtils;
 import net.minecraft.client.gui.Gui;
@@ -134,7 +134,7 @@ public class MilkClickGui extends ClickGui {
                     StencilUtil.initStencilToWrite();
                     Gui.drawRect(x + 50, y, x + 400, y + 300, -1);
                     StencilUtil.readStencilBuffer(1);
-                    for (Module m : KevinClient.moduleManager.getModules()) {
+                    for (ClientModule m : KevinClient.moduleManager.getModules()) {
                         if (selectCategory == null || m.getCategory() != category) continue;
                         int cc = ClickUtils.isClickable(x + 60 + categoryX, moduleY, x + 370 + categoryX, moduleY + 35, mouseX, mouseY) ? new Color(16,19,24,animAlpha).getRGB() : new Color(18,21,28,animAlpha).getRGB();
                         RenderUtils.drawRect(x + 60 + categoryX, moduleY, x + 370 + categoryX, moduleY + 35,cc);
@@ -183,7 +183,7 @@ public class MilkClickGui extends ClickGui {
                 int categoryX = (int) (-400 + 400 * animForModules);
                 // for all module
                 if(selectPanel == null) {
-                    for (Module m : KevinClient.moduleManager.getModules()) {
+                    for (ClientModule m : KevinClient.moduleManager.getModules()) {
                         if (selectCategory == null || m.getCategory() != category) continue;
                         if(mouseY >= y && mouseY <= y + 300 && ClickUtils.isClickable(x + 60 + categoryX, moduleY, x + 370 + categoryX, moduleY + 35, mouseX, mouseY)){
                             if(mouseButton == 1) {

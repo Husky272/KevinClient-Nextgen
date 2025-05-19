@@ -31,7 +31,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.BlockPos
 import java.util.concurrent.CopyOnWriteArrayList
 
-class Teams : Module("Teams","Prevents Killaura from attacking team mates.", category = ModuleCategory.MISC) {
+class Teams : ClientModule("Teams","Prevents Killaura from attacking team mates.", ModuleCategory.MISC) {
     private val scoreboardValue = BooleanValue("ScoreboardTeam", true)
     private val armorColorValue = BooleanValue("ArmorColor", false)
     private val armorColorArmorValue = ListValue("ArmorColorArmor", arrayOf("Helmet", "Plate", "Legs", "Boots", "Random", "First", "First(IgnoreNotCorresponding)"), "First")

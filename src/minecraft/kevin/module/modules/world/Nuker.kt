@@ -38,7 +38,7 @@ import net.minecraft.util.Vec3
 import java.awt.Color
 import kotlin.math.roundToInt
 
-class Nuker : Module("Nuker", "Breaks all blocks around you.", category = ModuleCategory.WORLD) {
+class Nuker : ClientModule("Nuker", "Breaks all blocks around you.", ModuleCategory.WORLD) {
 
     /**
      * OPTIONS

@@ -19,7 +19,7 @@ import kevin.event.Render3DEvent
 import kevin.event.UpdateEvent
 import kevin.event.WorldEvent
 import kevin.module.IntegerValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.EntityUtils
 import net.minecraft.client.renderer.GlStateManager
@@ -32,7 +32,7 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.math.abs
 
-class DamageParticle : Module("DamageParticle","Damage particle",category = ModuleCategory.RENDER) {
+class DamageParticle : ClientModule("DamageParticle","Damage particle",ModuleCategory.RENDER) {
     class SingleParticle(val str:String,val posX:Double,val posY:Double,val posZ:Double,val healthIncrease: Boolean){
         var ticks=0
     }

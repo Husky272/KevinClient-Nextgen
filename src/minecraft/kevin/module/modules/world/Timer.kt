@@ -18,14 +18,14 @@ import kevin.event.*
 import kevin.main.KevinClient
 import kevin.module.BooleanValue
 import kevin.module.FloatValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.ChatUtils
 import kevin.utils.MovementUtils
 import net.minecraft.network.play.client.C03PacketPlayer
 import kotlin.math.pow
 
-class Timer : Module("Timer", "Changes the speed of the entire game.", category = ModuleCategory.WORLD) {
+class Timer : ClientModule("Timer", "Changes the speed of the entire game.", ModuleCategory.WORLD) {
     private val speedValue = FloatValue("Speed", 2F, 0.1F, 30F)
     private val balanceValue by BooleanValue("BalanceTimer", false)
     private val balanceWaitTimer by FloatValue("BalanceWaitTimer", 0.05f, 0.05f, 0.99f)

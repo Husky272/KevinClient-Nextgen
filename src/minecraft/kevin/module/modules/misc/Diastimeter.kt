@@ -20,7 +20,7 @@ import kevin.event.UpdateEvent
 import kevin.event.WorldEvent
 import kevin.module.BooleanValue
 import kevin.module.IntegerValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.utils.*
 import net.minecraft.block.BlockAir
 import net.minecraft.block.material.Material
@@ -32,7 +32,7 @@ import java.awt.Color
 import kotlin.math.max
 import kotlin.math.min
 
-class Diastimeter : Module("Diastimeter","Get distance to a block.(also can get area or volume)") {
+class Diastimeter : ClientModule("Diastimeter","Get distance to a block.(also can get area or volume)") {
     private val areaValue = BooleanValue("Area",true)
     private val volumeValue = BooleanValue("Volume",true)
 

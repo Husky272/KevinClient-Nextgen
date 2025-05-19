@@ -46,7 +46,7 @@ import kotlin.math.*
 //4个scaffold客户端
 
 @Suppress("ControlFlowWithEmptyBody")
-class Scaffold : Module("Scaffold", "Automatically places blocks beneath your feet.", category = ModuleCategory.WORLD) {
+class Scaffold : ClientModule("Scaffold", "Automatically places blocks beneath your feet.", ModuleCategory.WORLD) {
     //    private val modeValue = ListValue("Mode", arrayOf("Normal", "TellyBridge"), "Normal")
     private val towerModeValue = ListValue(
         "TowerMode",

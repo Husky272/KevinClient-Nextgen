@@ -19,7 +19,7 @@ import kevin.event.Render2DEvent
 import kevin.event.Render3DEvent
 import kevin.module.BooleanValue
 import kevin.module.ListValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.*
 import kevin.utils.render.shader.shaders.GlowShader
@@ -36,7 +36,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-class StorageESP : Module("StorageESP", "Allows you to see chests, dispensers, etc. through walls.", category = ModuleCategory.RENDER) {
+class StorageESP : ClientModule("StorageESP", "Allows you to see chests, dispensers, etc. through walls.", ModuleCategory.RENDER) {
     val modeValue = ListValue("Mode", arrayOf("Box", "OtherBox", "Outline", "ShaderOutline", "ShaderGlow", "2D", "WireFrame"), "Outline")
     private val chestValue = BooleanValue("Chest", true)
     private val enderChestValue = BooleanValue("EnderChest", true)

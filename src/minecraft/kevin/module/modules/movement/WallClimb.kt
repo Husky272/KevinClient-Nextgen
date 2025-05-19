@@ -17,7 +17,7 @@ package kevin.module.modules.movement
 import kevin.event.*
 import kevin.module.FloatValue
 import kevin.module.ListValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.BlockUtils.collideBlockIntersects
 import kevin.utils.MovementUtils
@@ -28,7 +28,7 @@ import java.util.*
 import kotlin.math.cos
 import kotlin.math.sin
 
-class WallClimb : Module("WallClimb", "Allows you to climb up walls like a spider.", category = ModuleCategory.MOVEMENT) {
+class WallClimb : ClientModule("WallClimb", "Allows you to climb up walls like a spider.", ModuleCategory.MOVEMENT) {
     private val modeValue = ListValue("Mode", arrayOf("Simple", "CheckerClimb", "Clip", "AAC3.3.12", "AACGlide"), "Simple")
     private val clipMode = ListValue("ClipMode", arrayOf("Jump", "Fast"), "Fast")
     private val checkerClimbMotionValue = FloatValue("CheckerClimbMotion", 0f, 0f, 1f)

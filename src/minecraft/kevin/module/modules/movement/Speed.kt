@@ -25,7 +25,7 @@ import kevin.module.modules.movement.speeds.vulcan.*
 import kevin.utils.MovementUtils
 import net.minecraft.network.play.server.S12PacketEntityVelocity
 
-class Speed : Module("Speed","Allows you to move faster.", category = ModuleCategory.MOVEMENT) {
+class Speed : ClientModule("Speed","Allows you to move faster.", ModuleCategory.MOVEMENT) {
     private val speeds = arrayListOf(
         Custom, // from FDP
         AAC5Long,

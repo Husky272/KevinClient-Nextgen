@@ -17,11 +17,11 @@ package kevin.module.modules.player
 import kevin.event.EventTarget
 import kevin.event.PacketEvent
 import kevin.module.BooleanValue
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import net.minecraft.network.play.client.C03PacketPlayer
 
-class NoC03 : Module("NoC03", "Cancel C03 packets", category=ModuleCategory.PLAYER) {
+class NoC03 : ClientModule("NoC03", "Cancel C03 packets", category=ModuleCategory.PLAYER) {
     private val packetACBypass by BooleanValue("PacketBaseACBypass", true)
     private var lastGround = false
     @EventTarget
