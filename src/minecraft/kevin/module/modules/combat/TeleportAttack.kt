@@ -62,7 +62,7 @@ class TeleportAttack : ClientModule("TeleportAttack","Attack the target over a l
         points.clear()
         aliveTimer.reset()
     }
-    override val tag: String get() = modeV.get()
+    override fun getTag() = modeV.get()
 
     @EventTarget
     fun onPacket(event: PacketEvent){

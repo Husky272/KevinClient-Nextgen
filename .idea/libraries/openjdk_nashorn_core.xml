@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="openjdk.nashorn.core" type="repository">
+    <properties maven-id="org.openjdk.nashorn:nashorn-core:15.6" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/nashorn-core-15.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asm-7.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asm-commons-7.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asm-analysis-7.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asm-tree-7.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asm-util-7.3.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/nashorn-core-15.6-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asm-7.3.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asm-commons-7.3.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asm-analysis-7.3.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asm-tree-7.3.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asm-util-7.3.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -22,6 +22,7 @@ import kotlin.math.sqrt
 
 
 object MovementUtils : MinecraftInstance() {
+    @JvmStatic
     var speed: Float
         get() = sqrt(mc.thePlayer!!.motionX * mc.thePlayer!!.motionX + mc.thePlayer!!.motionZ * mc.thePlayer!!.motionZ).toFloat()
         set(value) = setMotion(value.toDouble())

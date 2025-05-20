@@ -16,6 +16,7 @@ package kevin.module.modules.misc
 
 import kevin.module.BooleanValue
 import kevin.module.ClientModule
+import kevin.module.ModuleCategory
 import kevin.utils.LogUtils.DebugLogger
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
@@ -32,7 +33,7 @@ import net.minecraft.util.RegistrySimple
 import java.util.*
 
 
-object PerformanceBooster : ClientModule("PerformanceBooster", "Optimize to improve performance.") {
+object PerformanceBooster : ClientModule("PerformanceBooster", "Optimize to improve performance.", ModuleCategory.MISC) {
     private val staticParticleColorValue = BooleanValue("StaticParticleColor", false)
     private val fastEntityLightningValue = BooleanValue("StaticEntityLightning", false)
     private val fastBlockLightningValue = BooleanValue("FastBlockLightning", false)

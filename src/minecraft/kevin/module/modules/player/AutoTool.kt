@@ -25,7 +25,11 @@ import kevin.utils.MSTimer
 import net.minecraft.network.play.client.C09PacketHeldItemChange
 import net.minecraft.util.BlockPos
 
-class AutoTool : ClientModule(name = "AutoTool", description = "Automatically selects the best tool in your inventory to mine a block.", ModuleCategory.PLAYER) {
+class AutoTool : ClientModule(
+    "AutoTool",
+    "Automatically selects the best tool in your inventory to mine a block.",
+    ModuleCategory.PLAYER
+) {
     val silentValue = BooleanValue("Silent", true)
     var nowSlot = 0
     private val switchTimer = MSTimer()
@@ -35,18 +39,22 @@ class AutoTool : ClientModule(name = "AutoTool", description = "Automatically se
     fun onClick(event: ClickBlockEvent) {
         switchSlot(event.clickedBlock ?: return)
     }
-    @EventTarget fun onUpdate(event: UpdateEvent){
+
+    @EventTarget
+    fun onUpdate(event: UpdateEvent) {
         if (needReset) {
-            if (switchTimer.hasTimePassed(100)){
+            if (switchTimer.hasTimePassed(100)) {
                 needReset = false
-                if (nowSlot!=mc.thePlayer!!.inventory.currentItem){
+                if (nowSlot != mc.thePlayer!!.inventory.currentItem) {
                     mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer!!.inventory.currentItem))
                     nowSlot = mc.thePlayer!!.inventory.currentItem
                 }
             }
         }
     }
-    @EventTarget fun onPacket(event: PacketEvent){
+
+    @EventTarget
+    fun onPacket(event: PacketEvent) {
         if (event.packet is C09PacketHeldItemChange) {
             nowSlot = event.packet.slotId
         }
@@ -68,7 +76,10 @@ class AutoTool : ClientModule(name = "AutoTool", description = "Automatically se
             }
         }
         if (bestSlot != -1 && bestSlot != nowSlot) {
-            if (mc.thePlayer!!.inventory.getStackInSlot(nowSlot)!=null&&mc.thePlayer!!.inventory.getStackInSlot(nowSlot).getStrVsBlock(blockState) >= bestSpeed) return
+            if (mc.thePlayer!!.inventory.getStackInSlot(nowSlot) != null && mc.thePlayer!!.inventory.getStackInSlot(
+                    nowSlot
+                ).getStrVsBlock(blockState) >= bestSpeed
+            ) return
             if (silentValue.get()) {
                 mc.netHandler.addToSendQueue(C09PacketHeldItemChange(bestSlot))
                 nowSlot = bestSlot

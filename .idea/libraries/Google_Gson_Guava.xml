@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Google-Gson-Guava">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/run/libraries/gson-2.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/run/libraries/guava-17.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

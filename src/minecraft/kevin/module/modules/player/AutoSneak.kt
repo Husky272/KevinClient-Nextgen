@@ -25,7 +25,7 @@ import net.minecraft.init.Blocks
 import net.minecraft.item.ItemBlock
 import net.minecraft.util.BlockPos
 
-class AutoSneak : ClientModule("AutoSneak", description = "Automatically sneak at the edge of the block.", ModuleCategory.PLAYER) {
+class AutoSneak : ClientModule("AutoSneak", "Automatically sneak at the edge of the block.", ModuleCategory.PLAYER) {
     private val onlyBlock by BooleanValue("OnlyBlockInHand", false)
 
     @EventTarget

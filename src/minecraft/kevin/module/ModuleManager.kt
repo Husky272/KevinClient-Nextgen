@@ -90,7 +90,7 @@ class ModuleManager : Listenable {
         )
 
         miscList = arrayListOf(
-            AdminDetector,
+            AdminDetector.INSTANCE,
             AntiBot,
 //            AntiCrash,
             AntiInvalidBlockPlacement(),

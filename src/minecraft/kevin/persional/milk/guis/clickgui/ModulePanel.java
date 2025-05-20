@@ -18,11 +18,11 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class ModulePanel {
-    Module module;
+    ClientModule module;
     ArrayList<Button> buttons;
     boolean waitingForKey = false;
     public AnimationUtils animScroll = new AnimationUtils();
-    public ModulePanel(Module module){
+    public ModulePanel(ClientModule module){
         this.module = module;
         this.buttons = new ArrayList<>();
         for(Value<?> value : module.getValues()){

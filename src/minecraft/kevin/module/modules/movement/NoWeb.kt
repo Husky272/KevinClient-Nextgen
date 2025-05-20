@@ -143,6 +143,5 @@ class NoWeb : ClientModule("NoWeb", "Prevents you from getting slowed down in we
         mc.timer.timerSpeed = 1.0F
     }
 
-    override val tag: String
-        get() = modeValue.get()
+    override fun getTag() = modeValue.get()
 }

@@ -108,6 +108,7 @@ class AutoClicker : ClientModule("AutoClicker", "Constantly clicks when holding 
         }
     }
 
-    override val tag: String
-        get() = "MaxCPS:${maxCPSValue.get()} MinCPS:${minCPSValue.get()}"
+    override fun getTag(): String? {
+        return "MaxCPS:${maxCPSValue.get()} MinCPS:${minCPSValue.get()}";
+    }
 }

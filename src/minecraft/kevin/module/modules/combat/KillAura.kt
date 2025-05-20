@@ -1098,8 +1098,10 @@ class KillAura : ClientModule("KillAura","Automatically attacks targets around y
     /**
      * HUD Tag
      */
-    override val tag: String
-        get() = "${targetModeValue.get()} ${autoBlockValue.get()} [${discoveredTargets.size}]"
+    // Kotlin WoCaoNiMa
+    override fun getTag(): String? {
+        return "${targetModeValue.get()} ${autoBlockValue.get()} [${discoveredTargets.size}]"
+    }
 
     val isBlockingChestAura: Boolean
         get() = this.state && target != null

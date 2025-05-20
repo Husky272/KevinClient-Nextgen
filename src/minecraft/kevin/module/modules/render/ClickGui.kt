@@ -40,7 +40,7 @@ import java.awt.Color
 import java.util.*
 import kotlin.collections.HashMap
 
-class ClickGui : ClientModule("ClickGui","Opens the ClickGUI.", ModuleCategory.RENDER, keyBind = Keyboard.KEY_RSHIFT) {
+class ClickGui : ClientModule("ClickGui","Opens the ClickGUI.", Keyboard.KEY_RSHIFT, ModuleCategory.RENDER) {
 
     private val mode = ListValue("Mode", arrayOf("Milk","New","Old"),"Milk")
 

@@ -22,6 +22,7 @@ import net.minecraft.network.Packet
 object PacketUtils : MinecraftInstance(), Listenable {
     val packetList = arrayListOf<Packet<*>>()
 
+    @JvmStatic
     fun sendPacketNoEvent(packet: Packet<*>){
         mc.netHandler.networkManager.sendPacketNoEvent(packet)
     }

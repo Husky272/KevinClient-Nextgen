@@ -30,7 +30,7 @@ import net.minecraft.network.play.client.C16PacketClientStatus
 import net.minecraft.potion.Potion
 import java.util.*
 
-class InventoryCleaner : ClientModule(name = "InventoryCleaner", description = "Automatically throws away useless items.", ModuleCategory.PLAYER) {
+class InventoryCleaner : ClientModule("InventoryCleaner",  "Automatically throws away useless items.", ModuleCategory.PLAYER) {
     private val maxDelayValue: IntegerValue = object : IntegerValue("MaxDelay", 600, 0, 1000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val minCPS = minDelayValue.get()

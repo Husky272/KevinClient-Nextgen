@@ -26,13 +26,14 @@ import kevin.main.KevinClient
 import kevin.module.BooleanValue
 import kevin.module.ListValue
 import kevin.module.ClientModule
+import kevin.module.ModuleCategory
 import kevin.utils.ChatUtils
 import kevin.utils.ServerUtils
 import kevin.utils.proxy.ProxyManager
 import net.minecraft.client.Minecraft
 import java.net.Proxy
 
-object ConfigsManager : ClientModule("ConfigsManager", "Manage configs") { // good code? lol
+object ConfigsManager : ClientModule("ConfigsManager", "Manage configs", ModuleCategory.MISC) { // good code? lol
     private var localConfigs: ListValue = ListValue("LocalConfigs", arrayOf(""), "")
     private var cloudConfigs: ListValue = ListValue("CloudConfigs", arrayOf(""), "")
 

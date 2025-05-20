@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Java-Input">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/run/libraries/jinput-2.0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/run/libraries/jinput-platform-2.0.5-natives-windows.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

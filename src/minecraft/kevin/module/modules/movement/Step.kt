@@ -422,6 +422,7 @@ class Step : ClientModule("Step", "Allows you to step up/down blocks.", ModuleCa
         }
     }
 
-    override val tag: String
-        get() = modeValue.get()
+    override fun getTag(): String? {
+        return modeValue.get();
+    }
 }

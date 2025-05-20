@@ -62,9 +62,9 @@ class Speed : ClientModule("Speed","Allows you to move faster.", ModuleCategory.
     private val antiKnockbackLong = FloatValue("AntiKnockBackLong",0F,0.00F,1.00F)
     private val antiKnockbackHigh = FloatValue("AntiKnockBackHigh",1F,0.00F,1.00F)
 
-    override val tag: String
-        get() = mode.get()
-
+    override fun getTag(): String? {
+        return mode.get()
+    }
     private val nowMode: SpeedMode
     get() = speeds.find { mode equal it.modeName }!!
 
@@ -98,5 +98,5 @@ class Speed : ClientModule("Speed","Allows you to move faster.", ModuleCategory.
     }
 
     @EventTarget fun onBB(event: BlockBBEvent) = nowMode.onBlockBB(event)
-    override val values: List<Value<*>> = super.values.toMutableList().also { list -> speeds.forEach { speedMode -> list.addAll(speedMode.values) } }
+//    override val values: List<Value<*>> = super.values.toMutableList().also { list -> speeds.forEach { speedMode -> list.addAll(speedMode.values) } }
 }

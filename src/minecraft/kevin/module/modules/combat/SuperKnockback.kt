@@ -134,6 +134,5 @@ class SuperKnockback : ClientModule("SuperKnockback", "Increases knockback dealt
         }
     }
 
-    override val tag: String
-        get() = modeValue.get()
+    override fun getTag(): String = modeValue.get()
 }

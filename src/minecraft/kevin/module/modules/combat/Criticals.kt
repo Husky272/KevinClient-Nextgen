@@ -26,7 +26,7 @@ import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.server.S0BPacketAnimation
 
-class Criticals : ClientModule(name = "Criticals", description = "Automatically deals critical hits.", ModuleCategory.COMBAT) {
+class Criticals : ClientModule("Criticals", "Automatically deals critical hits.", ModuleCategory.COMBAT) {
     val modeValue = ListValue("Mode", arrayOf("Packet", "NcpPacket", "AACPacket", "NoGround", "Hop", "Jump", "LowJump", "Visual", "MineMora", "Hypixel", "BlocksMC", "Edit", "Edit2"), "Packet")
     val delayValue = IntegerValue("Delay", 0, 0, 500)
     private val hurtTimeValue = IntegerValue("HurtTime", 10, 0, 10)
@@ -138,6 +138,7 @@ class Criticals : ClientModule(name = "Criticals", description = "Automatically 
         }
     }
 
-    override val tag: String
-        get() = modeValue.get()
+    override fun getTag(): String? {
+        return modeValue.get();
+    }
 }

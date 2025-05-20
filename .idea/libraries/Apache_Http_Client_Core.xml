@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Apache-Http-Client-Core">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/run/libraries/httpclient-4.3.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/run/libraries/httpcore-4.3.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

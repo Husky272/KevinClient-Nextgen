@@ -20,6 +20,8 @@ import kevin.module.ModuleCategory
 
 class HitBox : ClientModule("HitBox", "Makes hitboxes of targets bigger.", ModuleCategory.COMBAT) {
     val sizeValue = FloatValue("Size", 0.4F, 0F, 1F)
-    override val tag: String
-        get() = "Size:${sizeValue.get()}"
+
+    override fun getTag(): String? {
+        return "Size:${sizeValue.get()}";
+    }
 }

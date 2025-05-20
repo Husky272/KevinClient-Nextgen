@@ -23,11 +23,12 @@ import kevin.main.KevinClient
 import kevin.module.BooleanValue
 import kevin.module.ListValue
 import kevin.module.ClientModule
+import kevin.module.ModuleCategory
 import kevin.utils.ChatUtils
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemSword
 
-class KillerDetector : ClientModule("KillerDetector","Detect who has a sword in his hand.") {
+class KillerDetector : ClientModule("KillerDetector","Detect who has a sword in his hand.", ModuleCategory.MISC) {
     var killer: EntityPlayer? = null
     private val messageMode = ListValue("MessageMode", arrayOf("Notification","Chat"),"Chat")
     private val autoSay = BooleanValue("AutoSay",true)

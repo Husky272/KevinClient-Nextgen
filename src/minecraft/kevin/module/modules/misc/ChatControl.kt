@@ -16,8 +16,9 @@ package kevin.module.modules.misc
 
 import kevin.module.BooleanValue
 import kevin.module.ClientModule
+import kevin.module.ModuleCategory
 
-object ChatControl : ClientModule("ChatControl", "Chat settings.") {
+object ChatControl : ClientModule("ChatControl", "Chat settings.", ModuleCategory.MISC) {
     private val noLengthLimit = BooleanValue("NoLengthLimit", true)
     private val noChatClear = BooleanValue("NoChatClear", true)
     fun noLengthLimit() = this.state && noLengthLimit.get()

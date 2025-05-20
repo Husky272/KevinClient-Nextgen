@@ -15,6 +15,7 @@ import kevin.utils.ChatUtils;
 import kevin.utils.MSTimer;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.network.play.server.S02PacketChat;
+import net.minecraft.util.IChatComponent;
 
 
 public class AutoCommand extends ClientModule {
@@ -72,7 +73,7 @@ public class AutoCommand extends ClientModule {
             return;
         }
         final String text = ((S02PacketChat) packet).getChatComponent().getFormattedText();
-        final String component = ((S02PacketChat) packet).getChatComponent().getFormattedText();
+        final IChatComponent component = ((S02PacketChat) packet).getChatComponent();
         if (text.contains(autoRegisterDetectMessage.get()) && autoRegisterValue.get()) {
             register = true;
             timer.reset();
@@ -87,7 +88,7 @@ public class AutoCommand extends ClientModule {
             autoJoinTimer.reset();
             switch (autoJoinNotificationMode.get()) {
                 case "Notification":
-                    KevinClient.hud.addNotification(new Notification("Send command after " + autoJoinDelay.get() + " MS.", "AutoJoin"));
+                    KevinClient.hud.addNotification(new Notification("Send command after " + autoJoinDelay.get() + " MS.", "AutoJoin", ConnectNotificationType.Info));
                     break;
 
                 case "Chat":
@@ -98,10 +99,10 @@ public class AutoCommand extends ClientModule {
             if (autoJoinMessageMode.equal("Custom") || autoJoinMessage.get().equalsIgnoreCase("custom")) {
                 command = autoJoinMessage.get();
             } else {
-                for (Object sib : component.getSiblings()) {
-                    final ClickEvent clickEvent = sib.chatStyle.chatClickEvent;
-                    if (clickEvent != null && clickEvent.action == ClickEvent.Action.RUN_COMMAND && clickEvent.value.startsWith("/")) {
-                        command = clickEvent.value;
+                for (IChatComponent sib : component.getSiblings()) {
+                    final ClickEvent clickEvent = sib.getChatStyle().getChatClickEvent();
+                    if (clickEvent != null && clickEvent.getAction() == ClickEvent.Action.RUN_COMMAND && clickEvent.getValue().startsWith("/")) {
+                        command = clickEvent.getValue();
                     }
                 }
             }

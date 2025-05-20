@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Java-Option-Parser">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/run/libraries/jopt-simple-4.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

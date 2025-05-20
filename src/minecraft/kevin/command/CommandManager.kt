@@ -57,7 +57,7 @@ class CommandManager {
 
 //        commands[arrayOf("ReloadScripts","ReloadScript")] = ScriptManager
 
-        commands[arrayOf("Admin")] = AdminDetector
+        commands[arrayOf("Admin")] = AdminDetector.INSTANCE
 
         commands[arrayOf("ClientTitle")] = ClientTitleCommand
 

@@ -185,6 +185,5 @@ class PacketLogger: ClientModule("PacketLogger", "Allow you know what packet we 
         this.registerPacket(EnumPacketDirection.SERVERBOUND, C19PacketResourcePackStatus::class.java)
     }
 
-    override val values: List<Value<*>>
-        get() = vals
+    fun values():List<Value<*>> = vals
 }

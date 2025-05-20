@@ -149,8 +149,9 @@ class Blink : ClientModule("Blink", "Suspends all movement packets.", ModuleCate
         }
     }
 
-    override val tag: String
-        get() = packets.size.toString()
+    public override fun getTag():String{
+        return packets.size.toString()
+    }
 
     private fun blink() {
         try {

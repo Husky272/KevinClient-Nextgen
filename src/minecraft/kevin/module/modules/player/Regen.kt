@@ -76,6 +76,5 @@ class Regen : ClientModule("Regen", "Regenerates your health much faster.", Modu
         }
     }
 
-    override val tag: String
-        get() = modeValue.get()
+    override fun getTag() = modeValue.get()
 }

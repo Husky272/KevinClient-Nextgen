@@ -32,6 +32,6 @@ public class ChatUtils {
     }
 
     public static void messageWithStart(String message) {
-        Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(KevinClient.cStart + " " + message));
+        Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(KevinClient.getCStart() + " " + message));
     }
 }

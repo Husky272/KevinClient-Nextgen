@@ -152,6 +152,5 @@ class FastUse : ClientModule("FastUse", "Allows you to use items faster.", Modul
         }
     }
 
-    override val tag: String
-        get() = modeValue.get()
+    override fun getTag() = modeValue.get()
 }

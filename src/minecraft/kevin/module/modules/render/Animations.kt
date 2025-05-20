@@ -37,6 +37,5 @@ class Animations : ClientModule("Animations","Changes animations.", ModuleCatego
     val rotationItem = BooleanValue("RotationItem",false)
     val animationSpeed = IntegerValue("AnimationSpeed",6,1,30)
 
-    override val tag: String
-        get() = animations.get()
+    override fun getTag() = animations.get()
 }

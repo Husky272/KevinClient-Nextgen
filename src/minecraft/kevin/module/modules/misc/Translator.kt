@@ -19,6 +19,7 @@ import kevin.event.EventTarget
 import kevin.event.PacketEvent
 import kevin.module.ListValue
 import kevin.module.ClientModule
+import kevin.module.ModuleCategory
 import net.minecraft.network.play.server.S02PacketChat
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.IChatComponent
@@ -26,7 +27,7 @@ import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.HttpClients
 import org.apache.http.util.EntityUtils
 
-object Translator : ClientModule("Translator","Translate chat messages from server.") {
+object Translator : ClientModule("Translator","Translate chat messages from server.", ModuleCategory.MISC) {
     private val languageValue = ListValue("Language", arrayOf("Chinese", "English"), "Chinese")
     private val apiValue = ListValue("API", arrayOf("Google","YouDao"), "Google")
     private val client = HttpClients.createDefault()

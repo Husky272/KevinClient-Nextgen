@@ -103,6 +103,5 @@ class BlockESP : ClientModule("BlockESP", "Allows you to see a selected block th
         }
     }
 
-    override val tag: String
-        get() = getBlockName(blockValue.get())
+    override fun getTag() = getBlockName(blockValue.get())
 }

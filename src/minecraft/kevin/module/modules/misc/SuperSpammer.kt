@@ -27,7 +27,11 @@ import java.io.File
 import java.io.FileFilter
 import java.util.*
 
-class SuperSpammer : ClientModule("SuperSpammer","Spams the chat with given messages.", ModuleCategory.MISC) {
+class SuperSpammer : ClientModule(
+    "SuperSpammer",
+    "Spams the chat with given messages.",
+    ModuleCategory.MISC
+) {
     private val modeList = arrayListOf(
         "Single",
         "Switch",
@@ -41,89 +45,112 @@ class SuperSpammer : ClientModule("SuperSpammer","Spams the chat with given mess
     )
     private val fileSuffix = ".txt"
     private var modeListArray = modeList.toTypedArray()
+
     init {
         val files = KevinClient.fileManager.spammerDir
-        val spammerFiles = files.listFiles(FileFilter { it.name.endsWith(fileSuffix) })
+        val spammerFiles =
+            files.listFiles(FileFilter { it.name.endsWith(fileSuffix) })
         if (spammerFiles != null) for (i in spammerFiles) modeList.add(i.name.split(".txt")[0])
         modeListArray = modeList.toTypedArray()
     }
-    private val modeValue = ListValue("Mode", modeListArray,"Single")
 
-    private val maxDelayValue: IntegerValue = object : IntegerValue("MaxDelay", 1000, 0, 5000) {
-        override fun onChanged(oldValue: Int, newValue: Int) {
-            val minDelayValueObject = minDelayValue.get()
-            if (minDelayValueObject > newValue) set(minDelayValueObject)
-            delay = TimeUtils.randomDelay(minDelayValue.get(), get())
+    private val modeValue = ListValue("Mode", modeListArray, "Single")
+
+    private val maxDelayValue: IntegerValue =
+        object : IntegerValue("MaxDelay", 1000, 0, 5000) {
+            override fun onChanged(oldValue: Int, newValue: Int) {
+                val minDelayValueObject = minDelayValue.get()
+                if (minDelayValueObject > newValue) set(minDelayValueObject)
+                delay = TimeUtils.randomDelay(minDelayValue.get(), get())
+            }
         }
-    }
 
-    private val minDelayValue: IntegerValue = object : IntegerValue("MinDelay", 500, 0, 5000) {
-        override fun onChanged(oldValue: Int, newValue: Int) {
-            val maxDelayValueObject = maxDelayValue.get()
-            if (maxDelayValueObject < newValue) set(maxDelayValueObject)
-            delay = TimeUtils.randomDelay(get(), maxDelayValue.get())
+    private val minDelayValue: IntegerValue =
+        object : IntegerValue("MinDelay", 500, 0, 5000) {
+            override fun onChanged(oldValue: Int, newValue: Int) {
+                val maxDelayValueObject = maxDelayValue.get()
+                if (maxDelayValueObject < newValue) set(maxDelayValueObject)
+                delay = TimeUtils.randomDelay(get(), maxDelayValue.get())
+            }
         }
-    }
 
-    private val messageValue = TextValue("SingleMessage", KevinClient.name + " Client | Jiege")
-    private val switchMessage1 = TextValue("SwitchMessageFirst","https://space.bilibili.com/1372772553 Liquid_Bounce-杰哥")
-    private val switchMessage2 = TextValue("SwitchMessageSecond","Liquid_Bounce-杰哥 https://space.bilibili.com/1372772553")
+    private val messageValue =
+        TextValue("SingleMessage", KevinClient.name + " Client | Jiege")
+    private val switchMessage1 = TextValue(
+        "SwitchMessageFirst",
+        "https://space.bilibili.com/1372772553 Liquid_Bounce-杰哥"
+    )
+    private val switchMessage2 = TextValue(
+        "SwitchMessageSecond",
+        "Liquid_Bounce-杰哥 https://space.bilibili.com/1372772553"
+    )
 
-    private val randomCharacterAtFirst = BooleanValue("RandomCharacterAtFirst",true)
-    private val randomCharacterAtLast = BooleanValue("RandomCharacterAtLast",true)
+    private val randomCharacterAtFirst = BooleanValue("RandomCharacterAtFirst", true)
+    private val randomCharacterAtLast = BooleanValue("RandomCharacterAtLast", true)
 
 
-    private val firstMaxLength:IntegerValue = object : IntegerValue("RandomCharacterAtFirstMaxLength",3,1,7){
-        override fun onChange(oldValue: Int, newValue: Int) {
-            val min = firstMinLength.get()
-            if (min > newValue) set(min)
-            firstLength = RandomUtils.nextInt(firstMinLength.get(),get())
-            super.onChange(oldValue, newValue)
+    private val firstMaxLength: IntegerValue =
+        object : IntegerValue("RandomCharacterAtFirstMaxLength", 3, 1, 7) {
+            override fun onChange(oldValue: Int, newValue: Int) {
+                val min = firstMinLength.get()
+                if (min > newValue) set(min)
+                firstLength = RandomUtils.nextInt(firstMinLength.get(), get())
+                super.onChange(oldValue, newValue)
+            }
         }
-    }
-    private val firstMinLength:IntegerValue = object : IntegerValue("RandomCharacterAtFirstMinLength",1,1,7){
-        override fun onChange(oldValue: Int, newValue: Int) {
-            val max = firstMaxLength.get()
-            if (max < newValue) set(max)
-            firstLength = RandomUtils.nextInt(get(),firstMaxLength.get())
-            super.onChange(oldValue, newValue)
+    private val firstMinLength: IntegerValue =
+        object : IntegerValue("RandomCharacterAtFirstMinLength", 1, 1, 7) {
+            override fun onChange(oldValue: Int, newValue: Int) {
+                val max = firstMaxLength.get()
+                if (max < newValue) set(max)
+                firstLength = RandomUtils.nextInt(get(), firstMaxLength.get())
+                super.onChange(oldValue, newValue)
+            }
         }
-    }
-    private var firstLength = RandomUtils.nextInt(firstMinLength.get(),firstMaxLength.get())
+    private var firstLength =
+        RandomUtils.nextInt(firstMinLength.get(), firstMaxLength.get())
 
 
-    private val lastMaxLength:IntegerValue = object : IntegerValue("RandomCharacterAtLastMaxLength",3,1,7){
-        override fun onChange(oldValue: Int, newValue: Int) {
-            val min = lastMinLength.get()
-            if (min > newValue) set(min)
-            lastLength = RandomUtils.nextInt(lastMinLength.get(),get())
-            super.onChange(oldValue, newValue)
+    private val lastMaxLength: IntegerValue =
+        object : IntegerValue("RandomCharacterAtLastMaxLength", 3, 1, 7) {
+            override fun onChange(oldValue: Int, newValue: Int) {
+                val min = lastMinLength.get()
+                if (min > newValue) set(min)
+                lastLength = RandomUtils.nextInt(lastMinLength.get(), get())
+                super.onChange(oldValue, newValue)
+            }
         }
-    }
-    private val lastMinLength:IntegerValue = object : IntegerValue("RandomCharacterAtLastMinLength",1,1,7){
-        override fun onChange(oldValue: Int, newValue: Int) {
-            val max = lastMaxLength.get()
-            if (max < newValue) set(max)
-            lastLength = RandomUtils.nextInt(get(),lastMaxLength.get())
-            super.onChange(oldValue, newValue)
+    private val lastMinLength: IntegerValue =
+        object : IntegerValue("RandomCharacterAtLastMinLength", 1, 1, 7) {
+            override fun onChange(oldValue: Int, newValue: Int) {
+                val max = lastMaxLength.get()
+                if (max < newValue) set(max)
+                lastLength = RandomUtils.nextInt(get(), lastMaxLength.get())
+                super.onChange(oldValue, newValue)
+            }
         }
-    }
-    private var lastLength = RandomUtils.nextInt(lastMinLength.get(),lastMaxLength.get())
+    private var lastLength =
+        RandomUtils.nextInt(lastMinLength.get(), lastMaxLength.get())
 
-    private val startMode = ListValue("Prefix", arrayOf("None","/shout",".","@","!","Custom"),"None")
+    private val startMode = ListValue(
+        "Prefix",
+        arrayOf("None", "/shout", ".", "@", "!", "Custom"),
+        "None"
+    )
     private val customPrefix = TextValue("CustomPrefix", "")
-    private val firstLeft = TextValue("RandomCharacterAtFirstLeft","[")
-    private val firstRight = TextValue("RandomCharacterAtFirstRight","]")
-    private val lastLeft = TextValue("RandomCharacterAtLastLeft","[")
-    private val lastRight = TextValue("RandomCharacterAtLastRight","]")
-    private val customNoRandomV = BooleanValue("CustomNoRandom",true)
-    private val autoDisableV = BooleanValue("AutoDisable",false)
+    private val firstLeft = TextValue("RandomCharacterAtFirstLeft", "[")
+    private val firstRight = TextValue("RandomCharacterAtFirstRight", "]")
+    private val lastLeft = TextValue("RandomCharacterAtLastLeft", "[")
+    private val lastRight = TextValue("RandomCharacterAtLastRight", "]")
+    private val customNoRandomV = BooleanValue("CustomNoRandom", true)
+    private val autoDisableV = BooleanValue("AutoDisable", false)
 
     private val msTimer = MSTimer()
-    private var delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
+    private var delay =
+        TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
     private var sentencesNumber = 0
     private var switchState = 1
-    private var lastMode:String? = null
+    private var lastMode: String? = null
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
@@ -131,7 +158,7 @@ class SuperSpammer : ClientModule("SuperSpammer","Spams the chat with given mess
         //if (event.eventState == UpdateState.OnUpdate) return
 
         val mode = modeValue.get()
-        val start = when(startMode.get()) {
+        val start = when (startMode.get()) {
             "/shout" -> "/shout "
             "." -> ".say ."
             "@" -> "@"
@@ -140,10 +167,14 @@ class SuperSpammer : ClientModule("SuperSpammer","Spams the chat with given mess
             else -> ""
         }
 
-        val first = if (randomCharacterAtFirst.get()) "$start${firstLeft.get()}${RandomUtils.randomString(firstLength)}${firstRight.get()}" else start
-        val last = if (randomCharacterAtLast.get())"${lastLeft.get()}${RandomUtils.randomString(lastLength)}${lastRight.get()}" else ""
+        val first = if (randomCharacterAtFirst.get()) "$start${firstLeft.get()}${
+            RandomUtils.randomString(firstLength)
+        }${firstRight.get()}" else start
+        val last = if (randomCharacterAtLast.get()) "${lastLeft.get()}${
+            RandomUtils.randomString(lastLength)
+        }${lastRight.get()}" else ""
         if (msTimer.hasTimePassed(delay)) {
-            if (mode.equals("Switch",true)) {
+            if (mode.equals("Switch", true)) {
                 switchState = if (switchState == 1) {
                     val text = "$first${switchMessage1.get()}$last"
                     mc.thePlayer.sendChatMessage(text)
@@ -153,12 +184,12 @@ class SuperSpammer : ClientModule("SuperSpammer","Spams the chat with given mess
                     mc.thePlayer.sendChatMessage(text)
                     1
                 }
-            } else if (mode.equals("Single",true)) {
+            } else if (mode.equals("Single", true)) {
                 val text = "$first${messageValue.get()}$last"
                 mc.thePlayer.sendChatMessage(text)
             } else {
                 var spammerList = arrayListOf("")
-                when (mode.lowercase(Locale.getDefault())){
+                when (mode.lowercase(Locale.getDefault())) {
                     "华强买瓜" -> spammerList = huaQiangList
                     "精通人性的女讲师" -> spammerList = nvJiangShiList
                     "杰哥不要" -> spammerList = jieGeList
@@ -169,36 +200,45 @@ class SuperSpammer : ClientModule("SuperSpammer","Spams the chat with given mess
                     else -> {
                         val files = KevinClient.fileManager.spammerDir.listFiles()!!
                         var file: File? = null
-                        for (i in files){
+                        for (i in files) {
                             if (mode == i.name.split(".txt")[0]) file = i
                         }
                         if (file != null) spammerList = ArrayList(file.readLines())
                     }
                 }
-                if (mode != lastMode){
+                if (mode != lastMode) {
                     sentencesNumber = 0
                     lastMode = mode
                 }
                 if (spammerList.isNotEmpty()) mc.thePlayer.sendChatMessage(if (customNoRandomV.get()) "$start${spammerList[sentencesNumber]}" else "$first${spammerList[sentencesNumber]}$last")
-                if (sentencesNumber < spammerList.size - 1) sentencesNumber += 1 else if (autoDisableV.get()) KevinClient.moduleManager.getModuleByName(this.name)?.toggle() else sentencesNumber = 0
+                if (sentencesNumber < spammerList.size - 1) sentencesNumber += 1 else if (autoDisableV.get()) KevinClient.moduleManager.getModuleByName(
+                    this.name
+                )?.toggle() else sentencesNumber = 0
             }
             msTimer.reset()
             delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
-            firstLength = RandomUtils.nextInt(firstMinLength.get(),firstMaxLength.get())
-            lastLength = RandomUtils.nextInt(lastMinLength.get(),lastMaxLength.get())
+            firstLength =
+                RandomUtils.nextInt(firstMinLength.get(), firstMaxLength.get())
+            lastLength =
+                RandomUtils.nextInt(lastMinLength.get(), lastMaxLength.get())
         }
     }
+
     override fun onEnable() {
         lastMode = modeValue.get()
         msTimer.reset()
         sentencesNumber = 0
     }
+
     override fun onDisable() {
         lastMode = null
         sentencesNumber = 0
     }
-    override val tag: String
-        get() = modeValue.get() + "  " + sentencesNumber.toString()
+
+    override fun getTag(): String =
+        modeValue.get() + "  " + sentencesNumber.toString()
+
+
     private val nvJiangShiList = arrayListOf(
         "<三句话，让男人为我花了十八万>",
         "我是一个很善于让男人为我花钱的精通人性的女讲师",

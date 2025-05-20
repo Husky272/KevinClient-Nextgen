@@ -23,7 +23,7 @@ import kevin.module.TextValue
 import kevin.utils.ColorUtils.translateAlternateColorCodes
 import kevin.utils.StringUtils
 
-class NameProtect : ClientModule(name = "NameProtect", description = "Changes playernames clientside.", ModuleCategory.MISC) {
+class NameProtect : ClientModule("NameProtect",  "Changes playernames clientside.", ModuleCategory.MISC) {
 
     private val fakeNameValue = TextValue("FakeName", "&cKevinUser")
 

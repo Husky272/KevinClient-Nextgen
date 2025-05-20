@@ -24,7 +24,7 @@ import kevin.utils.getDistanceToEntityBox
 import net.minecraft.client.settings.GameSettings
 import net.minecraft.entity.player.EntityPlayer
 
-class KeepRange: ClientModule("KeepDistance", "Keep yourself out of a range with your target", category=ModuleCategory.COMBAT) {
+class KeepRange: ClientModule("KeepDistance", "Keep yourself out of a range with your target", ModuleCategory.COMBAT) {
     private val mode = ListValue("Mode", arrayOf("ReleaseKey", "CancelMove"), "ReleaseKey")
     private val minDistance = FloatValue("MinDistance", 2.3F, 0F, 4F)
     private val maxDistance = FloatValue("MaxDistance", 4.0F, 3F, 7F)

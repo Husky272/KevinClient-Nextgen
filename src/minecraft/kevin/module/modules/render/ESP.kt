@@ -49,8 +49,7 @@ class ESP : ClientModule("ESP", "Allows you to see targets through walls.", Modu
     private val colorBlueValue = IntegerValue("B", 255, 0, 255)
     private val colorRainbow = BooleanValue("Rainbow", false)
     private val colorTeam = BooleanValue("Team", false)
-    override val tag: String
-        get() = modeValue.get()
+    override fun getTag() = modeValue.get()
     @JvmField
     val outlineWidth = FloatValue("OutlineWidth", 3f, 0.5f, 5f)
     @JvmField

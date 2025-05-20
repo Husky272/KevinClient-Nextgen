@@ -16,25 +16,33 @@ package kevin.module.modules.player
 
 import kevin.event.*
 import kevin.main.KevinClient
-import kevin.module.ListValue
 import kevin.module.ClientModule
+import kevin.module.ListValue
 import kevin.module.ModuleCategory
-import kevin.module.Value
 import kevin.module.modules.player.nofalls.NoFallMode
 import kevin.module.modules.player.nofalls.aac.*
 import kevin.module.modules.player.nofalls.matrix.*
 import kevin.module.modules.player.nofalls.normal.*
-import kevin.module.modules.player.nofalls.other.*
+import kevin.module.modules.player.nofalls.other.CubeCraftNoFall
+import kevin.module.modules.player.nofalls.other.HypSpoofNoFall
+import kevin.module.modules.player.nofalls.other.HypixelNoFall
+import kevin.module.modules.player.nofalls.other.MedusaNoFall
 import kevin.module.modules.player.nofalls.packet.*
-import kevin.module.modules.player.nofalls.spartan.*
-import kevin.module.modules.player.nofalls.verus.*
-import kevin.module.modules.player.nofalls.vulcan.*
+import kevin.module.modules.player.nofalls.spartan.SpartanNoFall
+import kevin.module.modules.player.nofalls.verus.VerusNoFall
+import kevin.module.modules.player.nofalls.verus.VerusNoFall2
+import kevin.module.modules.player.nofalls.vulcan.VulcanNoFall
+import kevin.module.modules.player.nofalls.vulcan.VulcanNoFall2
 import kevin.module.modules.render.FreeCam
 import kevin.utils.BlockUtils.collideBlock
 import net.minecraft.block.BlockLiquid
 import net.minecraft.util.AxisAlignedBB
 
-class NoFall : ClientModule("NoFall","Prevents you from taking fall damage.", ModuleCategory.PLAYER) {
+class NoFall : ClientModule(
+    "NoFall",
+    "Prevents you from taking fall damage.",
+    ModuleCategory.PLAYER
+) {
     private val noFalls = arrayOf(
         SpoofGroundNoFall,
         SpoofGroundNoFall2,
@@ -74,6 +82,7 @@ class NoFall : ClientModule("NoFall","Prevents you from taking fall damage.", Mo
         HypSpoofNoFall
     )
     private val names: Array<String> = noFalls.map { it.modeName }.toTypedArray()
+
     @JvmField
     val modeValue = ListValue("Mode", names, names.first())
     private val nowMode: NoFallMode
@@ -85,6 +94,7 @@ class NoFall : ClientModule("NoFall","Prevents you from taking fall damage.", Mo
         wasTimer = false
         nowMode.onEnable()
     }
+
     override fun onDisable() {
         //mc.thePlayer.capabilities.isFlying = false
         //mc.thePlayer.capabilities.flySpeed = 0.05f
@@ -93,12 +103,20 @@ class NoFall : ClientModule("NoFall","Prevents you from taking fall damage.", Mo
         mc.timer.timerSpeed = 1F
         nowMode.onDisable()
     }
-    @EventTarget fun onPacket(event: PacketEvent) = nowMode.onPacket(event)
-    @EventTarget fun onMotionUpdate(event: MotionEvent) = nowMode.onMotion(event)
-    @EventTarget fun onStep(event: StepEvent) = nowMode.onStep(event)
-    @EventTarget fun onMove(event: MoveEvent) = nowMode.onMove(event)
-    @EventTarget fun onBB(event: BlockBBEvent) = nowMode.onBlockBB(event)
-    @EventTarget(ignoreCondition = true) fun onJump(event: JumpEvent) = nowMode.onJump(event)
+
+    @EventTarget
+    fun onPacket(event: PacketEvent) = nowMode.onPacket(event)
+    @EventTarget
+    fun onMotionUpdate(event: MotionEvent) = nowMode.onMotion(event)
+    @EventTarget
+    fun onStep(event: StepEvent) = nowMode.onStep(event)
+    @EventTarget
+    fun onMove(event: MoveEvent) = nowMode.onMove(event)
+    @EventTarget
+    fun onBB(event: BlockBBEvent) = nowMode.onBlockBB(event)
+    @EventTarget(ignoreCondition = true)
+    fun onJump(event: JumpEvent) = nowMode.onJump(event)
+
     @EventTarget(ignoreCondition = true)
     fun onUpdate(event: UpdateEvent) {
 
@@ -109,16 +127,23 @@ class NoFall : ClientModule("NoFall","Prevents you from taking fall damage.", Mo
             wasTimer = false
         }
         nowMode.onUpdate(event)
-        if (!this.state || KevinClient.moduleManager.getModule(FreeCam::class.java).state)
-            return
-        if (collideBlock(mc.thePlayer!!.entityBoundingBox, fun(block: Any?) = block is BlockLiquid) ||
-            collideBlock(AxisAlignedBB(mc.thePlayer!!.entityBoundingBox.maxX, mc.thePlayer!!.entityBoundingBox.maxY, mc.thePlayer!!.entityBoundingBox.maxZ, mc.thePlayer!!.entityBoundingBox.minX, mc.thePlayer!!.entityBoundingBox.minY - 0.01, mc.thePlayer!!.entityBoundingBox.minZ), fun(block: Any?) = block is BlockLiquid))
-            return
+        if (!this.state || KevinClient.moduleManager.getModule(FreeCam::class.java).state) return
+        if (collideBlock(
+                mc.thePlayer!!.entityBoundingBox,
+                fun(block: Any?) = block is BlockLiquid) || collideBlock(
+                AxisAlignedBB(
+                    mc.thePlayer!!.entityBoundingBox.maxX,
+                    mc.thePlayer!!.entityBoundingBox.maxY,
+                    mc.thePlayer!!.entityBoundingBox.maxZ,
+                    mc.thePlayer!!.entityBoundingBox.minX,
+                    mc.thePlayer!!.entityBoundingBox.minY - 0.01,
+                    mc.thePlayer!!.entityBoundingBox.minZ
+                ), fun(block: Any?) = block is BlockLiquid)
+        ) return
         nowMode.onNoFall(event)
     }
 
-    override val values: List<Value<*>> = super.values.toMutableList().also { list -> noFalls.forEach { noFallMode -> list.addAll(noFallMode.values) } }
+//    override fun values(): List<Value<*>> = super.values.toMutableList().also { list -> noFalls.forEach { noFallMode -> list.addAll(noFallMode.values) } }
 
-    override val tag: String
-        get() = modeValue.get()
+    override fun getTag() = modeValue.get()
 }

@@ -18,7 +18,7 @@ import kevin.module.BooleanValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 
-class AntiBlind : ClientModule(name = "AntiBlind", description = "Cancels blindness effects.", ModuleCategory.RENDER) {
+class AntiBlind : ClientModule("AntiBlind","Cancels blindness effects.", ModuleCategory.RENDER) {
     val confusionEffect = BooleanValue("Confusion", true)
     val pumpkinEffect = BooleanValue("Pumpkin", true)
     val fireEffect = BooleanValue("Fire", false)

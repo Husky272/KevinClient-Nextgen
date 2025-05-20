@@ -120,8 +120,7 @@ class Fly : ClientModule("Fly","Allow you fly", Keyboard.KEY_F,ModuleCategory.MO
     @EventTarget fun onPacket(event: PacketEvent) = nowMode.onPacket(event)
     @EventTarget fun onMove(event: MoveEvent) = nowMode.onMove(event)
 
-    override val values: List<Value<*>> = super.values.toMutableList().also { list -> flys.forEach { flyMode -> list.addAll(flyMode.values) } }
+//    override val values: List<Value<*>> = super.values.toMutableList().also { list -> flys.forEach { flyMode -> list.addAll(flyMode.values) } }
 
-    override val tag: String
-        get() = "${mode.get()}${if (nowMode.tagV!=null) "(${nowMode.tagV})" else ""}"
+    override fun getTag() = "${mode.get()}${if (nowMode.tagV!=null) "(${nowMode.tagV})" else ""}"
 }

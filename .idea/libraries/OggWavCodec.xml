@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="OggWavCodec">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/run/libraries/codecjorbis-20101023.jar!/" />
+      <root url="jar://$PROJECT_DIR$/run/libraries/codecwav-20101023.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

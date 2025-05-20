@@ -81,6 +81,7 @@ open class HUD : MinecraftInstance()  {
                     it.border = it.drawElement()
                 } catch (ex: Exception) {
                     println("Something went wrong while drawing ${it.name} element in HUD. $ex")
+                    ex.printStackTrace()
                 }
 
                 GL11.glEnable(GL11.GL_BLEND)
@@ -109,10 +110,10 @@ open class HUD : MinecraftInstance()  {
                 GL11.glTranslated(it.renderX, it.renderY, 0.0)
 
                 try {
-                    it.border = it.drawElement()
+                    it.border = it!!.drawElement()
 
                     if (designer)
-                        it.border?.draw()
+                        it.border!!.draw()
                 } catch (ex: Exception) {
                     println("Something went wrong while drawing ${it.name} element in HUD. $ex")
                 }

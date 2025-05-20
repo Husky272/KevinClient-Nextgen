@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ICU4J">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/run/libraries/icu4j-core-mojang-51.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

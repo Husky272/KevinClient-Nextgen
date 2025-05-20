@@ -287,6 +287,5 @@ class HighJump : ClientModule("HighJump", "Allows you to jump higher.", ModuleCa
         }
     }
 
-    override val tag: String
-        get() = modeValue.get()
+    override fun getTag() = modeValue.get()
 }

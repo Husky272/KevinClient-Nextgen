@@ -15,5 +15,6 @@
 package kevin.module.modules.misc
 
 import kevin.module.ClientModule
+import kevin.module.ModuleCategory
 
-object NoScoreboard : ClientModule("NoScoreboard", "Disable Scoreboard.")
+object NoScoreboard : ClientModule("NoScoreboard", "Disable Scoreboard.", ModuleCategory.MISC)

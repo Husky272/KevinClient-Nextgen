@@ -78,7 +78,8 @@ object KevinClient {
     @JvmStatic
     val pool: ExecutorService = Executors.newCachedThreadPool()
 
-    var cStart = "[Kevin]"
+    @JvmStatic
+    public var cStart = "[Kevin]"
 
     fun run() {
 
@@ -136,9 +137,6 @@ object KevinClient {
         // ?!
         Runtime.getRuntime().addShutdownHook(Thread(/* task = */ ::stop))
         logger.info("Client loaded, enjoy the hack!")
-        Thread{ Thread.sleep(1500);PenisAudioPlayer().play() }.start()
-
-
     }
 
     fun stop() {

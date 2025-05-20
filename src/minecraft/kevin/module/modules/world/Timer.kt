@@ -14,31 +14,39 @@
  */
 package kevin.module.modules.world
 
-import kevin.event.*
-import kevin.main.KevinClient
+import kevin.event.EventTarget
+import kevin.event.PacketEvent
+import kevin.event.UpdateEvent
 import kevin.module.BooleanValue
-import kevin.module.FloatValue
 import kevin.module.ClientModule
+import kevin.module.FloatValue
 import kevin.module.ModuleCategory
-import kevin.utils.ChatUtils
 import kevin.utils.MovementUtils
 import net.minecraft.network.play.client.C03PacketPlayer
-import kotlin.math.pow
 
-class Timer : ClientModule("Timer", "Changes the speed of the entire game.", ModuleCategory.WORLD) {
+class Timer : ClientModule(
+    "Timer",
+    "Changes the speed of the entire game.",
+    ModuleCategory.WORLD
+) {
     private val speedValue = FloatValue("Speed", 2F, 0.1F, 30F)
     private val balanceValue by BooleanValue("BalanceTimer", false)
-    private val balanceWaitTimer by FloatValue("BalanceWaitTimer", 0.05f, 0.05f, 0.99f)
+    private val balanceWaitTimer by FloatValue(
+        "BalanceWaitTimer",
+        0.05f,
+        0.05f,
+        0.99f
+    )
     private val onMoveValue = BooleanValue("OnlyOnMove", true)
     private val balanceDebug by BooleanValue("BalanceDebug", false)
+
     //private val autoDisable = BooleanValue("AutoDisable",true)
     private var balance = 0L
     private var balanceState = false
     private var lastSent = System.currentTimeMillis()
 
     override fun onDisable() {
-        if (mc.thePlayer == null)
-            return
+        if (mc.thePlayer == null) return
         mc.timer.timerSpeed = 1F
     }
 
@@ -60,7 +68,7 @@ class Timer : ClientModule("Timer", "Changes the speed of the entire game.", Mod
                 balanceState = false
             }
         }
-        if((MovementUtils.isMoving || !onMoveValue.get()) && (!balanceState || !balanceValue)) {
+        if ((MovementUtils.isMoving || !onMoveValue.get()) && (!balanceState || !balanceValue)) {
             mc.timer.timerSpeed = speedValue.get()
             return
         }
@@ -80,14 +88,15 @@ class Timer : ClientModule("Timer", "Changes the speed of the entire game.", Mod
             lastSent = time
         }
     }
-/**
+
+    /**
     @EventTarget
     fun onWorld(event: WorldEvent) {
-        if (event.worldClient != null) return
-        if (!autoDisable.get()) return
-        this.toggle(false)
+    if (event.worldClient != null) return
+    if (!autoDisable.get()) return
+    this.toggle(false)
     }
-**/
-    override val tag: String
-        get() = if (balanceValue && balanceDebug) "Balance:$balance" else "Speed:${speedValue.get()}"
+     **/
+    override fun getTag() =
+        if (balanceValue && balanceDebug) "Balance:$balance" else "Speed:${speedValue.get()}"
 }

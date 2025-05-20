@@ -84,7 +84,6 @@ class InvMove : ClientModule("InvMove","Allows you to walk while an inventory is
     override fun handleEvents(): Boolean = state || (alwaysActiveWithClickGui.get() && (mc.currentScreen is kevin.hud.ClickGui))
 
 
-    override val tag: String
-        get() = "Sprint:${sprintMode.get()}" + if (bypass.get()) " & NoPacket" else ""
+    override fun getTag() = "Sprint:${sprintMode.get()}" + if (bypass.get()) " & NoPacket" else ""
 //if (sprintMode.get()&&bypass.get()) "FakeSprint & NoPacket" else if (sprintMode.get()) "FakeSprint" else if (bypass.get()) "NoPacket" else null
 }

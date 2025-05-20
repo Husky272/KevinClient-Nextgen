@@ -14,9 +14,10 @@
  */
 package kevin.module.modules.render
 
-import jdk.nashorn.api.scripting.JSObject
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory
-import jdk.nashorn.api.scripting.ScriptUtils
+
+import org.openjdk.nashorn.api.scripting.JSObject;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
+
 import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.main.KevinClient
@@ -323,8 +324,10 @@ object Renderer : ClientModule("Renderer","Allows you to modify some renderings.
     var fox = false
     var renderer: RendererLivingEntity<AbstractClientPlayer>? = null
     private val texturesList = HashMap<String,Texture>()
-    override val tag: String
-        get() = playerModel.get()
+
+    override fun getTag(): String? {
+        return playerModel.get();
+    }
 
     class Texture(name:String,image: BufferedImage){
         val resource = ResourceLocation("kevin/texture/${name.lowercase(Locale.getDefault()).replace(" ", "_")}")

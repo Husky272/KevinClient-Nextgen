@@ -1,17 +1,18 @@
 /*
- * This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// * This program is free software: you can redistribute it and/or modify
+// *   it under the terms of the GNU General Public License as published by
+// *   the Free Software Foundation, either version 3 of the License, or
+// *   (at your option) any later version.
+// *
+// *   This program is distributed in the hope that it will be useful,
+// *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+// *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// *   GNU General Public License for more details.
+// *
+// *   You should have received a copy of the GNU General Public License
+// *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
 package kevin.module.modules.combat
 
 import kevin.event.*
@@ -38,7 +39,7 @@ class AntiKnockback : ClientModule("AntiKnockback","Allows you to modify the amo
     private val horizontalValue = FloatValue("Horizontal", 0F, -1F, 1F)
     private val verticalValue = FloatValue("Vertical", 0F, -1F, 1F)
     private val modeValue = ListValue("Mode", arrayOf(
-        "AAC", "AACPush", "AACZero", "AACv4", "AAC5Packet", "AllowFirst", "BlockCollection", "Click", "Cancel", 
+        "AAC", "AACPush", "AACZero", "AACv4", "AAC5Packet", "AllowFirst", "BlockCollection", "Click", "Cancel",
         "Down", "Glitch", "GrimDig", "HypixelReverse", "IntaveJump", "IntaveTest", "Jump",
         "LegitSmart", "MatrixReduce", "MatrixSimple", "MatrixReverse", "MMC", "Reverse", "SmoothReverse", "Simple", "TestBuzzReverse"), "Simple")
 
@@ -106,12 +107,13 @@ class AntiKnockback : ClientModule("AntiKnockback","Allows you to modify the amo
     private var intavey = 0f
     private var intavez = 0f
 
-    override val tag: String
-        get() = if (modeValue.get() == "Simple") "H:${horizontalValue.get()*100}% V:${verticalValue.get()*100}%"
+    override fun getTag(): String? {
+        return if (modeValue.get() == "Simple") "H:${horizontalValue.get()*100}% V:${verticalValue.get()*100}%"
         else modeValue.get()
+    };
 
     override fun onDisable() {
-        mc.thePlayer?.speedInAir = 0.02F
+        mc.thePlayer!!.speedInAir = 0.02F
     }
 
     @EventTarget
@@ -157,15 +159,15 @@ class AntiKnockback : ClientModule("AntiKnockback","Allows you to modify the amo
 
             "intavetest" -> {
                 if (mc.thePlayer.hurtTime > 7) {
-                        mc.thePlayer.motionX = 0.0
-                        mc.thePlayer.motionY = 0.0
-                        mc.thePlayer.motionZ = 0.0
+                    mc.thePlayer.motionX = 0.0
+                    mc.thePlayer.motionY = 0.0
+                    mc.thePlayer.motionZ = 0.0
                 }
-                    if (mc.thePlayer.hurtTime == 10) {
-                        intavex = mc.thePlayer.posX.toFloat()
-                        intavey = mc.thePlayer.posY.toFloat()
-                        intavez = mc.thePlayer.posZ.toFloat()
-                    }
+                if (mc.thePlayer.hurtTime == 10) {
+                    intavex = mc.thePlayer.posX.toFloat()
+                    intavey = mc.thePlayer.posY.toFloat()
+                    intavez = mc.thePlayer.posZ.toFloat()
+                }
 
 
             }
@@ -431,7 +433,7 @@ class AntiKnockback : ClientModule("AntiKnockback","Allows you to modify the amo
                         mmcLastCancel = false
                     }
                 }
-                
+
                 "click" -> {
                     if (packet.motionX == 0 && packet.motionZ == 0) return
                     if (attackRayTrace(
@@ -442,7 +444,7 @@ class AntiKnockback : ClientModule("AntiKnockback","Allows you to modify the amo
                     )
                         velocityInput = true
                 }
-                
+
                 "grimdig" -> {
                     if (grimDisable > 0) {
                         return
@@ -486,7 +488,7 @@ class AntiKnockback : ClientModule("AntiKnockback","Allows you to modify the amo
     }
 
     @EventTarget fun onBB(event: BlockBBEvent) {
-        //https://github.com/RE-KevinClient/KevinClient-Reborn/issues/37
+        // https://github.com/RE-KevinClient/KevinClient-Reborn/issues/37
         if (modeValue equal "BlockCollection") {
             if (velocityInput && event.block is BlockAir) {
                 val x: Double = event.x.toDouble()
@@ -510,7 +512,9 @@ class AntiKnockback : ClientModule("AntiKnockback","Allows you to modify the amo
 
         raycastedEntity?.let {
             if (it !is EntityPlayer) return true
-            if (it.entityBoundingBox.expands(it.collisionBorderSize.toDouble()).getLookingTargetRange(mc.thePlayer) > range) return false
+            if (it.entityBoundingBox.
+                expands(it.collisionBorderSize.toDouble())
+                .getLookingTargetRange(mc.thePlayer) > range) return false
             if (doAttack) {
                 KevinClient.eventManager.callEvent(AttackEvent(it))
                 repeat(attack) { _ ->
@@ -525,3 +529,4 @@ class AntiKnockback : ClientModule("AntiKnockback","Allows you to modify the amo
         return false
     }
 }
+*/

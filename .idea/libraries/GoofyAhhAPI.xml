@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="GoofyAhhAPI">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/run/libraries/API-Java--SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/run/libraries/API-Java-api-2.0-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/run/libraries/API-Java-AuthLib--SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/run/libraries/API-Java--SNAPSHOT-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/run/libraries/API-Java-api-2.0-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/run/libraries/API-Java-AuthLib--SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

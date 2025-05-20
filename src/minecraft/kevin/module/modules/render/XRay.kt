@@ -17,7 +17,7 @@ package kevin.module.modules.render
 import kevin.module.*
 import net.minecraft.init.Blocks
 
-class XRay : ClientModule(name = "XRay", description = "Allows you to see through walls.", ModuleCategory.RENDER) {
+class XRay : ClientModule("XRay", "Allows you to see through walls.", ModuleCategory.RENDER) {
     override fun onToggle(state: Boolean) {
         mc.renderGlobal.loadRenderers()
     }
@@ -25,8 +25,7 @@ class XRay : ClientModule(name = "XRay", description = "Allows you to see throug
     val opacity = IntegerValue("Opacity", 160, 0, 255)
     val noBlock = BooleanValue("NoBlock", false)
     val cave = BooleanValue("OnlyInAir", false)
-    override val tag: String
-        get() = mode.get()
+    override fun getTag() = mode.get()
     val xrayBlocks = mutableListOf(
         Blocks.coal_ore,
         Blocks.iron_ore,

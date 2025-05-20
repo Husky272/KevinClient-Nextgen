@@ -15,5 +15,6 @@
 package kevin.module.modules.misc
 
 import kevin.module.ClientModule
+import kevin.module.ModuleCategory
 
-object NoAchievement: ClientModule("NoAchievement", "Disable display achievement notifications.")
+object NoAchievement: ClientModule("NoAchievement", "Disable display achievement notifications.", ModuleCategory.MISC)

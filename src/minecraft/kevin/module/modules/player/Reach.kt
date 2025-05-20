@@ -30,6 +30,5 @@ class Reach : ClientModule("Reach","Increases your reach.", ModuleCategory.PLAYE
             return if (combatRange > buildRange) combatRange else buildRange
         }
 
-    override val tag: String
-        get() = combatReachValue.get().toString()
+    override fun getTag() = combatReachValue.get().toString()
 }

@@ -27,6 +27,8 @@ public class ClientModule extends MinecraftInstance implements Listenable {
 
     public String tag;
 
+
+
     public static String[] arrayOf(String... args){
         StringBuilder temp = new StringBuilder();
         String toSplit = "😂";
@@ -69,13 +71,13 @@ public class ClientModule extends MinecraftInstance implements Listenable {
     // Full constructor with Supplier
     public ClientModule(@NotNull String name,
                         @NotNull String description,
-                        Supplier<Integer> keyBindSupplier,
+                        int keyBind,
                         @NotNull ModuleCategory category) {
 
         this.name = name;
         this.description = description;
         this.category = category;
-        this.keyBind = keyBindSupplier.get() != null ? keyBindSupplier.get() : -1;
+        this.keyBind = keyBind;
 
         this.enabledTimer = new MSTimer();
         this.disabledTimer = new MSTimer();
@@ -218,7 +220,7 @@ public class ClientModule extends MinecraftInstance implements Listenable {
 
 
     @NotNull
-    public final Pair getAutoDisable() {
+    public final Pair<Boolean, String> getAutoDisable() {
         return this.autoDisable;
     }
 

@@ -110,5 +110,5 @@ class ChinaHat : ClientModule("ChinaHat", "Gives you a chinese hat", ModuleCateg
         glColor3f(255f, 255f, 255f)
     }
 
-    override val tag: String = quality.get()
+    override fun getTag() = quality.get()
 }

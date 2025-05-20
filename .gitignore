@@ -1,5 +1,6 @@
 # 默认忽略的文件
 /shelf/
-/.idea/
+workspace.xml
 /out/production/
 /out/
+/run/Game/*

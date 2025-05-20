@@ -257,6 +257,5 @@ class AntiVoid : ClientModule("AntiVoid","Automatically setbacks you after falli
             if (event.block is BlockAir && event.y <= mc.thePlayer.posY && event.boundingBox == null) event.boundingBox = AxisAlignedBB.fromBounds(event.x.toDouble(), event.y.toDouble(), event.z.toDouble(), event.x + 1.0, floor(mc.thePlayer.posY), event.z + 1.0)
         }
     }
-    override val tag: String
-        get() = modeValue.get()
+    override fun getTag() = modeValue.get()
 }

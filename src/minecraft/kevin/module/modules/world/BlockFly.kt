@@ -1169,8 +1169,7 @@ object BlockFly : ClientModule("BlockFly", "Scaffold skidded from lb b85", 0, Mo
             return amount
         }
 
-    override val tag
-        get() = mode
+    override fun getTag() = mode
 
     data class ExtraClickInfo(val delay: Int, val lastClick: Long, var clicks: Int)
 

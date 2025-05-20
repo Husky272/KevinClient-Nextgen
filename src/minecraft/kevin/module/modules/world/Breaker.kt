@@ -43,7 +43,7 @@ import net.minecraft.util.Vec3
 import java.awt.Color
 import java.util.*
 
-class Breaker : ClientModule("Breaker",description = "Destroys selected blocks around you.", ModuleCategory.WORLD) {
+class Breaker : ClientModule("Breaker", "Destroys selected blocks around you.", ModuleCategory.WORLD) {
 
     /**
      * SETTINGS
@@ -315,6 +315,5 @@ class Breaker : ClientModule("Breaker",description = "Destroys selected blocks a
         }
     }
 
-    override val tag: String
-        get() = getBlockName(blockValue.get())
+    override fun getTag() = getBlockName(blockValue.get())
 }

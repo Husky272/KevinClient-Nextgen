@@ -23,12 +23,13 @@ import kevin.hud.element.elements.Notification
 import kevin.main.KevinClient
 import kevin.module.BooleanValue
 import kevin.module.ClientModule
+import kevin.module.ModuleCategory
 import kevin.utils.ChatUtils
 import kevin.utils.MSTimer
 import net.minecraft.network.play.server.S08PacketPlayerPosLook
 import java.util.*
 
-object AutoDisable : ClientModule("AutoDisable","Auto disable modules.(Use Command .AutoDisableSet <ModuleName> <add/remove> <World/SetBack/All>)"),ICommand {
+object AutoDisable : ClientModule("AutoDisable","Auto disable modules.(Use Command .AutoDisableSet <ModuleName> <add/remove> <World/SetBack/All>)", ModuleCategory.MISC),ICommand {
     override fun run(args: Array<out String>?) {
         if (args.isNullOrEmpty()||args.size<2) {
             usageMessage()

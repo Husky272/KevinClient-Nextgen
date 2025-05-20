@@ -18,7 +18,6 @@ import kevin.event.*
 import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.modules.combat.KillAura
-import kevin.utils.ChatUtils
 import net.minecraft.item.*
 import net.minecraft.network.play.client.C07PacketPlayerDigging
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement
@@ -28,149 +27,202 @@ import net.minecraft.util.BlockPos
 import net.minecraft.util.EnumFacing
 
 @Suppress("unused_parameter")
-class NoSlow : ClientModule(name = "NoSlow", description = "Modify slowness caused by using items.", ModuleCategory.MOVEMENT) {
+class NoSlow : ClientModule(
+    "NoSlow", "Modify slowness caused by using items.", ModuleCategory.MOVEMENT
+) {
 
-    private val sword = BooleanValue(name= "Sword", value = false)
-    private val consume = BooleanValue(name = "Consume", value = false)
-    private val bow = BooleanValue(name = "Bow", value = false)
+    private val sword = BooleanValue("Sword", false)
+    private val consume = BooleanValue("Consume", false)
+    private val bow = BooleanValue("Bow", false)
 
-    private val blockForwardMultiplier = FloatValue(name = "BlockForwardMultiplier", value = 1F, minimum = 0.2F, maximum = 1.0F) { sword.get() }
-    private val blockStrafeMultiplier = FloatValue(name = "BlockStrafeMultiplier", value = 1F, minimum = 0.2F, maximum = 1.0F) { sword.get() }
+    private val blockForwardMultiplier =
+        FloatValue("BlockForwardMultiplier", 1F, 0.2F, 1.0F) { sword.get() }
+    private val blockStrafeMultiplier =
+        FloatValue("BlockStrafeMultiplier", 1F, 0.2F, 1.0F) { sword.get() }
 
-    private val consumeForwardMultiplier = FloatValue(name = "ConsumeForwardMultiplier", value = 1.0F, minimum = 0.2F, maximum = 1.0F) { consume.get() }
-    private val consumeStrafeMultiplier = FloatValue(name = "ConsumeStrafeMultiplier", value = 1.0F, minimum = 0.2F, maximum = 1.0F) { consume.get() }
+    private val consumeForwardMultiplier =
+        FloatValue("ConsumeForwardMultiplier", 1.0F, 0.2F, 1.0F) { consume.get() }
+    private val consumeStrafeMultiplier =
+        FloatValue("ConsumeStrafeMultiplier", 1.0F, 0.2F, 1.0F) { consume.get() }
 
-    private val bowForwardMultiplier = FloatValue(name = "BowForwardMultiplier", value = 1.0F, minimum = 0.2F, maximum = 1.0F) { bow.get() }
-    private val bowStrafeMultiplier = FloatValue(name = "BowStrafeMultiplier", value = 1.0F, minimum = 0.2F, maximum = 1.0F) { bow.get() }
+    private val bowForwardMultiplier =
+        FloatValue("BowForwardMultiplier", 1.0F, 0.2F, 1.0F) { bow.get() }
+    private val bowStrafeMultiplier =
+        FloatValue("BowStrafeMultiplier", 1.0F, 0.2F, 1.0F) { bow.get() }
 
-    private val swordPlace = BooleanValue(name = "Sword-Place", value = true) { sword.get() }
-    private val swordSwitch = BooleanValue(name = "Sword-Switch", value = false) { sword.get() }
+    private val swordPlace = BooleanValue("Sword-Place", true) { sword.get() }
+    private val swordSwitch = BooleanValue("Sword-Switch", false) { sword.get() }
 
 
-    private val swordSwitchTiming = ListValue(name = "Sword-Switch-Timing", values = arrayOf("PRE", "POST", "NONE"), value = "NONE") { sword.get() && swordSwitch.get() }
+    private val swordSwitchTiming = ListValue(
+        "Sword-Switch-Timing", arrayOf("PRE", "POST", "NONE"), "NONE"
+    ) { sword.get() && swordSwitch.get() }
 
-    private val swordPlaceTiming = ListValue(name = "Sword-Place-Timing", values = arrayOf("PRE", "POST", "NONE"), value = "NONE") { sword.get() && swordPlace.get() }
+    private val swordPlaceTiming = ListValue(
+        "Sword-Place-Timing", arrayOf("PRE", "POST", "NONE"), "NONE"
+    ) { sword.get() && swordPlace.get() }
 
-    private val consumeSwitch = BooleanValue(name = "Consume-Switch", value = false) { consume.get() }
-    private val consumeSwitchTiming = ListValue(name = "Consume-Switch-Timing", values = arrayOf("PRE", "POST", "NONE"), value = "NONE") { consume.get() && consumeSwitch.get() }
-    private val consumeGay = BooleanValue(name = "Consume-Gay", value = true) { consume.get() }
-    private val consumeBug = BooleanValue(name = "Consume-Bug", value = false) { consume.get() }
-    private val consumeBugStopUsingItem = BooleanValue("Consume-Bug-StopUsingItem", true) { consume.get() && consumeBug.get()}
-    private val consumeIntave = BooleanValue("Consume-Intave", false) { consume.get() }
+    private val consumeSwitch =
+        BooleanValue("Consume-Switch", false) { consume.get() }
+    private val consumeSwitchTiming = ListValue(
+        "Consume-Switch-Timing", arrayOf("PRE", "POST", "NONE"), "NONE"
+    ) { consume.get() && consumeSwitch.get() }
+    private val consumeGay = BooleanValue("Consume-Gay", true) { consume.get() }
+    private val consumeBug = BooleanValue("Consume-Bug", false) { consume.get() }
+    private val consumeBugStopUsingItem = BooleanValue(
+        "Consume-Bug-StopUsingItem", true
+    ) { consume.get() && consumeBug.get() }
+    private val consumeIntave =
+        BooleanValue("Consume-Intave", false) { consume.get() }
 
-    private val bowSwitch = BooleanValue(name = "Bow-Switch", value = false) { bow.get() }
-    private val bowSwitchTiming = ListValue(name = "Bow-Switch-Timing", values = arrayOf("PRE", "POST", "NONE"), value = "NONE") { bow.get() && bowSwitch.get() }
+    private val bowSwitch = BooleanValue("Bow-Switch", false) { bow.get() }
+    private val bowSwitchTiming = ListValue(
+        "Bow-Switch-Timing", arrayOf("PRE", "POST", "NONE"), "NONE"
+    ) { bow.get() && bowSwitch.get() }
 
-    val soulsandValue = BooleanValue("Soulsand", true)
-    val liquidPushValue = BooleanValue("LiquidPush", true)
+    val soulsand = BooleanValue("Soulsand", true)
+    val liquidPush = BooleanValue("LiquidPush", true)
 
-/**
- * @author a114
-*/
-    override val tag: String
-        get() = "主播为什么偷看我NoSlow的tag"
+    /**
+     * @author a114
+     */
+    override fun getTag() =
+        "Sword: ${sword.get()}, Consume: ${consume.get()}, Bow: ${bow.get()}"
+
+    private fun amIBlocking(): Boolean {
+
+        try {
+            if (mc.thePlayer == null || mc.thePlayer.itemInUse == null || mc.thePlayer.itemInUse.item == null) return false
+        } catch (e: Throwable) { return false }
+
+        
+        var whatAnAwsomeVarName = false
+        try {
+            // Sword is not stackable
+            whatAnAwsomeVarName = !mc.thePlayer.itemInUse.isStackable
+                    && mc.thePlayer.itemInUse.item is ItemSword
+        } catch (e: ClassCastException) {
+            return false
+        }
+
+        return mc.thePlayer.isBlocking || KevinClient.moduleManager[KillAura::class.java].blockingStatus || whatAnAwsomeVarName
+    }
+
+    private fun amIConsuming(): Boolean {
+        try {
+            if (mc.thePlayer.itemInUse == null) return false
+            if (mc.thePlayer.itemInUse.item == null) return false
+        } catch (e: Throwable) {
+            return false
+        }
+        return isHoldingConsumable(mc.thePlayer.currentEquippedItem.item) && isHoldingConsumable(
+            mc.thePlayer.itemInUse.item
+        )
+    }
+
+
     @EventTarget
     fun onMotion(event: MotionEvent) {
-        if (mc.thePlayer.isBlocking || KevinClient.moduleManager[KillAura::class.java].blockingStatus) {
-            if(sword.get()){
+        if (amIBlocking()) {
+            if (sword.get()) {
                 if (swordPlace.get()) {
                     when (swordPlaceTiming.get()) {
-                        "PRE" ->{
+                        "PRE" -> {
                             if (event.eventState == EventState.PRE) {
-                                mc.netHandler.addToSendQueue(
-                                    C08PacketPlayerBlockPlacement(BlockPos(-1, -1, -1), 255, mc.thePlayer.inventory.getCurrentItem(), 0f, 0f, 0f)
-                                )
+                                place()
                             }
                         }
+
                         "POST" -> {
                             if (event.eventState == EventState.POST) {
-                                mc.netHandler.addToSendQueue(
-                                    C08PacketPlayerBlockPlacement(BlockPos(-1, -1, -1), 255, mc.thePlayer.inventory.getCurrentItem(), 0f, 0f, 0f)
-                                )
+                                place()
+
                             }
                         }
+
                         "NONE" -> {
-                            mc.netHandler.addToSendQueue(C08PacketPlayerBlockPlacement(BlockPos(-1, -1, -1), 255, mc.thePlayer.inventory.getCurrentItem(), 0f, 0f, 0f))
+                            place()
                         }
                     }
                 }
-                else if (swordSwitch.get()){
-                    when (swordSwitchTiming.get()){
+                if (swordSwitch.get()) {
+                    when (swordSwitchTiming.get()) {
                         "PRE" -> {
                             if (event.eventState == EventState.PRE) {
-                                mc.netHandler.addToSendQueue(C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem + 1) % 9))
-                                mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+                                switchAndBack()
+
                             }
                         }
+
                         "POST" -> {
                             if (event.eventState == EventState.POST) {
-                                mc.netHandler.addToSendQueue(C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem + 1) % 9))
-                                mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+                                switchAndBack()
+
                             }
                         }
+
                         "NONE" -> {
-                            mc.netHandler.addToSendQueue(C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem + 1) % 9))
-                            mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+                            switchAndBack()
+
                         }
                     }
                 }
             }
         }
-        if (mc.thePlayer.isUsingItem && mc.thePlayer.currentEquippedItem.item is ItemFood){
+        if (amIConsuming()) {
             if (consumeSwitch.get()) {
-                when(consumeSwitchTiming.get()){
+                when (consumeSwitchTiming.get()) {
                     "PRE" -> {
                         if (event.eventState == EventState.PRE) {
-                            mc.netHandler.addToSendQueue(C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem + 1) % 9))
-                            mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+                            switchAndBack()
                         }
                     }
+
                     "POST" -> {
                         if (event.eventState == EventState.POST) {
-                            mc.netHandler.addToSendQueue(C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem + 1) % 9))
-                            mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+                            switchAndBack()
                         }
-                    }"NONE" -> {
-                        mc.netHandler.addToSendQueue(C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem + 1) % 9))
-                        mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+                    }
+
+                    "NONE" -> {
+                        switchAndBack()
                     }
                 }
             }
         }
-        if (mc.thePlayer.isUsingItem){
-            if (mc.thePlayer.currentEquippedItem.item is ItemBow) {
-                if (bowSwitch.get()){
-                    when(bowSwitchTiming.get()){
+        if (mc.thePlayer.isUsingItem) {
+            if (isHoldingBow(mc.thePlayer.currentEquippedItem.item)) {
+                if (bowSwitch.get()) {
+                    when (bowSwitchTiming.get()) {
                         "PRE" -> {
                             if (event.eventState == EventState.PRE) {
-                                mc.netHandler.addToSendQueue(C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem + 1) % 9))
-                                mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+                                switchAndBack()
                             }
                         }
+
                         "POST" -> {
                             if (event.eventState == EventState.POST) {
-                                mc.netHandler.addToSendQueue(C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem + 1) % 9))
-                                mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+                                switchAndBack()
                             }
                         }
+
                         "NONE" -> {
-                            mc.netHandler.addToSendQueue(C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem + 1) % 9))
-                            mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+                            switchAndBack()
                         }
                     }
                 }
-                
+
             }
-            if (mc.thePlayer.currentEquippedItem.item is ItemFood
-                ||
-                mc.thePlayer.currentEquippedItem.item is ItemBucketMilk
-                ||
-                mc.thePlayer.currentEquippedItem.item is ItemPotion
-                )
-            {
-                if(consumeIntave.get()){
-                    mc.netHandler.addToSendQueue(C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem +1 )%9))
-                    mc.netHandler.addToSendQueue(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.DROP_ITEM, BlockPos(-1, -1, -1), EnumFacing.DOWN))
+            if (isHoldingConsumable(mc.thePlayer.currentEquippedItem.item)) {
+                if (consumeIntave.get()) {
+                    mc.netHandler.addToSendQueue(C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem + 1) % 9))
+                    mc.netHandler.addToSendQueue(
+                        C07PacketPlayerDigging(
+                            C07PacketPlayerDigging.Action.DROP_ITEM,
+                            BlockPos(-1, -1, -1),
+                            EnumFacing.DOWN
+                        )
+                    )
                     mc.netHandler.addToSendQueue(C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem)))
                 }
             }
@@ -182,16 +234,25 @@ class NoSlow : ClientModule(name = "NoSlow", description = "Modify slowness caus
 //    }
 
     @EventTarget
-    fun onClick(event: ClickUpdateEvent){
+    fun onClick(event: ClickUpdateEvent) {
         try {
-            val currentItem = mc.thePlayer.currentEquippedItem
-            if (!(currentItem.item is ItemFood || currentItem.item is ItemBucketMilk || currentItem.item is ItemPotion) || (mc.thePlayer == null || mc.theWorld == null)) {
+            val currentEquippedItemStack = mc.thePlayer.currentEquippedItem
+            val currentEquippedItemStackItem = currentEquippedItemStack.item
+            // If the player is holding something wrong, or something other went wrong, it will return
+            if (!(isHoldingConsumable(currentEquippedItemStackItem)) || (mc.thePlayer == null || mc.theWorld == null)) {
                 return
             }
             //Try to fix crash client bug
-            if ((consume.get() && consumeBug.get()) && mc.thePlayer.isUsingItem /*&& (currentItem.item is ItemFood || currentItem.item is ItemBucketMilk)*/) {
+            if ((consume.get() && consumeBug.get()) && mc.thePlayer.isUsingItem && isHoldingConsumable(
+                    currentEquippedItemStackItem
+                )
+            ) {
                 event.cancelEvent()
-                mc.netHandler.networkManager.sendPacketNoEvent(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
+                mc.netHandler.networkManager.sendPacketNoEvent(
+                    C16PacketClientStatus(
+                        C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT
+                    )
+                )
                 if (consumeBugStopUsingItem.get()) {
                     mc.thePlayer.stopUsingItem()
                 }
@@ -200,8 +261,7 @@ class NoSlow : ClientModule(name = "NoSlow", description = "Modify slowness caus
             if (event.isCancelled) {
                 mc.sendClickBlockToController(mc.currentScreen == null && mc.gameSettings.keyBindAttack.isKeyDown && mc.inGameHasFocus)
             }
-        }
-        catch (_:Throwable) {
+        } catch (_: Throwable) {
         }
     }
 
@@ -215,16 +275,19 @@ class NoSlow : ClientModule(name = "NoSlow", description = "Modify slowness caus
     private fun getMultiplier(item: Item?, isForward: Boolean): Float {
 
         return when {
-            (item is ItemFood || item is ItemPotion || item is ItemBucketMilk) && consume.get() -> {
+            (isHoldingConsumable(item)) && consume.get() -> {
                 if (isForward) this.consumeForwardMultiplier.get() else this.consumeStrafeMultiplier.get()
             }
-            (item is ItemSword && sword.get()) -> {
+
+            (isHoldingSword(item) && sword.get()) -> {
                 if (isForward) this.blockForwardMultiplier.get()
                 else this.blockStrafeMultiplier.get()
             }
-            (item is ItemBow && bow.get()) -> {
+
+            (isHoldingBow(item) && bow.get()) -> {
                 if (isForward) this.bowForwardMultiplier.get() else this.bowStrafeMultiplier.get()
             }
+
             else -> {
                 0.2F
             }
@@ -235,8 +298,8 @@ class NoSlow : ClientModule(name = "NoSlow", description = "Modify slowness caus
     @EventTarget
     fun onTick(event: TickEvent, item: Item?) {
         if (mc.thePlayer == null || mc.theWorld == null) return
-        if (mc.thePlayer.isUsingItem && (item is ItemFood || item is ItemBucketMilk || item is ItemPotion)) {//Is consuming
-            if(consumeGay.get()) {
+        if (mc.thePlayer.isUsingItem && (isHoldingConsumable(item))) { //Is consuming
+            if (consumeGay.get()) {
                 if (mc.thePlayer.ticksExisted % 5 == 0) {
                     mc.netHandler.addToSendQueue(
                         C07PacketPlayerDigging(
@@ -251,5 +314,35 @@ class NoSlow : ClientModule(name = "NoSlow", description = "Modify slowness caus
                 }
             }
         }
+    }
+
+    private fun isHoldingConsumable(item: Item?): Boolean {
+        if (item == null) return false
+        return item is ItemFood || item is ItemBucketMilk || item is ItemPotion
+    }
+
+    private fun isHoldingBow(item: Item?): Boolean {
+        if (item == null) return false
+        return item is ItemBow
+    }
+
+    private fun isHoldingSword(item: Item?): Boolean {
+        if (item == null) return false
+        return item is ItemSword
+    }
+
+    private fun switchAndBack() {
+        mc.netHandler.addToSendQueue(C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem + 1) % 9))
+        mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+    }
+
+    private fun place() {
+        mc.netHandler.addToSendQueue(
+            C08PacketPlayerBlockPlacement(
+                BlockPos(
+                    -1, -1, -1
+                ), 255, mc.thePlayer.inventory.getCurrentItem(), 0f, 0f, 0f
+            )
+        )
     }
 }

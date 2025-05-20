@@ -28,7 +28,7 @@ import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.BlockPos
 import java.util.*
 
-class LiquidWalk : ClientModule(name = "LiquidWalk", description = "Allows you to walk on water.", ModuleCategory.MOVEMENT) {
+class LiquidWalk : ClientModule("LiquidWalk",  "Allows you to walk on water.", ModuleCategory.MOVEMENT) {
     val modeValue = ListValue("Mode", arrayOf("Vanilla", "NCP", "AAC", "AAC3.3.11", "AACFly", "Spartan", "Dolphin"), "NCP")
     private val noJumpValue = BooleanValue("NoJump", false)
     private val aacFlyValue = FloatValue("AACFlyMotion", 0.5f, 0.1f, 1f)
@@ -149,6 +149,5 @@ class LiquidWalk : ClientModule(name = "LiquidWalk", description = "Allows you t
             event.cancelEvent()
     }
 
-    override val tag: String
-        get() = modeValue.get()
+    override fun getTag() = modeValue.get()
 }

@@ -34,7 +34,7 @@ public class BlockSoulSand extends Block
     {
         final NoSlow noSlow = KevinClient.moduleManager.getModule(NoSlow.class);
 
-        if (Objects.requireNonNull(noSlow).getState() && noSlow.getSoulsandValue().get()) return;
+        if (Objects.requireNonNull(noSlow).getState() && noSlow.getSoulsand().get()) return;
         entityIn.motionX *= 0.4D;
         entityIn.motionZ *= 0.4D;
     }

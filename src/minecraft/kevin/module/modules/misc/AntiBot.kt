@@ -127,8 +127,7 @@ object AntiBot : ClientModule("AntiBot","Prevents KillAura from attacking AntiCh
     private val regex = Regex("\\w{3,16}")
     private var wasAdded = mc.thePlayer != null
 
-    override val tag: String
-        get() = modeValue.get()
+    override fun getTag() = modeValue.get()
 
     @EventTarget
     fun onUpdate(event: UpdateEvent){

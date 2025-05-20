@@ -21,7 +21,7 @@ import kevin.module.ModuleCategory
 import net.minecraft.block.BlockCactus
 import net.minecraft.util.AxisAlignedBB
 
-class AntiCactus : ClientModule(name = "AntiCactus", description = "Prevents cactuses from damaging you.", ModuleCategory.PLAYER) {
+class AntiCactus : ClientModule("AntiCactus",  "Prevents cactuses from damaging you.", ModuleCategory.PLAYER) {
     @EventTarget
     fun onBlockBB(event: BlockBBEvent) {
         if (event.block is BlockCactus)

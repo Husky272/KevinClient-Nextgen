@@ -25,7 +25,7 @@ import kevin.utils.RandomUtils
 import kevin.utils.RotationUtils
 import net.minecraft.network.play.client.C03PacketPlayer
 
-object Rotations : ClientModule("Rotations", description = "Allows you to see server-sided head and body rotations.", ModuleCategory.RENDER) {
+object Rotations : ClientModule("Rotations", "Allows you to see server-sided head and body rotations.", ModuleCategory.RENDER) {
     private val bodyValue = BooleanValue("Body", true)
     private val smoothBackValue by BooleanValue("SmoothBackRotation", true)
     private val smoothBackMinYawSpeed: Float by object : FloatValue("SmoothBackMinYawSpeed", 30F, 1F..180F) {

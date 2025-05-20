@@ -19,10 +19,7 @@ import kevin.event.Render3DEvent
 import kevin.event.UpdateEvent
 import kevin.event.WorldEvent
 import kevin.main.KevinClient
-import kevin.module.BooleanValue
-import kevin.module.IntegerValue
-import kevin.module.ListValue
-import kevin.module.ClientModule
+import kevin.module.*
 import kevin.utils.ChatUtils
 import kevin.utils.ColorUtils
 import kevin.utils.RenderUtils
@@ -43,7 +40,7 @@ import java.awt.Color
 import kotlin.math.max
 import kotlin.math.min
 
-object HideAndSeekHack : ClientModule("HideAndSeekHack","Mark every hider.") {
+object HideAndSeekHack : ClientModule("HideAndSeekHack","Mark every hider.", ModuleCategory.MISC) {
     private val hiderBlocks = HashSet<BlockPos>()
     private val airs = HashSet<BlockPos>()
     private val searchingBlocks = HashSet<BlockPos>()
@@ -304,8 +301,7 @@ object HideAndSeekHack : ClientModule("HideAndSeekHack","Mark every hider.") {
             GL11.glPopAttrib()
         }
     }
-    override val tag: String
-        get() = "H: ${getHiders(
+    override fun getTag() = "H: ${getHiders(
             fallingBlock = true,
             armorStand = true
         ).size}(FB:${getHiders(

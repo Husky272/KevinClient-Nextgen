@@ -317,6 +317,5 @@ class LongJump : ClientModule("LongJump", "Allows you to jump further.", ModuleC
         }
     }
 
-    override val tag: String
-        get() = modeValue.get()
+    override fun getTag() = modeValue.get()
 }
