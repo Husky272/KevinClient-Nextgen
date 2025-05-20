@@ -20,7 +20,7 @@ import kevin.module.IntegerValue
 import kevin.module.ListValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
-import kevin.utils.ColorUtils
+import kevin.utils.render.ColorUtils
 import kevin.utils.RenderUtils
 import kevin.utils.RotationUtils
 import net.minecraft.block.material.Material

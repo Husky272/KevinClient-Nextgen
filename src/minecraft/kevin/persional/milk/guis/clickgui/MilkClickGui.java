@@ -10,7 +10,7 @@ import kevin.hud.ClickGui;
 import kevin.main.KevinClient;
 import kevin.module.ModuleCategory;
 import kevin.module.ClientModule;
-import kevin.utils.ColorUtils;
+import kevin.utils.render.ColorUtils;
 import kevin.utils.RenderUtils;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;

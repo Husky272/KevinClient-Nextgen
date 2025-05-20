@@ -21,7 +21,7 @@ import kevin.event.WorldEvent
 import kevin.main.KevinClient
 import kevin.module.*
 import kevin.utils.ChatUtils
-import kevin.utils.ColorUtils
+import kevin.utils.render.ColorUtils
 import kevin.utils.RenderUtils
 import kevin.utils.WorldToScreen
 import net.minecraft.client.renderer.GlStateManager
@@ -30,8 +30,6 @@ import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.entity.item.EntityFallingBlock
 import net.minecraft.item.Item
 import net.minecraft.item.ItemAxe
-import net.minecraft.item.ItemBlock
-import net.minecraft.item.ItemStack
 import net.minecraft.item.ItemSword
 import net.minecraft.util.BlockPos
 import org.lwjgl.opengl.GL11

@@ -5,12 +5,11 @@ import kevin.hud.element.elements.ConnectNotificationType;
 import kevin.hud.element.elements.Notification;
 import kevin.main.KevinClient;
 import kevin.utils.ClassUtils;
-import kevin.utils.ColorUtils;
+import kevin.utils.render.ColorUtils;
 import kevin.utils.MSTimer;
 import kevin.utils.MinecraftInstance;
 import kotlin.Pair;
 import kotlin.TuplesKt;
-import kotlin.text.StringsKt;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -18,9 +17,7 @@ import net.minecraft.util.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.stream.StreamSupport;
 
 public class ClientModule extends MinecraftInstance implements Listenable {

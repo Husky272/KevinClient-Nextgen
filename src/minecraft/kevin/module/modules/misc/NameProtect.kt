@@ -20,7 +20,7 @@ import kevin.main.KevinClient
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.module.TextValue
-import kevin.utils.ColorUtils.translateAlternateColorCodes
+import kevin.utils.render.ColorUtils.translateAlternateColorCodes
 import kevin.utils.StringUtils
 
 class NameProtect : ClientModule("NameProtect",  "Changes playernames clientside.", ModuleCategory.MISC) {

@@ -14,6 +14,8 @@
  */
 package kevin.utils;
 
+import kevin.utils.render.ColorUtils;
+
 import java.awt.*;
 import java.util.Objects;
 

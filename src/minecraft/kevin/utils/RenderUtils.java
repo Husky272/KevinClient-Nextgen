@@ -15,6 +15,7 @@
 package kevin.utils;
 
 import kevin.main.KevinClient;
+import kevin.utils.render.ColorUtils;
 import kevin.utils.render.GL.DirectTessCallback;
 import kevin.utils.render.GL.VertexData;
 import net.minecraft.block.Block;

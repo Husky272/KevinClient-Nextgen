@@ -19,7 +19,7 @@ import kevin.event.Render3DEvent
 import kevin.event.UpdateEvent
 import kevin.module.*
 import kevin.utils.BlockUtils
-import kevin.utils.ColorUtils
+import kevin.utils.render.ColorUtils
 import kevin.utils.MSTimer
 import kevin.utils.RenderUtils
 import net.minecraft.block.BlockLiquid
@@ -27,7 +27,6 @@ import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
 import java.awt.Color
 import java.util.*
-import kotlin.collections.ArrayList
 
 class SourceESP: ClientModule("SourceESP", "Allow you to see the source of lava/water.", ModuleCategory.RENDER) {
     private val waterMode = ListValue("WaterMode", arrayOf("Box", "2D"), "Box")

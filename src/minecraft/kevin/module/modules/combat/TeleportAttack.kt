@@ -20,6 +20,7 @@ import kevin.event.Render3DEvent
 import kevin.event.UpdateEvent
 import kevin.module.*
 import kevin.utils.*
+import kevin.utils.render.ColorUtils
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.client.C0APacketAnimation

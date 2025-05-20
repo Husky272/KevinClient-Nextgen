@@ -17,6 +17,7 @@ package kevin.utils
 import com.google.gson.*
 import kevin.event.TextEvent
 import kevin.main.KevinClient
+import kevin.utils.render.ColorUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.renderer.GlStateManager

@@ -18,7 +18,7 @@ import kevin.event.EventTarget
 import kevin.event.Render2DEvent
 import kevin.event.Render3DEvent
 import kevin.module.*
-import kevin.utils.ColorUtils.rainbow
+import kevin.utils.render.ColorUtils.rainbow
 import kevin.utils.render.shader.shaders.GlowShader
 import kevin.utils.render.shader.shaders.OutlineShader
 import kevin.utils.RenderUtils

@@ -15,10 +15,8 @@
 package kevin.utils
 
 import kevin.module.modules.misc.ClientFriend
-import kevin.utils.ColorUtils.COLOR_PATTERN
-import kevin.utils.ColorUtils.stripColor
+import kevin.utils.render.ColorUtils.COLOR_PATTERN
 import kevin.utils.MinecraftInstance.mc
-import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.Entity
 import net.minecraft.entity.boss.EntityDragon
 import net.minecraft.entity.monster.EntityGhast

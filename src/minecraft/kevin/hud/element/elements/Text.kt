@@ -26,6 +26,7 @@ import kevin.module.FloatValue
 import kevin.module.IntegerValue
 import kevin.module.TextValue
 import kevin.utils.*
+import kevin.utils.render.ColorUtils
 import net.minecraft.client.Minecraft
 import org.lwjgl.input.Keyboard
 import java.awt.Color

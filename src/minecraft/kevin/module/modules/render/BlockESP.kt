@@ -22,7 +22,7 @@ import kevin.module.*
 import kevin.module.modules.misc.Teams
 import kevin.utils.BlockUtils.getBlock
 import kevin.utils.BlockUtils.getBlockName
-import kevin.utils.ColorUtils.rainbow
+import kevin.utils.render.ColorUtils.rainbow
 import kevin.utils.MSTimer
 import kevin.utils.RenderUtils
 import net.minecraft.block.Block

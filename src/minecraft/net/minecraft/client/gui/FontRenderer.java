@@ -14,7 +14,7 @@ import java.util.Random;
 
 import kevin.event.TextEvent;
 import kevin.main.KevinClient;
-import kevin.utils.ColorUtils;
+import kevin.utils.render.ColorUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;

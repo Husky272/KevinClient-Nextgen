@@ -18,7 +18,7 @@ import kevin.event.EventTarget
 import kevin.event.Render3DEvent
 import kevin.module.*
 import kevin.module.modules.misc.AntiBot
-import kevin.utils.ColorUtils
+import kevin.utils.render.ColorUtils
 import kevin.utils.EntityUtils
 import kevin.utils.RenderUtils
 import kevin.utils.isClientFriend

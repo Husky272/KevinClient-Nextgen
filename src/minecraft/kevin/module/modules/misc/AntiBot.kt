@@ -20,10 +20,7 @@ import kevin.hud.element.elements.Notification
 import kevin.main.KevinClient
 import kevin.module.*
 import kevin.utils.ChatUtils
-import kevin.utils.ColorUtils.stripColor
-import kevin.utils.ColorUtils.stripColorNoNull
-import kevin.utils.CombatManager
-import net.minecraft.client.entity.EntityOtherPlayerMP
+import kevin.utils.render.ColorUtils.stripColorNoNull
 import net.minecraft.client.network.NetworkPlayerInfo
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -33,7 +30,6 @@ import net.minecraft.network.play.server.*
 import net.minecraft.world.WorldSettings
 import java.util.*
 import java.util.concurrent.CopyOnWriteArrayList
-import kotlin.collections.ArrayList
 
 object AntiBot : ClientModule("AntiBot","Prevents KillAura from attacking AntiCheat bots.", ModuleCategory.MISC) {
     private val modeValue = ListValue("Mode", arrayOf("Custom","NoColorArmor","UnusualArmor"),"Custom")

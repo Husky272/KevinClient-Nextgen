@@ -23,6 +23,7 @@ import kevin.module.IntegerValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.*
+import kevin.utils.render.ColorUtils
 import net.minecraft.block.BlockAir
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState

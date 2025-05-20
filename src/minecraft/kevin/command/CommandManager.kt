@@ -61,7 +61,7 @@ class CommandManager {
 
         commands[arrayOf("ClientTitle")] = ClientTitleCommand
 
-        commands[arrayOf("DisableAllModule")] = DisableAllCommand()
+        commands[arrayOf("DisableAllModule")] = DisableAllCommand.INSTANCE
 
         commands[arrayOf("ClearMainConfig")] = ClearMainConfigCommand()
 
@@ -69,7 +69,6 @@ class CommandManager {
 
         commands[arrayOf("bindCommand")] = BindCommandManager
 
-        commands[arrayOf("Execute")] = ExecCommand()
     }
 
     fun execCommand(message: String): Boolean{

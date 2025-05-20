@@ -18,7 +18,7 @@ import kevin.event.TextEvent
 import kevin.font.renderer.AbstractAwtFontRender
 import kevin.main.KevinClient
 import kevin.module.modules.render.RenderSettings
-import kevin.utils.ColorUtils
+import kevin.utils.render.ColorUtils
 import kevin.utils.RenderUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.FontRenderer

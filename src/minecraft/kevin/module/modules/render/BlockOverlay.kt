@@ -18,7 +18,7 @@ import kevin.event.EventTarget
 import kevin.event.Render3DEvent
 import kevin.module.*
 import kevin.utils.BlockUtils.canBeClicked
-import kevin.utils.ColorUtils.rainbow
+import kevin.utils.render.ColorUtils.rainbow
 import kevin.utils.RenderUtils
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.BlockPos

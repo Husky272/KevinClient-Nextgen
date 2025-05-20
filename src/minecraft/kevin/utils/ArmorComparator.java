@@ -32,7 +32,7 @@ public class ArmorComparator extends MinecraftInstance implements Comparator<Arm
     private static final float[] OTHER_ENCHANTMENT_FACTORS = {3.0f, 1.0f, 0.1f, 0.05f, 0.01f};
 
     /**
-     * Rounds a double. From https://stackoverflow.com/a/2808648/9140494
+     * Rounds a double. From <a href="https://stackoverflow.com/a/2808648/9140494">Stack Oerflow</a>
      *
      * @param value  the value to be rounded
      * @param places Decimal places

@@ -19,7 +19,7 @@ import kevin.event.Render3DEvent
 import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.modules.misc.AntiBot
-import kevin.utils.ColorUtils
+import kevin.utils.render.ColorUtils
 import kevin.utils.EntityUtils
 import kevin.utils.RenderUtils.drawBorderedRect
 import kevin.utils.RenderUtils.drawRect

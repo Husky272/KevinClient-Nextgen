@@ -26,7 +26,7 @@ import kevin.module.FloatValue
 import kevin.module.IntegerValue
 import kevin.module.ListValue
 import kevin.module.modules.movement.flys.FlyMode
-import kevin.utils.ColorUtils
+import kevin.utils.render.ColorUtils
 import kevin.utils.MovementUtils
 import kevin.utils.PacketUtils
 import kevin.utils.RenderUtils

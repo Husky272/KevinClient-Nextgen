@@ -18,7 +18,7 @@ import kevin.event.EventTarget
 import kevin.event.Render2DEvent
 import kevin.main.KevinClient
 import kevin.module.*
-import kevin.utils.ColorUtils
+import kevin.utils.render.ColorUtils
 import kevin.utils.MovementUtils
 import kevin.utils.RenderUtils
 import net.minecraft.client.gui.ScaledResolution

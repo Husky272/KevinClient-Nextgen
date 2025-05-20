@@ -24,6 +24,7 @@ import kevin.module.FloatValue
 import kevin.module.ListValue
 import kevin.module.modules.combat.KillAura
 import kevin.utils.*
+import kevin.utils.render.ColorUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui.drawScaledCustomSizeModalRect
 import net.minecraft.client.gui.GuiChat

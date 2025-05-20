@@ -25,7 +25,7 @@ import kevin.module.BooleanValue
 import kevin.module.IntegerValue
 import kevin.module.ListValue
 import kevin.module.modules.misc.NoScoreboard
-import kevin.utils.ColorUtils
+import kevin.utils.render.ColorUtils
 import kevin.font.RainbowFontShader
 import kevin.utils.RenderUtils
 import net.minecraft.scoreboard.*

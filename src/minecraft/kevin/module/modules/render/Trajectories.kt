@@ -16,7 +16,7 @@ package kevin.module.modules.render
 
 import kevin.event.*
 import kevin.module.*
-import kevin.utils.ColorUtils
+import kevin.utils.render.ColorUtils
 import kevin.utils.RenderUtils
 import net.minecraft.block.material.Material
 import net.minecraft.client.renderer.Tessellator
@@ -27,7 +27,6 @@ import net.minecraft.entity.projectile.EntityArrow
 import net.minecraft.entity.projectile.EntityEgg
 import net.minecraft.entity.projectile.EntityFireball
 import net.minecraft.entity.projectile.EntityFishHook
-import net.minecraft.entity.projectile.EntityPotion
 import net.minecraft.entity.projectile.EntitySnowball
 import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.BlockPos

@@ -19,7 +19,7 @@ import kevin.event.PacketEvent
 import kevin.event.Render3DEvent
 import kevin.event.UpdateEvent
 import kevin.module.*
-import kevin.utils.ColorUtils.rainbow
+import kevin.utils.render.ColorUtils.rainbow
 import kevin.utils.MSTimer
 import kevin.utils.RenderUtils
 import net.minecraft.client.entity.EntityOtherPlayerMP
