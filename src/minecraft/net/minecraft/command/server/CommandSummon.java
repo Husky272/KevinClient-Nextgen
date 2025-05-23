@@ -79,7 +79,7 @@ public class CommandSummon extends CommandBase
             else if ("LightningBolt".equals(s))
             {
                 world.addWeatherEffect(new EntityLightningBolt(world, d0, d1, d2));
-                notifyOperators(sender, this, "commands.summon.success", new Object[0]);
+                notifyOperators(sender, this, "commands.summon.success");
             }
             else
             {
@@ -123,7 +123,7 @@ public class CommandSummon extends CommandBase
 
                     if (!flag && entity2 instanceof EntityLiving)
                     {
-                        ((EntityLiving)entity2).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity2)), (IEntityLivingData)null);
+                        ((EntityLiving)entity2).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity2)), null);
                     }
 
                     world.spawnEntityInWorld(entity2);
@@ -143,7 +143,7 @@ public class CommandSummon extends CommandBase
                         entity = entity1;
                     }
 
-                    notifyOperators(sender, this, "commands.summon.success", new Object[0]);
+                    notifyOperators(sender, this, "commands.summon.success");
                 }
             }
         }

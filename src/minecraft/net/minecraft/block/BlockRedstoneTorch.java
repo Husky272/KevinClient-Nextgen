@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 public class BlockRedstoneTorch extends BlockTorch
 {
-    private static Map<World, List<BlockRedstoneTorch.Toggle>> toggles = Maps.newHashMap();
+    private static final Map<World, List<BlockRedstoneTorch.Toggle>> toggles = Maps.newHashMap();
     private final boolean isOn;
 
     private boolean isBurnedOut(World worldIn, BlockPos pos, boolean turnOff)
@@ -58,7 +58,7 @@ public class BlockRedstoneTorch extends BlockTorch
     {
         this.isOn = isOn;
         this.setTickRandomly(true);
-        this.setCreativeTab((CreativeTabs)null);
+        this.setCreativeTab(null);
     }
 
     /**
@@ -127,7 +127,7 @@ public class BlockRedstoneTorch extends BlockTorch
 
                 if (this.isBurnedOut(worldIn, pos, true))
                 {
-                    worldIn.playSoundEffect((double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 0.5F), (double)((float)pos.getZ() + 0.5F), "random.fizz", 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
+                    worldIn.playSoundEffect((float)pos.getX() + 0.5F, (float)pos.getY() + 0.5F, (float)pos.getZ() + 0.5F, "random.fizz", 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
 
                     for (int i = 0; i < 5; ++i)
                     {

@@ -24,9 +24,9 @@ public class EntityTNTPrimed extends Entity
         this(worldIn);
         this.setPosition(x, y, z);
         float f = (float)(Math.random() * (double)(float)Math.PI * 2.0D);
-        this.motionX = (double)(-((float)Math.sin((double)f)) * 0.02F);
-        this.motionY = (double)0.2F;
-        this.motionZ = (double)(-((float)Math.cos((double)f)) * 0.02F);
+        this.motionX = -((float)Math.sin(f)) * 0.02F;
+        this.motionY = 0.2F;
+        this.motionZ = -((float)Math.cos(f)) * 0.02F;
         this.fuse = 80;
         this.prevPosX = x;
         this.prevPosY = y;
@@ -63,16 +63,16 @@ public class EntityTNTPrimed extends Entity
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
-        this.motionY -= (double)0.04F;
+        this.motionY -= 0.04F;
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
-        this.motionX *= (double)0.98F;
-        this.motionY *= (double)0.98F;
-        this.motionZ *= (double)0.98F;
+        this.motionX *= 0.98F;
+        this.motionY *= 0.98F;
+        this.motionZ *= 0.98F;
 
         if (this.onGround)
         {
-            this.motionX *= (double)0.7F;
-            this.motionZ *= (double)0.7F;
+            this.motionX *= 0.7F;
+            this.motionZ *= 0.7F;
             this.motionY *= -0.5D;
         }
 

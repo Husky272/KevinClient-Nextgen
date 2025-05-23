@@ -22,6 +22,6 @@ class HitBox : ClientModule("HitBox", "Makes hitboxes of targets bigger.", Modul
     val sizeValue = FloatValue("Size", 0.4F, 0F, 1F)
 
     override fun getTag(): String? {
-        return "Size:${sizeValue.get()}";
+        return "Size:${sizeValue.get()}"
     }
 }

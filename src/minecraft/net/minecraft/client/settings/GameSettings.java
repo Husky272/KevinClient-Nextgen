@@ -16,6 +16,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
@@ -131,7 +132,7 @@ public class GameSettings
     public float chatHeightFocused = 1.0F;
     public boolean showInventoryAchievementHint = true;
     public int mipmapLevels = 4;
-    private Map<SoundCategory, Float> mapSoundLevels = Maps.newEnumMap(SoundCategory.class);
+    private final Map<SoundCategory, Float> mapSoundLevels = Maps.newEnumMap(SoundCategory.class);
     public float streamBytesPerPixel = 0.5F;
     public float streamMicVolume = 1.0F;
     public float streamGameVolume = 1.0F;
@@ -357,7 +358,7 @@ public class GameSettings
      */
     public static boolean isKeyDown(KeyBinding key)
     {
-        return key.getKeyCode() == 0 ? false : (key.getKeyCode() < 0 ? Mouse.isButtonDown(key.getKeyCode() + 100) : Keyboard.isKeyDown(key.getKeyCode()));
+        return key.getKeyCode() != 0 && (key.getKeyCode() < 0 ? Mouse.isButtonDown(key.getKeyCode() + 100) : Keyboard.isKeyDown(key.getKeyCode()));
     }
 
     /**
@@ -1281,12 +1282,12 @@ public class GameSettings
             }
             catch (Exception exception1)
             {
-                logger.error("Failed to load options", (Throwable)exception1);
+                logger.error("Failed to load options", exception1);
                 break label695;
             }
             finally
             {
-                IOUtils.closeQuietly((InputStream)fileinputstream);
+                IOUtils.closeQuietly(fileinputstream);
             }
 
             return;
@@ -1406,7 +1407,7 @@ public class GameSettings
         }
         catch (Exception exception1)
         {
-            logger.error("Failed to save options", (Throwable)exception1);
+            logger.error("Failed to save options", exception1);
         }
 
         this.saveOfOptions();
@@ -1541,7 +1542,6 @@ public class GameSettings
 
             for (this.ofAfLevel = 1; this.ofAfLevel * 2 <= k; this.ofAfLevel *= 2)
             {
-                ;
             }
 
             this.ofAfLevel = Config.limit(this.ofAfLevel, 1, 16);
@@ -2180,7 +2180,7 @@ public class GameSettings
                 s2 = s1 + "+";
             }
 
-            return s + i1 + " " + s2 + "";
+            return s + i1 + " " + s2;
         }
         else if (p_getKeyBindingOF_1_ == GameSettings.Options.FOG_FANCY)
         {
@@ -2669,7 +2669,7 @@ public class GameSettings
                 return;
             }
 
-            BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(new FileInputStream(file1), "UTF-8"));
+            BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(new FileInputStream(file1), StandardCharsets.UTF_8));
             String s = "";
 
             while ((s = bufferedreader.readLine()) != null)
@@ -3100,7 +3100,7 @@ public class GameSettings
     {
         try
         {
-            PrintWriter printwriter = new PrintWriter(new OutputStreamWriter(Files.newOutputStream(this.optionsFileOF.toPath()), "UTF-8"));
+            PrintWriter printwriter = new PrintWriter(new OutputStreamWriter(Files.newOutputStream(this.optionsFileOF.toPath()), StandardCharsets.UTF_8));
             printwriter.println("ofFogType:" + this.ofFogType);
             printwriter.println("ofFogStart:" + this.ofFogStart);
             printwriter.println("ofMipmapType:" + this.ofMipmapType);
@@ -3391,7 +3391,7 @@ public class GameSettings
         return -1;
     }
 
-    public static enum Options
+    public enum Options
     {
         INVERT_MOUSE("options.invertMouse", false, true),
         SENSITIVITY("options.sensitivity", true, false),
@@ -3515,7 +3515,7 @@ public class GameSettings
         private final boolean enumBoolean;
         private final String enumString;
         private final float valueStep;
-        private float valueMin;
+        private final float valueMin;
         private float valueMax;
 
         public static GameSettings.Options getEnumOptions(int ordinal)
@@ -3531,12 +3531,12 @@ public class GameSettings
             return null;
         }
 
-        private Options(String str, boolean isFloat, boolean isBoolean)
+        Options(String str, boolean isFloat, boolean isBoolean)
         {
             this(str, isFloat, isBoolean, 0.0F, 1.0F, 0.0F);
         }
 
-        private Options(String str, boolean isFloat, boolean isBoolean, float valMin, float valMax, float valStep)
+        Options(String str, boolean isFloat, boolean isBoolean, float valMin, float valMax, float valStep)
         {
             this.enumString = str;
             this.enumFloat = isFloat;

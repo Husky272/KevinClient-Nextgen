@@ -38,10 +38,9 @@ public final class ConstantDynamic {
   public boolean equals(Object object) {
     if (object == this)
       return true; 
-    if (!(object instanceof ConstantDynamic))
-      return false; 
-    ConstantDynamic constantDynamic = (ConstantDynamic)object;
-    return (this.name.equals(constantDynamic.name) && this.descriptor
+    if (!(object instanceof ConstantDynamic constantDynamic))
+      return false;
+      return (this.name.equals(constantDynamic.name) && this.descriptor
       .equals(constantDynamic.descriptor) && this.bootstrapMethod
       .equals(constantDynamic.bootstrapMethod) && 
       Arrays.equals(this.bootstrapMethodArguments, constantDynamic.bootstrapMethodArguments));

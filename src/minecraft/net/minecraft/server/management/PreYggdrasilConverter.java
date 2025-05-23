@@ -42,7 +42,7 @@ public class PreYggdrasilConverter
         {
             for (String s : astring)
             {
-                UUID uuid = EntityPlayer.getUUID(new GameProfile((UUID)null, s));
+                UUID uuid = EntityPlayer.getUUID(new GameProfile(null, s));
                 GameProfile gameprofile = new GameProfile(uuid, s);
                 callback.onProfileLookupSucceeded(gameprofile);
             }
@@ -72,7 +72,7 @@ public class PreYggdrasilConverter
                     }
                     public void onProfileLookupFailed(GameProfile p_onProfileLookupFailed_1_, Exception p_onProfileLookupFailed_2_)
                     {
-                        PreYggdrasilConverter.LOGGER.warn("Could not lookup user whitelist entry for " + p_onProfileLookupFailed_1_.getName(), (Throwable)p_onProfileLookupFailed_2_);
+                        PreYggdrasilConverter.LOGGER.warn("Could not lookup user whitelist entry for " + p_onProfileLookupFailed_1_.getName(), p_onProfileLookupFailed_2_);
                     }
                 };
                 lookupNames(minecraftserver, Lists.newArrayList(p_152719_0_), profilelookupcallback);
@@ -80,7 +80,7 @@ public class PreYggdrasilConverter
             }
             else
             {
-                return EntityPlayer.getUUID(new GameProfile((UUID)null, p_152719_0_)).toString();
+                return EntityPlayer.getUUID(new GameProfile(null, p_152719_0_)).toString();
             }
         }
         else

@@ -21,18 +21,18 @@ import org.apache.logging.log4j.core.Logger;
 
 public class LaunchClassLoader extends URLClassLoader {
     public static final int BUFFER_SIZE = 1 << 12;
-    private List<URL> sources;
-    private ClassLoader parent = getClass().getClassLoader();
+    private final List<URL> sources;
+    private final ClassLoader parent = getClass().getClassLoader();
 
-    private List<IClassTransformer> transformers = new ArrayList<IClassTransformer>(2);
-    private Map<String, Class<?>> cachedClasses = new ConcurrentHashMap<String, Class<?>>();
-    private Set<String> invalidClasses = new HashSet<String>(1000);
+    private final List<IClassTransformer> transformers = new ArrayList<IClassTransformer>(2);
+    private final Map<String, Class<?>> cachedClasses = new ConcurrentHashMap<String, Class<?>>();
+    private final Set<String> invalidClasses = new HashSet<String>(1000);
 
-    private Set<String> classLoaderExceptions = new HashSet<String>();
-    private Set<String> transformerExceptions = new HashSet<String>();
-    private Map<Package, Manifest> packageManifests = new ConcurrentHashMap<Package, Manifest>();
-    private Map<String,byte[]> resourceCache = new ConcurrentHashMap<String,byte[]>(1000);
-    private Set<String> negativeResourceCache = Collections.newSetFromMap(new ConcurrentHashMap<String, Boolean>());
+    private final Set<String> classLoaderExceptions = new HashSet<String>();
+    private final Set<String> transformerExceptions = new HashSet<String>();
+    private final Map<Package, Manifest> packageManifests = new ConcurrentHashMap<Package, Manifest>();
+    private final Map<String,byte[]> resourceCache = new ConcurrentHashMap<String,byte[]>(1000);
+    private final Set<String> negativeResourceCache = Collections.newSetFromMap(new ConcurrentHashMap<String, Boolean>());
 
     private IClassNameTransformer renameTransformer;
 
@@ -140,8 +140,7 @@ public class LaunchClassLoader extends URLClassLoader {
             CodeSigner[] signers = null;
 
             if (lastDot > -1 && !untransformedName.startsWith("net.minecraft.")) {
-                if (urlConnection instanceof JarURLConnection) {
-                    final JarURLConnection jarURLConnection = (JarURLConnection) urlConnection;
+                if (urlConnection instanceof JarURLConnection jarURLConnection) {
                     final JarFile jarFile = jarURLConnection.getJarFile();
 
                     if (jarFile != null && jarFile.getManifest() != null) {

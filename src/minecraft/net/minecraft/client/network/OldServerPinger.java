@@ -93,7 +93,7 @@ public class OldServerPinger
 
                     if (serverstatusresponse.getPlayerCountData() != null)
                     {
-                        server.populationInfo = EnumChatFormatting.GRAY + "" + serverstatusresponse.getPlayerCountData().getOnlinePlayerCount() + "" + EnumChatFormatting.DARK_GRAY + "/" + EnumChatFormatting.GRAY + serverstatusresponse.getPlayerCountData().getMaxPlayers();
+                        server.populationInfo = EnumChatFormatting.GRAY + "" + serverstatusresponse.getPlayerCountData().getOnlinePlayerCount() + EnumChatFormatting.DARK_GRAY + "/" + EnumChatFormatting.GRAY + serverstatusresponse.getPlayerCountData().getMaxPlayers();
 
                         if (ArrayUtils.isNotEmpty(serverstatusresponse.getPlayerCountData().getPlayers()))
                         {
@@ -142,7 +142,7 @@ public class OldServerPinger
                     }
                     else
                     {
-                        server.setBase64EncodedIconData((String)null);
+                        server.setBase64EncodedIconData(null);
                     }
 
                     this.field_175092_e = Minecraft.getSystemTime();
@@ -193,7 +193,6 @@ public class OldServerPinger
                 }
                 catch (ChannelException var3)
                 {
-                    ;
                 }
 
                 p_initChannel_1_.pipeline().addLast(new SimpleChannelInboundHandler<ByteBuf>()
@@ -253,7 +252,7 @@ public class OldServerPinger
                                 server.version = -1;
                                 server.gameVersion = s1;
                                 server.serverMOTD = s2;
-                                server.populationInfo = EnumChatFormatting.GRAY + "" + j + "" + EnumChatFormatting.DARK_GRAY + "/" + EnumChatFormatting.GRAY + k;
+                                server.populationInfo = EnumChatFormatting.GRAY + "" + j + EnumChatFormatting.DARK_GRAY + "/" + EnumChatFormatting.GRAY + k;
                             }
                         }
 

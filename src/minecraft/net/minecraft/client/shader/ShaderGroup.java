@@ -27,8 +27,8 @@ import org.lwjgl.util.vector.Matrix4f;
 public class ShaderGroup
 {
     public Framebuffer mainFramebuffer;
-    private IResourceManager resourceManager;
-    private String shaderGroupName;
+    private final IResourceManager resourceManager;
+    private final String shaderGroupName;
     public final List<Shader> listShaders = Lists.newArrayList();
     private final Map<String, Framebuffer> mapFramebuffers = Maps.newHashMap();
     private final List<Framebuffer> listFramebuffers = Lists.newArrayList();
@@ -38,7 +38,7 @@ public class ShaderGroup
     private float field_148036_j;
     private float field_148037_k;
 
-    public ShaderGroup(TextureManager p_i1050_1_, IResourceManager p_i1050_2_, Framebuffer p_i1050_3_, ResourceLocation p_i1050_4_) throws JsonException, IOException, JsonSyntaxException
+    public ShaderGroup(TextureManager p_i1050_1_, IResourceManager p_i1050_2_, Framebuffer p_i1050_3_, ResourceLocation p_i1050_4_) throws IOException, JsonSyntaxException
     {
         this.resourceManager = p_i1050_2_;
         this.mainFramebuffer = p_i1050_3_;
@@ -51,7 +51,7 @@ public class ShaderGroup
         this.parseGroup(p_i1050_1_, p_i1050_4_);
     }
 
-    public void parseGroup(TextureManager p_152765_1_, ResourceLocation p_152765_2_) throws JsonException, IOException, JsonSyntaxException
+    public void parseGroup(TextureManager p_152765_1_, ResourceLocation p_152765_2_) throws IOException, JsonSyntaxException
     {
         JsonParser jsonparser = new JsonParser();
         InputStream inputstream = null;
@@ -140,7 +140,7 @@ public class ShaderGroup
         }
     }
 
-    private void parsePass(TextureManager p_152764_1_, JsonElement p_152764_2_) throws JsonException, IOException
+    private void parsePass(TextureManager p_152764_1_, JsonElement p_152764_2_) throws IOException
     {
         JsonObject jsonobject = JsonUtils.getJsonObject(p_152764_2_, "pass");
         String s = JsonUtils.getString(jsonobject, "name");
@@ -160,7 +160,7 @@ public class ShaderGroup
         else
         {
             Shader shader = this.addShader(s, framebuffer, framebuffer1);
-            JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "auxtargets", (JsonArray)null);
+            JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "auxtargets", null);
 
             if (jsonarray != null)
             {
@@ -223,7 +223,7 @@ public class ShaderGroup
                 }
             }
 
-            JsonArray jsonarray1 = JsonUtils.getJsonArray(jsonobject, "uniforms", (JsonArray)null);
+            JsonArray jsonarray1 = JsonUtils.getJsonArray(jsonobject, "uniforms", null);
 
             if (jsonarray1 != null)
             {
@@ -335,7 +335,7 @@ public class ShaderGroup
         this.listShaders.clear();
     }
 
-    public Shader addShader(String p_148023_1_, Framebuffer p_148023_2_, Framebuffer p_148023_3_) throws JsonException, IOException
+    public Shader addShader(String p_148023_1_, Framebuffer p_148023_2_, Framebuffer p_148023_3_) throws IOException
     {
         Shader shader = new Shader(this.resourceManager, p_148023_1_, p_148023_2_, p_148023_3_);
         this.listShaders.add(this.listShaders.size(), shader);
@@ -386,7 +386,6 @@ public class ShaderGroup
 
         for (this.field_148037_k = partialTicks; this.field_148036_j > 20.0F; this.field_148036_j -= 20.0F)
         {
-            ;
         }
 
         for (Shader shader : this.listShaders)

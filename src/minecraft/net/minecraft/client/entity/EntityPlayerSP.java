@@ -375,9 +375,9 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
     public void closeScreenAndDropStack()
     {
-        this.inventory.setItemStack((ItemStack)null);
+        this.inventory.setItemStack(null);
         super.closeScreen();
-        this.mc.displayGuiScreen((GuiScreen)null);
+        this.mc.displayGuiScreen(null);
     }
 
     /**
@@ -530,22 +530,22 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
                 if (i == 0)
                 {
-                    this.motionX = (double)(-f);
+                    this.motionX = -f;
                 }
 
                 if (i == 1)
                 {
-                    this.motionX = (double)f;
+                    this.motionX = f;
                 }
 
                 if (i == 4)
                 {
-                    this.motionZ = (double)(-f);
+                    this.motionZ = -f;
                 }
 
                 if (i == 5)
                 {
-                    this.motionZ = (double)f;
+                    this.motionZ = f;
                 }
             }
 
@@ -958,12 +958,12 @@ public class EntityPlayerSP extends AbstractClientPlayer
         {
             if (this.movementInput.sneak)
             {
-                this.motionY -= (double)(this.capabilities.getFlySpeed() * 3.0F);
+                this.motionY -= this.capabilities.getFlySpeed() * 3.0F;
             }
 
             if (this.movementInput.jump)
             {
-                this.motionY += (double)(this.capabilities.getFlySpeed() * 3.0F);
+                this.motionY += this.capabilities.getFlySpeed() * 3.0F;
             }
         }
 

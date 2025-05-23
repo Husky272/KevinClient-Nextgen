@@ -44,7 +44,7 @@ class KeyEvent(val key: Int) : Event()
 
 object ClickUpdateEvent : CancellableEvent() {
     fun reInit() {
-        isCancelled = false;
+        isCancelled = false
     }
 }
 

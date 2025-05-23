@@ -95,29 +95,29 @@ public class FieldNode extends FieldVisitor {
       return; 
     if (this.visibleAnnotations != null)
       for (int i = 0, n = this.visibleAnnotations.size(); i < n; i++) {
-        AnnotationNode annotation = (AnnotationNode)this.visibleAnnotations.get(i);
+        AnnotationNode annotation = this.visibleAnnotations.get(i);
         annotation.accept(fieldVisitor.visitAnnotation(annotation.desc, true));
       }  
     if (this.invisibleAnnotations != null)
       for (int i = 0, n = this.invisibleAnnotations.size(); i < n; i++) {
-        AnnotationNode annotation = (AnnotationNode)this.invisibleAnnotations.get(i);
+        AnnotationNode annotation = this.invisibleAnnotations.get(i);
         annotation.accept(fieldVisitor.visitAnnotation(annotation.desc, false));
       }  
     if (this.visibleTypeAnnotations != null)
       for (int i = 0, n = this.visibleTypeAnnotations.size(); i < n; i++) {
-        TypeAnnotationNode typeAnnotation = (TypeAnnotationNode)this.visibleTypeAnnotations.get(i);
+        TypeAnnotationNode typeAnnotation = this.visibleTypeAnnotations.get(i);
         typeAnnotation.accept(fieldVisitor
             .visitTypeAnnotation(typeAnnotation.typeRef, typeAnnotation.typePath, typeAnnotation.desc, true));
       }  
     if (this.invisibleTypeAnnotations != null)
       for (int i = 0, n = this.invisibleTypeAnnotations.size(); i < n; i++) {
-        TypeAnnotationNode typeAnnotation = (TypeAnnotationNode)this.invisibleTypeAnnotations.get(i);
+        TypeAnnotationNode typeAnnotation = this.invisibleTypeAnnotations.get(i);
         typeAnnotation.accept(fieldVisitor
             .visitTypeAnnotation(typeAnnotation.typeRef, typeAnnotation.typePath, typeAnnotation.desc, false));
       }  
     if (this.attrs != null)
       for (int i = 0, n = this.attrs.size(); i < n; i++)
-        fieldVisitor.visitAttribute((Attribute)this.attrs.get(i));  
+        fieldVisitor.visitAttribute(this.attrs.get(i));
     fieldVisitor.visitEnd();
   }
 }

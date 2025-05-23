@@ -71,7 +71,7 @@ public class AntiKnockback extends ClientModule {
 
     // GrimAC
     private final IntegerValue grimACTicks = new IntegerValue("OldGrimTicks", 0, 0, 10);
-    private MSTimer velocityTimer = new MSTimer();
+    private final MSTimer velocityTimer = new MSTimer();
     private boolean velocityInput = false;
     private int grimTicks = 0;
     private int grimDisable = 0;
@@ -92,9 +92,9 @@ public class AntiKnockback extends ClientModule {
     private boolean mmcLastCancel = false;
     private boolean mmcCanCancel = false;
 
-    private float intavex = 0f;
-    private float intavey = 0f;
-    private float intavez = 0f;
+    private final float intavex = 0f;
+    private final float intavey = 0f;
+    private final float intavez = 0f;
 
     public AntiKnockback() {
         super("AntiKnockback", "Allows you to modify the amount of knockback you take.", ModuleCategory.COMBAT);
@@ -314,8 +314,7 @@ public class AntiKnockback extends ClientModule {
 
         Object packet = event.getPacket();
 
-        if (packet instanceof S12PacketEntityVelocity) {
-            S12PacketEntityVelocity velPacket = (S12PacketEntityVelocity) packet;
+        if (packet instanceof S12PacketEntityVelocity velPacket) {
             Entity entity = mc.theWorld.getEntityByID(velPacket.getEntityID());
             if (entity != thePlayer) return;
 
@@ -410,8 +409,7 @@ public class AntiKnockback extends ClientModule {
                     break;
             }
 
-        } else if (packet instanceof S27PacketExplosion) {
-            S27PacketExplosion expPacket = (S27PacketExplosion) packet;
+        } else if (packet instanceof S27PacketExplosion expPacket) {
             if (expPacket.func_149149_c() != 0F || expPacket.func_149144_d() != 0F || expPacket.func_149147_e() != 0F) {
                 explosion = true;
             }
@@ -456,7 +454,7 @@ public class AntiKnockback extends ClientModule {
     public final boolean attackRayTrace(int attack, double range, boolean doAttack) {
         if (ClientModule.mc.thePlayer == null) {
             return false;
-        } else if (!this.clickOnlyNoBlocking.get() || !ClientModule.mc.thePlayer.isBlocking() && !ClientModule.mc.thePlayer.isUsingItem() && !((KillAura)KevinClient.INSTANCE.getModuleManager().get(KillAura.class)).getBlockingStatus()) {
+        } else if (!this.clickOnlyNoBlocking.get() || !ClientModule.mc.thePlayer.isBlocking() && !ClientModule.mc.thePlayer.isUsingItem() && !KevinClient.INSTANCE.getModuleManager().get(KillAura.class).getBlockingStatus()) {
             Entity raycastedEntity = RaycastUtils.raycastEntity(range + (double)1, new RaycastUtils.EntityFilter() {
                 public boolean canRaycast(Entity entity) {
                     return entity != null && entity instanceof EntityLivingBase;
@@ -470,26 +468,26 @@ public class AntiKnockback extends ClientModule {
                 if (!(raycastedEntity instanceof EntityPlayer)) {
                     return true;
                 } else {
-                    AxisAlignedBB var9 = ((EntityPlayer)raycastedEntity).getEntityBoundingBox();
+                    AxisAlignedBB var9 = raycastedEntity.getEntityBoundingBox();
                     Intrinsics.checkNotNullExpressionValue(var9, "getEntityBoundingBox(...)");
-                    AxisAlignedBB var10000 = OtherExtensionsKt.expands(var9, (double)((EntityPlayer)raycastedEntity).getCollisionBorderSize(), false, false);
+                    AxisAlignedBB var10000 = OtherExtensionsKt.expands(var9, raycastedEntity.getCollisionBorderSize(), false, false);
                     EntityPlayerSP var12 = ClientModule.mc.thePlayer;
                     Intrinsics.checkNotNullExpressionValue(var12, "thePlayer");
-                    if (OtherExtensionsKt.getLookingTargetRange(var10000, var12, (Rotation)null, (double)0.0F) > range) {
+                    if (OtherExtensionsKt.getLookingTargetRange(var10000, var12, null, 0.0F) > range) {
                         return false;
                     } else {
                         if (doAttack) {
-                            KevinClient.INSTANCE.getEventManager().callEvent((Event)(new AttackEvent(raycastedEntity)));
+                            KevinClient.INSTANCE.getEventManager().callEvent(new AttackEvent(raycastedEntity));
 
                             for(int var13 = 0; var13 < attack; ++var13) {
                                 int var11 = 0;
                                 if (this.clickSwing.get()) {
                                     ClientModule.mc.thePlayer.swingItem();
                                 } else {
-                                    ClientModule.mc.getNetHandler().addToSendQueue((Packet)(new C0APacketAnimation()));
+                                    ClientModule.mc.getNetHandler().addToSendQueue(new C0APacketAnimation());
                                 }
 
-                                ClientModule.mc.getNetHandler().addToSendQueue((Packet)(new C02PacketUseEntity(it, net.minecraft.network.play.client.C02PacketUseEntity.Action.ATTACK)));
+                                ClientModule.mc.getNetHandler().addToSendQueue(new C02PacketUseEntity(it, C02PacketUseEntity.Action.ATTACK));
                             }
 
                             ClientModule.mc.thePlayer.attackTargetEntityWithCurrentItem(it);

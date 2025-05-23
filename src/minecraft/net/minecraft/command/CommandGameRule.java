@@ -68,7 +68,7 @@ public class CommandGameRule extends CommandBase
 
                 gamerules.setOrCreateGameRule(s, s1);
                 func_175773_a(gamerules, s);
-                notifyOperators(sender, this, "commands.gamerule.success", new Object[0]);
+                notifyOperators(sender, this, "commands.gamerule.success");
         }
     }
 
@@ -99,7 +99,7 @@ public class CommandGameRule extends CommandBase
 
                 if (gamerules.areSameType(args[0], GameRules.ValueType.BOOLEAN_VALUE))
                 {
-                    return getListOfStringsMatchingLastWord(args, new String[] {"true", "false"});
+                    return getListOfStringsMatchingLastWord(args, "true", "false");
                 }
             }
 

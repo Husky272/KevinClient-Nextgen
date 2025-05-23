@@ -77,9 +77,8 @@ public class ItemSkull extends Item
 
                     TileEntity tileentity = worldIn.getTileEntity(pos);
 
-                    if (tileentity instanceof TileEntitySkull)
+                    if (tileentity instanceof TileEntitySkull tileentityskull)
                     {
-                        TileEntitySkull tileentityskull = (TileEntitySkull)tileentity;
 
                         if (stack.getMetadata() == 3)
                         {
@@ -95,7 +94,7 @@ public class ItemSkull extends Item
                                 }
                                 else if (nbttagcompound.hasKey("SkullOwner", 8) && nbttagcompound.getString("SkullOwner").length() > 0)
                                 {
-                                    gameprofile = new GameProfile((UUID)null, nbttagcompound.getString("SkullOwner"));
+                                    gameprofile = new GameProfile(null, nbttagcompound.getString("SkullOwner"));
                                 }
                             }
 
@@ -186,7 +185,7 @@ public class ItemSkull extends Item
 
         if (nbt.hasKey("SkullOwner", 8) && nbt.getString("SkullOwner").length() > 0)
         {
-            GameProfile gameprofile = new GameProfile((UUID)null, nbt.getString("SkullOwner"));
+            GameProfile gameprofile = new GameProfile(null, nbt.getString("SkullOwner"));
             gameprofile = TileEntitySkull.updateGameprofile(gameprofile);
             nbt.setTag("SkullOwner", NBTUtil.writeGameProfile(new NBTTagCompound(), gameprofile));
             return true;

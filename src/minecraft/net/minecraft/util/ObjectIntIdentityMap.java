@@ -18,7 +18,7 @@ public class ObjectIntIdentityMap<T> implements IObjectIntIterable<T>
 
         while (this.objectList.size() <= value)
         {
-            this.objectList.add((T)null);
+            this.objectList.add(null);
         }
 
         this.objectList.set(value, key);
@@ -32,7 +32,7 @@ public class ObjectIntIdentityMap<T> implements IObjectIntIterable<T>
 
     public final T getByValue(int value)
     {
-        return (T)(value >= 0 && value < this.objectList.size() ? this.objectList.get(value) : null);
+        return value >= 0 && value < this.objectList.size() ? this.objectList.get(value) : null;
     }
 
     public Iterator<T> iterator()

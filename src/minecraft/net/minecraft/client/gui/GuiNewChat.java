@@ -122,7 +122,7 @@ public class GuiNewChat extends Gui
     public void clearChatMessages()
     {
         if (ChatControl.INSTANCE.noChatClear()) {
-            printChatMessage(new ChatComponentText(KevinClient.INSTANCE.getCStart() + " Chat clear canceled."));
+            printChatMessage(new ChatComponentText(KevinClient.getCStart() + " Chat clear canceled."));
             return;
         }
         this.drawnChatLines.clear();

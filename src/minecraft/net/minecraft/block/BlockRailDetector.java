@@ -182,7 +182,7 @@ public class BlockRailDetector extends BlockRailBase
     private AxisAlignedBB getDectectionBox(BlockPos pos)
     {
         float f = 0.2F;
-        return new AxisAlignedBB((double)((float)pos.getX() + 0.2F), (double)pos.getY(), (double)((float)pos.getZ() + 0.2F), (double)((float)(pos.getX() + 1) - 0.2F), (double)((float)(pos.getY() + 1) - 0.2F), (double)((float)(pos.getZ() + 1) - 0.2F));
+        return new AxisAlignedBB((float)pos.getX() + 0.2F, pos.getY(), (float)pos.getZ() + 0.2F, (float)(pos.getX() + 1) - 0.2F, (float)(pos.getY() + 1) - 0.2F, (float)(pos.getZ() + 1) - 0.2F);
     }
 
     /**

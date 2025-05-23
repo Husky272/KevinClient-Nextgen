@@ -41,7 +41,7 @@ public class IMetadataSerializer
         }
         else if (!json.has(sectionName))
         {
-            return (T)null;
+            return null;
         }
         else if (!json.get(sectionName).isJsonObject())
         {

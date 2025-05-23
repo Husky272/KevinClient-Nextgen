@@ -82,7 +82,7 @@ public class CommandTitle extends CommandBase
                         int k = parseInt(args[4]);
                         S45PacketTitle s45packettitle2 = new S45PacketTitle(i, j, k);
                         entityplayermp.playerNetServerHandler.sendPacket(s45packettitle2);
-                        notifyOperators(sender, this, "commands.title.success", new Object[0]);
+                        notifyOperators(sender, this, "commands.title.success");
                     }
                 }
                 else if (args.length < 3)
@@ -106,7 +106,7 @@ public class CommandTitle extends CommandBase
 
                     S45PacketTitle s45packettitle1 = new S45PacketTitle(s45packettitle$type, ChatComponentProcessor.processComponent(sender, ichatcomponent, entityplayermp));
                     entityplayermp.playerNetServerHandler.sendPacket(s45packettitle1);
-                    notifyOperators(sender, this, "commands.title.success", new Object[0]);
+                    notifyOperators(sender, this, "commands.title.success");
                 }
             }
             else if (args.length != 2)
@@ -115,9 +115,9 @@ public class CommandTitle extends CommandBase
             }
             else
             {
-                S45PacketTitle s45packettitle = new S45PacketTitle(s45packettitle$type, (IChatComponent)null);
+                S45PacketTitle s45packettitle = new S45PacketTitle(s45packettitle$type, null);
                 entityplayermp.playerNetServerHandler.sendPacket(s45packettitle);
-                notifyOperators(sender, this, "commands.title.success", new Object[0]);
+                notifyOperators(sender, this, "commands.title.success");
             }
         }
     }

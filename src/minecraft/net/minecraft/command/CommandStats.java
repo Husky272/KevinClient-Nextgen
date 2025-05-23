@@ -170,12 +170,12 @@ public class CommandStats extends CommandBase
                     }
 
                     CommandResultStats.setScoreBoardStat(commandresultstats, commandresultstats$type, s1, s2);
-                    notifyOperators(sender, this, "commands.stats.success", new Object[] {commandresultstats$type.getTypeName(), s2, s1});
+                    notifyOperators(sender, this, "commands.stats.success", commandresultstats$type.getTypeName(), s2, s1);
                 }
                 else if ("clear".equals(s))
                 {
-                    CommandResultStats.setScoreBoardStat(commandresultstats, commandresultstats$type, (String)null, (String)null);
-                    notifyOperators(sender, this, "commands.stats.cleared", new Object[] {commandresultstats$type.getTypeName()});
+                    CommandResultStats.setScoreBoardStat(commandresultstats, commandresultstats$type, null, null);
+                    notifyOperators(sender, this, "commands.stats.cleared", commandresultstats$type.getTypeName());
                 }
 
                 if (flag)
@@ -192,7 +192,7 @@ public class CommandStats extends CommandBase
     {
         if (args.length == 1)
         {
-            return getListOfStringsMatchingLastWord(args, new String[] {"entity", "block"});
+            return getListOfStringsMatchingLastWord(args, "entity", "block");
         }
         else if (args.length == 2 && args[0].equals("entity"))
         {
@@ -215,7 +215,7 @@ public class CommandStats extends CommandBase
         }
         else
         {
-            return getListOfStringsMatchingLastWord(args, new String[] {"set", "clear"});
+            return getListOfStringsMatchingLastWord(args, "set", "clear");
         }
     }
 

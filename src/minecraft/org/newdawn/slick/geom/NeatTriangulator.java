@@ -12,19 +12,19 @@ public class NeatTriangulator implements Triangulator
     static final float EPSILON = 1E-006F;
     
     /** The x coordinates */
-    private float pointsX[];
+    private float[] pointsX;
     /** The y coordiantes */
-    private float pointsY[];
+    private float[] pointsY;
     /** The number of points that have been added */
     private int numPoints;
     /** The edges defines by triangulation */
-    private Edge edges[];
+    private Edge[] edges;
     /** Voroni */
-    private int V[];
+    private int[] V;
     /** The number of edges found */
     private int numEdges;
     /** The triangles that have been found */
-    private Triangle triangles[];
+    private Triangle[] triangles;
     /** The number of triangles found */
     private int numTriangles;
     /** The current offset */
@@ -98,7 +98,7 @@ public class NeatTriangulator implements Triangulator
         {
             if(numEdges == edges.length)
             {
-                Edge aedge[] = new Edge[edges.length * 2];
+                Edge[] aedge = new Edge[edges.length * 2];
                 System.arraycopy(edges, 0, aedge, 0, numEdges);
                 edges = aedge;
             }
@@ -149,7 +149,6 @@ public class NeatTriangulator implements Triangulator
         else
         {
             edges[k] = edges[--numEdges];
-            return;
         }
     }
 
@@ -170,7 +169,6 @@ public class NeatTriangulator implements Triangulator
         } else
         {
             edges[k].suspect = flag;
-            return;
         }
     }
 
@@ -365,7 +363,7 @@ public class NeatTriangulator implements Triangulator
                 int j2 = V[j1];
                 if(numTriangles == triangles.length)
                 {
-                    Triangle atriangle[] = new Triangle[triangles.length * 2];
+                    Triangle[] atriangle = new Triangle[triangles.length * 2];
                     System.arraycopy(triangles, 0, atriangle, 0, numTriangles);
                     triangles = atriangle;
                 }
@@ -507,7 +505,7 @@ public class NeatTriangulator implements Triangulator
     	
         if(numPoints == pointsX.length)
         {
-            float af[] = new float[numPoints * 2];
+            float[] af = new float[numPoints * 2];
             System.arraycopy(pointsX, 0, af, 0, numPoints);
             pointsX = af;
             af = new float[numPoints * 2];
@@ -528,7 +526,7 @@ public class NeatTriangulator implements Triangulator
     class Triangle
     {
     	/** The verticies index */
-        int v[];
+        int[] v;
 
         /**
          * Create a new triangle

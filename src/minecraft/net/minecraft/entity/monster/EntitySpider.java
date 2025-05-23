@@ -50,7 +50,7 @@ public class EntitySpider extends EntityMob
      */
     public double getMountedYOffset()
     {
-        return (double)(this.height * 0.5F);
+        return this.height * 0.5F;
     }
 
     /**
@@ -64,7 +64,7 @@ public class EntitySpider extends EntityMob
     protected void entityInit()
     {
         super.entityInit();
-        this.dataWatcher.addObject(16, new Byte((byte)0));
+        this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
     }
 
     /**
@@ -84,7 +84,7 @@ public class EntitySpider extends EntityMob
     {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(16.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)0.3F);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.3F);
     }
 
     /**
@@ -163,7 +163,7 @@ public class EntitySpider extends EntityMob
 
     public boolean isPotionApplicable(PotionEffect potioneffectIn)
     {
-        return potioneffectIn.getPotionID() == Potion.poison.id ? false : super.isPotionApplicable(potioneffectIn);
+        return potioneffectIn.getPotionID() != Potion.poison.id && super.isPotionApplicable(potioneffectIn);
     }
 
     /**
@@ -207,7 +207,7 @@ public class EntitySpider extends EntityMob
         {
             EntitySkeleton entityskeleton = new EntitySkeleton(this.worldObj);
             entityskeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            entityskeleton.onInitialSpawn(difficulty, (IEntityLivingData)null);
+            entityskeleton.onInitialSpawn(difficulty, null);
             this.worldObj.spawnEntityInWorld(entityskeleton);
             entityskeleton.mountEntity(this);
         }
@@ -253,7 +253,7 @@ public class EntitySpider extends EntityMob
 
             if (f >= 0.5F && this.attacker.getRNG().nextInt(100) == 0)
             {
-                this.attacker.setAttackTarget((EntityLivingBase)null);
+                this.attacker.setAttackTarget(null);
                 return false;
             }
             else
@@ -264,7 +264,7 @@ public class EntitySpider extends EntityMob
 
         protected double func_179512_a(EntityLivingBase attackTarget)
         {
-            return (double)(4.0F + attackTarget.width);
+            return 4.0F + attackTarget.width;
         }
     }
 
@@ -278,7 +278,7 @@ public class EntitySpider extends EntityMob
         public boolean shouldExecute()
         {
             float f = this.taskOwner.getBrightness(1.0F);
-            return f >= 0.5F ? false : super.shouldExecute();
+            return !(f >= 0.5F) && super.shouldExecute();
         }
     }
 

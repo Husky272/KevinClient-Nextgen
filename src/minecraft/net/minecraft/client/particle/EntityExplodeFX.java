@@ -32,14 +32,14 @@ public class EntityExplodeFX extends EntityFX
         this.setParticleTextureIndex(7 - this.particleAge * 8 / this.particleMaxAge);
         this.motionY += 0.004D;
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
-        this.motionX *= (double)0.9F;
-        this.motionY *= (double)0.9F;
-        this.motionZ *= (double)0.9F;
+        this.motionX *= 0.9F;
+        this.motionY *= 0.9F;
+        this.motionZ *= 0.9F;
 
         if (this.onGround)
         {
-            this.motionX *= (double)0.7F;
-            this.motionZ *= (double)0.7F;
+            this.motionX *= 0.7F;
+            this.motionZ *= 0.7F;
         }
     }
 

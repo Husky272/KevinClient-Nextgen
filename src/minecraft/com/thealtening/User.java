@@ -4,32 +4,32 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
 
-	@SerializedName("username")
-	private String username;
+    @SerializedName("username")
+    private String username;
 
-	@SerializedName("premium")
-	private boolean premium;
+    @SerializedName("premium")
+    private boolean premium;
 
-	@SerializedName("premium_name")
-	private String premiumName;
+    @SerializedName("premium_name")
+    private String premiumName;
 
-	@SerializedName("expires")
-	private String expiryDate;
+    @SerializedName("expires")
+    private String expiryDate;
 
-	public String getUsername() {
-		return this.username;
-	}
+    public String getUsername() {
+        return this.username;
+    }
 
-	public boolean isPremium() {
-		return this.premium;
-	}
+    public boolean isPremium() {
+        return this.premium;
+    }
 
-	public String getPremiumName() {
-		return this.premiumName;
-	}
+    public String getPremiumName() {
+        return this.premiumName;
+    }
 
-	public String getExpiryDate() {
-		return this.expiryDate;
-	}
+    public String getExpiryDate() {
+        return this.expiryDate;
+    }
 
 }

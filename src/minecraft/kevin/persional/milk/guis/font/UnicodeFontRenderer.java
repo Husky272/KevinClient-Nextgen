@@ -91,7 +91,7 @@ public class UnicodeFontRenderer extends FontRenderer {
                 String str = var11[var9];
                 if (str.length() >= 1) {
                     Color col = Color.BLACK;
-                    str = str.substring(1, str.length());
+                    str = str.substring(1);
                     this.Draw(str, x + len, y, (new Color(col.getRed(), col.getGreen(), col.getBlue())).getRGB());
                     len += (float) (this.getStringWidth(str) + 1);
                 }
@@ -247,7 +247,7 @@ public class UnicodeFontRenderer extends FontRenderer {
                     }
 
                     Color col = new Color(color);
-                    str = str.substring(1, str.length());
+                    str = str.substring(1);
                     if (dorpshadow) {
                         this.Draw(str, x + len + 0.5F, y + 0.5F, this.getColor(0, 0, 0, 80));
                     }
@@ -328,7 +328,7 @@ public class UnicodeFontRenderer extends FontRenderer {
                     }
 
                     Color col = new Color(color);
-                    str = str.substring(1, str.length());
+                    str = str.substring(1);
                     this.Draw(str, x + len, y, (new Color(col.getRed(), col.getGreen(), alpha)).getRGB());
                     len += (float) (this.getStringWidth(str) + 1);
                 }
@@ -406,7 +406,7 @@ public class UnicodeFontRenderer extends FontRenderer {
                     }
 
                     Color col = new Color(color);
-                    str = str.substring(1, str.length());
+                    str = str.substring(1);
                     int Shadowcolor = (color & 16579836) >> 2 | color & -16777216;
                     this.Draw(str, x + len + 0.5F, y + 0.5F, this.getColor(0, 0, 0, 80));
                     this.Draw(str, x + len, y, this.getColor(col.getRed(), col.getGreen(), col.getBlue(), alpha));
@@ -485,7 +485,7 @@ public class UnicodeFontRenderer extends FontRenderer {
                     }
 
                     Color col = new Color(color);
-                    str = str.substring(1, str.length());
+                    str = str.substring(1);
                     this.Draw(str, x + len, y, (new Color(col.getRed(), col.getGreen(), col.getBlue())).getRGB());
                     len += (float) (this.getStringWidth(str) + 1);
                 }
@@ -609,7 +609,7 @@ public class UnicodeFontRenderer extends FontRenderer {
                     }
 
                     Color col = new Color(color);
-                    str = str.substring(1, str.length());
+                    str = str.substring(1);
                     int Shadowcolor = (color & 16579836) >> 2 | color & -16777216;
                     this.Draw(str, (float) x + len + 0.5F, (float) y + 0.5F, this.getColor(0, 0, 0, 80));
                     this.Draw(str, (float) x + len, (float) y, this.getColor(col.getRed(), col.getGreen(), col.getBlue(), col.getAlpha()));
@@ -690,7 +690,7 @@ public class UnicodeFontRenderer extends FontRenderer {
                     }
 
                     Color col = new Color(color);
-                    str = str.substring(1, str.length());
+                    str = str.substring(1);
                     int Shadowcolor = (color & 16579836) >> 2 | color & -16777216;
                     this.Draw(str, x + len + 0.5F, y + 0.5F, this.getColor(0, 0, 0, 80));
                     this.Draw(str, x + len, y, this.getColor(col.getRed(), col.getGreen(), col.getBlue(), col.getAlpha()));
@@ -717,7 +717,7 @@ public class UnicodeFontRenderer extends FontRenderer {
         for (int var6 = 0; var6 < var7; ++var6) {
             String str = var8[var6];
             if (str.length() >= 1) {
-                str = str.substring(1, str.length());
+                str = str.substring(1);
                 len += (float) (this.font.getWidth(str) / 2 + 1);
             }
         }

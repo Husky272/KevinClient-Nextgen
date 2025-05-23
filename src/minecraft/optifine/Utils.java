@@ -193,7 +193,6 @@ public class Utils
         }
         catch (IOException var4)
         {
-            ;
         }
 
         return stringwriter.getBuffer().toString();
@@ -231,12 +230,12 @@ public class Utils
 
     public static void showMessage(String msg)
     {
-        JOptionPane.showMessageDialog((Component)null, msg, "OptiFine", 1);
+        JOptionPane.showMessageDialog(null, msg, "OptiFine", 1);
     }
 
     public static void showErrorMessage(String msg)
     {
-        JOptionPane.showMessageDialog((Component)null, msg, "Error", 0);
+        JOptionPane.showMessageDialog(null, msg, "Error", 0);
     }
 
     public static String readFile(File file) throws IOException
@@ -366,9 +365,8 @@ public class Utils
                 {
                     stringbuffer.append("[");
 
-                    if (object instanceof Object[])
+                    if (object instanceof Object[] aobject)
                     {
-                        Object[] aobject = (Object[]) object;
                         stringbuffer.append(arrayToCommaSeparatedString(aobject));
                     }
                     else
@@ -501,7 +499,7 @@ public class Utils
         }
         else
         {
-            return o1 == null ? false : o1.equals(o2);
+            return o1 != null && o1.equals(o2);
         }
     }
 
@@ -676,12 +674,12 @@ public class Utils
         }
     }
 
-    public static enum OS
+    public enum OS
     {
         LINUX,
         SOLARIS,
         WINDOWS,
         MACOS,
-        UNKNOWN;
+        UNKNOWN
     }
 }

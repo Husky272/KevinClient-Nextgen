@@ -246,7 +246,7 @@ class KillAura : ClientModule("KillAura","Automatically attacks targets around y
     private var containerOpen = -1L
 
     // Fake block status
-    public var blockingStatus = false
+    var blockingStatus = false
     private var lastBlocking = false
 
     // Rotation delay
@@ -352,7 +352,7 @@ class KillAura : ClientModule("KillAura","Automatically attacks targets around y
             when (rotationStrafeValue.get().lowercase()) {
                 "vanilla", "strict" -> {
                     val (yaw) = RotationUtils.targetRotation ?: return
-                    event.yaw = yaw;
+                    event.yaw = yaw
                 }
                 "silent" -> {
                     update()

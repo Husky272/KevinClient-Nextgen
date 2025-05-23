@@ -8,7 +8,7 @@ package org.newdawn.slick.geom;
  */
 public class OverTriangulator implements Triangulator {
 	/** The triangles data */
-	private float[][] triangles;
+	private final float[][] triangles;
 	
 	/**
 	 * Create a new triangulator
@@ -43,8 +43,8 @@ public class OverTriangulator implements Triangulator {
 				pt1[0] = (pt1[0] + pt2[0]) / 2;
 				pt1[1] = (pt1[1] + pt2[1]) / 2;
 				
-				triangles[(tcount *3) + 0][0] = cx;
-				triangles[(tcount *3) + 0][1] = cy;
+				triangles[(tcount * 3)][0] = cx;
+				triangles[(tcount * 3)][1] = cy;
 				triangles[(tcount *3) + 1][0] = pt1[0];
 				triangles[(tcount *3) + 1][1] = pt1[1];
 				triangles[(tcount *3) + 2][0] = pt2[0];
@@ -64,8 +64,8 @@ public class OverTriangulator implements Triangulator {
 				pt2[0] = (pt1[0] + pt2[0]) / 2;
 				pt2[1] = (pt1[1] + pt2[1]) / 2;
 				
-				triangles[(tcount *3) + 0][0] = cx;
-				triangles[(tcount *3) + 0][1] = cy;
+				triangles[(tcount * 3)][0] = cx;
+				triangles[(tcount * 3)][1] = cy;
 				triangles[(tcount *3) + 1][0] = pt1[0];
 				triangles[(tcount *3) + 1][1] = pt1[1];
 				triangles[(tcount *3) + 2][0] = pt2[0];

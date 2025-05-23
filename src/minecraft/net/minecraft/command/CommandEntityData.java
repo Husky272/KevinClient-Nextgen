@@ -76,7 +76,7 @@ public class CommandEntityData extends CommandBase
                 else
                 {
                     entity.readFromNBT(nbttagcompound);
-                    notifyOperators(sender, this, "commands.entitydata.success", new Object[] {nbttagcompound.toString()});
+                    notifyOperators(sender, this, "commands.entitydata.success", nbttagcompound.toString());
                 }
             }
         }

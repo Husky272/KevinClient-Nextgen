@@ -48,7 +48,7 @@ public class CommandSaveOff extends CommandBase
 
         if (flag)
         {
-            notifyOperators(sender, this, "commands.save.disabled", new Object[0]);
+            notifyOperators(sender, this, "commands.save.disabled");
         }
         else
         {

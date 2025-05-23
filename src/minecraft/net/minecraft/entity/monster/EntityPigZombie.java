@@ -57,7 +57,7 @@ public class EntityPigZombie extends EntityZombie
     {
         super.applyEntityAttributes();
         this.getEntityAttribute(reinforcementChance).setBaseValue(0.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)0.23F);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.23F);
         this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(5.0D);
     }
 

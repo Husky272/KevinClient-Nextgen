@@ -6,7 +6,7 @@ import net.minecraft.inventory.Container;
 
 public class EntityAITradePlayer extends EntityAIBase
 {
-    private EntityVillager villager;
+    private final EntityVillager villager;
 
     public EntityAITradePlayer(EntityVillager villagerIn)
     {
@@ -67,6 +67,6 @@ public class EntityAITradePlayer extends EntityAIBase
      */
     public void resetTask()
     {
-        this.villager.setCustomer((EntityPlayer)null);
+        this.villager.setCustomer(null);
     }
 }

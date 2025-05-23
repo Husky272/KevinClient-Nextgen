@@ -32,7 +32,7 @@ public class BlockNewLog extends BlockLog
     {
         BlockPlanks.EnumType blockplanks$enumtype = state.getValue(VARIANT);
 
-        switch ((BlockLog.EnumAxis)state.getValue(LOG_AXIS))
+        switch (state.getValue(LOG_AXIS))
         {
             case X:
             case Z:
@@ -98,7 +98,7 @@ public class BlockNewLog extends BlockLog
         int i = 0;
         i = i | state.getValue(VARIANT).getMetadata() - 4;
 
-        switch ((BlockLog.EnumAxis)state.getValue(LOG_AXIS))
+        switch (state.getValue(LOG_AXIS))
         {
             case X:
                 i |= 4;

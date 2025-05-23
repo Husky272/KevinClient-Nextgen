@@ -249,7 +249,7 @@ public class ClassReader {
       } else if("ModulePackages".equals(methodsCount)) {
         modulePackagesOffset = currentAttributeOffset;
       } else if(!"BootstrapMethods".equals(methodsCount)) {
-        Attribute type = this.readAttribute(attributePrototypes, methodsCount, currentAttributeOffset, annotationDescriptor, charBuffer, -1, (Label[])null);
+        Attribute type = this.readAttribute(attributePrototypes, methodsCount, currentAttributeOffset, annotationDescriptor, charBuffer, -1, null);
         type.nextAttribute = attributes;
         attributes = type;
       }
@@ -344,13 +344,11 @@ public class ClassReader {
     fieldsCount = this.readUnsignedShort(currentOffset);
 
     for(currentOffset += 2; fieldsCount-- > 0; currentOffset = this.readField(classVisitor, context, currentOffset)) {
-      ;
     }
 
     var32 = this.readUnsignedShort(currentOffset);
 
     for(currentOffset += 2; var32-- > 0; currentOffset = this.readMethod(classVisitor, context, currentOffset)) {
-      ;
     }
 
     classVisitor.visitEnd();
@@ -499,7 +497,7 @@ public class ClassReader {
       } else if("RuntimeInvisibleTypeAnnotations".equals(fieldVisitor)) {
         runtimeInvisibleTypeAnnotationsOffset = currentOffset;
       } else {
-        Attribute var22 = this.readAttribute(context.attributePrototypes, fieldVisitor, currentOffset, nextAttribute, charBuffer, -1, (Label[])null);
+        Attribute var22 = this.readAttribute(context.attributePrototypes, fieldVisitor, currentOffset, nextAttribute, charBuffer, -1, null);
         var22.nextAttribute = attributes;
         attributes = var22;
       }
@@ -625,7 +623,7 @@ public class ClassReader {
       } else if("MethodParameters".equals(methodVisitor)) {
         methodParametersOffset = currentOffset;
       } else {
-        Attribute currentAnnotationOffset = this.readAttribute(context.attributePrototypes, methodVisitor, currentOffset, nextAttribute, charBuffer, -1, (Label[])null);
+        Attribute currentAnnotationOffset = this.readAttribute(context.attributePrototypes, methodVisitor, currentOffset, nextAttribute, charBuffer, -1, null);
         currentAnnotationOffset.nextAttribute = attributes;
         attributes = currentAnnotationOffset;
       }
@@ -635,9 +633,8 @@ public class ClassReader {
     if(var25 == null) {
       return currentOffset;
     } else {
-      if(var25 instanceof MethodWriter) {
-        MethodWriter var26 = (MethodWriter)var25;
-        if(var26.canCopyMethodAttributes(this, methodInfoOffset, currentOffset - methodInfoOffset, synthetic, (context.currentMethodAccessFlags & 131072) != 0, this.readUnsignedShort(methodInfoOffset + 4), signatureIndex, exceptionsOffset)) {
+      if(var25 instanceof MethodWriter var26) {
+          if(var26.canCopyMethodAttributes(this, methodInfoOffset, currentOffset - methodInfoOffset, synthetic, (context.currentMethodAccessFlags & 131072) != 0, this.readUnsignedShort(methodInfoOffset + 4), signatureIndex, exceptionsOffset)) {
           return currentOffset;
         }
       }
@@ -652,7 +649,7 @@ public class ClassReader {
 
       if(annotationDefaultOffset != 0) {
         AnnotationVisitor var28 = var25.visitAnnotationDefault();
-        this.readElementValue(var28, annotationDefaultOffset, (String)null, charBuffer);
+        this.readElementValue(var28, annotationDefaultOffset, null, charBuffer);
         if(var28 != null) {
           var28.visitEnd();
         }
@@ -1136,7 +1133,7 @@ public class ClassReader {
     }
 
     if(var46 && (context.parsingOptions & 256) != 0) {
-      methodVisitor.visitFrame(-1, maxLocals, (Object[])null, 0, (Object[])null);
+      methodVisitor.visitFrame(-1, maxLocals, null, 0, null);
     }
 
     currentVisibleTypeAnnotationIndex = 0;
@@ -1180,7 +1177,7 @@ public class ClassReader {
 
       if(var48) {
         if((context.parsingOptions & 8) != 0) {
-          methodVisitor.visitFrame(256, 0, (Object[])null, 0, (Object[])null);
+          methodVisitor.visitFrame(256, 0, null, 0, null);
         }
 
         var48 = false;
@@ -1800,7 +1797,7 @@ public class ClassReader {
         currentOffset = this.readElementValues(methodVisitor.visitTryCatchAnnotation(targetType & -256, var13, var14, visible), currentOffset, true, charBuffer);
       } else {
         currentOffset += 3 + 2 * pathLength;
-        currentOffset = this.readElementValues((AnnotationVisitor)null, currentOffset, true, charBuffer);
+        currentOffset = this.readElementValues(null, currentOffset, true, charBuffer);
       }
     }
 
@@ -1968,7 +1965,7 @@ public class ClassReader {
       }
     } else {
       while(numElementValuePairs-- > 0) {
-        currentOffset = this.readElementValue(annotationVisitor, currentOffset, (String)null, charBuffer);
+        currentOffset = this.readElementValue(annotationVisitor, currentOffset, null, charBuffer);
       }
     }
 
@@ -1983,9 +1980,9 @@ public class ClassReader {
     if(annotationVisitor == null) {
       switch(this.b[elementValueOffset] & 255) {
         case 64:
-          return this.readElementValues((AnnotationVisitor)null, elementValueOffset + 3, true, charBuffer);
+          return this.readElementValues(null, elementValueOffset + 3, true, charBuffer);
         case 91:
-          return this.readElementValues((AnnotationVisitor)null, elementValueOffset + 1, false, charBuffer);
+          return this.readElementValues(null, elementValueOffset + 1, false, charBuffer);
         case 101:
           return elementValueOffset + 5;
         default:
@@ -2400,7 +2397,6 @@ public class ClassReader {
       methodsCount = this.readUnsignedShort(currentOffset + 6);
 
       for(currentOffset += 8; methodsCount-- > 0; currentOffset += 6 + this.readInt(currentOffset + 2)) {
-        ;
       }
     }
 
@@ -2411,7 +2407,6 @@ public class ClassReader {
       int attributesCount = this.readUnsignedShort(currentOffset + 6);
 
       for(currentOffset += 8; attributesCount-- > 0; currentOffset += 6 + this.readInt(currentOffset + 2)) {
-        ;
       }
     }
 
@@ -2456,7 +2451,7 @@ public class ClassReader {
       }
     }
 
-    return (new Attribute(type)).read(this, offset, length, (char[])null, -1, (Label[])null);
+    return (new Attribute(type)).read(this, offset, length, null, -1, null);
   }
 
   public int getItemCount() {
@@ -2491,7 +2486,7 @@ public class ClassReader {
   }
 
   public long readLong(int offset) {
-    long l1 = (long)this.readInt(offset);
+    long l1 = this.readInt(offset);
     long l0 = (long)this.readInt(offset + 4) & 4294967295L;
     return l1 << 32 | l0;
   }

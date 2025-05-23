@@ -14,9 +14,9 @@ public class EntityCloudFX extends EntityFX
     {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
         float f = 2.5F;
-        this.motionX *= (double)0.1F;
-        this.motionY *= (double)0.1F;
-        this.motionZ *= (double)0.1F;
+        this.motionX *= 0.1F;
+        this.motionY *= 0.1F;
+        this.motionZ *= 0.1F;
         this.motionX += p_i1221_8_;
         this.motionY += p_i1221_10_;
         this.motionZ += p_i1221_12_;
@@ -56,9 +56,9 @@ public class EntityCloudFX extends EntityFX
 
         this.setParticleTextureIndex(7 - this.particleAge * 8 / this.particleMaxAge);
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
-        this.motionX *= (double)0.96F;
-        this.motionY *= (double)0.96F;
-        this.motionZ *= (double)0.96F;
+        this.motionX *= 0.96F;
+        this.motionY *= 0.96F;
+        this.motionZ *= 0.96F;
         EntityPlayer entityplayer = this.worldObj.getClosestPlayerToEntity(this, 2.0D);
 
         if (entityplayer != null && this.posY > entityplayer.getEntityBoundingBox().minY)
@@ -70,8 +70,8 @@ public class EntityCloudFX extends EntityFX
 
         if (this.onGround)
         {
-            this.motionX *= (double)0.7F;
-            this.motionZ *= (double)0.7F;
+            this.motionX *= 0.7F;
+            this.motionZ *= 0.7F;
         }
     }
 

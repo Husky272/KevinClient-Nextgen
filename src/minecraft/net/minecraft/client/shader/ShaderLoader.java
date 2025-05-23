@@ -17,7 +17,7 @@ public class ShaderLoader
 {
     private final ShaderLoader.ShaderType shaderType;
     private final String shaderFilename;
-    private int shader;
+    private final int shader;
     private int shaderAttachCount = 0;
 
     private ShaderLoader(ShaderLoader.ShaderType type, int shaderId, String filename)
@@ -96,7 +96,7 @@ public class ShaderLoader
         return abyte;
     }
 
-    public static enum ShaderType
+    public enum ShaderType
     {
         VERTEX("vertex", ".vsh", OpenGlHelper.GL_VERTEX_SHADER),
         FRAGMENT("fragment", ".fsh", OpenGlHelper.GL_FRAGMENT_SHADER);
@@ -106,7 +106,7 @@ public class ShaderLoader
         private final int shaderMode;
         private final Map<String, ShaderLoader> loadedShaders = Maps.newHashMap();
 
-        private ShaderType(String p_i45090_3_, String p_i45090_4_, int p_i45090_5_)
+        ShaderType(String p_i45090_3_, String p_i45090_4_, int p_i45090_5_)
         {
             this.shaderName = p_i45090_3_;
             this.shaderExtension = p_i45090_4_;
@@ -118,17 +118,17 @@ public class ShaderLoader
             return this.shaderName;
         }
 
-        protected String getShaderExtension()
+        private String getShaderExtension()
         {
             return this.shaderExtension;
         }
 
-        protected int getShaderMode()
+        private int getShaderMode()
         {
             return this.shaderMode;
         }
 
-        protected Map<String, ShaderLoader> getLoadedShaders()
+        private Map<String, ShaderLoader> getLoadedShaders()
         {
             return this.loadedShaders;
         }

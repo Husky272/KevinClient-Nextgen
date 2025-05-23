@@ -34,7 +34,7 @@ public class StateMap extends StateMapperBase
         }
         else
         {
-        	s = ((IProperty)this.name).getName((Comparable)map.remove(this.name));
+        	s = ((IProperty)this.name).getName(map.remove(this.name));
         }
 
         if (this.suffix != null)

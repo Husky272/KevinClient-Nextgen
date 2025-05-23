@@ -19,7 +19,7 @@ public class LanguageManager implements IResourceManagerReloadListener
     private final IMetadataSerializer theMetadataSerializer;
     private String currentLanguage;
     protected static final Locale currentLocale = new Locale();
-    private Map<String, Language> languageMap = Maps.newHashMap();
+    private final Map<String, Language> languageMap = Maps.newHashMap();
 
     public LanguageManager(IMetadataSerializer theMetadataSerializerIn, String currentLanguageIn)
     {
@@ -51,11 +51,11 @@ public class LanguageManager implements IResourceManagerReloadListener
             }
             catch (RuntimeException runtimeexception)
             {
-                logger.warn("Unable to parse metadata section of resourcepack: " + iresourcepack.getPackName(), (Throwable)runtimeexception);
+                logger.warn("Unable to parse metadata section of resourcepack: " + iresourcepack.getPackName(), runtimeexception);
             }
             catch (IOException ioexception)
             {
-                logger.warn("Unable to parse metadata section of resourcepack: " + iresourcepack.getPackName(), (Throwable)ioexception);
+                logger.warn("Unable to parse metadata section of resourcepack: " + iresourcepack.getPackName(), ioexception);
             }
         }
     }

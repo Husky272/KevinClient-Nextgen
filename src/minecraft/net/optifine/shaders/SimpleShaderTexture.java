@@ -28,7 +28,7 @@ import org.apache.commons.io.IOUtils;
 
 public class SimpleShaderTexture extends AbstractTexture
 {
-    private String texturePath;
+    private final String texturePath;
     private static final IMetadataSerializer METADATA_SERIALIZER = makeMetadataSerializer();
 
     public SimpleShaderTexture(String texturePath)
@@ -87,12 +87,12 @@ public class SimpleShaderTexture extends AbstractTexture
             catch (RuntimeException runtimeexception)
             {
                 SMCLog.warning("Error reading metadata: " + s);
-                SMCLog.warning("" + runtimeexception.getClass().getName() + ": " + runtimeexception.getMessage());
+                SMCLog.warning(runtimeexception.getClass().getName() + ": " + runtimeexception.getMessage());
                 return new TextureMetadataSection(false, false, new ArrayList<>());
             }
             finally
             {
-                IOUtils.closeQuietly((Reader)bufferedreader);
+                IOUtils.closeQuietly(bufferedreader);
                 IOUtils.closeQuietly(inputstream);
             }
 

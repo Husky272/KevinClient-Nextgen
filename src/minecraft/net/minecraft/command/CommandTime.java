@@ -56,7 +56,7 @@ public class CommandTime extends CommandBase
                 }
 
                 this.setTime(sender, l);
-                notifyOperators(sender, this, "commands.time.set", new Object[] {l});
+                notifyOperators(sender, this, "commands.time.set", l);
                 return;
             }
 
@@ -64,7 +64,7 @@ public class CommandTime extends CommandBase
             {
                 int k = parseInt(args[1], 0);
                 this.addTime(sender, k);
-                notifyOperators(sender, this, "commands.time.added", new Object[] {k});
+                notifyOperators(sender, this, "commands.time.added", k);
                 return;
             }
 
@@ -74,7 +74,7 @@ public class CommandTime extends CommandBase
                 {
                     int j = (int)(sender.getEntityWorld().getWorldTime() % 2147483647L);
                     sender.setCommandStat(CommandResultStats.Type.QUERY_RESULT, j);
-                    notifyOperators(sender, this, "commands.time.query", new Object[] {j});
+                    notifyOperators(sender, this, "commands.time.query", j);
                     return;
                 }
 
@@ -82,7 +82,7 @@ public class CommandTime extends CommandBase
                 {
                     int i = (int)(sender.getEntityWorld().getTotalWorldTime() % 2147483647L);
                     sender.setCommandStat(CommandResultStats.Type.QUERY_RESULT, i);
-                    notifyOperators(sender, this, "commands.time.query", new Object[] {i});
+                    notifyOperators(sender, this, "commands.time.query", i);
                     return;
                 }
             }
@@ -95,15 +95,15 @@ public class CommandTime extends CommandBase
     {
         if (args.length == 1)
         {
-            return getListOfStringsMatchingLastWord(args, new String[] {"set", "add", "query"});
+            return getListOfStringsMatchingLastWord(args, "set", "add", "query");
         }
         else if (args.length == 2 && args[0].equals("set"))
         {
-            return getListOfStringsMatchingLastWord(args, new String[] {"day", "night"});
+            return getListOfStringsMatchingLastWord(args, "day", "night");
         }
         else
         {
-            return args.length == 2 && args[0].equals("query") ? getListOfStringsMatchingLastWord(args, new String[] {"daytime", "gametime"}) : null;
+            return args.length == 2 && args[0].equals("query") ? getListOfStringsMatchingLastWord(args, "daytime", "gametime") : null;
         }
     }
 
@@ -114,7 +114,7 @@ public class CommandTime extends CommandBase
     {
         for (int i = 0; i < MinecraftServer.getServer().worldServers.length; ++i)
         {
-            MinecraftServer.getServer().worldServers[i].setWorldTime((long)time);
+            MinecraftServer.getServer().worldServers[i].setWorldTime(time);
         }
     }
 

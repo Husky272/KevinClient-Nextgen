@@ -223,7 +223,7 @@ public class Scoreboard
         {
             if (this.getObjectiveInDisplaySlot(i) == p_96519_1_)
             {
-                this.setObjectiveInDisplaySlot(i, (ScoreObjective)null);
+                this.setObjectiveInDisplaySlot(i, null);
             }
         }
 
@@ -515,7 +515,7 @@ public class Scoreboard
         if (p_181140_1_ != null && !(p_181140_1_ instanceof EntityPlayer) && !p_181140_1_.isEntityAlive())
         {
             String s = p_181140_1_.getUniqueID().toString();
-            this.removeObjectiveFromEntity(s, (ScoreObjective)null);
+            this.removeObjectiveFromEntity(s, null);
             this.removePlayerFromTeams(s);
         }
     }

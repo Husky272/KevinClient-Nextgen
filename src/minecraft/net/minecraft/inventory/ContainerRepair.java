@@ -21,12 +21,12 @@ public class ContainerRepair extends Container
     private static final Logger logger = LogManager.getLogger();
 
     /** Here comes out item you merged and/or renamed. */
-    private IInventory outputSlot = new InventoryCraftResult();
+    private final IInventory outputSlot = new InventoryCraftResult();
 
     /**
      * The 2slots where you put your items in that you want to merge and/or rename.
      */
-    private IInventory inputSlots = new InventoryBasic("Repair", true, 2)
+    private final IInventory inputSlots = new InventoryBasic("Repair", true, 2)
     {
         public void markDirty()
         {
@@ -34,8 +34,8 @@ public class ContainerRepair extends Container
             ContainerRepair.this.onCraftMatrixChanged(this);
         }
     };
-    private World theWorld;
-    private BlockPos selfPosition;
+    private final World theWorld;
+    private final BlockPos selfPosition;
 
     /** The maximum cost of repairing/renaming in the anvil. */
     public int maximumCost;
@@ -76,7 +76,7 @@ public class ContainerRepair extends Container
                     playerIn.addExperienceLevel(-ContainerRepair.this.maximumCost);
                 }
 
-                ContainerRepair.this.inputSlots.setInventorySlotContents(0, (ItemStack)null);
+                ContainerRepair.this.inputSlots.setInventorySlotContents(0, null);
 
                 if (ContainerRepair.this.materialCost > 0)
                 {
@@ -89,12 +89,12 @@ public class ContainerRepair extends Container
                     }
                     else
                     {
-                        ContainerRepair.this.inputSlots.setInventorySlotContents(1, (ItemStack)null);
+                        ContainerRepair.this.inputSlots.setInventorySlotContents(1, null);
                     }
                 }
                 else
                 {
-                    ContainerRepair.this.inputSlots.setInventorySlotContents(1, (ItemStack)null);
+                    ContainerRepair.this.inputSlots.setInventorySlotContents(1, null);
                 }
 
                 ContainerRepair.this.maximumCost = 0;
@@ -170,7 +170,7 @@ public class ContainerRepair extends Container
 
         if (itemstack == null)
         {
-            this.outputSlot.setInventorySlotContents(0, (ItemStack)null);
+            this.outputSlot.setInventorySlotContents(0, null);
             this.maximumCost = 0;
         }
         else
@@ -192,7 +192,7 @@ public class ContainerRepair extends Container
 
                     if (j4 <= 0)
                     {
-                        this.outputSlot.setInventorySlotContents(0, (ItemStack)null);
+                        this.outputSlot.setInventorySlotContents(0, null);
                         this.maximumCost = 0;
                         return;
                     }
@@ -213,7 +213,7 @@ public class ContainerRepair extends Container
                 {
                     if (!flag && (itemstack1.getItem() != itemstack2.getItem() || !itemstack1.isItemStackDamageable()))
                     {
-                        this.outputSlot.setInventorySlotContents(0, (ItemStack)null);
+                        this.outputSlot.setInventorySlotContents(0, null);
                         this.maximumCost = 0;
                         return;
                     }
@@ -460,7 +460,7 @@ public class ContainerRepair extends Container
 
             if (itemstack1.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack(null);
             }
             else
             {

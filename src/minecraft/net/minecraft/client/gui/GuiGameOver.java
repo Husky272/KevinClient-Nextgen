@@ -12,7 +12,7 @@ public class GuiGameOver extends GuiScreen implements GuiYesNoCallback
      * The integer value containing the number of ticks that have passed since the player's death
      */
     public int enableButtonsTimer;
-    private boolean field_146346_f = false;
+    private final boolean field_146346_f = false;
 
     /**
      * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
@@ -67,7 +67,7 @@ public class GuiGameOver extends GuiScreen implements GuiYesNoCallback
         {
             case 0:
                 this.mc.thePlayer.respawnPlayer();
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen(null);
                 break;
 
             case 1:
@@ -89,13 +89,13 @@ public class GuiGameOver extends GuiScreen implements GuiYesNoCallback
         if (result)
         {
             this.mc.theWorld.sendQuittingDisconnectingPacket();
-            this.mc.loadWorld((WorldClient)null);
+            this.mc.loadWorld(null);
             this.mc.displayGuiScreen(new GuiMainMenu());
         }
         else
         {
             this.mc.thePlayer.respawnPlayer();
-            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.displayGuiScreen(null);
         }
     }
 

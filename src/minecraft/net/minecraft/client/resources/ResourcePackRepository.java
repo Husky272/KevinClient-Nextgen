@@ -209,7 +209,7 @@ public class ResourcePackRepository
                 }
                 catch (IOException ioexception)
                 {
-                    logger.warn("File " + file1 + " couldn't be hashed. Deleting it.", (Throwable)ioexception);
+                    logger.warn("File " + file1 + " couldn't be hashed. Deleting it.", ioexception);
                     FileUtils.deleteQuietly(file1);
                 }
             }
@@ -232,7 +232,7 @@ public class ResourcePackRepository
                 public void onSuccess(Object p_onSuccess_1_)
                 {
                     ResourcePackRepository.this.setResourcePackInstance(file1);
-                    settablefuture.set((Object)null);
+                    settablefuture.set(null);
                 }
                 public void onFailure(Throwable p_onFailure_1_)
                 {
@@ -252,7 +252,7 @@ public class ResourcePackRepository
      */
     private void deleteOldServerResourcesPacks()
     {
-        List<File> list = Lists.newArrayList(FileUtils.listFiles(this.dirServerResourcepacks, TrueFileFilter.TRUE, (IOFileFilter)null));
+        List<File> list = Lists.newArrayList(FileUtils.listFiles(this.dirServerResourcepacks, TrueFileFilter.TRUE, null));
         Collections.sort(list, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
         int i = 0;
 
@@ -320,7 +320,7 @@ public class ResourcePackRepository
 
         public void updateResourcePack() throws IOException
         {
-            this.reResourcePack = (IResourcePack)(this.resourcePackFile.isDirectory() ? new FolderResourcePack(this.resourcePackFile) : new FileResourcePack(this.resourcePackFile));
+            this.reResourcePack = this.resourcePackFile.isDirectory() ? new FolderResourcePack(this.resourcePackFile) : new FileResourcePack(this.resourcePackFile);
             this.rePackMetadataSection = this.reResourcePack.getPackMetadata(ResourcePackRepository.this.rprMetadataSerializer, "pack");
 
             try
@@ -329,7 +329,6 @@ public class ResourcePackRepository
             }
             catch (IOException var2)
             {
-                ;
             }
 
             if (this.texturePackIcon == null)
@@ -380,7 +379,7 @@ public class ResourcePackRepository
 
         public boolean equals(Object p_equals_1_)
         {
-            return this == p_equals_1_ ? true : (p_equals_1_ instanceof ResourcePackRepository.Entry ? this.toString().equals(p_equals_1_.toString()) : false);
+            return this == p_equals_1_ || (p_equals_1_ instanceof Entry && this.toString().equals(p_equals_1_.toString()));
         }
 
         public int hashCode()

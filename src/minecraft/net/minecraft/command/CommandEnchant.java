@@ -115,7 +115,7 @@ public class CommandEnchant extends CommandBase
                     }
 
                     itemstack.addEnchantment(enchantment1, j);
-                    notifyOperators(sender, this, "commands.enchant.success", new Object[0]);
+                    notifyOperators(sender, this, "commands.enchant.success");
                     sender.setCommandStat(CommandResultStats.Type.AFFECTED_ITEMS, 1);
                 }
             }

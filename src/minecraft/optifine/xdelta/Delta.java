@@ -47,15 +47,15 @@ public class Delta
                     boolean flag2 = true;
                     int k1 = j1 * 16;
                     int l1 = 15;
-                    source.seek((long)k1);
+                    source.seek(k1);
 
                     if (!flag1 && source.read(abyte2, 0, 16) != -1)
                     {
                         for (int i2 = 0; i2 < 16; ++i2)
                         {
-                            if (abyte2[i2] != abyte[i2])
-                            {
+                            if (abyte2[i2] != abyte[i2]) {
                                 flag2 = false;
+                                break;
                             }
                         }
                     }
@@ -193,7 +193,7 @@ public class Delta
 
     public static void computeDelta(byte[] source, InputStream targetIS, int targetLength, DiffWriter output) throws IOException, DeltaException
     {
-        computeDelta((SeekableSource)(new ByteArraySeekableSource(source)), targetIS, targetLength, output);
+        computeDelta(new ByteArraySeekableSource(source), targetIS, targetLength, output);
     }
 
     public static void computeDelta(File sourceFile, File targetFile, DiffWriter output) throws IOException, DeltaException

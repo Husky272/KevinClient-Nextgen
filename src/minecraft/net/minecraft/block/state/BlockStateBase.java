@@ -81,7 +81,7 @@ public abstract class BlockStateBase implements IBlockState
 
     public <T extends Comparable<T>> IBlockState cycleProperty(IProperty<T> property)
     {
-        return this.withProperty(property, (T)(cyclePropertyValue(property.getAllowedValues(), this.getValue(property))));
+        return this.withProperty(property, cyclePropertyValue(property.getAllowedValues(), this.getValue(property)));
     }
 
     protected static <T> T cyclePropertyValue(Collection<T> values, T currentValue)

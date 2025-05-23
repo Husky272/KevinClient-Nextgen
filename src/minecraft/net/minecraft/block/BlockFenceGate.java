@@ -45,7 +45,7 @@ public class BlockFenceGate extends BlockDirectional
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).getBlock().getMaterial().isSolid() ? super.canPlaceBlockAt(worldIn, pos) : false;
+        return worldIn.getBlockState(pos.down()).getBlock().getMaterial().isSolid() && super.canPlaceBlockAt(worldIn, pos);
     }
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
@@ -57,7 +57,7 @@ public class BlockFenceGate extends BlockDirectional
         else
         {
             EnumFacing.Axis enumfacing$axis = state.getValue(FACING).getAxis();
-            return enumfacing$axis == EnumFacing.Axis.Z ? new AxisAlignedBB((double)pos.getX(), (double)pos.getY(), (double)((float)pos.getZ() + 0.375F), (double)(pos.getX() + 1), (double)((float)pos.getY() + 1.5F), (double)((float)pos.getZ() + 0.625F)) : new AxisAlignedBB((double)((float)pos.getX() + 0.375F), (double)pos.getY(), (double)pos.getZ(), (double)((float)pos.getX() + 0.625F), (double)((float)pos.getY() + 1.5F), (double)(pos.getZ() + 1));
+            return enumfacing$axis == EnumFacing.Axis.Z ? new AxisAlignedBB(pos.getX(), pos.getY(), (float)pos.getZ() + 0.375F, pos.getX() + 1, (float)pos.getY() + 1.5F, (float)pos.getZ() + 0.625F) : new AxisAlignedBB((float)pos.getX() + 0.375F, pos.getY(), pos.getZ(), (float)pos.getX() + 0.625F, (float)pos.getY() + 1.5F, pos.getZ() + 1);
         }
     }
 
@@ -111,7 +111,7 @@ public class BlockFenceGate extends BlockDirectional
         }
         else
         {
-            EnumFacing enumfacing = EnumFacing.fromAngle((double)playerIn.rotationYaw);
+            EnumFacing enumfacing = EnumFacing.fromAngle(playerIn.rotationYaw);
 
             if (state.getValue(FACING) == enumfacing.getOpposite())
             {
@@ -140,12 +140,12 @@ public class BlockFenceGate extends BlockDirectional
                 if (flag && !state.getValue(OPEN) && !state.getValue(POWERED))
                 {
                     worldIn.setBlockState(pos, state.withProperty(OPEN, true).withProperty(POWERED, true), 2);
-                    worldIn.playAuxSFXAtEntity((EntityPlayer)null, 1003, pos, 0);
+                    worldIn.playAuxSFXAtEntity(null, 1003, pos, 0);
                 }
                 else if (!flag && state.getValue(OPEN) && state.getValue(POWERED))
                 {
                     worldIn.setBlockState(pos, state.withProperty(OPEN, false).withProperty(POWERED, false), 2);
-                    worldIn.playAuxSFXAtEntity((EntityPlayer)null, 1006, pos, 0);
+                    worldIn.playAuxSFXAtEntity(null, 1006, pos, 0);
                 }
                 else if (flag != state.getValue(POWERED))
                 {

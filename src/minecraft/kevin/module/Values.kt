@@ -45,7 +45,7 @@ abstract class Value<T>(val name: String, protected var value: T, protected val 
         this.value = value
     }
 
-    open fun isSupported(): Boolean = isSupported?.invoke() ?: true
+    open fun isSupported(): Boolean = isSupported?.invoke() != false
 
     abstract fun toJson(): JsonElement?
     abstract fun fromJson(element: JsonElement)

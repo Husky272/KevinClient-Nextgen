@@ -55,10 +55,7 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract
         {
             BlockDoor blockdoor = this.doorBlock;
 
-            if (!BlockDoor.isOpen(this.theEntity.worldObj, this.doorPosition) && d0 < 4.0D)
-            {
-                return true;
-            }
+            return !BlockDoor.isOpen(this.theEntity.worldObj, this.doorPosition) && d0 < 4.0D;
         }
 
         return false;

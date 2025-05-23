@@ -26,7 +26,7 @@ public class RealmsBridge extends RealmsScreen
         }
         catch (Exception exception)
         {
-            LOGGER.error("Realms module missing", (Throwable)exception);
+            LOGGER.error("Realms module missing", exception);
         }
     }
 
@@ -43,7 +43,7 @@ public class RealmsBridge extends RealmsScreen
         }
         catch (Exception exception)
         {
-            LOGGER.error("Realms module missing", (Throwable)exception);
+            LOGGER.error("Realms module missing", exception);
             return null;
         }
     }

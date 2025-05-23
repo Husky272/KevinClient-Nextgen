@@ -72,7 +72,7 @@ public abstract class World implements IBlockAccess
     public final List<EntityPlayer> playerEntities = Lists.newArrayList();
     public final List<Entity> weatherEffects = Lists.newArrayList();
     protected final IntHashMap<Entity> entitiesById = new IntHashMap<>();
-    private long cloudColour = 16777215L;
+    private final long cloudColour = 16777215L;
 
     /** RNG for World. */
     public final Random rand = new Random();
@@ -226,7 +226,6 @@ public abstract class World implements IBlockAccess
 
         for (blockpos = new BlockPos(pos.getX(), this.getSeaLevel(), pos.getZ()); !this.isAirBlock(blockpos.up()); blockpos = blockpos.up())
         {
-            ;
         }
 
         return this.getBlockState(blockpos).getBlock();
@@ -256,7 +255,7 @@ public abstract class World implements IBlockAccess
 
     public boolean isBlockLoaded(BlockPos pos, boolean allowEmpty)
     {
-        return !this.isValid(pos) ? false : this.isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4, allowEmpty);
+        return this.isValid(pos) && this.isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4, allowEmpty);
     }
 
     public boolean isAreaLoaded(BlockPos center, int radius)
@@ -1153,9 +1152,8 @@ public abstract class World implements IBlockAccess
         }
         else
         {
-            if (entityIn instanceof EntityPlayer)
+            if (entityIn instanceof EntityPlayer entityplayer)
             {
-                EntityPlayer entityplayer = (EntityPlayer)entityIn;
                 this.playerEntities.add(entityplayer);
                 this.updateAllPlayersSleepingFlag();
             }
@@ -1469,7 +1467,7 @@ public abstract class World implements IBlockAccess
             f12 = f12 * 0.45F;
             f3 = f3 * (1.0F - f12) + 0.8F * f12;
             f4 = f4 * (1.0F - f12) + 0.8F * f12;
-            f5 = f5 * (1.0F - f12) + 1.0F * f12;
+            f5 = f5 * (1.0F - f12) + f12;
         }
 
         return new Vec3(f3, f4, f5);
@@ -2733,10 +2731,7 @@ public abstract class World implements IBlockAccess
 
                     boolean flag = this.isWater(pos.west()) && this.isWater(pos.east()) && this.isWater(pos.north()) && this.isWater(pos.south());
 
-                    if (!flag)
-                    {
-                        return true;
-                    }
+                    return !flag;
                 }
             }
 
@@ -2771,10 +2766,7 @@ public abstract class World implements IBlockAccess
             {
                 Block block = this.getBlockState(pos).getBlock();
 
-                if (block.getMaterial() == Material.air && Blocks.snow_layer.canPlaceBlockAt(this, pos))
-                {
-                    return true;
-                }
+                return block.getMaterial() == Material.air && Blocks.snow_layer.canPlaceBlockAt(this, pos);
             }
 
             return false;
@@ -3620,7 +3612,7 @@ public abstract class World implements IBlockAccess
             }
             else
             {
-                return this.canSnowAt(strikePosition, false) ? false : biomegenbase.canRain();
+                return !this.canSnowAt(strikePosition, false) && biomegenbase.canRain();
             }
         }
     }
@@ -3753,7 +3745,7 @@ public abstract class World implements IBlockAccess
         {
             public String call()
             {
-                return World.this.playerEntities.size() + " total; " + World.this.playerEntities.toString();
+                return World.this.playerEntities.size() + " total; " + World.this.playerEntities;
             }
         });
         crashreportcategory.addCrashSectionCallable("Chunk stats", new Callable<String>()

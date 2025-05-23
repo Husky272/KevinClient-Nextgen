@@ -13,5 +13,5 @@ public class ModuleProvideNode {
     this.providers = providers;
   }
   
-  public void accept(ModuleVisitor moduleVisitor) { moduleVisitor.visitProvide(this.service, (String[])this.providers.toArray(new String[0])); }
+  public void accept(ModuleVisitor moduleVisitor) { moduleVisitor.visitProvide(this.service, this.providers.toArray(new String[0])); }
 }

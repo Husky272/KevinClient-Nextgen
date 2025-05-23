@@ -77,13 +77,12 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable
                     }
                     catch (RuntimeException runtimeexception)
                     {
-                        logger.warn("Invalid sounds.json", (Throwable)runtimeexception);
+                        logger.warn("Invalid sounds.json", runtimeexception);
                     }
                 }
             }
             catch (IOException var11)
             {
-                ;
             }
         }
     }
@@ -148,7 +147,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable
                     }
                     catch (IOException ioexception)
                     {
-                        logger.warn("Could not load sound file " + resourcelocation1 + ", cannot add it to event " + location, (Throwable)ioexception);
+                        logger.warn("Could not load sound file " + resourcelocation1 + ", cannot add it to event " + location, ioexception);
                         continue;
                     }
                     finally
@@ -156,7 +155,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable
                         IOUtils.closeQuietly(inputstream);
                     }
 
-                    isoundeventaccessor = new SoundEventAccessor(new SoundPoolEntry(resourcelocation1, (double)soundlist$soundentry.getSoundEntryPitch(), (double)soundlist$soundentry.getSoundEntryVolume(), soundlist$soundentry.isStreaming()), soundlist$soundentry.getSoundEntryWeight());
+                    isoundeventaccessor = new SoundEventAccessor(new SoundPoolEntry(resourcelocation1, soundlist$soundentry.getSoundEntryPitch(), soundlist$soundentry.getSoundEntryVolume(), soundlist$soundentry.isStreaming()), soundlist$soundentry.getSoundEntryWeight());
                     break;
 
                 case SOUND_EVENT:

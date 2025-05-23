@@ -36,7 +36,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter
     private GuiStats.StatsItem itemStats;
     private GuiStats.StatsBlock blockStats;
     private GuiStats.StatsMobsList mobStats;
-    private StatFileWriter field_146546_t;
+    private final StatFileWriter field_146546_t;
     private GuiSlot displaySlot;
 
     /** When true, the game will be paused when the gui is shown */
@@ -215,10 +215,10 @@ public class GuiStats extends GuiScreen implements IProgressMeter
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldrenderer.pos((double)(p_146527_1_ + 0), (double)(p_146527_2_ + 18), (double)this.zLevel).tex((double)((float)(p_146527_3_ + 0) * 0.0078125F), (double)((float)(p_146527_4_ + 18) * 0.0078125F)).endVertex();
-        worldrenderer.pos((double)(p_146527_1_ + 18), (double)(p_146527_2_ + 18), (double)this.zLevel).tex((double)((float)(p_146527_3_ + 18) * 0.0078125F), (double)((float)(p_146527_4_ + 18) * 0.0078125F)).endVertex();
-        worldrenderer.pos((double)(p_146527_1_ + 18), (double)(p_146527_2_ + 0), (double)this.zLevel).tex((double)((float)(p_146527_3_ + 18) * 0.0078125F), (double)((float)(p_146527_4_ + 0) * 0.0078125F)).endVertex();
-        worldrenderer.pos((double)(p_146527_1_ + 0), (double)(p_146527_2_ + 0), (double)this.zLevel).tex((double)((float)(p_146527_3_ + 0) * 0.0078125F), (double)((float)(p_146527_4_ + 0) * 0.0078125F)).endVertex();
+        worldrenderer.pos(p_146527_1_, p_146527_2_ + 18, this.zLevel).tex((float)(p_146527_3_) * 0.0078125F, (float)(p_146527_4_ + 18) * 0.0078125F).endVertex();
+        worldrenderer.pos(p_146527_1_ + 18, p_146527_2_ + 18, this.zLevel).tex((float)(p_146527_3_ + 18) * 0.0078125F, (float)(p_146527_4_ + 18) * 0.0078125F).endVertex();
+        worldrenderer.pos(p_146527_1_ + 18, p_146527_2_, this.zLevel).tex((float)(p_146527_3_ + 18) * 0.0078125F, (float)(p_146527_4_) * 0.0078125F).endVertex();
+        worldrenderer.pos(p_146527_1_, p_146527_2_, this.zLevel).tex((float)(p_146527_3_) * 0.0078125F, (float)(p_146527_4_) * 0.0078125F).endVertex();
         tessellator.draw();
     }
 
@@ -397,7 +397,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter
                         s = this.func_148210_b(2);
                     }
 
-                    s = ("" + I18n.format(s)).trim();
+                    s = (I18n.format(s)).trim();
 
                     if (s.length() > 0)
                     {
@@ -418,7 +418,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter
                 Item item = p_148213_1_.func_150959_a();
                 ItemStack itemstack = new ItemStack(item);
                 String s = itemstack.getUnlocalizedName();
-                String s1 = ("" + I18n.format(s + ".name")).trim();
+                String s1 = (I18n.format(s + ".name")).trim();
 
                 if (s1.length() > 0)
                 {

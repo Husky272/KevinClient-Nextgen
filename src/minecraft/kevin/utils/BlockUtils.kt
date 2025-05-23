@@ -40,13 +40,13 @@ object BlockUtils : MinecraftInstance() {
     }
 
     @JvmStatic
-    fun isReplaceable(blockPos: BlockPos) = getMaterial(blockPos)?.isReplaceable ?: false
+    fun isReplaceable(blockPos: BlockPos) = getMaterial(blockPos)?.isReplaceable == true
 
     @JvmStatic
     fun getState(blockPos: BlockPos): IBlockState? = mc.theWorld?.getBlockState(blockPos)
 
     @JvmStatic
-    fun canBeClicked(blockPos: BlockPos) = getBlock(blockPos)?.canCollideCheck(getState(blockPos), false) ?: false && mc.theWorld!!.worldBorder.contains(blockPos)
+    fun canBeClicked(blockPos: BlockPos) = getBlock(blockPos)?.canCollideCheck(getState(blockPos), false) == true && mc.theWorld!!.worldBorder.contains(blockPos)
 
     @JvmStatic
     fun getBlockName(id: Int): String = Block.getBlockById(id)!!.localizedName

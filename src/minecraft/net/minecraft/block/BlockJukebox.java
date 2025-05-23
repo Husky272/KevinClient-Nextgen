@@ -63,16 +63,15 @@ public class BlockJukebox extends BlockContainer
         {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof BlockJukebox.TileEntityJukebox)
+            if (tileentity instanceof TileEntityJukebox blockjukebox$tileentityjukebox)
             {
-                BlockJukebox.TileEntityJukebox blockjukebox$tileentityjukebox = (BlockJukebox.TileEntityJukebox)tileentity;
                 ItemStack itemstack = blockjukebox$tileentityjukebox.getRecord();
 
                 if (itemstack != null)
                 {
                     worldIn.playAuxSFX(1005, pos, 0);
-                    worldIn.playRecord(pos, (String)null);
-                    blockjukebox$tileentityjukebox.setRecord((ItemStack)null);
+                    worldIn.playRecord(pos, null);
+                    blockjukebox$tileentityjukebox.setRecord(null);
                     float f = 0.7F;
                     double d0 = (double)(worldIn.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
                     double d1 = (double)(worldIn.rand.nextFloat() * f) + (double)(1.0F - f) * 0.2D + 0.6D;

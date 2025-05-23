@@ -8,8 +8,8 @@ public class VertexFormatElement
     private static final Logger LOGGER = LogManager.getLogger();
     private final VertexFormatElement.EnumType type;
     private final VertexFormatElement.EnumUsage usage;
-    private int index;
-    private int elementCount;
+    private final int index;
+    private final int elementCount;
 
     public VertexFormatElement(int indexIn, VertexFormatElement.EnumType typeIn, VertexFormatElement.EnumUsage usageIn, int count)
     {
@@ -110,7 +110,7 @@ public class VertexFormatElement
         return i;
     }
 
-    public static enum EnumType
+    public enum EnumType
     {
         FLOAT(4, "Float", 5126),
         UBYTE(1, "Unsigned Byte", 5121),
@@ -124,7 +124,7 @@ public class VertexFormatElement
         private final String displayName;
         private final int glConstant;
 
-        private EnumType(int sizeIn, String displayNameIn, int glConstantIn)
+        EnumType(int sizeIn, String displayNameIn, int glConstantIn)
         {
             this.size = sizeIn;
             this.displayName = displayNameIn;
@@ -147,7 +147,7 @@ public class VertexFormatElement
         }
     }
 
-    public static enum EnumUsage
+    public enum EnumUsage
     {
         POSITION("Position"),
         NORMAL("Normal"),
@@ -159,7 +159,7 @@ public class VertexFormatElement
 
         private final String displayName;
 
-        private EnumUsage(String displayNameIn)
+        EnumUsage(String displayNameIn)
         {
             this.displayName = displayNameIn;
         }

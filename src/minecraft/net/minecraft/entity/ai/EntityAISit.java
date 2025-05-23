@@ -5,7 +5,7 @@ import net.minecraft.entity.passive.EntityTameable;
 
 public class EntityAISit extends EntityAIBase
 {
-    private EntityTameable theEntity;
+    private final EntityTameable theEntity;
 
     /** If the EntityTameable is sitting. */
     private boolean isSitting;
@@ -43,7 +43,7 @@ public class EntityAISit extends EntityAIBase
             }
             else
             {
-                return this.theEntity.getDistanceSqToEntity(entitylivingbase) < 144.0D && entitylivingbase.getAITarget() != null ? false : this.isSitting;
+                return (!(this.theEntity.getDistanceSqToEntity(entitylivingbase) < 144.0D) || entitylivingbase.getAITarget() == null) && this.isSitting;
             }
         }
     }

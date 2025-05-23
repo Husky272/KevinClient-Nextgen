@@ -50,7 +50,7 @@ public class LayeredColorMaskTexture extends AbstractTexture
 
             bufferedimage = new BufferedImage(bufferedimage1.getWidth(), bufferedimage1.getHeight(), i);
             Graphics graphics = bufferedimage.getGraphics();
-            graphics.drawImage(bufferedimage1, 0, 0, (ImageObserver)null);
+            graphics.drawImage(bufferedimage1, 0, 0, null);
 
             for (int j = 0; j < 17 && j < this.field_174949_h.size() && j < this.field_174950_i.size(); ++j)
             {
@@ -80,14 +80,14 @@ public class LayeredColorMaskTexture extends AbstractTexture
                             }
                         }
 
-                        bufferedimage.getGraphics().drawImage(bufferedimage2, 0, 0, (ImageObserver)null);
+                        bufferedimage.getGraphics().drawImage(bufferedimage2, 0, 0, null);
                     }
                 }
             }
         }
         catch (IOException ioexception1)
         {
-            LOG.error("Couldn't load layered image", (Throwable)ioexception1);
+            LOG.error("Couldn't load layered image", ioexception1);
             return;
         }
 

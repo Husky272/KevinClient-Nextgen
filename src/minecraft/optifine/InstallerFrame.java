@@ -85,7 +85,7 @@ public class InstallerFrame extends JFrame
         {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             InstallerFrame installerframe = new InstallerFrame();
-            Utils.centerWindow(installerframe, (Component)null);
+            Utils.centerWindow(installerframe, null);
 //            installerframe.show();
             installerframe.setVisible(true);
         }
@@ -108,7 +108,7 @@ public class InstallerFrame extends JFrame
             jtextarea.setFont(font1);
             JScrollPane jscrollpane = new JScrollPane(jtextarea);
             jscrollpane.setPreferredSize(new Dimension(600, 400));
-            JOptionPane.showMessageDialog((Component)null, jscrollpane, "Error", 0);
+            JOptionPane.showMessageDialog(null, jscrollpane, "Error", 0);
         }
     }
 
@@ -128,7 +128,7 @@ public class InstallerFrame extends JFrame
             jtextarea.setFont(font1);
             JScrollPane jscrollpane = new JScrollPane(jtextarea);
             jscrollpane.setPreferredSize(new Dimension(600, 400));
-            JOptionPane.showMessageDialog((Component)null, jscrollpane, "Error", 0);
+            JOptionPane.showMessageDialog(null, jscrollpane, "Error", 0);
         }
     }
 
@@ -186,7 +186,7 @@ public class InstallerFrame extends JFrame
             {
                 this.ivjPanelCenter = new JPanel();
                 this.ivjPanelCenter.setName("PanelCenter");
-                this.ivjPanelCenter.setLayout((LayoutManager)null);
+                this.ivjPanelCenter.setLayout(null);
                 this.ivjPanelCenter.add(this.getLabelOfVersion(), this.getLabelOfVersion().getName());
                 this.ivjPanelCenter.add(this.getLabelMcVersion(), this.getLabelMcVersion().getName());
                 this.ivjPanelCenter.add(this.getTextArea(), this.getTextArea().getName());

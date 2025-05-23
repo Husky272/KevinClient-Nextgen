@@ -20,7 +20,7 @@ public class JSONParser
     public static final int S_END = 6;
     public static final int S_IN_ERROR = -1;
     private LinkedList handlerStatusStack;
-    private Yylex lexer = new Yylex((Reader)null);
+    private final Yylex lexer = new Yylex((Reader)null);
     private Yytoken token = null;
     private int status = 0;
 
@@ -102,13 +102,13 @@ public class JSONParser
                         {
                             case 0:
                                 this.status = 1;
-                                linkedlist.addFirst(new Integer(this.status));
+                                linkedlist.addFirst(Integer.valueOf(this.status));
                                 linkedlist1.addFirst(this.token.value);
                                 break label65;
 
                             case 1:
                                 this.status = 2;
-                                linkedlist.addFirst(new Integer(this.status));
+                                linkedlist.addFirst(Integer.valueOf(this.status));
                                 linkedlist1.addFirst(this.createObjectContainer(containerFactory));
                                 break label65;
 
@@ -119,7 +119,7 @@ public class JSONParser
 
                             case 3:
                                 this.status = 3;
-                                linkedlist.addFirst(new Integer(this.status));
+                                linkedlist.addFirst(Integer.valueOf(this.status));
                                 linkedlist1.addFirst(this.createArrayContainer(containerFactory));
                                 break label65;
                         }
@@ -136,12 +136,11 @@ public class JSONParser
                         switch (this.token.type)
                         {
                             case 0:
-                                if (this.token.value instanceof String)
+                                if (this.token.value instanceof String s3)
                                 {
-                                    String s3 = (String)this.token.value;
                                     linkedlist1.addFirst(s3);
                                     this.status = 4;
-                                    linkedlist.addFirst(new Integer(this.status));
+                                    linkedlist.addFirst(Integer.valueOf(this.status));
                                 }
                                 else
                                 {
@@ -186,7 +185,7 @@ public class JSONParser
                                 Map map4 = this.createObjectContainer(containerFactory);
                                 list2.add(map4);
                                 this.status = 2;
-                                linkedlist.addFirst(new Integer(this.status));
+                                linkedlist.addFirst(Integer.valueOf(this.status));
                                 linkedlist1.addFirst(map4);
                                 break label65;
 
@@ -200,7 +199,7 @@ public class JSONParser
                                 List list4 = this.createArrayContainer(containerFactory);
                                 list1.add(list4);
                                 this.status = 3;
-                                linkedlist.addFirst(new Integer(this.status));
+                                linkedlist.addFirst(Integer.valueOf(this.status));
                                 linkedlist1.addFirst(list4);
                                 break label65;
 
@@ -238,7 +237,7 @@ public class JSONParser
                                 Map map1 = this.createObjectContainer(containerFactory);
                                 map2.put(s1, map1);
                                 this.status = 2;
-                                linkedlist.addFirst(new Integer(this.status));
+                                linkedlist.addFirst(Integer.valueOf(this.status));
                                 linkedlist1.addFirst(map1);
                                 break;
 
@@ -256,7 +255,7 @@ public class JSONParser
                                 List list = this.createArrayContainer(containerFactory);
                                 map.put(s, list);
                                 this.status = 3;
-                                linkedlist.addFirst(new Integer(this.status));
+                                linkedlist.addFirst(Integer.valueOf(this.status));
                                 linkedlist1.addFirst(list);
 
                             case 6:
@@ -288,7 +287,7 @@ public class JSONParser
 
         if (this.token == null)
         {
-            this.token = new Yytoken(-1, (Object)null);
+            this.token = new Yytoken(-1, null);
         }
     }
 
@@ -301,7 +300,7 @@ public class JSONParser
         else
         {
             Map map = containerFactory.createObjectContainer();
-            return (Map)(map == null ? new JSONObject() : map);
+            return map == null ? new JSONObject() : map;
         }
     }
 
@@ -314,7 +313,7 @@ public class JSONParser
         else
         {
             List list = containerFactory.creatArrayContainer();
-            return (List)(list == null ? new JSONArray() : list);
+            return list == null ? new JSONArray() : list;
         }
     }
 
@@ -377,7 +376,7 @@ public class JSONParser
                         {
                             case 0:
                                 this.status = 1;
-                                linkedlist.addFirst(new Integer(this.status));
+                                linkedlist.addFirst(Integer.valueOf(this.status));
 
                                 if (!contentHandler.primitive(this.token.value))
                                 {
@@ -388,7 +387,7 @@ public class JSONParser
 
                             case 1:
                                 this.status = 2;
-                                linkedlist.addFirst(new Integer(this.status));
+                                linkedlist.addFirst(Integer.valueOf(this.status));
 
                                 if (!contentHandler.startObject())
                                 {
@@ -404,7 +403,7 @@ public class JSONParser
 
                             case 3:
                                 this.status = 3;
-                                linkedlist.addFirst(new Integer(this.status));
+                                linkedlist.addFirst(Integer.valueOf(this.status));
 
                                 if (!contentHandler.startArray())
                                 {
@@ -433,11 +432,10 @@ public class JSONParser
                         switch (this.token.type)
                         {
                             case 0:
-                                if (this.token.value instanceof String)
+                                if (this.token.value instanceof String s)
                                 {
-                                    String s = (String)this.token.value;
                                     this.status = 4;
-                                    linkedlist.addFirst(new Integer(this.status));
+                                    linkedlist.addFirst(Integer.valueOf(this.status));
 
                                     if (!contentHandler.startObjectEntry(s))
                                     {
@@ -493,7 +491,7 @@ public class JSONParser
 
                             case 1:
                                 this.status = 2;
-                                linkedlist.addFirst(new Integer(this.status));
+                                linkedlist.addFirst(Integer.valueOf(this.status));
 
                                 if (!contentHandler.startObject())
                                 {
@@ -509,7 +507,7 @@ public class JSONParser
 
                             case 3:
                                 this.status = 3;
-                                linkedlist.addFirst(new Integer(this.status));
+                                linkedlist.addFirst(Integer.valueOf(this.status));
 
                                 if (!contentHandler.startArray())
                                 {
@@ -561,9 +559,9 @@ public class JSONParser
 
                             case 1:
                                 linkedlist.removeFirst();
-                                linkedlist.addFirst(new Integer(5));
+                                linkedlist.addFirst(Integer.valueOf(5));
                                 this.status = 2;
-                                linkedlist.addFirst(new Integer(this.status));
+                                linkedlist.addFirst(Integer.valueOf(this.status));
 
                                 if (!contentHandler.startObject())
                                 {
@@ -581,9 +579,9 @@ public class JSONParser
 
                             case 3:
                                 linkedlist.removeFirst();
-                                linkedlist.addFirst(new Integer(5));
+                                linkedlist.addFirst(Integer.valueOf(5));
                                 this.status = 3;
-                                linkedlist.addFirst(new Integer(this.status));
+                                linkedlist.addFirst(Integer.valueOf(this.status));
 
                                 if (!contentHandler.startArray())
                                 {
@@ -663,7 +661,7 @@ public class JSONParser
             {
                 int i = 6;
                 String s = input.substring(0, input.length() - i);
-                String s1 = input.substring(input.length() - i, input.length());
+                String s1 = input.substring(input.length() - i);
                 input = s + "GMT" + s1;
             }
 

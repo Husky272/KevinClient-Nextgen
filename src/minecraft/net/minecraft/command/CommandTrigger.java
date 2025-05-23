@@ -105,7 +105,7 @@ public class CommandTrigger extends CommandBase
 
                         if (entityplayermp.theItemInWorldManager.isCreative())
                         {
-                            notifyOperators(sender, this, "commands.trigger.success", new Object[] {args[0], args[1], args[2]});
+                            notifyOperators(sender, this, "commands.trigger.success", args[0], args[1], args[2]);
                         }
                     }
                 }
@@ -136,7 +136,7 @@ public class CommandTrigger extends CommandBase
         }
         else
         {
-            return args.length == 2 ? getListOfStringsMatchingLastWord(args, new String[] {"add", "set"}) : null;
+            return args.length == 2 ? getListOfStringsMatchingLastWord(args, "add", "set") : null;
         }
     }
 }

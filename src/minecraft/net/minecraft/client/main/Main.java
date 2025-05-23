@@ -66,7 +66,6 @@ public class Main
             }
             catch (Exception var46)
             {
-                ;
             }
         }
 

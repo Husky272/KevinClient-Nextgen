@@ -15,7 +15,7 @@ public class EratosthenesPrimes
     {
         if (maxNumber > lastInit)
         {
-            int i = (int)Math.ceil(Math.sqrt((double)maxNumber));
+            int i = (int)Math.ceil(Math.sqrt(maxNumber));
             lastInit = maxNumber;
             maxNumber = maxNumber >> 1;
             ++maxNumber;

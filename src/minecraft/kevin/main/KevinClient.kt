@@ -15,8 +15,6 @@
 
 package kevin.main
 
-//import kevin.module.modules.render.Renderer
-//import cn.a114.skid.AudioManager
 import kevin.cape.CapeManager
 import kevin.command.CommandManager
 import kevin.command.bind.BindCommandManager
@@ -58,7 +56,7 @@ object KevinClient {
 
     val debug = true
     private var wasStop = false
-    val lwjglversion = /*org.lwjgl.Sys.getVersion()!!*/"2.9.4";
+    val lwjglversion = /*org.lwjgl.Sys.getVersion()!!*/"2.9.4"
 
 
     lateinit var moduleManager: ModuleManager
@@ -78,7 +76,7 @@ object KevinClient {
     val pool: ExecutorService = Executors.newCachedThreadPool()
 
     @JvmStatic
-    public var cStart = "[Kevin]"
+    var cStart = "[Kevin]"
 
     fun run() {
 
@@ -135,7 +133,6 @@ object KevinClient {
         isStarting = false
         // ?!
         Runtime.getRuntime().addShutdownHook(Thread(/* task = */ ::stop))
-        logger.info("Client loaded, enjoy the hack!")
     }
 
     fun stop() {

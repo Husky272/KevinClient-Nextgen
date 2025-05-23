@@ -18,23 +18,23 @@ public class Line extends Shape {
 	private float lenSquared;
 
 	/** Temporary storage - declared globally to reduce GC */
-	private Vector2f loc = new Vector2f(0, 0);
+	private final Vector2f loc = new Vector2f(0, 0);
 	/** Temporary storage - declared globally to reduce GC */
-	private Vector2f v = new Vector2f(0, 0);
+	private final Vector2f v = new Vector2f(0, 0);
 	/** Temporary storage - declared globally to reduce GC */
-	private Vector2f v2 = new Vector2f(0, 0);
+	private final Vector2f v2 = new Vector2f(0, 0);
 	/** Temporary storage - declared globally to reduce GC */
-	private Vector2f proj = new Vector2f(0, 0);
+	private final Vector2f proj = new Vector2f(0, 0);
 
 	/** Temporary storage - declared globally to reduce GC */
-	private Vector2f closest = new Vector2f(0, 0);
+	private final Vector2f closest = new Vector2f(0, 0);
 	/** Temporary storage - declared globally to reduce GC */
-	private Vector2f other = new Vector2f(0, 0);
+	private final Vector2f other = new Vector2f(0, 0);
 
 	/** True if this line blocks on the outer edge */
-	private boolean outerEdge = true;
+	private final boolean outerEdge = true;
 	/** True if this line blocks on the inner edge */
-	private boolean innerEdge = true;
+	private final boolean innerEdge = true;
 
 	/**
 	 * Create a new line based on the origin and a single point

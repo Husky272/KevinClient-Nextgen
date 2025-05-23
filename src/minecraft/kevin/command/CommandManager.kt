@@ -102,6 +102,6 @@ class CommandManager {
     }
 
     fun registerCommand(arr: Array<String>, commandObject: ICommand) {
-        commands[arr] = commandObject;
+        commands[arr] = commandObject
     }
 }

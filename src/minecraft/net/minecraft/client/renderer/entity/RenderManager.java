@@ -112,9 +112,9 @@ import net.optifine.reflect.Reflector;
 public class RenderManager
 {
     private Map<Class, Render> entityRenderMap = Maps.newHashMap();
-    private Map<String, RenderPlayer> skinMap = Maps.newHashMap();
-    private RenderPlayer playerRenderer;
-    private Renderer.RenderFox renderFox;
+    private final Map<String, RenderPlayer> skinMap = Maps.newHashMap();
+    private final RenderPlayer playerRenderer;
+    private final Renderer.RenderFox renderFox;
 
     /** Renders fonts */
     private FontRenderer textRenderer;
@@ -364,7 +364,7 @@ public class RenderManager
 
         int j = i % 65536;
         int k = i / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j / 1.0F, (float)k / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         return this.doRenderEntity(entity, d0 - this.renderPosX, d1 - this.renderPosY, d2 - this.renderPosZ, f, partialTicks, hideDebugBox);
     }
@@ -381,7 +381,7 @@ public class RenderManager
             int i = entityIn.getBrightnessForRender(partialTicks);
             int j = i % 65536;
             int k = i / 65536;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j / 1.0F, (float)k / 1.0F);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             render.renderName(entityIn, d0 - this.renderPosX, d1 - this.renderPosY, d2 - this.renderPosZ);
         }
@@ -445,10 +445,7 @@ public class RenderManager
                     }
                 }
             }
-            else if (this.renderEngine != null)
-            {
-                return false;
-            }
+            else return this.renderEngine == null;
 
             return true;
         }

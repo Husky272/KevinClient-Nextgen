@@ -47,7 +47,7 @@ public class GuiSnooper extends GuiScreen
 
         for (Entry<String, String> entry : (new TreeMap<>(this.mc.getPlayerUsageSnooper().getCurrentStats())).entrySet())
         {
-            this.field_146604_g.add((flag ? "C " : "") + (String)entry.getKey());
+            this.field_146604_g.add((flag ? "C " : "") + entry.getKey());
             this.field_146609_h.add(this.fontRendererObj.trimStringToWidth(entry.getValue(), this.width - 220));
         }
 
@@ -55,7 +55,7 @@ public class GuiSnooper extends GuiScreen
         {
             for (Entry<String, String> entry1 : (new TreeMap<>(this.mc.getIntegratedServer().getPlayerUsageSnooper().getCurrentStats())).entrySet())
             {
-                this.field_146604_g.add("S " + (String)entry1.getKey());
+                this.field_146604_g.add("S " + entry1.getKey());
                 this.field_146609_h.add(this.fontRendererObj.trimStringToWidth(entry1.getValue(), this.width - 220));
             }
         }

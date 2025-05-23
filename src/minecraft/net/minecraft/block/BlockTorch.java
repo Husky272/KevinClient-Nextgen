@@ -277,7 +277,7 @@ public class BlockTorch extends Block
     {
         int i = 0;
 
-        switch ((EnumFacing)state.getValue(FACING))
+        switch (state.getValue(FACING))
         {
             case EAST:
                 i = i | 1;

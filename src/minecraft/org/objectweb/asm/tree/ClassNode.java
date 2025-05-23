@@ -168,20 +168,20 @@ public class ClassNode extends ClassVisitor {
     } 
     if (this.visibleAnnotations != null)
       for (int i = this.visibleAnnotations.size() - 1; i >= 0; i--)
-        ((AnnotationNode)this.visibleAnnotations.get(i)).check(api);  
+        this.visibleAnnotations.get(i).check(api);
     if (this.invisibleAnnotations != null)
       for (int i = this.invisibleAnnotations.size() - 1; i >= 0; i--)
-        ((AnnotationNode)this.invisibleAnnotations.get(i)).check(api);  
+        this.invisibleAnnotations.get(i).check(api);
     if (this.visibleTypeAnnotations != null)
       for (int i = this.visibleTypeAnnotations.size() - 1; i >= 0; i--)
-        ((TypeAnnotationNode)this.visibleTypeAnnotations.get(i)).check(api);  
+        this.visibleTypeAnnotations.get(i).check(api);
     if (this.invisibleTypeAnnotations != null)
       for (int i = this.invisibleTypeAnnotations.size() - 1; i >= 0; i--)
-        ((TypeAnnotationNode)this.invisibleTypeAnnotations.get(i)).check(api);  
+        this.invisibleTypeAnnotations.get(i).check(api);
     for (int i = this.fields.size() - 1; i >= 0; i--)
-      ((FieldNode)this.fields.get(i)).check(api); 
+      this.fields.get(i).check(api);
     for (int i = this.methods.size() - 1; i >= 0; i--)
-      ((MethodNode)this.methods.get(i)).check(api); 
+      this.methods.get(i).check(api);
   }
   
   public void accept(ClassVisitor classVisitor) {
@@ -198,38 +198,38 @@ public class ClassNode extends ClassVisitor {
       classVisitor.visitOuterClass(this.outerClass, this.outerMethod, this.outerMethodDesc); 
     if (this.visibleAnnotations != null)
       for (int i = 0, n = this.visibleAnnotations.size(); i < n; i++) {
-        AnnotationNode annotation = (AnnotationNode)this.visibleAnnotations.get(i);
+        AnnotationNode annotation = this.visibleAnnotations.get(i);
         annotation.accept(classVisitor.visitAnnotation(annotation.desc, true));
       }  
     if (this.invisibleAnnotations != null)
       for (int i = 0, n = this.invisibleAnnotations.size(); i < n; i++) {
-        AnnotationNode annotation = (AnnotationNode)this.invisibleAnnotations.get(i);
+        AnnotationNode annotation = this.invisibleAnnotations.get(i);
         annotation.accept(classVisitor.visitAnnotation(annotation.desc, false));
       }  
     if (this.visibleTypeAnnotations != null)
       for (int i = 0, n = this.visibleTypeAnnotations.size(); i < n; i++) {
-        TypeAnnotationNode typeAnnotation = (TypeAnnotationNode)this.visibleTypeAnnotations.get(i);
+        TypeAnnotationNode typeAnnotation = this.visibleTypeAnnotations.get(i);
         typeAnnotation.accept(classVisitor
             .visitTypeAnnotation(typeAnnotation.typeRef, typeAnnotation.typePath, typeAnnotation.desc, true));
       }  
     if (this.invisibleTypeAnnotations != null)
       for (int i = 0, n = this.invisibleTypeAnnotations.size(); i < n; i++) {
-        TypeAnnotationNode typeAnnotation = (TypeAnnotationNode)this.invisibleTypeAnnotations.get(i);
+        TypeAnnotationNode typeAnnotation = this.invisibleTypeAnnotations.get(i);
         typeAnnotation.accept(classVisitor
             .visitTypeAnnotation(typeAnnotation.typeRef, typeAnnotation.typePath, typeAnnotation.desc, false));
       }  
     if (this.attrs != null)
       for (int i = 0, n = this.attrs.size(); i < n; i++)
-        classVisitor.visitAttribute((Attribute)this.attrs.get(i));  
+        classVisitor.visitAttribute(this.attrs.get(i));
     if (this.nestMembers != null)
       for (int i = 0, n = this.nestMembers.size(); i < n; i++)
-        classVisitor.visitNestMember((String)this.nestMembers.get(i));  
+        classVisitor.visitNestMember(this.nestMembers.get(i));
     for (int i = 0, n = this.innerClasses.size(); i < n; i++)
-      ((InnerClassNode)this.innerClasses.get(i)).accept(classVisitor); 
+      this.innerClasses.get(i).accept(classVisitor);
     for (int i = 0, n = this.fields.size(); i < n; i++)
-      ((FieldNode)this.fields.get(i)).accept(classVisitor); 
+      this.fields.get(i).accept(classVisitor);
     for (int i = 0, n = this.methods.size(); i < n; i++)
-      ((MethodNode)this.methods.get(i)).accept(classVisitor); 
+      this.methods.get(i).accept(classVisitor);
     classVisitor.visitEnd();
   }
 }

@@ -47,12 +47,12 @@ public abstract class EntityLiving extends EntityLivingBase
 
     /** The experience points the Entity gives. */
     protected int experienceValue;
-    private EntityLookHelper lookHelper;
+    private final EntityLookHelper lookHelper;
     protected EntityMoveHelper moveHelper;
 
     /** Entity jumping helper */
     protected EntityJumpHelper jumpHelper;
-    private EntityBodyHelper bodyHelper;
+    private final EntityBodyHelper bodyHelper;
     protected PathNavigate navigator;
 
     /** Passive tasks (wandering, look, idle, ...) */
@@ -63,10 +63,10 @@ public abstract class EntityLiving extends EntityLivingBase
 
     /** The active target the Task system uses for tracking */
     private EntityLivingBase attackTarget;
-    private EntitySenses senses;
+    private final EntitySenses senses;
 
     /** Equipment (armor and held item) for this entity. */
-    private ItemStack[] equipment = new ItemStack[5];
+    private final ItemStack[] equipment = new ItemStack[5];
 
     /** Chances for each equipment piece from dropping when this entity dies. */
     protected float[] equipmentDropChances = new float[5];
@@ -506,10 +506,8 @@ public abstract class EntityLiving extends EntityLivingBase
                     {
                         flag = true;
                     }
-                    else if (itemstack.getItem() instanceof ItemSword && itemstack1.getItem() instanceof ItemSword)
+                    else if (itemstack.getItem() instanceof ItemSword itemsword && itemstack1.getItem() instanceof ItemSword itemsword1)
                     {
-                        ItemSword itemsword = (ItemSword)itemstack.getItem();
-                        ItemSword itemsword1 = (ItemSword)itemstack1.getItem();
 
                         if (itemsword.getDamageVsEntity() != itemsword1.getDamageVsEntity())
                         {
@@ -533,10 +531,8 @@ public abstract class EntityLiving extends EntityLivingBase
                 {
                     flag = true;
                 }
-                else if (itemstack.getItem() instanceof ItemArmor && itemstack1.getItem() instanceof ItemArmor)
+                else if (itemstack.getItem() instanceof ItemArmor itemarmor && itemstack1.getItem() instanceof ItemArmor itemarmor1)
                 {
-                    ItemArmor itemarmor = (ItemArmor)itemstack.getItem();
-                    ItemArmor itemarmor1 = (ItemArmor)itemstack1.getItem();
 
                     if (itemarmor.damageReduceAmount != itemarmor1.damageReduceAmount)
                     {
@@ -680,9 +676,8 @@ public abstract class EntityLiving extends EntityLivingBase
         double d1 = entityIn.posZ - this.posZ;
         double d2;
 
-        if (entityIn instanceof EntityLivingBase)
+        if (entityIn instanceof EntityLivingBase entitylivingbase)
         {
-            EntityLivingBase entitylivingbase = (EntityLivingBase)entityIn;
             d2 = entitylivingbase.posY + (double)entitylivingbase.getEyeHeight() - (this.posY + (double)this.getEyeHeight());
         }
         else
@@ -690,7 +685,7 @@ public abstract class EntityLiving extends EntityLivingBase
             d2 = (entityIn.getEntityBoundingBox().minY + entityIn.getEntityBoundingBox().maxY) / 2.0D - (this.posY + (double)this.getEyeHeight());
         }
 
-        double d3 = (double)MathHelper.sqrt_double(d0 * d0 + d1 * d1);
+        double d3 = MathHelper.sqrt_double(d0 * d0 + d1 * d1);
         float f = (float)(MathHelper.atan2(d1, d0) * 180.0D / Math.PI) - 90.0F;
         float f1 = (float)(-(MathHelper.atan2(d2, d3) * 180.0D / Math.PI));
         this.rotationPitch = this.updateRotation(this.rotationPitch, f1, p_70625_3_);
@@ -1126,7 +1121,7 @@ public abstract class EntityLiving extends EntityLivingBase
                 }
             }
 
-            return this.interact(playerIn) ? true : super.interactFirst(playerIn);
+            return this.interact(playerIn) || super.interactFirst(playerIn);
         }
     }
 
@@ -1179,7 +1174,7 @@ public abstract class EntityLiving extends EntityLivingBase
 
             if (!this.worldObj.isRemote && sendPacket && this.worldObj instanceof WorldServer)
             {
-                ((WorldServer)this.worldObj).getEntityTracker().sendToAllTrackingEntity(this, new S1BPacketEntityAttach(1, this, (Entity)null));
+                ((WorldServer)this.worldObj).getEntityTracker().sendToAllTrackingEntity(this, new S1BPacketEntityAttach(1, this, null));
             }
         }
     }
@@ -1371,10 +1366,10 @@ public abstract class EntityLiving extends EntityLivingBase
         return this.worldObj.getScoreboard().getPlayersTeam(this.teamUuidString);
     }
 
-    public static enum SpawnPlacementType
+    public enum SpawnPlacementType
     {
         ON_GROUND,
         IN_AIR,
-        IN_WATER;
+        IN_WATER
     }
 }

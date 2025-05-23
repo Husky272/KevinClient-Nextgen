@@ -31,9 +31,9 @@ public class EntityBubbleFX extends EntityFX
         this.prevPosZ = this.posZ;
         this.motionY += 0.002D;
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
-        this.motionX *= (double)0.85F;
-        this.motionY *= (double)0.85F;
-        this.motionZ *= (double)0.85F;
+        this.motionX *= 0.85F;
+        this.motionY *= 0.85F;
+        this.motionZ *= 0.85F;
 
         if (this.worldObj.getBlockState(new BlockPos(this)).getBlock().getMaterial() != Material.water)
         {

@@ -19,19 +19,19 @@ public class DynamicLight
 {
     private Entity entity = null;
     private double offsetY = 0.0D;
-    private double lastPosX = (double) -2.14748365E9F;
-    private double lastPosY = (double) -2.14748365E9F;
-    private double lastPosZ = (double) -2.14748365E9F;
+    private double lastPosX = -2.14748365E9F;
+    private double lastPosY = -2.14748365E9F;
+    private double lastPosZ = -2.14748365E9F;
     private int lastLightLevel = 0;
     private boolean underwater = false;
     private long timeCheckMs = 0L;
     private Set<BlockPos> setLitChunkPos = new HashSet<>();
-    private BlockPos.MutableBlockPos blockPosMutable = new BlockPos.MutableBlockPos();
+    private final BlockPos.MutableBlockPos blockPosMutable = new BlockPos.MutableBlockPos();
 
     public DynamicLight(Entity entity)
     {
         this.entity = entity;
-        this.offsetY = (double)entity.getEyeHeight();
+        this.offsetY = entity.getEyeHeight();
     }
 
     public void update(RenderGlobal renderGlobal)
@@ -147,7 +147,7 @@ public class DynamicLight
         for (BlockPos blockpos : this.setLitChunkPos)
         {
             RenderChunk renderchunk = renderGlobal.getRenderChunk(blockpos);
-            this.updateChunkLight(renderchunk, (Set<BlockPos>)null, (Set<BlockPos>)null);
+            this.updateChunkLight(renderchunk, null, null);
         }
     }
 

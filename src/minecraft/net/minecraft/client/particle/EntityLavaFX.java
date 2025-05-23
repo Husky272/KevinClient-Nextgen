@@ -8,15 +8,15 @@ import net.minecraft.world.World;
 
 public class EntityLavaFX extends EntityFX
 {
-    private float lavaParticleScale;
+    private final float lavaParticleScale;
 
     protected EntityLavaFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn)
     {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-        this.motionX *= (double)0.8F;
-        this.motionY *= (double)0.8F;
-        this.motionZ *= (double)0.8F;
-        this.motionY = (double)(this.rand.nextFloat() * 0.4F + 0.05F);
+        this.motionX *= 0.8F;
+        this.motionY *= 0.8F;
+        this.motionZ *= 0.8F;
+        this.motionY = this.rand.nextFloat() * 0.4F + 0.05F;
         this.particleRed = this.particleGreen = this.particleBlue = 1.0F;
         this.particleScale *= this.rand.nextFloat() * 2.0F + 0.2F;
         this.lavaParticleScale = this.particleScale;
@@ -76,14 +76,14 @@ public class EntityLavaFX extends EntityFX
 
         this.motionY -= 0.03D;
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
-        this.motionX *= (double)0.999F;
-        this.motionY *= (double)0.999F;
-        this.motionZ *= (double)0.999F;
+        this.motionX *= 0.999F;
+        this.motionY *= 0.999F;
+        this.motionZ *= 0.999F;
 
         if (this.onGround)
         {
-            this.motionX *= (double)0.7F;
-            this.motionZ *= (double)0.7F;
+            this.motionX *= 0.7F;
+            this.motionZ *= 0.7F;
         }
     }
 

@@ -13,10 +13,10 @@ public class ContainerWorkbench extends Container
     /** The crafting matrix inventory (3x3). */
     public InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
     public IInventory craftResult = new InventoryCraftResult();
-    private World worldObj;
+    private final World worldObj;
 
     /** Position of the workbench */
-    private BlockPos pos;
+    private final BlockPos pos;
 
     public ContainerWorkbench(InventoryPlayer playerInventory, World worldIn, BlockPos posIn)
     {
@@ -132,7 +132,7 @@ public class ContainerWorkbench extends Container
 
             if (itemstack1.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack(null);
             }
             else
             {

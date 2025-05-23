@@ -19,7 +19,7 @@ import org.newdawn.slick.util.ResourceLoader;
  */
 public class CursorLoader {
 	/** The single instnace of this loader to exist */
-	private static CursorLoader single = new CursorLoader();
+	private static final CursorLoader single = new CursorLoader();
 
 	/**
 	 * Retrieve the single instance of this loader - convinient huh?

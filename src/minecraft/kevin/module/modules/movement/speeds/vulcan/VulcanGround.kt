@@ -56,7 +56,7 @@ object VulcanGround : SpeedMode("VulcanGround") {
     override fun onPacket(event: PacketEvent) {
         val packet = event.packet
         if (packet is C03PacketPlayer) {
-            packet.y += yMotion;
+            packet.y += yMotion
         }
     }
 

@@ -157,7 +157,7 @@ extends CFont {
                 if (underline) {
                     this.drawLine(x2, y2 + (double)currentData[character].height - 2.0, x2 + (double)currentData[character].width - 8.0, y2 + (double)currentData[character].height - 2.0, 1.0f);
                 }
-                x2 += (double)(currentData[character].width - 8.3f + this.charOffset);
+                x2 += currentData[character].width - 8.3f + this.charOffset;
             }
             ++i2;
         }
@@ -273,7 +273,7 @@ extends CFont {
                 }
                 ++i;
             } else if (character < currentData.length && character >= '\u0000') {
-                GL11.glBegin((int)4);
+                GL11.glBegin(4);
                 this.drawChar(currentData, character, (float)x, (float)y);
                 GL11.glEnd();
                 if (strikethrough) {
@@ -282,7 +282,7 @@ extends CFont {
                 if (underline) {
                     this.drawLine(x, y + (double)currentData[character].height - 2.0, x + (double)currentData[character].width - 8.0, y + (double)currentData[character].height - 2.0, 1.0f);
                 }
-                x += (double)(currentData[character].width - 8 + this.charOffset);
+                x += currentData[character].width - 8 + this.charOffset;
             }
             ++i;
         }
@@ -365,13 +365,13 @@ extends CFont {
     }
 
     private void drawLine(double x, double y, double x1, double y1, float width) {
-        GL11.glDisable((int)3553);
-        GL11.glLineWidth((float)width);
-        GL11.glBegin((int)1);
-        GL11.glVertex2d((double)x, (double)y);
-        GL11.glVertex2d((double)x1, (double)y1);
+        GL11.glDisable(3553);
+        GL11.glLineWidth(width);
+        GL11.glBegin(1);
+        GL11.glVertex2d(x, y);
+        GL11.glVertex2d(x1, y1);
         GL11.glEnd();
-        GL11.glEnable((int)3553);
+        GL11.glEnable(3553);
     }
 
     public List<String> wrapWords(String text, double width) {
@@ -386,24 +386,24 @@ extends CFont {
             while (n2 < n) {
                 String word = arrstring[n2];
                 int i = 0;
-                while (i < word.toCharArray().length) {
+                while (i < word.length()) {
                     char c = word.toCharArray()[i];
-                    if (c == '\u00a7' && i < word.toCharArray().length - 1) {
+                    if (c == '\u00a7' && i < word.length() - 1) {
                         lastColorCode = word.toCharArray()[i + 1];
                     }
                     ++i;
                 }
-                if ((double)this.getStringWidth(String.valueOf(currentWord) + word + " ") < width) {
-                    currentWord = String.valueOf(currentWord) + word + " ";
+                if ((double)this.getStringWidth(currentWord + word + " ") < width) {
+                    currentWord = currentWord + word + " ";
                 } else {
                     finalWords.add(currentWord);
-                    currentWord = String.valueOf(167 + lastColorCode) + word + " ";
+                    currentWord = 167 + lastColorCode + word + " ";
                 }
                 ++n2;
             }
             if (currentWord.length() > 0) {
                 if ((double)this.getStringWidth(currentWord) < width) {
-                    finalWords.add(String.valueOf(167 + lastColorCode) + currentWord + " ");
+                    finalWords.add(167 + lastColorCode + currentWord + " ");
                     currentWord = "";
                 } else {
                     for (String s : this.formatString(currentWord, width)) {
@@ -428,11 +428,11 @@ extends CFont {
             if (c == '\u00a7' && i < chars.length - 1) {
                 lastColorCode = chars[i + 1];
             }
-            if ((double)this.getStringWidth(String.valueOf(currentWord) + c) < width) {
-                currentWord = String.valueOf(currentWord) + c;
+            if ((double)this.getStringWidth(currentWord + c) < width) {
+                currentWord = currentWord + c;
             } else {
                 finalWords.add(currentWord);
-                currentWord = String.valueOf(167 + lastColorCode) + String.valueOf(c);
+                currentWord = String.valueOf(167 + lastColorCode) + c;
             }
             ++i;
         }

@@ -44,7 +44,7 @@ public class BlockLadder extends Block
         {
             float f = 0.125F;
 
-            switch ((EnumFacing)iblockstate.getValue(FACING))
+            switch (iblockstate.getValue(FACING))
             {
                 case NORTH:
                     this.setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);

@@ -62,6 +62,6 @@ public class CommandListBans extends CommandBase
 
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
     {
-        return args.length == 1 ? getListOfStringsMatchingLastWord(args, new String[] {"players", "ips"}) : null;
+        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "players", "ips") : null;
     }
 }

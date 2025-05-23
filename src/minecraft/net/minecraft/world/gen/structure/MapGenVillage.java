@@ -17,7 +17,7 @@ public class MapGenVillage extends MapGenStructure
     /** World terrain type, 0 for normal, 1 for flat map */
     private int terrainType;
     private int field_82665_g = 32;
-    private int field_82666_h = 8;
+    private final int field_82666_h = 8;
 
     public MapGenVillage()
     {
@@ -72,10 +72,7 @@ public class MapGenVillage extends MapGenStructure
         {
             boolean flag = this.worldObj.getWorldChunkManager().areBiomesViable(i * 16 + 8, j * 16 + 8, 0, villageSpawnBiomes);
 
-            if (flag)
-            {
-                return true;
-            }
+            return flag;
         }
 
         return false;

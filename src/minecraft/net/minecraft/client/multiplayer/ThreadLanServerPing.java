@@ -54,7 +54,6 @@ public class ThreadLanServerPing extends Thread
             }
             catch (InterruptedException var5)
             {
-                ;
             }
         }
     }

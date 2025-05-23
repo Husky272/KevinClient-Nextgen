@@ -96,8 +96,8 @@ public class ShadowUtils {
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
             worldrenderer.pos(0.0D, f1, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
-            worldrenderer.pos(f, f1, 0.0D).tex((double)f2, 0.0D).color(255, 255, 255, 255).endVertex();
-            worldrenderer.pos(f, 0.0D, 0.0D).tex((double)f2, f3).color(255, 255, 255, 255).endVertex();
+            worldrenderer.pos(f, f1, 0.0D).tex(f2, 0.0D).color(255, 255, 255, 255).endVertex();
+            worldrenderer.pos(f, 0.0D, 0.0D).tex(f2, f3).color(255, 255, 255, 255).endVertex();
             worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, f3).color(255, 255, 255, 255).endVertex();
             tessellator.draw();
             blackBuffer.unbindFramebufferTexture();

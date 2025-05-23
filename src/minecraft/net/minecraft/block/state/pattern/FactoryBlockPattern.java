@@ -28,7 +28,7 @@ public class FactoryBlockPattern
 
     public FactoryBlockPattern aisle(String... aisle)
     {
-        if (!ArrayUtils.isEmpty((Object[])aisle) && !StringUtils.isEmpty(aisle[0]))
+        if (!ArrayUtils.isEmpty(aisle) && !StringUtils.isEmpty(aisle[0]))
         {
             if (this.depth.isEmpty())
             {
@@ -53,7 +53,7 @@ public class FactoryBlockPattern
                     {
                         if (!this.symbolMap.containsKey(c0))
                         {
-                            this.symbolMap.put(c0, (Predicate<BlockWorldState>)null);
+                            this.symbolMap.put(c0, null);
                         }
                     }
                 }

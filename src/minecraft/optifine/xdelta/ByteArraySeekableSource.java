@@ -33,14 +33,14 @@ public class ByteArraySeekableSource implements SeekableSource
             }
 
             System.arraycopy(this.source, (int)this.lastPos, b, off, len);
-            this.lastPos += (long)len;
+            this.lastPos += len;
             return len;
         }
     }
 
     public long length() throws IOException
     {
-        return (long)this.source.length;
+        return this.source.length;
     }
 
     public void close() throws IOException

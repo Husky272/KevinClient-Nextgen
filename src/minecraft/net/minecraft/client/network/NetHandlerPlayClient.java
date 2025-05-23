@@ -1162,9 +1162,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         {
             boolean flag = false;
 
-            if (this.gameController.currentScreen instanceof GuiContainerCreative)
+            if (this.gameController.currentScreen instanceof GuiContainerCreative guicontainercreative)
             {
-                GuiContainerCreative guicontainercreative = (GuiContainerCreative)this.gameController.currentScreen;
                 flag = guicontainercreative.getSelectedTabIndex() != CreativeTabs.tabInventory.getTabIndex();
             }
 
@@ -1259,9 +1258,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         {
             TileEntity tileentity = this.gameController.theWorld.getTileEntity(packetIn.getPos());
 
-            if (tileentity instanceof TileEntitySign)
+            if (tileentity instanceof TileEntitySign tileentitysign)
             {
-                TileEntitySign tileentitysign = (TileEntitySign)tileentity;
 
                 if (tileentitysign.getIsEditable())
                 {
@@ -1440,7 +1438,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         }
         else if (i == 10)
         {
-            this.clientWorldController.spawnParticle(EnumParticleTypes.MOB_APPEARANCE, entityplayer.posX, entityplayer.posY, entityplayer.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+            this.clientWorldController.spawnParticle(EnumParticleTypes.MOB_APPEARANCE, entityplayer.posX, entityplayer.posY, entityplayer.posZ, 0.0D, 0.0D, 0.0D);
             this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY, entityplayer.posZ, "mob.guardian.curse", 1.0F, 1.0F, false);
         }
     }
@@ -1705,9 +1703,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
         String[] astring = packetIn.func_149630_c();
 
-        if (this.gameController.currentScreen instanceof GuiChat)
+        if (this.gameController.currentScreen instanceof GuiChat guichat)
         {
-            GuiChat guichat = (GuiChat)this.gameController.currentScreen;
             guichat.onAutocompleteResponse(astring);
         }
     }

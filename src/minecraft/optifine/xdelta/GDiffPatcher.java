@@ -40,7 +40,7 @@ public class GDiffPatcher
 
     public GDiffPatcher(byte[] source, InputStream patch, OutputStream output) throws IOException, PatchException
     {
-        this((SeekableSource)(new ByteArraySeekableSource(source)), patch, output);
+        this(new ByteArraySeekableSource(source), patch, output);
     }
 
     public GDiffPatcher(SeekableSource source, InputStream patch, OutputStream out) throws IOException, PatchException
@@ -103,42 +103,42 @@ public class GDiffPatcher
                         case 249:
                             l = datainputstream.readUnsignedShort();
                             k = datainputstream.readUnsignedByte();
-                            copy((long)l, k, source, dataoutputstream);
+                            copy(l, k, source, dataoutputstream);
                             i += 4;
                             break;
 
                         case 250:
                             l = datainputstream.readUnsignedShort();
                             k = datainputstream.readUnsignedShort();
-                            copy((long)l, k, source, dataoutputstream);
+                            copy(l, k, source, dataoutputstream);
                             i += 5;
                             break;
 
                         case 251:
                             l = datainputstream.readUnsignedShort();
                             k = datainputstream.readInt();
-                            copy((long)l, k, source, dataoutputstream);
+                            copy(l, k, source, dataoutputstream);
                             i += 7;
                             break;
 
                         case 252:
                             l = datainputstream.readInt();
                             k = datainputstream.readUnsignedByte();
-                            copy((long)l, k, source, dataoutputstream);
+                            copy(l, k, source, dataoutputstream);
                             i += 8;
                             break;
 
                         case 253:
                             l = datainputstream.readInt();
                             k = datainputstream.readUnsignedShort();
-                            copy((long)l, k, source, dataoutputstream);
+                            copy(l, k, source, dataoutputstream);
                             i += 7;
                             break;
 
                         case 254:
                             l = datainputstream.readInt();
                             k = datainputstream.readInt();
-                            copy((long)l, k, source, dataoutputstream);
+                            copy(l, k, source, dataoutputstream);
                             i += 9;
                             break;
 

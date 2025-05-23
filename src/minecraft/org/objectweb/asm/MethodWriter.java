@@ -138,7 +138,7 @@ final class MethodWriter extends MethodVisitor {
 
   public AnnotationVisitor visitAnnotationDefault() {
     this.defaultValue = new ByteVector();
-    return new AnnotationWriter(this.symbolTable, false, this.defaultValue, (AnnotationWriter)null);
+    return new AnnotationWriter(this.symbolTable, false, this.defaultValue, null);
   }
 
   public AnnotationVisitor visitAnnotation(String descriptor, boolean visible) {
@@ -342,7 +342,7 @@ final class MethodWriter extends MethodVisitor {
 
         this.relativeStackSize = size;
       } else {
-        this.currentBasicBlock.frame.execute(opcode, 0, (Symbol)null, (SymbolTable)null);
+        this.currentBasicBlock.frame.execute(opcode, 0, null, null);
       }
 
       if(opcode >= 172 && opcode <= 177 || opcode == 191) {
@@ -371,7 +371,7 @@ final class MethodWriter extends MethodVisitor {
           this.relativeStackSize = size;
         }
       } else {
-        this.currentBasicBlock.frame.execute(opcode, operand, (Symbol)null, (SymbolTable)null);
+        this.currentBasicBlock.frame.execute(opcode, operand, null, null);
       }
     }
 
@@ -409,7 +409,7 @@ final class MethodWriter extends MethodVisitor {
           this.relativeStackSize = currentMaxLocals;
         }
       } else {
-        this.currentBasicBlock.frame.execute(opcode, var, (Symbol)null, (SymbolTable)null);
+        this.currentBasicBlock.frame.execute(opcode, var, null, null);
       }
     }
 
@@ -572,7 +572,7 @@ final class MethodWriter extends MethodVisitor {
     if(this.currentBasicBlock != null) {
       Label nextBasicBlock = null;
       if(this.compute == 4) {
-        this.currentBasicBlock.frame.execute(baseOpcode, 0, (Symbol)null, (SymbolTable)null);
+        this.currentBasicBlock.frame.execute(baseOpcode, 0, null, null);
         Label var10000 = label.getCanonicalInstance();
         var10000.flags = (short)(var10000.flags | 2);
         this.addSuccessorToCurrentBasicBlock(0, label);
@@ -580,7 +580,7 @@ final class MethodWriter extends MethodVisitor {
           nextBasicBlock = new Label();
         }
       } else if(this.compute == 3) {
-        this.currentBasicBlock.frame.execute(baseOpcode, 0, (Symbol)null, (SymbolTable)null);
+        this.currentBasicBlock.frame.execute(baseOpcode, 0, null, null);
       } else if(this.compute == 2) {
         this.relativeStackSize += STACK_SIZE_DELTA[baseOpcode];
       } else if(baseOpcode == 168) {
@@ -705,7 +705,7 @@ final class MethodWriter extends MethodVisitor {
     }
 
     if(this.currentBasicBlock != null && (this.compute == 4 || this.compute == 3)) {
-      this.currentBasicBlock.frame.execute(132, var, (Symbol)null, (SymbolTable)null);
+      this.currentBasicBlock.frame.execute(132, var, null, null);
     }
 
     if(this.compute != 0) {
@@ -719,7 +719,7 @@ final class MethodWriter extends MethodVisitor {
 
   public void visitTableSwitchInsn(int min, int max, Label dflt, Label... labels) {
     this.lastBytecodeOffset = this.code.length;
-    this.code.putByte(170).putByteArray((byte[])null, 0, (4 - this.code.length % 4) % 4);
+    this.code.putByte(170).putByteArray(null, 0, (4 - this.code.length % 4) % 4);
     dflt.put(this.code, this.lastBytecodeOffset, true);
     this.code.putInt(min).putInt(max);
     Label[] var5 = labels;
@@ -735,7 +735,7 @@ final class MethodWriter extends MethodVisitor {
 
   public void visitLookupSwitchInsn(Label dflt, int[] keys, Label[] labels) {
     this.lastBytecodeOffset = this.code.length;
-    this.code.putByte(171).putByteArray((byte[])null, 0, (4 - this.code.length % 4) % 4);
+    this.code.putByte(171).putByteArray(null, 0, (4 - this.code.length % 4) % 4);
     dflt.put(this.code, this.lastBytecodeOffset, true);
     this.code.putInt(labels.length);
 
@@ -754,7 +754,7 @@ final class MethodWriter extends MethodVisitor {
       int var5;
       Label label;
       if(this.compute == 4) {
-        this.currentBasicBlock.frame.execute(171, 0, (Symbol)null, (SymbolTable)null);
+        this.currentBasicBlock.frame.execute(171, 0, null, null);
         this.addSuccessorToCurrentBasicBlock(0, dflt);
         Label var10000 = dflt.getCanonicalInstance();
         var10000.flags = (short)(var10000.flags | 2);
@@ -1518,7 +1518,7 @@ final class MethodWriter extends MethodVisitor {
     }
   }
 
-  final void collectAttributePrototypes(Set attributePrototypes) {
+  void collectAttributePrototypes(Set attributePrototypes) {
     attributePrototypes.addAttributes(this.firstAttribute);
     attributePrototypes.addAttributes(this.firstCodeAttribute);
   }

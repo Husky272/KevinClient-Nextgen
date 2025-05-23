@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 public class PingResponseHandler extends ChannelInboundHandlerAdapter
 {
     private static final Logger logger = LogManager.getLogger();
-    private NetworkSystem networkSystem;
+    private final NetworkSystem networkSystem;
 
     public PingResponseHandler(NetworkSystem networkSystemIn)
     {
@@ -85,12 +85,10 @@ public class PingResponseHandler extends ChannelInboundHandlerAdapter
 
                 bytebuf.release();
                 flag = false;
-                return;
             }
         }
         catch (RuntimeException var21)
         {
-            return;
         }
         finally
         {

@@ -59,11 +59,11 @@ public class CommandGameMode extends CommandBase
 
             if (entityplayer != sender)
             {
-                notifyOperators(sender, this, 1, "commands.gamemode.success.other", new Object[] {entityplayer.getName(), ichatcomponent});
+                notifyOperators(sender, this, 1, "commands.gamemode.success.other", entityplayer.getName(), ichatcomponent);
             }
             else
             {
-                notifyOperators(sender, this, 1, "commands.gamemode.success.self", new Object[] {ichatcomponent});
+                notifyOperators(sender, this, 1, "commands.gamemode.success.self", ichatcomponent);
             }
         }
     }
@@ -71,8 +71,7 @@ public class CommandGameMode extends CommandBase
     /**
      * Gets the Game Mode specified in the command.
      */
-    protected WorldSettings.GameType getGameModeFromCommand(ICommandSender p_71539_1_, String p_71539_2_) throws CommandException, NumberInvalidException
-    {
+    protected WorldSettings.GameType getGameModeFromCommand(ICommandSender p_71539_1_, String p_71539_2_) throws CommandException {
         if (!p_71539_2_.equalsIgnoreCase(WorldSettings.GameType.SURVIVAL.getName()) && !p_71539_2_.equalsIgnoreCase("s"))
         {
             if (!p_71539_2_.equalsIgnoreCase(WorldSettings.GameType.CREATIVE.getName()) && !p_71539_2_.equalsIgnoreCase("c"))
@@ -101,7 +100,7 @@ public class CommandGameMode extends CommandBase
     {
         if (args.length == 1)
         {
-            return getListOfStringsMatchingLastWord(args, new String[] {"survival", "creative", "adventure", "spectator"});
+            return getListOfStringsMatchingLastWord(args, "survival", "creative", "adventure", "spectator");
         }
         else
         {

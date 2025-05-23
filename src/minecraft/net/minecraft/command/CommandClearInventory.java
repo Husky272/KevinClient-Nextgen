@@ -87,7 +87,7 @@ public class CommandClearInventory extends CommandBase
                 }
                 else
                 {
-                    notifyOperators(sender, this, "commands.clear.success", new Object[] {entityplayermp.getName(), k});
+                    notifyOperators(sender, this, "commands.clear.success", entityplayermp.getName(), k);
                 }
             }
         }

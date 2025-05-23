@@ -333,7 +333,7 @@ public class IntegratedServer extends MinecraftServer
                 return;
             }
 
-            this.ticksSaveLast = (long)i;
+            this.ticksSaveLast = i;
         }
 
         super.saveAllWorlds(dontLog);
@@ -438,7 +438,6 @@ public class IntegratedServer extends MinecraftServer
             }
             catch (IOException var5)
             {
-                ;
             }
 
             if (i <= 0)
@@ -446,7 +445,7 @@ public class IntegratedServer extends MinecraftServer
                 i = 25564;
             }
 
-            this.getNetworkSystem().addLanEndpoint((InetAddress)null, i);
+            this.getNetworkSystem().addLanEndpoint(null, i);
             logger.info("Started on " + i);
             this.isPublic = true;
             this.lanServerPing = new ThreadLanServerPing(this.getMOTD(), i + "");
@@ -536,7 +535,7 @@ public class IntegratedServer extends MinecraftServer
 
     private void onTick()
     {
-        for (WorldServer worldserver : Arrays.asList(this.worldServers))
+        for (WorldServer worldserver : this.worldServers)
         {
             this.onTick(worldserver);
         }

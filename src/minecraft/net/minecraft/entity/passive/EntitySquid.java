@@ -43,7 +43,7 @@ public class EntitySquid extends EntityWaterMob
     {
         super(worldIn);
         this.setSize(0.95F, 0.95F);
-        this.rand.setSeed((long)(1 + this.getEntityId()));
+        this.rand.setSeed(1 + this.getEntityId());
         this.rotationVelocity = 1.0F / (this.rand.nextFloat() + 1.0F) * 0.2F;
         this.tasks.addTask(0, new EntitySquid.AIMoveRandom(this));
     }
@@ -128,7 +128,7 @@ public class EntitySquid extends EntityWaterMob
      */
     public boolean isInWater()
     {
-        return this.worldObj.handleMaterialAcceleration(this.getEntityBoundingBox().expand(0.0D, (double) -0.6F, 0.0D), Material.water, this);
+        return this.worldObj.handleMaterialAcceleration(this.getEntityBoundingBox().expand(0.0D, -0.6F, 0.0D), Material.water, this);
     }
 
     /**
@@ -189,16 +189,16 @@ public class EntitySquid extends EntityWaterMob
 
             if (!this.worldObj.isRemote)
             {
-                this.motionX = (double)(this.randomMotionVecX * this.randomMotionSpeed);
-                this.motionY = (double)(this.randomMotionVecY * this.randomMotionSpeed);
-                this.motionZ = (double)(this.randomMotionVecZ * this.randomMotionSpeed);
+                this.motionX = this.randomMotionVecX * this.randomMotionSpeed;
+                this.motionY = this.randomMotionVecY * this.randomMotionSpeed;
+                this.motionZ = this.randomMotionVecZ * this.randomMotionSpeed;
             }
 
             float f1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
             this.renderYawOffset += (-((float)MathHelper.atan2(this.motionX, this.motionZ)) * 180.0F / (float)Math.PI - this.renderYawOffset) * 0.1F;
             this.rotationYaw = this.renderYawOffset;
             this.squidYaw = (float)((double)this.squidYaw + Math.PI * (double)this.field_70871_bB * 1.5D);
-            this.squidPitch += (-((float)MathHelper.atan2((double)f1, this.motionY)) * 180.0F / (float)Math.PI - this.squidPitch) * 0.1F;
+            this.squidPitch += (-((float)MathHelper.atan2(f1, this.motionY)) * 180.0F / (float)Math.PI - this.squidPitch) * 0.1F;
         }
         else
         {
@@ -208,7 +208,7 @@ public class EntitySquid extends EntityWaterMob
             {
                 this.motionX = 0.0D;
                 this.motionY -= 0.08D;
-                this.motionY *= (double)0.98F;
+                this.motionY *= 0.98F;
                 this.motionZ = 0.0D;
             }
 
@@ -258,7 +258,7 @@ public class EntitySquid extends EntityWaterMob
 
     static class AIMoveRandom extends EntityAIBase
     {
-        private EntitySquid squid;
+        private final EntitySquid squid;
 
         public AIMoveRandom(EntitySquid p_i45859_1_)
         {

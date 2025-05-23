@@ -23,7 +23,7 @@ public class Shader
     private final List<Integer> listAuxHeights = Lists.newArrayList();
     private Matrix4f projectionMatrix;
 
-    public Shader(IResourceManager p_i45089_1_, String p_i45089_2_, Framebuffer p_i45089_3_, Framebuffer p_i45089_4_) throws JsonException, IOException
+    public Shader(IResourceManager p_i45089_1_, String p_i45089_2_, Framebuffer p_i45089_3_, Framebuffer p_i45089_4_) throws IOException
     {
         this.manager = new ShaderManager(p_i45089_1_, p_i45089_2_);
         this.framebufferIn = p_i45089_3_;
@@ -90,9 +90,9 @@ public class Shader
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        worldrenderer.pos(0.0D, (double)f1, 500.0D).color(255, 255, 255, 255).endVertex();
-        worldrenderer.pos((double)f, (double)f1, 500.0D).color(255, 255, 255, 255).endVertex();
-        worldrenderer.pos((double)f, 0.0D, 500.0D).color(255, 255, 255, 255).endVertex();
+        worldrenderer.pos(0.0D, f1, 500.0D).color(255, 255, 255, 255).endVertex();
+        worldrenderer.pos(f, f1, 500.0D).color(255, 255, 255, 255).endVertex();
+        worldrenderer.pos(f, 0.0D, 500.0D).color(255, 255, 255, 255).endVertex();
         worldrenderer.pos(0.0D, 0.0D, 500.0D).color(255, 255, 255, 255).endVertex();
         tessellator.draw();
         GlStateManager.depthMask(true);

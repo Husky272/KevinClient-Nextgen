@@ -9,7 +9,7 @@ import net.minecraft.world.storage.SaveFormatComparator;
 
 public class RealmsAnvilLevelStorageSource
 {
-    private ISaveFormat levelStorageSource;
+    private final ISaveFormat levelStorageSource;
 
     public RealmsAnvilLevelStorageSource(ISaveFormat levelStorageSourceIn)
     {

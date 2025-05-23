@@ -40,7 +40,6 @@ public class Locale
                 }
                 catch (IOException var9)
                 {
-                    ;
                 }
             }
         }

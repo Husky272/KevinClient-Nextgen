@@ -104,7 +104,6 @@ public class CustomPanorama
             }
             catch (IOException var7)
             {
-                ;
             }
         }
 

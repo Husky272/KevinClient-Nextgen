@@ -41,9 +41,9 @@ public class EntityItem extends Entity
         this.setSize(0.25F, 0.25F);
         this.setPosition(x, y, z);
         this.rotationYaw = (float)(Math.random() * 360.0D);
-        this.motionX = (double)((float)(Math.random() * (double)0.2F - (double)0.1F));
-        this.motionY = (double)0.2F;
-        this.motionZ = (double)((float)(Math.random() * (double)0.2F - (double)0.1F));
+        this.motionX = (float)(Math.random() * (double)0.2F - (double)0.1F);
+        this.motionY = 0.2F;
+        this.motionZ = (float)(Math.random() * (double)0.2F - (double)0.1F);
     }
 
     public EntityItem(World worldIn, double x, double y, double z, ItemStack stack)
@@ -94,7 +94,7 @@ public class EntityItem extends Entity
             this.prevPosX = this.posX;
             this.prevPosY = this.posY;
             this.prevPosZ = this.posZ;
-            this.motionY -= (double)0.04F;
+            this.motionY -= 0.04F;
             this.noClip = this.pushOutOfBlocks(this.posX, (this.getEntityBoundingBox().minY + this.getEntityBoundingBox().maxY) / 2.0D, this.posZ);
             this.moveEntity(this.motionX, this.motionY, this.motionZ);
             boolean flag = (int)this.prevPosX != (int)this.posX || (int)this.prevPosY != (int)this.posY || (int)this.prevPosZ != (int)this.posZ;
@@ -103,9 +103,9 @@ public class EntityItem extends Entity
             {
                 if (this.worldObj.getBlockState(new BlockPos(this)).getBlock().getMaterial() == Material.lava)
                 {
-                    this.motionY = (double)0.2F;
-                    this.motionX = (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
-                    this.motionZ = (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+                    this.motionY = 0.2F;
+                    this.motionX = (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F;
+                    this.motionZ = (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F;
                     this.playSound("random.fizz", 0.4F, 2.0F + this.rand.nextFloat() * 0.4F);
                 }
 
@@ -122,9 +122,9 @@ public class EntityItem extends Entity
                 f = this.worldObj.getBlockState(new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.getEntityBoundingBox().minY) - 1, MathHelper.floor_double(this.posZ))).getBlock().slipperiness * 0.98F;
             }
 
-            this.motionX *= (double)f;
-            this.motionY *= (double)0.98F;
-            this.motionZ *= (double)f;
+            this.motionX *= f;
+            this.motionY *= 0.98F;
+            this.motionZ *= f;
 
             if (this.onGround)
             {
@@ -301,7 +301,7 @@ public class EntityItem extends Entity
      */
     public void writeEntityToNBT(NBTTagCompound tagCompound)
     {
-        tagCompound.setShort("Health", (short)((byte)this.health));
+        tagCompound.setShort("Health", (byte)this.health);
         tagCompound.setShort("Age", (short)this.age);
         tagCompound.setShort("PickupDelay", (short)this.delayBeforeCanPickup);
 

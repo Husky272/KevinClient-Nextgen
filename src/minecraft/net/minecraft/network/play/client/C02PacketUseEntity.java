@@ -40,7 +40,7 @@ public class C02PacketUseEntity implements Packet<INetHandlerPlayServer>
 
         if (this.action == C02PacketUseEntity.Action.INTERACT_AT)
         {
-            this.hitVec = new Vec3((double)buf.readFloat(), (double)buf.readFloat(), (double)buf.readFloat());
+            this.hitVec = new Vec3(buf.readFloat(), buf.readFloat(), buf.readFloat());
         }
     }
 
@@ -83,10 +83,10 @@ public class C02PacketUseEntity implements Packet<INetHandlerPlayServer>
         return this.hitVec;
     }
 
-    public static enum Action
+    public enum Action
     {
         INTERACT,
         ATTACK,
-        INTERACT_AT;
+        INTERACT_AT
     }
 }

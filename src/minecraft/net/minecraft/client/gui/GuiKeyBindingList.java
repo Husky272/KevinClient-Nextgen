@@ -22,7 +22,7 @@ public class GuiKeyBindingList extends GuiListExtended
         this.mc = mcIn;
         KeyBinding[] akeybinding = ArrayUtils.clone(mcIn.gameSettings.keyBindings);
         this.listEntries = new GuiListExtended.IGuiListEntry[akeybinding.length + KeyBinding.getKeybinds().size()];
-        Arrays.sort((Object[])akeybinding);
+        Arrays.sort(akeybinding);
         int i = 0;
         String s = null;
 

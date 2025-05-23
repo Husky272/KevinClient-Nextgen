@@ -45,14 +45,14 @@ public class EntityBlaze extends EntityMob
     {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(6.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)0.23F);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.23F);
         this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(48.0D);
     }
 
     protected void entityInit()
     {
         super.entityInit();
-        this.dataWatcher.addObject(16, new Byte((byte)0));
+        this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
     }
 
     /**
@@ -213,7 +213,7 @@ public class EntityBlaze extends EntityMob
 
     static class AIFireballAttack extends EntityAIBase
     {
-        private EntityBlaze blaze;
+        private final EntityBlaze blaze;
         private int field_179467_b;
         private int field_179468_c;
 
@@ -284,7 +284,7 @@ public class EntityBlaze extends EntityMob
                     if (this.field_179467_b > 1)
                     {
                         float f = MathHelper.sqrt_float(MathHelper.sqrt_double(d0)) * 0.5F;
-                        this.blaze.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, new BlockPos((int)this.blaze.posX, (int)this.blaze.posY, (int)this.blaze.posZ), 0);
+                        this.blaze.worldObj.playAuxSFXAtEntity(null, 1009, new BlockPos((int)this.blaze.posX, (int)this.blaze.posY, (int)this.blaze.posZ), 0);
 
                         for (int i = 0; i < 1; ++i)
                         {

@@ -18,7 +18,7 @@ public class GuiScreenCustomizePresets extends GuiScreen
     private GuiScreenCustomizePresets.ListPreset field_175311_g;
     private GuiButton field_175316_h;
     private GuiTextField field_175317_i;
-    private GuiCustomizeWorldScreen field_175314_r;
+    private final GuiCustomizeWorldScreen field_175314_r;
     protected String field_175315_a = "Customize World Presets";
     private String field_175313_s;
     private String field_175312_t;
@@ -219,10 +219,10 @@ public class GuiScreenCustomizePresets extends GuiScreen
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-            worldrenderer.pos((double)(i + 0), (double)(p_178051_2_ + 32), 0.0D).tex(0.0D, 1.0D).endVertex();
-            worldrenderer.pos((double)(i + 32), (double)(p_178051_2_ + 32), 0.0D).tex(1.0D, 1.0D).endVertex();
-            worldrenderer.pos((double)(i + 32), (double)(p_178051_2_ + 0), 0.0D).tex(1.0D, 0.0D).endVertex();
-            worldrenderer.pos((double)(i + 0), (double)(p_178051_2_ + 0), 0.0D).tex(0.0D, 0.0D).endVertex();
+            worldrenderer.pos(i, p_178051_2_ + 32, 0.0D).tex(0.0D, 1.0D).endVertex();
+            worldrenderer.pos(i + 32, p_178051_2_ + 32, 0.0D).tex(1.0D, 1.0D).endVertex();
+            worldrenderer.pos(i + 32, p_178051_2_, 0.0D).tex(1.0D, 0.0D).endVertex();
+            worldrenderer.pos(i, p_178051_2_, 0.0D).tex(0.0D, 0.0D).endVertex();
             tessellator.draw();
         }
 

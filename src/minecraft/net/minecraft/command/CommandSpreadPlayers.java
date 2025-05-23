@@ -56,8 +56,8 @@ public class CommandSpreadPlayers extends CommandBase
         {
             int i = 0;
             BlockPos blockpos = sender.getPosition();
-            double d0 = parseDouble((double)blockpos.getX(), args[i++], true);
-            double d1 = parseDouble((double)blockpos.getZ(), args[i++], true);
+            double d0 = parseDouble(blockpos.getX(), args[i++], true);
+            double d1 = parseDouble(blockpos.getZ(), args[i++], true);
             double d2 = parseDouble(args[i++], 0.0D);
             double d3 = parseDouble(args[i++], d2 + 1.0D);
             boolean flag = parseBoolean(args[i++]);
@@ -115,7 +115,7 @@ public class CommandSpreadPlayers extends CommandBase
         CommandSpreadPlayers.Position[] acommandspreadplayers$position = this.func_110670_a(random, p_110669_9_ ? this.func_110667_a(p_110669_2_) : p_110669_2_.size(), d0, d1, d2, d3);
         int i = this.func_110668_a(p_110669_3_, p_110669_4_, worldIn, random, d0, d1, d2, d3, acommandspreadplayers$position, p_110669_9_);
         double d4 = this.func_110671_a(p_110669_2_, worldIn, acommandspreadplayers$position, p_110669_9_);
-        notifyOperators(p_110669_1_, this, "commands.spreadplayers.success." + (p_110669_9_ ? "teams" : "players"), new Object[] {acommandspreadplayers$position.length, p_110669_3_.field_111101_a, p_110669_3_.field_111100_b});
+        notifyOperators(p_110669_1_, this, "commands.spreadplayers.success." + (p_110669_9_ ? "teams" : "players"), acommandspreadplayers$position.length, p_110669_3_.field_111101_a, p_110669_3_.field_111100_b);
 
         if (acommandspreadplayers$position.length > 1)
         {
@@ -135,7 +135,7 @@ public class CommandSpreadPlayers extends CommandBase
             }
             else
             {
-                set.add((Team)null);
+                set.add(null);
             }
         }
 
@@ -145,13 +145,13 @@ public class CommandSpreadPlayers extends CommandBase
     private int func_110668_a(CommandSpreadPlayers.Position p_110668_1_, double p_110668_2_, World worldIn, Random p_110668_5_, double p_110668_6_, double p_110668_8_, double p_110668_10_, double p_110668_12_, CommandSpreadPlayers.Position[] p_110668_14_, boolean p_110668_15_) throws CommandException
     {
         boolean flag = true;
-        double d0 = (double)Float.MAX_VALUE;
+        double d0 = Float.MAX_VALUE;
         int i;
 
         for (i = 0; i < 10000 && flag; ++i)
         {
             flag = false;
-            d0 = (double)Float.MAX_VALUE;
+            d0 = Float.MAX_VALUE;
 
             for (int j = 0; j < p_110668_14_.length; ++j)
             {
@@ -178,9 +178,9 @@ public class CommandSpreadPlayers extends CommandBase
 
                 if (k > 0)
                 {
-                    commandspreadplayers$position1.field_111101_a /= (double)k;
-                    commandspreadplayers$position1.field_111100_b /= (double)k;
-                    double d2 = (double)commandspreadplayers$position1.func_111096_b();
+                    commandspreadplayers$position1.field_111101_a /= k;
+                    commandspreadplayers$position1.field_111100_b /= k;
+                    double d2 = commandspreadplayers$position1.func_111096_b();
 
                     if (d2 > 0.0D)
                     {
@@ -251,7 +251,7 @@ public class CommandSpreadPlayers extends CommandBase
                 commandspreadplayers$position = p_110671_3_[i++];
             }
 
-            entity.setPositionAndUpdate((double)((float)MathHelper.floor_double(commandspreadplayers$position.field_111101_a) + 0.5F), (double)commandspreadplayers$position.func_111092_a(worldIn), (double)MathHelper.floor_double(commandspreadplayers$position.field_111100_b) + 0.5D);
+            entity.setPositionAndUpdate((float)MathHelper.floor_double(commandspreadplayers$position.field_111101_a) + 0.5F, commandspreadplayers$position.func_111092_a(worldIn), (double)MathHelper.floor_double(commandspreadplayers$position.field_111100_b) + 0.5D);
             double d2 = Double.MAX_VALUE;
 
             for (int k = 0; k < p_110671_3_.length; ++k)
@@ -313,7 +313,7 @@ public class CommandSpreadPlayers extends CommandBase
 
         void func_111095_a()
         {
-            double d0 = (double)this.func_111096_b();
+            double d0 = this.func_111096_b();
             this.field_111101_a /= d0;
             this.field_111100_b /= d0;
         }

@@ -66,7 +66,7 @@ public class BlockCarpet extends Block
     protected void setBlockBoundsFromMeta(int meta)
     {
         int i = 0;
-        float f = (float)(1 * (1 + i)) / 16.0F;
+        float f = (float)((1 + i)) / 16.0F;
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
     }
 
@@ -104,7 +104,7 @@ public class BlockCarpet extends Block
 
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
     {
-        return side == EnumFacing.UP ? true : super.shouldSideBeRendered(worldIn, pos, side);
+        return side == EnumFacing.UP || super.shouldSideBeRendered(worldIn, pos, side);
     }
 
     /**

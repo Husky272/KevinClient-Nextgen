@@ -72,7 +72,7 @@ class Information(x: Double = 0.0, y: Double = 30.0, scale: Float = 1F,side: Sid
         KevinClient.fontManager.font40.drawCenteredString("Session Info",
             150 / 2F,
             5F,Color(255,255,255).rgb)
-        var y = KevinClient.fontManager.font40.fontHeight + 0.0F
+        KevinClient.fontManager.font40.fontHeight + 0.0F
 
         GL11.glPushMatrix()
         RenderUtils.drawLineStart(Color(20,100,200,200),4F)

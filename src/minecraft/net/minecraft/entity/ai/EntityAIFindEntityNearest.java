@@ -15,11 +15,11 @@ import org.apache.logging.log4j.Logger;
 public class EntityAIFindEntityNearest extends EntityAIBase
 {
     private static final Logger LOGGER = LogManager.getLogger();
-    private EntityLiving mob;
+    private final EntityLiving mob;
     private final Predicate<EntityLivingBase> field_179443_c;
     private final EntityAINearestAttackableTarget.Sorter field_179440_d;
     private EntityLivingBase target;
-    private Class<? extends EntityLivingBase> field_179439_f;
+    private final Class<? extends EntityLivingBase> field_179439_f;
 
     public EntityAIFindEntityNearest(EntityLiving mobIn, Class<? extends EntityLivingBase> p_i45884_2_)
     {
@@ -39,7 +39,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase
 
                 if (p_apply_1_.isSneaking())
                 {
-                    d0 *= (double)0.8F;
+                    d0 *= 0.8F;
                 }
 
                 if (p_apply_1_.isInvisible())
@@ -48,7 +48,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase
                 }
                 else
                 {
-                    return (double)p_apply_1_.getDistanceToEntity(EntityAIFindEntityNearest.this.mob) > d0 ? false : EntityAITarget.isSuitableTarget(EntityAIFindEntityNearest.this.mob, p_apply_1_, false, true);
+                    return !((double) p_apply_1_.getDistanceToEntity(EntityAIFindEntityNearest.this.mob) > d0) && EntityAITarget.isSuitableTarget(EntityAIFindEntityNearest.this.mob, p_apply_1_, false, true);
                 }
             }
         };
@@ -119,7 +119,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase
      */
     public void resetTask()
     {
-        this.mob.setAttackTarget((EntityLivingBase)null);
+        this.mob.setAttackTarget(null);
         super.startExecuting();
     }
 

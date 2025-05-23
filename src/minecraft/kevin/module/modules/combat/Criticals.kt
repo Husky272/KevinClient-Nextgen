@@ -139,6 +139,6 @@ class Criticals : ClientModule("Criticals", "Automatically deals critical hits."
     }
 
     override fun getTag(): String? {
-        return modeValue.get();
+        return modeValue.get()
     }
 }

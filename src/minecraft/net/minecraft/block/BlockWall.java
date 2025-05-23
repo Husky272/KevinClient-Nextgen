@@ -165,7 +165,7 @@ public class BlockWall extends Block
 
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
     {
-        return side == EnumFacing.DOWN ? super.shouldSideBeRendered(worldIn, pos, side) : true;
+        return side != EnumFacing.DOWN || super.shouldSideBeRendered(worldIn, pos, side);
     }
 
     /**
@@ -198,7 +198,7 @@ public class BlockWall extends Block
         return new BlockState(this, UP, NORTH, EAST, WEST, SOUTH, VARIANT);
     }
 
-    public static enum EnumType implements IStringSerializable
+    public enum EnumType implements IStringSerializable
     {
         NORMAL(0, "cobblestone", "normal"),
         MOSSY(1, "mossy_cobblestone", "mossy");
@@ -206,9 +206,9 @@ public class BlockWall extends Block
         private static final BlockWall.EnumType[] META_LOOKUP = new BlockWall.EnumType[values().length];
         private final int meta;
         private final String name;
-        private String unlocalizedName;
+        private final String unlocalizedName;
 
-        private EnumType(int meta, String name, String unlocalizedName)
+        EnumType(int meta, String name, String unlocalizedName)
         {
             this.meta = meta;
             this.name = name;

@@ -17,7 +17,7 @@ import org.newdawn.slick.SlickException;
  */
 public class GraphicsFactory {
 	/** The graphics list of graphics contexts created */
-	private static HashMap graphics = new HashMap();
+	private static final HashMap graphics = new HashMap();
 	/** True if pbuffers are supported */
 	private static boolean pbuffer = true;
 	/** True if pbuffer render to texture are supported */

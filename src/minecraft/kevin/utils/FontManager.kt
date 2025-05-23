@@ -85,7 +85,7 @@ class FontManager : MinecraftInstance(){
 
     class FontInfo(val name: String?, val fontSize: Int) {
 
-        constructor(font: Font) : this(font.name, font.size) {}
+        constructor(font: Font) : this(font.name, font.size)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
@@ -253,7 +253,7 @@ class FontManager : MinecraftInstance(){
             if (currentColor and -0x4000000 == 0)
                 currentColor = currentColor or -16777216
 
-            val defaultColor = currentColor
+            currentColor
 
             val alpha: Int = (currentColor shr 24 and 0xff)
 
@@ -486,7 +486,7 @@ class FontManager : MinecraftInstance(){
             GL11.glTranslated(x * 2F, y * 2.0 - 2.0, 0.0)
 
             if (this.loadingScreen)
-                GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
+                GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID)
             else
                 GlStateManager.bindTexture(textureID)
 
@@ -533,7 +533,7 @@ class FontManager : MinecraftInstance(){
                     GL11.glScaled(scale, scale, scale)
 
                     if (this.loadingScreen)
-                        GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
+                        GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID)
                     else
                         GlStateManager.bindTexture(textureID)
 

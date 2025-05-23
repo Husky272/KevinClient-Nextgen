@@ -15,8 +15,8 @@
 package kevin.module.modules.render
 
 
-import org.openjdk.nashorn.api.scripting.JSObject;
-import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.openjdk.nashorn.api.scripting.JSObject
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory
 
 import kevin.event.EventTarget
 import kevin.event.UpdateEvent
@@ -324,7 +324,7 @@ object Renderer : ClientModule("Renderer","Allows you to modify some renderings.
     private val texturesList = HashMap<String,Texture>()
 
     override fun getTag(): String? {
-        return playerModel.get();
+        return playerModel.get()
     }
 
     class Texture(name:String,image: BufferedImage){

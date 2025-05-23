@@ -74,13 +74,13 @@ public class CommandParticle extends CommandBase
             {
                 String s = args[0];
                 Vec3 vec3 = sender.getPositionVector();
-                double d6 = (double)((float)parseDouble(vec3.xCoord, args[1], true));
-                double d0 = (double)((float)parseDouble(vec3.yCoord, args[2], true));
-                double d1 = (double)((float)parseDouble(vec3.zCoord, args[3], true));
-                double d2 = (double)((float)parseDouble(args[4]));
-                double d3 = (double)((float)parseDouble(args[5]));
-                double d4 = (double)((float)parseDouble(args[6]));
-                double d5 = (double)((float)parseDouble(args[7]));
+                double d6 = (float)parseDouble(vec3.xCoord, args[1], true);
+                double d0 = (float)parseDouble(vec3.yCoord, args[2], true);
+                double d1 = (float)parseDouble(vec3.zCoord, args[3], true);
+                double d2 = (float)parseDouble(args[4]);
+                double d3 = (float)parseDouble(args[5]);
+                double d4 = (float)parseDouble(args[6]);
+                double d5 = (float)parseDouble(args[7]);
                 int i = 0;
 
                 if (args.length > 8)
@@ -88,18 +88,12 @@ public class CommandParticle extends CommandBase
                     i = parseInt(args[8], 0);
                 }
 
-                boolean flag1 = false;
-
-                if (args.length > 9 && "force".equals(args[9]))
-                {
-                    flag1 = true;
-                }
+                boolean flag1 = args.length > 9 && "force".equals(args[9]);
 
                 World world = sender.getEntityWorld();
 
-                if (world instanceof WorldServer)
+                if (world instanceof WorldServer worldserver)
                 {
-                    WorldServer worldserver = (WorldServer)world;
                     int[] aint = new int[enumparticletypes.getArgumentCount()];
 
                     if (enumparticletypes.hasArguments())
@@ -120,7 +114,7 @@ public class CommandParticle extends CommandBase
                     }
 
                     worldserver.spawnParticle(enumparticletypes, flag1, d6, d0, d1, i, d2, d3, d4, d5, aint);
-                    notifyOperators(sender, this, "commands.particle.success", new Object[] {s, Math.max(i, 1)});
+                    notifyOperators(sender, this, "commands.particle.success", s, Math.max(i, 1));
                 }
             }
         }
@@ -138,7 +132,7 @@ public class CommandParticle extends CommandBase
         }
         else
         {
-            return args.length == 10 ? getListOfStringsMatchingLastWord(args, new String[] {"normal", "force"}) : null;
+            return args.length == 10 ? getListOfStringsMatchingLastWord(args, "normal", "force") : null;
         }
     }
 }

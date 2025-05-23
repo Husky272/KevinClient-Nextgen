@@ -15,7 +15,7 @@ public class ThreadSafeBoundList<T>
     public ThreadSafeBoundList(Class<? extends T> p_i1126_1_, int p_i1126_2_)
     {
         this.field_152760_b = p_i1126_1_;
-        this.field_152759_a = (T[])((Object[])Array.newInstance(p_i1126_1_, p_i1126_2_));
+        this.field_152759_a = (T[]) Array.newInstance(p_i1126_1_, p_i1126_2_);
     }
 
     public T func_152757_a(T p_152757_1_)
@@ -43,7 +43,7 @@ public class ThreadSafeBoundList<T>
 
     public T[] func_152756_c()
     {
-        T[] at = (T[])((Object[])Array.newInstance(this.field_152760_b, this.field_152762_d));
+        T[] at = (T[]) Array.newInstance(this.field_152760_b, this.field_152762_d);
         this.field_152761_c.readLock().lock();
 
         for (int i = 0; i < this.field_152762_d; ++i)

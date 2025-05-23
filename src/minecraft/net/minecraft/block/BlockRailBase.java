@@ -108,12 +108,7 @@ public abstract class BlockRailBase extends Block
         if (!worldIn.isRemote)
         {
             BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = state.getValue(this.getShapeProperty());
-            boolean flag = false;
-
-            if (!World.doesBlockHaveSolidTopSurface(worldIn, pos.down()))
-            {
-                flag = true;
-            }
+            boolean flag = !World.doesBlockHaveSolidTopSurface(worldIn, pos.down());
 
             if (blockrailbase$enumraildirection == BlockRailBase.EnumRailDirection.ASCENDING_EAST && !World.doesBlockHaveSolidTopSurface(worldIn, pos.east()))
             {
@@ -181,7 +176,7 @@ public abstract class BlockRailBase extends Block
 
     public abstract IProperty<BlockRailBase.EnumRailDirection> getShapeProperty();
 
-    public static enum EnumRailDirection implements IStringSerializable
+    public enum EnumRailDirection implements IStringSerializable
     {
         NORTH_SOUTH(0, "north_south"),
         EAST_WEST(1, "east_west"),
@@ -198,7 +193,7 @@ public abstract class BlockRailBase extends Block
         private final int meta;
         private final String name;
 
-        private EnumRailDirection(int meta, String name)
+        EnumRailDirection(int meta, String name)
         {
             this.meta = meta;
             this.name = name;

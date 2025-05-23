@@ -131,9 +131,8 @@ public class BlockBanner extends BlockContainer
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te)
     {
-        if (te instanceof TileEntityBanner)
+        if (te instanceof TileEntityBanner tileentitybanner)
         {
-            TileEntityBanner tileentitybanner = (TileEntityBanner)te;
             ItemStack itemstack = new ItemStack(Items.banner, 1, ((TileEntityBanner)te).getBaseColor());
             NBTTagCompound nbttagcompound = new NBTTagCompound();
             TileEntityBanner.setBaseColorAndPatterns(nbttagcompound, tileentitybanner.getBaseColor(), tileentitybanner.getPatterns());
@@ -142,7 +141,7 @@ public class BlockBanner extends BlockContainer
         }
         else
         {
-            super.harvestBlock(worldIn, player, pos, state, (TileEntity)null);
+            super.harvestBlock(worldIn, player, pos, state, null);
         }
     }
 

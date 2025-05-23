@@ -1,6 +1,8 @@
 package org.objectweb.asm.tree;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 final class Util {
@@ -15,8 +17,7 @@ final class Util {
     if (array == null)
       return new ArrayList(); 
     ArrayList<T> list = new ArrayList<T>(array.length);
-    for (T t : array)
-      list.add(t); 
+      Collections.addAll(list, array);
     return list;
   }
   
@@ -94,8 +95,7 @@ final class Util {
   
   static <T> List<T> asArrayList(int length, T[] array) {
     List<T> list = new ArrayList<T>(length);
-    for (int i = 0; i < length; i++)
-      list.add(array[i]); 
+      list.addAll(Arrays.asList(array).subList(0, length));
     return list;
   }
 }

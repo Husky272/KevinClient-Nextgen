@@ -122,7 +122,7 @@ public class BlockPistonExtension extends Block
         float f3 = 0.25F;
         float f4 = 0.75F;
 
-        switch ((EnumFacing)state.getValue(FACING))
+        switch (state.getValue(FACING))
         {
             case DOWN:
                 this.setBlockBounds(0.375F, 0.25F, 0.375F, 0.625F, 1.0F, 0.625F);
@@ -253,14 +253,14 @@ public class BlockPistonExtension extends Block
         return new BlockState(this, FACING, TYPE, SHORT);
     }
 
-    public static enum EnumPistonType implements IStringSerializable
+    public enum EnumPistonType implements IStringSerializable
     {
         DEFAULT("normal"),
         STICKY("sticky");
 
         private final String VARIANT;
 
-        private EnumPistonType(String name)
+        EnumPistonType(String name)
         {
             this.VARIANT = name;
         }

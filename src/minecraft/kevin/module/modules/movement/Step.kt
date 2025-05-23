@@ -423,6 +423,6 @@ class Step : ClientModule("Step", "Allows you to step up/down blocks.", ModuleCa
     }
 
     override fun getTag(): String? {
-        return modeValue.get();
+        return modeValue.get()
     }
 }

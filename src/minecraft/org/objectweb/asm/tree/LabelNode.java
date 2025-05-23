@@ -24,7 +24,7 @@ public class LabelNode extends AbstractInsnNode {
   
   public void accept(MethodVisitor methodVisitor) { methodVisitor.visitLabel(getLabel()); }
   
-  public AbstractInsnNode clone(Map<LabelNode, LabelNode> clonedLabels) { return (AbstractInsnNode)clonedLabels.get(this); }
+  public AbstractInsnNode clone(Map<LabelNode, LabelNode> clonedLabels) { return clonedLabels.get(this); }
   
   public void resetLabel() { this.value = null; }
 }

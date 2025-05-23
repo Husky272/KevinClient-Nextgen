@@ -40,7 +40,7 @@ public class ScreenShotHelper
      */
     public static IChatComponent saveScreenshot(File gameDirectory, int width, int height, Framebuffer buffer)
     {
-        return saveScreenshot(gameDirectory, (String)null, width, height, buffer);
+        return saveScreenshot(gameDirectory, null, width, height, buffer);
     }
 
     /**
@@ -149,7 +149,7 @@ public class ScreenShotHelper
         }
         catch (Exception exception1)
         {
-            logger.warn("Couldn't save screenshot", (Throwable)exception1);
+            logger.warn("Couldn't save screenshot", exception1);
             return new ChatComponentTranslation("screenshot.failure", exception1.getMessage());
         }
     }
@@ -162,7 +162,7 @@ public class ScreenShotHelper
      */
     private static File getTimestampedPNGFileForDirectory(File gameDirectory)
     {
-        String s = dateFormat.format(new Date()).toString();
+        String s = dateFormat.format(new Date());
         int i = 1;
 
         while (true)

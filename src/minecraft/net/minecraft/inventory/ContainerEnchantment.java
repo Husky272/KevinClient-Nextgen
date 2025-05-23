@@ -31,9 +31,9 @@ public class ContainerEnchantment extends Container
     };
 
     /** current world (for bookshelf counting) */
-    private World worldPointer;
-    private BlockPos position;
-    private Random rand = new Random();
+    private final World worldPointer;
+    private final BlockPos position;
+    private final Random rand = new Random();
     public int xpSeed;
 
     /** 3-member array storing the enchantment levels of each slot */
@@ -192,7 +192,7 @@ public class ContainerEnchantment extends Container
                         }
                     }
 
-                    this.rand.setSeed((long)this.xpSeed);
+                    this.rand.setSeed(this.xpSeed);
 
                     for (int i1 = 0; i1 < 3; ++i1)
                     {
@@ -282,7 +282,7 @@ public class ContainerEnchantment extends Container
 
                         if (itemstack1.stackSize <= 0)
                         {
-                            this.tableInventory.setInventorySlotContents(1, (ItemStack)null);
+                            this.tableInventory.setInventorySlotContents(1, null);
                         }
                     }
 
@@ -303,7 +303,7 @@ public class ContainerEnchantment extends Container
 
     private List<EnchantmentData> func_178148_a(ItemStack stack, int p_178148_2_, int p_178148_3_)
     {
-        this.rand.setSeed((long)(this.xpSeed + p_178148_2_));
+        this.rand.setSeed(this.xpSeed + p_178148_2_);
         List<EnchantmentData> list = EnchantmentHelper.buildEnchantmentList(this.rand, stack, p_178148_3_);
 
         if (stack.getItem() == Items.book && list != null && list.size() > 1)
@@ -408,7 +408,7 @@ public class ContainerEnchantment extends Container
 
             if (itemstack1.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack(null);
             }
             else
             {

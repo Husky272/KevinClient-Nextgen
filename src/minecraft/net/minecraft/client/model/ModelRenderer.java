@@ -46,7 +46,7 @@ public class ModelRenderer
     public List<ModelBox> cubeList;
     public List<ModelRenderer> childModels;
     public final String boxName;
-    private ModelBase baseModel;
+    private final ModelBase baseModel;
     public float offsetX;
     public float offsetY;
     public float offsetZ;
@@ -59,7 +59,7 @@ public class ModelRenderer
     private ResourceLocation textureLocation = null;
     private String id = null;
     private ModelUpdater modelUpdater;
-    private RenderGlobal renderGlobal = Config.getRenderGlobal();
+    private final RenderGlobal renderGlobal = Config.getRenderGlobal();
 
     public ModelRenderer(ModelBase model, String boxNameIn)
     {
@@ -75,7 +75,7 @@ public class ModelRenderer
 
     public ModelRenderer(ModelBase model)
     {
-        this(model, (String)null);
+        this(model, null);
     }
 
     public ModelRenderer(ModelBase model, int texOffX, int texOffY)
@@ -539,8 +539,6 @@ public class ModelRenderer
 
     public String toString()
     {
-        StringBuffer stringbuffer = new StringBuffer();
-        stringbuffer.append("id: " + this.id + ", boxes: " + (this.cubeList != null ? this.cubeList.size() : null) + ", submodels: " + (this.childModels != null ? this.childModels.size() : null));
-        return stringbuffer.toString();
+        return "id: " + this.id + ", boxes: " + (this.cubeList != null ? this.cubeList.size() : null) + ", submodels: " + (this.childModels != null ? this.childModels.size() : null);
     }
 }

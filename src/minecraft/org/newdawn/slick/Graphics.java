@@ -28,7 +28,7 @@ public class Graphics {
 	/** The renderer to use for all GL operations */
 	protected static SGL GL = Renderer.get();
 	/** The renderer to use line strips */
-	private static LineStripRenderer LSR = Renderer.getLineStripRenderer();
+	private static final LineStripRenderer LSR = Renderer.getLineStripRenderer();
 
 	/** The normal drawing mode */
 	public static int MODE_NORMAL = 1;
@@ -96,10 +96,10 @@ public class Graphics {
 	private Rectangle clip;
 
 	/** Buffer used for setting the world clip */
-	private DoubleBuffer worldClip = BufferUtils.createDoubleBuffer(4);
+	private final DoubleBuffer worldClip = BufferUtils.createDoubleBuffer(4);
 
 	/** The buffer used to read a screen pixel */
-	private ByteBuffer readBuffer = BufferUtils.createByteBuffer(4);
+	private final ByteBuffer readBuffer = BufferUtils.createByteBuffer(4);
 
 	/** True if we're antialias */
 	private boolean antialias;
@@ -114,7 +114,7 @@ public class Graphics {
 	private float lineWidth = 1;
 
 	/** The matrix stack */
-	private ArrayList stack = new ArrayList();
+	private final ArrayList stack = new ArrayList();
 	/** The index into the stack we're using */
 	private int stackIndex;
 

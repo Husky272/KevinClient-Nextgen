@@ -6,7 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class GameRules
 {
-    private TreeMap<String, GameRules.Value> theGameRules = new TreeMap<>();
+    private final TreeMap<String, GameRules.Value> theGameRules = new TreeMap<>();
 
     public GameRules()
     {
@@ -61,7 +61,7 @@ public class GameRules
     public boolean getBoolean(String name)
     {
         GameRules.Value gamerules$value = this.theGameRules.get(name);
-        return gamerules$value != null ? gamerules$value.getBoolean() : false;
+        return gamerules$value != null && gamerules$value.getBoolean();
     }
 
     public int getInt(String name)
@@ -163,7 +163,6 @@ public class GameRules
             }
             catch (NumberFormatException var4)
             {
-                ;
             }
 
             try
@@ -172,7 +171,6 @@ public class GameRules
             }
             catch (NumberFormatException var3)
             {
-                ;
             }
         }
 
@@ -197,10 +195,10 @@ public class GameRules
         }
     }
 
-    public static enum ValueType
+    public enum ValueType
     {
         ANY_VALUE,
         BOOLEAN_VALUE,
-        NUMERICAL_VALUE;
+        NUMERICAL_VALUE
     }
 }

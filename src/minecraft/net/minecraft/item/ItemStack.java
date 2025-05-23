@@ -356,9 +356,8 @@ public final class ItemStack
                     entityIn.renderBrokenItemStack(this);
                     --this.stackSize;
 
-                    if (entityIn instanceof EntityPlayer)
+                    if (entityIn instanceof EntityPlayer entityplayer)
                     {
-                        EntityPlayer entityplayer = (EntityPlayer)entityIn;
                         entityplayer.triggerAchievement(StatList.objectBreakStats[Item.getIdFromItem(this.item)]);
 
                         if (this.stackSize == 0 && this.getItem() instanceof ItemBow)
@@ -466,7 +465,7 @@ public final class ItemStack
         }
         else
         {
-            return stackA != null && stackB != null ? stackA.isItemStackEqual(stackB) : false;
+            return stackA != null && stackB != null && stackA.isItemStackEqual(stackB);
         }
     }
 
@@ -508,7 +507,7 @@ public final class ItemStack
         }
         else
         {
-            return stackA != null && stackB != null ? stackA.isItemEqual(stackB) : false;
+            return stackA != null && stackB != null && stackA.isItemEqual(stackB);
         }
     }
 
@@ -686,7 +685,7 @@ public final class ItemStack
 
                     if (this.stackTagCompound.hasNoTags())
                     {
-                        this.setTagCompound((NBTTagCompound)null);
+                        this.setTagCompound(null);
                     }
                 }
             }
@@ -704,7 +703,7 @@ public final class ItemStack
         }
         else
         {
-            return !this.stackTagCompound.hasKey("display", 10) ? false : this.stackTagCompound.getCompoundTag("display").hasKey("Name", 8);
+            return this.stackTagCompound.hasKey("display", 10) && this.stackTagCompound.getCompoundTag("display").hasKey("Name", 8);
         }
     }
 
@@ -824,7 +823,7 @@ public final class ItemStack
 
                 if (attributemodifier.getID() == Item.itemModifierUUID)
                 {
-                    d0 += (double)EnchantmentHelper.getModifierForCreature(this, EnumCreatureAttribute.UNDEFINED);
+                    d0 += EnchantmentHelper.getModifierForCreature(this, EnumCreatureAttribute.UNDEFINED);
                 }
 
                 double d1;
@@ -840,12 +839,12 @@ public final class ItemStack
 
                 if (d0 > 0.0D)
                 {
-                    list.add(EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + (String)entry.getKey())));
+                    list.add(EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry.getKey())));
                 }
                 else if (d0 < 0.0D)
                 {
                     d1 = d1 * -1.0D;
-                    list.add(EnumChatFormatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + (String)entry.getKey())));
+                    list.add(EnumChatFormatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry.getKey())));
                 }
             }
         }
@@ -966,7 +965,7 @@ public final class ItemStack
         NBTTagList nbttaglist = this.stackTagCompound.getTagList("ench", 10);
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         nbttagcompound.setShort("id", (short)ench.effectId);
-        nbttagcompound.setShort("lvl", (short)((byte)level));
+        nbttagcompound.setShort("lvl", (byte)level);
         nbttaglist.appendTag(nbttagcompound);
     }
 

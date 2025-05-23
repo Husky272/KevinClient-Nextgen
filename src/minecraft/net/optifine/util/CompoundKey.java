@@ -2,38 +2,40 @@ package net.optifine.util;
 
 import net.minecraft.src.Config;
 
-public class CompoundKey
-{
-    private Object[] keys;
+public class CompoundKey {
+    private final Object[] keys;
     private int hashcode = 0;
 
-    public CompoundKey(Object[] keys)
-    {
+    public CompoundKey(Object[] keys) {
         this.keys = keys.clone();
     }
 
-    public CompoundKey(Object k1, Object k2)
-    {
-        this(new Object[] {k1, k2});
+    public CompoundKey(Object k1, Object k2) {
+        this(new Object[]{k1, k2});
     }
 
-    public CompoundKey(Object k1, Object k2, Object k3)
-    {
-        this(new Object[] {k1, k2, k3});
+    public CompoundKey(Object k1, Object k2, Object k3) {
+        this(new Object[]{k1, k2, k3});
     }
 
-    public int hashCode()
-    {
-        if (this.hashcode == 0)
-        {
+    private static boolean compareKeys(Object key1, Object key2) {
+        if (key1 == key2) {
+            return true;
+        } else if (key1 == null) {
+            return false;
+        } else {
+            return key1.equals(key2);
+        }
+    }
+
+    public int hashCode() {
+        if (this.hashcode == 0) {
             this.hashcode = 7;
 
-            for (int i = 0; i < this.keys.length; ++i)
-            {
+            for (int i = 0; i < this.keys.length; ++i) {
                 Object object = this.keys[i];
 
-                if (object != null)
-                {
+                if (object != null) {
                     this.hashcode = 31 * this.hashcode + object.hashCode();
                 }
             }
@@ -42,35 +44,21 @@ public class CompoundKey
         return this.hashcode;
     }
 
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
-        }
-        else if (obj == this)
-        {
+        } else if (obj == this) {
             return true;
-        }
-        else if (!(obj instanceof CompoundKey))
-        {
+        } else if (!(obj instanceof CompoundKey compoundkey)) {
             return false;
-        }
-        else
-        {
-            CompoundKey compoundkey = (CompoundKey)obj;
+        } else {
             Object[] aobject = compoundkey.getKeys();
 
-            if (aobject.length != this.keys.length)
-            {
+            if (aobject.length != this.keys.length) {
                 return false;
-            }
-            else
-            {
-                for (int i = 0; i < this.keys.length; ++i)
-                {
-                    if (!compareKeys(this.keys[i], aobject[i]))
-                    {
+            } else {
+                for (int i = 0; i < this.keys.length; ++i) {
+                    if (!compareKeys(this.keys[i], aobject[i])) {
                         return false;
                     }
                 }
@@ -80,34 +68,15 @@ public class CompoundKey
         }
     }
 
-    private static boolean compareKeys(Object key1, Object key2)
-    {
-        if (key1 == key2)
-        {
-            return true;
-        }
-        else if (key1 == null)
-        {
-            return false;
-        }
-        else
-        {
-            return key2 == null ? false : key1.equals(key2);
-        }
-    }
-
-    private Object[] getKeys()
-    {
+    private Object[] getKeys() {
         return this.keys;
     }
 
-    public Object[] getKeysCopy()
-    {
+    public Object[] getKeysCopy() {
         return this.keys.clone();
     }
 
-    public String toString()
-    {
+    public String toString() {
         return "[" + Config.arrayToString(this.keys) + "]";
     }
 }

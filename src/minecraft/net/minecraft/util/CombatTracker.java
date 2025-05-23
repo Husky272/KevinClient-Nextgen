@@ -91,7 +91,7 @@ public class CombatTracker
 
                 if (combatentry.getDamageSrc() != DamageSource.fall && combatentry.getDamageSrc() != DamageSource.outOfWorld)
                 {
-                    if (ichatcomponent2 != null && (ichatcomponent1 == null || !ichatcomponent2.equals(ichatcomponent1)))
+                    if (ichatcomponent2 != null && (!ichatcomponent2.equals(ichatcomponent1)))
                     {
                         Entity entity1 = combatentry.getDamageSrc().getEntity();
                         ItemStack itemstack1 = entity1 instanceof EntityLivingBase ? ((EntityLivingBase)entity1).getHeldItem() : null;
@@ -159,7 +159,7 @@ public class CombatTracker
             }
         }
 
-        return (EntityLivingBase)(entityplayer != null && f1 >= f / 3.0F ? entityplayer : entitylivingbase);
+        return entityplayer != null && f1 >= f / 3.0F ? entityplayer : entitylivingbase;
     }
 
     private CombatEntry func_94544_f()

@@ -352,8 +352,8 @@ public class WorldInfo
         nbt.setDouble("BorderSafeZone", this.borderSafeZone);
         nbt.setDouble("BorderDamagePerBlock", this.borderDamagePerBlock);
         nbt.setDouble("BorderSizeLerpTarget", this.borderSizeLerpTarget);
-        nbt.setDouble("BorderWarningBlocks", (double)this.borderWarningDistance);
-        nbt.setDouble("BorderWarningTime", (double)this.borderWarningTime);
+        nbt.setDouble("BorderWarningBlocks", this.borderWarningDistance);
+        nbt.setDouble("BorderWarningTime", this.borderWarningTime);
 
         if (this.difficulty != null)
         {
@@ -867,7 +867,7 @@ public class WorldInfo
         {
             public String call() throws Exception
             {
-                return CrashReportCategory.getCoordinateInfo((double)WorldInfo.this.spawnX, (double)WorldInfo.this.spawnY, (double)WorldInfo.this.spawnZ);
+                return CrashReportCategory.getCoordinateInfo(WorldInfo.this.spawnX, WorldInfo.this.spawnY, WorldInfo.this.spawnZ);
             }
         });
         category.addCrashSectionCallable("Level time", new Callable<String>()
@@ -904,7 +904,6 @@ public class WorldInfo
                 }
                 catch (Throwable var3)
                 {
-                    ;
                 }
 
                 return String.format("0x%05X - %s", WorldInfo.this.saveVersion, s);

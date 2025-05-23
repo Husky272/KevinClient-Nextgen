@@ -51,7 +51,7 @@ public class SkinManager
      */
     public ResourceLocation loadSkin(MinecraftProfileTexture profileTexture, Type p_152792_2_)
     {
-        return this.loadSkin(profileTexture, p_152792_2_, (SkinManager.SkinAvailableCallback)null);
+        return this.loadSkin(profileTexture, p_152792_2_, null);
     }
 
     /**
@@ -118,7 +118,6 @@ public class SkinManager
                 }
                 catch (InsecureTextureException var3)
                 {
-                    ;
                 }
 
                 if (map.isEmpty() && profile.getId().equals(Minecraft.getMinecraft().getSession().getProfile().getId()))

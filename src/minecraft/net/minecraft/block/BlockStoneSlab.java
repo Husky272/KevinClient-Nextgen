@@ -152,7 +152,7 @@ public abstract class BlockStoneSlab extends BlockSlab
         return state.getValue(VARIANT).func_181074_c();
     }
 
-    public static enum EnumType implements IStringSerializable
+    public enum EnumType implements IStringSerializable
     {
         STONE(0, MapColor.stoneColor, "stone"),
         SAND(1, MapColor.sandColor, "sandstone", "sand"),
@@ -169,12 +169,12 @@ public abstract class BlockStoneSlab extends BlockSlab
         private final String name;
         private final String unlocalizedName;
 
-        private EnumType(int p_i46381_3_, MapColor p_i46381_4_, String p_i46381_5_)
+        EnumType(int p_i46381_3_, MapColor p_i46381_4_, String p_i46381_5_)
         {
             this(p_i46381_3_, p_i46381_4_, p_i46381_5_, p_i46381_5_);
         }
 
-        private EnumType(int p_i46382_3_, MapColor p_i46382_4_, String p_i46382_5_, String p_i46382_6_)
+        EnumType(int p_i46382_3_, MapColor p_i46382_4_, String p_i46382_5_, String p_i46382_6_)
         {
             this.meta = p_i46382_3_;
             this.field_181075_k = p_i46382_4_;

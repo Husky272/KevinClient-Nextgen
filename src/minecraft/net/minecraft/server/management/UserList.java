@@ -80,14 +80,14 @@ public class UserList<K, V extends UserListEntry<K>>
         }
         catch (IOException ioexception)
         {
-            logger.warn("Could not save the list after adding a user.", (Throwable)ioexception);
+            logger.warn("Could not save the list after adding a user.", ioexception);
         }
     }
 
     public V getEntry(K obj)
     {
         this.removeExpired();
-        return (V)(this.values.get(this.getObjectKey(obj)));
+        return this.values.get(this.getObjectKey(obj));
     }
 
     public void removeEntry(K entry)
@@ -100,7 +100,7 @@ public class UserList<K, V extends UserListEntry<K>>
         }
         catch (IOException ioexception)
         {
-            logger.warn("Could not save the list after removing a user.", (Throwable)ioexception);
+            logger.warn("Could not save the list after removing a user.", ioexception);
         }
     }
 
@@ -133,7 +133,7 @@ public class UserList<K, V extends UserListEntry<K>>
         {
             if (v.hasBanExpired())
             {
-                list.add((K)v.getValue());
+                list.add(v.getValue());
             }
         }
 
@@ -145,7 +145,7 @@ public class UserList<K, V extends UserListEntry<K>>
 
     protected UserListEntry<K> createEntry(JsonObject entryData)
     {
-        return new UserListEntry<>((K)(null), entryData);
+        return new UserListEntry<>(null, entryData);
     }
 
     protected Map<String, V> getValues()
@@ -166,7 +166,7 @@ public class UserList<K, V extends UserListEntry<K>>
         }
         finally
         {
-            IOUtils.closeQuietly((Writer)bufferedwriter);
+            IOUtils.closeQuietly(bufferedwriter);
         }
     }
 

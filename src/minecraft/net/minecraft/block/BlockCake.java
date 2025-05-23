@@ -50,7 +50,7 @@ public class BlockCake extends Block
         float f = 0.0625F;
         float f1 = (float)(1 + state.getValue(BITES) * 2) / 16.0F;
         float f2 = 0.5F;
-        return new AxisAlignedBB((double)((float)pos.getX() + f1), (double)pos.getY(), (double)((float)pos.getZ() + f), (double)((float)(pos.getX() + 1) - f), (double)((float)pos.getY() + f2), (double)((float)(pos.getZ() + 1) - f));
+        return new AxisAlignedBB((float)pos.getX() + f1, pos.getY(), (float)pos.getZ() + f, (float)(pos.getX() + 1) - f, (float)pos.getY() + f2, (float)(pos.getZ() + 1) - f);
     }
 
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos)
@@ -103,7 +103,7 @@ public class BlockCake extends Block
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return super.canPlaceBlockAt(worldIn, pos) ? this.canBlockStay(worldIn, pos) : false;
+        return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos);
     }
 
     /**

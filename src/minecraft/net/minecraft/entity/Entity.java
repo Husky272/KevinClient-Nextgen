@@ -1251,7 +1251,7 @@ public abstract class Entity implements ICommandSender
             float f = BlockLiquid.getLiquidHeightPercent(iblockstate.getBlock().getMetaFromState(iblockstate)) - 0.11111111F;
             float f1 = (float)(blockpos.getY() + 1) - f;
             boolean flag = d0 < (double)f1;
-            return !flag && this instanceof EntityPlayer ? false : flag;
+            return (flag || !(this instanceof EntityPlayer)) && flag;
         }
         else
         {
@@ -1967,7 +1967,6 @@ public abstract class Entity implements ICommandSender
 
                 for (this.entityRiderPitchDelta += this.ridingEntity.rotationPitch - this.ridingEntity.prevRotationPitch; this.entityRiderYawDelta >= 180.0D; this.entityRiderYawDelta -= 360.0D)
                 {
-                    ;
                 }
 
                 while (this.entityRiderYawDelta < -180.0D)
@@ -2256,7 +2255,7 @@ public abstract class Entity implements ICommandSender
      */
     public boolean isInvisibleToPlayer(EntityPlayer player)
     {
-        return player.isSpectator() ? false : this.isInvisible();
+        return !player.isSpectator() && this.isInvisible();
     }
 
     public void setInvisible(boolean invisible)

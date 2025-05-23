@@ -18,7 +18,7 @@ public class EntityMagmaCube extends EntitySlime
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)0.2F);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.2F);
     }
 
     /**
@@ -126,13 +126,13 @@ public class EntityMagmaCube extends EntitySlime
      */
     protected void jump()
     {
-        this.motionY = (double)(0.42F + (float)this.getSlimeSize() * 0.1F);
+        this.motionY = 0.42F + (float)this.getSlimeSize() * 0.1F;
         this.isAirBorne = true;
     }
 
     protected void handleJumpLava()
     {
-        this.motionY = (double)(0.22F + (float)this.getSlimeSize() * 0.05F);
+        this.motionY = 0.22F + (float)this.getSlimeSize() * 0.05F;
         this.isAirBorne = true;
     }
 

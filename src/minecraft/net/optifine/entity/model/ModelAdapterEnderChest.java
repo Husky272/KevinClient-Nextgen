@@ -10,72 +10,50 @@ import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntityEnderChest;
 import net.optifine.reflect.Reflector;
 
-public class ModelAdapterEnderChest extends ModelAdapter
-{
-    public ModelAdapterEnderChest()
-    {
+public class ModelAdapterEnderChest extends ModelAdapter {
+    public ModelAdapterEnderChest() {
         super(TileEntityEnderChest.class, "ender_chest", 0.0F);
     }
 
-    public ModelBase makeModel()
-    {
+    public ModelBase makeModel() {
         return new ModelChest();
     }
 
-    public ModelRenderer getModelRenderer(ModelBase model, String modelPart)
-    {
-        if (!(model instanceof ModelChest))
-        {
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+        if (!(model instanceof ModelChest modelchest)) {
             return null;
-        }
-        else
-        {
-            ModelChest modelchest = (ModelChest)model;
+        } else {
 
-            if (modelPart.equals("lid"))
-            {
+            if (modelPart.equals("lid")) {
                 return modelchest.chestLid;
-            }
-            else if (modelPart.equals("base"))
-            {
+            } else if (modelPart.equals("base")) {
                 return modelchest.chestBelow;
-            }
-            else
-            {
+            } else {
                 return modelPart.equals("knob") ? modelchest.chestKnob : null;
             }
         }
     }
 
-    public String[] getModelRendererNames()
-    {
-        return new String[] {"lid", "base", "knob"};
+    public String[] getModelRendererNames() {
+        return new String[]{"lid", "base", "knob"};
     }
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize)
-    {
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.instance;
         TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityEnderChest.class);
 
-        if (!(tileentityspecialrenderer instanceof TileEntityEnderChestRenderer))
-        {
+        if (!(tileentityspecialrenderer instanceof TileEntityEnderChestRenderer)) {
             return null;
-        }
-        else
-        {
-            if (tileentityspecialrenderer.getEntityClass() == null)
-            {
+        } else {
+            if (tileentityspecialrenderer.getEntityClass() == null) {
                 tileentityspecialrenderer = new TileEntityEnderChestRenderer();
                 tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
             }
 
-            if (!Reflector.TileEntityEnderChestRenderer_modelChest.exists())
-            {
+            if (!Reflector.TileEntityEnderChestRenderer_modelChest.exists()) {
                 Config.warn("Field not found: TileEntityEnderChestRenderer.modelChest");
                 return null;
-            }
-            else
-            {
+            } else {
                 Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntityEnderChestRenderer_modelChest, modelBase);
                 return tileentityspecialrenderer;
             }

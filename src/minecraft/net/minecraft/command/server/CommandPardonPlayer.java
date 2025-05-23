@@ -60,7 +60,7 @@ public class CommandPardonPlayer extends CommandBase
             else
             {
                 minecraftserver.getConfigurationManager().getBannedPlayers().removeEntry(gameprofile);
-                notifyOperators(sender, this, "commands.unban.success", new Object[] {args[0]});
+                notifyOperators(sender, this, "commands.unban.success", args[0]);
             }
         }
         else

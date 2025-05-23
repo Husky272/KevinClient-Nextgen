@@ -37,13 +37,13 @@ public class EffectRenderer
 
     /** Reference to the World object. */
     protected World worldObj;
-    private List<EntityFX>[][] fxLayers = new List[4][];
-    private List<EntityParticleEmitter> particleEmitters = Lists.newArrayList();
-    private TextureManager renderer;
+    private final List<EntityFX>[][] fxLayers = new List[4][];
+    private final List<EntityParticleEmitter> particleEmitters = Lists.newArrayList();
+    private final TextureManager renderer;
 
     /** RNG. */
-    private Random rand = new Random();
-    private Map<Integer, IParticleFactory> particleTypes = Maps.newHashMap();
+    private final Random rand = new Random();
+    private final Map<Integer, IParticleFactory> particleTypes = Maps.newHashMap();
 
     public EffectRenderer(World worldIn, TextureManager rendererIn)
     {

@@ -95,21 +95,21 @@ public class ModuleNode extends ModuleVisitor {
       moduleVisitor.visitMainClass(this.mainClass); 
     if (this.packages != null)
       for (int i = 0, n = this.packages.size(); i < n; i++)
-        moduleVisitor.visitPackage((String)this.packages.get(i));  
+        moduleVisitor.visitPackage(this.packages.get(i));
     if (this.requires != null)
       for (int i = 0, n = this.requires.size(); i < n; i++)
-        ((ModuleRequireNode)this.requires.get(i)).accept(moduleVisitor);  
+        this.requires.get(i).accept(moduleVisitor);
     if (this.exports != null)
       for (int i = 0, n = this.exports.size(); i < n; i++)
-        ((ModuleExportNode)this.exports.get(i)).accept(moduleVisitor);  
+        this.exports.get(i).accept(moduleVisitor);
     if (this.opens != null)
       for (int i = 0, n = this.opens.size(); i < n; i++)
-        ((ModuleOpenNode)this.opens.get(i)).accept(moduleVisitor);  
+        this.opens.get(i).accept(moduleVisitor);
     if (this.uses != null)
       for (int i = 0, n = this.uses.size(); i < n; i++)
-        moduleVisitor.visitUse((String)this.uses.get(i));  
+        moduleVisitor.visitUse(this.uses.get(i));
     if (this.provides != null)
       for (int i = 0, n = this.provides.size(); i < n; i++)
-        ((ModuleProvideNode)this.provides.get(i)).accept(moduleVisitor);  
+        this.provides.get(i).accept(moduleVisitor);
   }
 }

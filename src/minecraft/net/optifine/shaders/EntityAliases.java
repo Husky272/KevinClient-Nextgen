@@ -85,7 +85,6 @@ public class EntityAliases
             }
             catch (IOException var6)
             {
-                ;
             }
         }
     }

@@ -235,29 +235,29 @@ public class BlockPistonMoving extends BlockContainer
 
                 if (direction.getFrontOffsetX() < 0)
                 {
-                    d0 -= (double)((float)direction.getFrontOffsetX() * progress);
+                    d0 -= (float)direction.getFrontOffsetX() * progress;
                 }
                 else
                 {
-                    d3 -= (double)((float)direction.getFrontOffsetX() * progress);
+                    d3 -= (float)direction.getFrontOffsetX() * progress;
                 }
 
                 if (direction.getFrontOffsetY() < 0)
                 {
-                    d1 -= (double)((float)direction.getFrontOffsetY() * progress);
+                    d1 -= (float)direction.getFrontOffsetY() * progress;
                 }
                 else
                 {
-                    d4 -= (double)((float)direction.getFrontOffsetY() * progress);
+                    d4 -= (float)direction.getFrontOffsetY() * progress;
                 }
 
                 if (direction.getFrontOffsetZ() < 0)
                 {
-                    d2 -= (double)((float)direction.getFrontOffsetZ() * progress);
+                    d2 -= (float)direction.getFrontOffsetZ() * progress;
                 }
                 else
                 {
-                    d5 -= (double)((float)direction.getFrontOffsetZ() * progress);
+                    d5 -= (float)direction.getFrontOffsetZ() * progress;
                 }
 
                 return new AxisAlignedBB(d0, d1, d2, d3, d4, d5);

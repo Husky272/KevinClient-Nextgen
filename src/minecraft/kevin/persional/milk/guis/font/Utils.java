@@ -49,10 +49,7 @@ public class Utils {
         if (Utils.mc.thePlayer.isBlocking() || Utils.mc.thePlayer.isUsingItem() && Utils.mc.thePlayer.getCurrentEquippedItem().getItem() instanceof ItemSword) {
             return true;
         }
-        if (Utils.mc.thePlayer.getHeldItem().getItem() instanceof ItemSword && Minecraft.getMinecraft().gameSettings.keyBindUseItem.isPressed()) {
-            return true;
-        }
-        return false;
+        return Utils.mc.thePlayer.getHeldItem().getItem() instanceof ItemSword && Minecraft.getMinecraft().gameSettings.keyBindUseItem.isPressed();
     }
 
     public static String getMD5(String input) {

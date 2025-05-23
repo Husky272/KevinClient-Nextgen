@@ -64,12 +64,7 @@ public class CommandCompare extends CommandBase
 
                 if (world.isAreaLoaded(structureboundingbox) && world.isAreaLoaded(structureboundingbox1))
                 {
-                    boolean flag = false;
-
-                    if (args.length > 9 && args[9].equals("masked"))
-                    {
-                        flag = true;
-                    }
+                    boolean flag = args.length > 9 && args[9].equals("masked");
 
                     i = 0;
                     BlockPos blockpos3 = new BlockPos(structureboundingbox1.minX - structureboundingbox.minX, structureboundingbox1.minY - structureboundingbox.minY, structureboundingbox1.minZ - structureboundingbox.minZ);
@@ -134,7 +129,7 @@ public class CommandCompare extends CommandBase
                     }
 
                     sender.setCommandStat(CommandResultStats.Type.AFFECTED_BLOCKS, i);
-                    notifyOperators(sender, this, "commands.compare.success", new Object[] {i});
+                    notifyOperators(sender, this, "commands.compare.success", i);
                 }
                 else
                 {
@@ -164,7 +159,7 @@ public class CommandCompare extends CommandBase
         }
         else
         {
-            return args.length == 10 ? getListOfStringsMatchingLastWord(args, new String[] {"masked", "all"}) : null;
+            return args.length == 10 ? getListOfStringsMatchingLastWord(args, "masked", "all") : null;
         }
     }
 }

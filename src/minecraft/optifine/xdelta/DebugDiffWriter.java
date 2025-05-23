@@ -41,11 +41,11 @@ public class DebugDiffWriter implements DiffWriter
             }
             else
             {
-                System.err.print(String.valueOf((char)this.buf[i]));
+                System.err.print((char) this.buf[i]);
             }
         }
 
-        System.err.println("");
+        System.err.println();
         this.buflen = 0;
     }
 

@@ -59,7 +59,7 @@ public class ItemModelMesher
 
         if (Config.isCustomItems())
         {
-            ibakedmodel = CustomItems.getCustomItemModel(stack, ibakedmodel, (ResourceLocation)null, true);
+            ibakedmodel = CustomItems.getCustomItemModel(stack, ibakedmodel, null, true);
         }
 
         return ibakedmodel;

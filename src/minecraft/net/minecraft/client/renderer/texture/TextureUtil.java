@@ -27,7 +27,7 @@ public class TextureUtil
     public static final DynamicTexture missingTexture = new DynamicTexture(16, 16);
     public static final int[] missingTextureData = missingTexture.getTextureData();
     private static final int[] mipmapBuffer;
-    private static int[] dataArray = new int[4194304];
+    private static final int[] dataArray = new int[4194304];
 
     public static int glGenTextures()
     {
@@ -87,7 +87,7 @@ public class TextureUtil
                         for (int j1 = 0; j1 < k; ++j1)
                         {
                             int k1 = 2 * (i1 + j1 * l);
-                            aint2[i1 + j1 * j] = blendColors(aint1[k1 + 0], aint1[k1 + 1], aint1[k1 + 0 + l], aint1[k1 + 1 + l], flag);
+                            aint2[i1 + j1 * j] = blendColors(aint1[k1], aint1[k1 + 1], aint1[k1 + l], aint1[k1 + 1 + l], flag);
                         }
                     }
 
@@ -106,10 +106,10 @@ public class TextureUtil
 
     private static int blendColorComponent(int p_147944_0_, int p_147944_1_, int p_147944_2_, int p_147944_3_, int p_147944_4_)
     {
-        float f = (float)Math.pow((double)((float)(p_147944_0_ >> p_147944_4_ & 255) / 255.0F), 2.2D);
-        float f1 = (float)Math.pow((double)((float)(p_147944_1_ >> p_147944_4_ & 255) / 255.0F), 2.2D);
-        float f2 = (float)Math.pow((double)((float)(p_147944_2_ >> p_147944_4_ & 255) / 255.0F), 2.2D);
-        float f3 = (float)Math.pow((double)((float)(p_147944_3_ >> p_147944_4_ & 255) / 255.0F), 2.2D);
+        float f = (float)Math.pow((float)(p_147944_0_ >> p_147944_4_ & 255) / 255.0F, 2.2D);
+        float f1 = (float)Math.pow((float)(p_147944_1_ >> p_147944_4_ & 255) / 255.0F, 2.2D);
+        float f2 = (float)Math.pow((float)(p_147944_2_ >> p_147944_4_ & 255) / 255.0F, 2.2D);
+        float f3 = (float)Math.pow((float)(p_147944_3_ >> p_147944_4_ & 255) / 255.0F, 2.2D);
         float f4 = (float)Math.pow((double)(f + f1 + f2 + f3) * 0.25D, 0.45454545454545453D);
         return (int)((double)f4 * 255.0D);
     }

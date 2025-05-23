@@ -27,9 +27,9 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
     protected T modelArmor;
     private final RendererLivingEntity<?> renderer;
     private float alpha = 1.0F;
-    private float colorR = 1.0F;
-    private float colorG = 1.0F;
-    private float colorB = 1.0F;
+    private final float colorR = 1.0F;
+    private final float colorG = 1.0F;
+    private final float colorB = 1.0F;
     private boolean skipRenderGlint;
     private static final Map<String, ResourceLocation> ARMOR_TEXTURE_RES_MAP = Maps.newHashMap();
 
@@ -56,9 +56,8 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
     {
         ItemStack itemstack = this.getCurrentArmor(entitylivingbaseIn, armorSlot);
 
-        if (itemstack != null && itemstack.getItem() instanceof ItemArmor)
+        if (itemstack != null && itemstack.getItem() instanceof ItemArmor itemarmor)
         {
-            ItemArmor itemarmor = (ItemArmor)itemstack.getItem();
             T t = this.getArmorModel(armorSlot);
             t.setModelAttributes(this.renderer.getMainModel());
             t.setLivingAnimations(entitylivingbaseIn, p_177182_2_, p_177182_3_, partialTicks);
@@ -66,7 +65,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
             this.setModelPartVisible(t, armorSlot);
             boolean flag = this.isSlotForLeggings(armorSlot);
 
-            if (!Config.isCustomItems() || !CustomItems.bindCustomArmorTexture(itemstack, flag ? 2 : 1, (String)null))
+            if (!Config.isCustomItems() || !CustomItems.bindCustomArmorTexture(itemstack, flag ? 2 : 1, null))
             {
                 this.renderer.bindTexture(this.getArmorResource(itemarmor, flag));
             }
@@ -111,7 +110,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 
     public T getArmorModel(int armorSlot)
     {
-        return (T)(this.isSlotForLeggings(armorSlot) ? this.modelLeggings : this.modelArmor);
+        return this.isSlotForLeggings(armorSlot) ? this.modelLeggings : this.modelArmor;
     }
 
     private boolean isSlotForLeggings(int armorSlot)
@@ -170,7 +169,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 
     private ResourceLocation getArmorResource(ItemArmor p_177181_1_, boolean p_177181_2_)
     {
-        return this.getArmorResource(p_177181_1_, p_177181_2_, (String)null);
+        return this.getArmorResource(p_177181_1_, p_177181_2_, null);
     }
 
     private ResourceLocation getArmorResource(ItemArmor p_177178_1_, boolean p_177178_2_, String p_177178_3_)

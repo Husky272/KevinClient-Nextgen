@@ -1,459 +1,459 @@
 package org.objectweb.asm;
 
 public interface Opcodes {
-  public static final int ASM4 = 262144;
+  int ASM4 = 262144;
   
-  public static final int ASM5 = 327680;
+  int ASM5 = 327680;
   
-  public static final int ASM6 = 393216;
+  int ASM6 = 393216;
   
-  public static final int ASM7 = 458752;
+  int ASM7 = 458752;
   
-  public static final int V1_1 = 196653;
+  int V1_1 = 196653;
   
-  public static final int V1_2 = 46;
+  int V1_2 = 46;
   
-  public static final int V1_3 = 47;
+  int V1_3 = 47;
   
-  public static final int V1_4 = 48;
+  int V1_4 = 48;
   
-  public static final int V1_5 = 49;
+  int V1_5 = 49;
   
-  public static final int V1_6 = 50;
+  int V1_6 = 50;
   
-  public static final int V1_7 = 51;
+  int V1_7 = 51;
   
-  public static final int V1_8 = 52;
+  int V1_8 = 52;
   
-  public static final int V9 = 53;
+  int V9 = 53;
   
-  public static final int V10 = 54;
+  int V10 = 54;
   
-  public static final int V11 = 55;
+  int V11 = 55;
   
-  public static final int V12 = 56;
+  int V12 = 56;
   
-  public static final int V_PREVIEW = -65536;
+  int V_PREVIEW = -65536;
   
-  public static final int ACC_PUBLIC = 1;
+  int ACC_PUBLIC = 1;
   
-  public static final int ACC_PRIVATE = 2;
+  int ACC_PRIVATE = 2;
   
-  public static final int ACC_PROTECTED = 4;
+  int ACC_PROTECTED = 4;
   
-  public static final int ACC_STATIC = 8;
+  int ACC_STATIC = 8;
   
-  public static final int ACC_FINAL = 16;
+  int ACC_FINAL = 16;
   
-  public static final int ACC_SUPER = 32;
+  int ACC_SUPER = 32;
   
-  public static final int ACC_SYNCHRONIZED = 32;
+  int ACC_SYNCHRONIZED = 32;
   
-  public static final int ACC_OPEN = 32;
+  int ACC_OPEN = 32;
   
-  public static final int ACC_TRANSITIVE = 32;
+  int ACC_TRANSITIVE = 32;
   
-  public static final int ACC_VOLATILE = 64;
+  int ACC_VOLATILE = 64;
   
-  public static final int ACC_BRIDGE = 64;
+  int ACC_BRIDGE = 64;
   
-  public static final int ACC_STATIC_PHASE = 64;
+  int ACC_STATIC_PHASE = 64;
   
-  public static final int ACC_VARARGS = 128;
+  int ACC_VARARGS = 128;
   
-  public static final int ACC_TRANSIENT = 128;
+  int ACC_TRANSIENT = 128;
   
-  public static final int ACC_NATIVE = 256;
+  int ACC_NATIVE = 256;
   
-  public static final int ACC_INTERFACE = 512;
+  int ACC_INTERFACE = 512;
   
-  public static final int ACC_ABSTRACT = 1024;
+  int ACC_ABSTRACT = 1024;
   
-  public static final int ACC_STRICT = 2048;
+  int ACC_STRICT = 2048;
   
-  public static final int ACC_SYNTHETIC = 4096;
+  int ACC_SYNTHETIC = 4096;
   
-  public static final int ACC_ANNOTATION = 8192;
+  int ACC_ANNOTATION = 8192;
   
-  public static final int ACC_ENUM = 16384;
+  int ACC_ENUM = 16384;
   
-  public static final int ACC_MANDATED = 32768;
+  int ACC_MANDATED = 32768;
   
-  public static final int ACC_MODULE = 32768;
+  int ACC_MODULE = 32768;
   
-  public static final int ACC_DEPRECATED = 131072;
+  int ACC_DEPRECATED = 131072;
   
-  public static final int T_BOOLEAN = 4;
+  int T_BOOLEAN = 4;
   
-  public static final int T_CHAR = 5;
+  int T_CHAR = 5;
   
-  public static final int T_FLOAT = 6;
+  int T_FLOAT = 6;
   
-  public static final int T_DOUBLE = 7;
+  int T_DOUBLE = 7;
   
-  public static final int T_BYTE = 8;
+  int T_BYTE = 8;
   
-  public static final int T_SHORT = 9;
+  int T_SHORT = 9;
   
-  public static final int T_INT = 10;
+  int T_INT = 10;
   
-  public static final int T_LONG = 11;
+  int T_LONG = 11;
   
-  public static final int H_GETFIELD = 1;
+  int H_GETFIELD = 1;
   
-  public static final int H_GETSTATIC = 2;
+  int H_GETSTATIC = 2;
   
-  public static final int H_PUTFIELD = 3;
+  int H_PUTFIELD = 3;
   
-  public static final int H_PUTSTATIC = 4;
+  int H_PUTSTATIC = 4;
   
-  public static final int H_INVOKEVIRTUAL = 5;
+  int H_INVOKEVIRTUAL = 5;
   
-  public static final int H_INVOKESTATIC = 6;
+  int H_INVOKESTATIC = 6;
   
-  public static final int H_INVOKESPECIAL = 7;
+  int H_INVOKESPECIAL = 7;
   
-  public static final int H_NEWINVOKESPECIAL = 8;
+  int H_NEWINVOKESPECIAL = 8;
   
-  public static final int H_INVOKEINTERFACE = 9;
+  int H_INVOKEINTERFACE = 9;
   
-  public static final int F_NEW = -1;
+  int F_NEW = -1;
   
-  public static final int F_FULL = 0;
+  int F_FULL = 0;
   
-  public static final int F_APPEND = 1;
+  int F_APPEND = 1;
   
-  public static final int F_CHOP = 2;
+  int F_CHOP = 2;
   
-  public static final int F_SAME = 3;
+  int F_SAME = 3;
   
-  public static final int F_SAME1 = 4;
+  int F_SAME1 = 4;
   
-  public static final Integer TOP = Integer.valueOf(0);
+  Integer TOP = Integer.valueOf(0);
   
-  public static final Integer INTEGER = Integer.valueOf(1);
+  Integer INTEGER = Integer.valueOf(1);
   
-  public static final Integer FLOAT = Integer.valueOf(2);
+  Integer FLOAT = Integer.valueOf(2);
   
-  public static final Integer DOUBLE = Integer.valueOf(3);
+  Integer DOUBLE = Integer.valueOf(3);
   
-  public static final Integer LONG = Integer.valueOf(4);
+  Integer LONG = Integer.valueOf(4);
   
-  public static final Integer NULL = Integer.valueOf(5);
+  Integer NULL = Integer.valueOf(5);
   
-  public static final Integer UNINITIALIZED_THIS = Integer.valueOf(6);
+  Integer UNINITIALIZED_THIS = Integer.valueOf(6);
   
-  public static final int NOP = 0;
+  int NOP = 0;
   
-  public static final int ACONST_NULL = 1;
+  int ACONST_NULL = 1;
   
-  public static final int ICONST_M1 = 2;
+  int ICONST_M1 = 2;
   
-  public static final int ICONST_0 = 3;
+  int ICONST_0 = 3;
   
-  public static final int ICONST_1 = 4;
+  int ICONST_1 = 4;
   
-  public static final int ICONST_2 = 5;
+  int ICONST_2 = 5;
   
-  public static final int ICONST_3 = 6;
+  int ICONST_3 = 6;
   
-  public static final int ICONST_4 = 7;
+  int ICONST_4 = 7;
   
-  public static final int ICONST_5 = 8;
+  int ICONST_5 = 8;
   
-  public static final int LCONST_0 = 9;
+  int LCONST_0 = 9;
   
-  public static final int LCONST_1 = 10;
+  int LCONST_1 = 10;
   
-  public static final int FCONST_0 = 11;
+  int FCONST_0 = 11;
   
-  public static final int FCONST_1 = 12;
+  int FCONST_1 = 12;
   
-  public static final int FCONST_2 = 13;
+  int FCONST_2 = 13;
   
-  public static final int DCONST_0 = 14;
+  int DCONST_0 = 14;
   
-  public static final int DCONST_1 = 15;
+  int DCONST_1 = 15;
   
-  public static final int BIPUSH = 16;
+  int BIPUSH = 16;
   
-  public static final int SIPUSH = 17;
+  int SIPUSH = 17;
   
-  public static final int LDC = 18;
+  int LDC = 18;
   
-  public static final int ILOAD = 21;
+  int ILOAD = 21;
   
-  public static final int LLOAD = 22;
+  int LLOAD = 22;
   
-  public static final int FLOAD = 23;
+  int FLOAD = 23;
   
-  public static final int DLOAD = 24;
+  int DLOAD = 24;
   
-  public static final int ALOAD = 25;
+  int ALOAD = 25;
   
-  public static final int IALOAD = 46;
+  int IALOAD = 46;
   
-  public static final int LALOAD = 47;
+  int LALOAD = 47;
   
-  public static final int FALOAD = 48;
+  int FALOAD = 48;
   
-  public static final int DALOAD = 49;
+  int DALOAD = 49;
   
-  public static final int AALOAD = 50;
+  int AALOAD = 50;
   
-  public static final int BALOAD = 51;
+  int BALOAD = 51;
   
-  public static final int CALOAD = 52;
+  int CALOAD = 52;
   
-  public static final int SALOAD = 53;
+  int SALOAD = 53;
   
-  public static final int ISTORE = 54;
+  int ISTORE = 54;
   
-  public static final int LSTORE = 55;
+  int LSTORE = 55;
   
-  public static final int FSTORE = 56;
+  int FSTORE = 56;
   
-  public static final int DSTORE = 57;
+  int DSTORE = 57;
   
-  public static final int ASTORE = 58;
+  int ASTORE = 58;
   
-  public static final int IASTORE = 79;
+  int IASTORE = 79;
   
-  public static final int LASTORE = 80;
+  int LASTORE = 80;
   
-  public static final int FASTORE = 81;
+  int FASTORE = 81;
   
-  public static final int DASTORE = 82;
+  int DASTORE = 82;
   
-  public static final int AASTORE = 83;
+  int AASTORE = 83;
   
-  public static final int BASTORE = 84;
+  int BASTORE = 84;
   
-  public static final int CASTORE = 85;
+  int CASTORE = 85;
   
-  public static final int SASTORE = 86;
+  int SASTORE = 86;
   
-  public static final int POP = 87;
+  int POP = 87;
   
-  public static final int POP2 = 88;
+  int POP2 = 88;
   
-  public static final int DUP = 89;
+  int DUP = 89;
   
-  public static final int DUP_X1 = 90;
+  int DUP_X1 = 90;
   
-  public static final int DUP_X2 = 91;
+  int DUP_X2 = 91;
   
-  public static final int DUP2 = 92;
+  int DUP2 = 92;
   
-  public static final int DUP2_X1 = 93;
+  int DUP2_X1 = 93;
   
-  public static final int DUP2_X2 = 94;
+  int DUP2_X2 = 94;
   
-  public static final int SWAP = 95;
+  int SWAP = 95;
   
-  public static final int IADD = 96;
+  int IADD = 96;
   
-  public static final int LADD = 97;
+  int LADD = 97;
   
-  public static final int FADD = 98;
+  int FADD = 98;
   
-  public static final int DADD = 99;
+  int DADD = 99;
   
-  public static final int ISUB = 100;
+  int ISUB = 100;
   
-  public static final int LSUB = 101;
+  int LSUB = 101;
   
-  public static final int FSUB = 102;
+  int FSUB = 102;
   
-  public static final int DSUB = 103;
+  int DSUB = 103;
   
-  public static final int IMUL = 104;
+  int IMUL = 104;
   
-  public static final int LMUL = 105;
+  int LMUL = 105;
   
-  public static final int FMUL = 106;
+  int FMUL = 106;
   
-  public static final int DMUL = 107;
+  int DMUL = 107;
   
-  public static final int IDIV = 108;
+  int IDIV = 108;
   
-  public static final int LDIV = 109;
+  int LDIV = 109;
   
-  public static final int FDIV = 110;
+  int FDIV = 110;
   
-  public static final int DDIV = 111;
+  int DDIV = 111;
   
-  public static final int IREM = 112;
+  int IREM = 112;
   
-  public static final int LREM = 113;
+  int LREM = 113;
   
-  public static final int FREM = 114;
+  int FREM = 114;
   
-  public static final int DREM = 115;
+  int DREM = 115;
   
-  public static final int INEG = 116;
+  int INEG = 116;
   
-  public static final int LNEG = 117;
+  int LNEG = 117;
   
-  public static final int FNEG = 118;
+  int FNEG = 118;
   
-  public static final int DNEG = 119;
+  int DNEG = 119;
   
-  public static final int ISHL = 120;
+  int ISHL = 120;
   
-  public static final int LSHL = 121;
+  int LSHL = 121;
   
-  public static final int ISHR = 122;
+  int ISHR = 122;
   
-  public static final int LSHR = 123;
+  int LSHR = 123;
   
-  public static final int IUSHR = 124;
+  int IUSHR = 124;
   
-  public static final int LUSHR = 125;
+  int LUSHR = 125;
   
-  public static final int IAND = 126;
+  int IAND = 126;
   
-  public static final int LAND = 127;
+  int LAND = 127;
   
-  public static final int IOR = 128;
+  int IOR = 128;
   
-  public static final int LOR = 129;
+  int LOR = 129;
   
-  public static final int IXOR = 130;
+  int IXOR = 130;
   
-  public static final int LXOR = 131;
+  int LXOR = 131;
   
-  public static final int IINC = 132;
+  int IINC = 132;
   
-  public static final int I2L = 133;
+  int I2L = 133;
   
-  public static final int I2F = 134;
+  int I2F = 134;
   
-  public static final int I2D = 135;
+  int I2D = 135;
   
-  public static final int L2I = 136;
+  int L2I = 136;
   
-  public static final int L2F = 137;
+  int L2F = 137;
   
-  public static final int L2D = 138;
+  int L2D = 138;
   
-  public static final int F2I = 139;
+  int F2I = 139;
   
-  public static final int F2L = 140;
+  int F2L = 140;
   
-  public static final int F2D = 141;
+  int F2D = 141;
   
-  public static final int D2I = 142;
+  int D2I = 142;
   
-  public static final int D2L = 143;
+  int D2L = 143;
   
-  public static final int D2F = 144;
+  int D2F = 144;
   
-  public static final int I2B = 145;
+  int I2B = 145;
   
-  public static final int I2C = 146;
+  int I2C = 146;
   
-  public static final int I2S = 147;
+  int I2S = 147;
   
-  public static final int LCMP = 148;
+  int LCMP = 148;
   
-  public static final int FCMPL = 149;
+  int FCMPL = 149;
   
-  public static final int FCMPG = 150;
+  int FCMPG = 150;
   
-  public static final int DCMPL = 151;
+  int DCMPL = 151;
   
-  public static final int DCMPG = 152;
+  int DCMPG = 152;
   
-  public static final int IFEQ = 153;
+  int IFEQ = 153;
   
-  public static final int IFNE = 154;
+  int IFNE = 154;
   
-  public static final int IFLT = 155;
+  int IFLT = 155;
   
-  public static final int IFGE = 156;
+  int IFGE = 156;
   
-  public static final int IFGT = 157;
+  int IFGT = 157;
   
-  public static final int IFLE = 158;
+  int IFLE = 158;
   
-  public static final int IF_ICMPEQ = 159;
+  int IF_ICMPEQ = 159;
   
-  public static final int IF_ICMPNE = 160;
+  int IF_ICMPNE = 160;
   
-  public static final int IF_ICMPLT = 161;
+  int IF_ICMPLT = 161;
   
-  public static final int IF_ICMPGE = 162;
+  int IF_ICMPGE = 162;
   
-  public static final int IF_ICMPGT = 163;
+  int IF_ICMPGT = 163;
   
-  public static final int IF_ICMPLE = 164;
+  int IF_ICMPLE = 164;
   
-  public static final int IF_ACMPEQ = 165;
+  int IF_ACMPEQ = 165;
   
-  public static final int IF_ACMPNE = 166;
+  int IF_ACMPNE = 166;
   
-  public static final int GOTO = 167;
+  int GOTO = 167;
   
-  public static final int JSR = 168;
+  int JSR = 168;
   
-  public static final int RET = 169;
+  int RET = 169;
   
-  public static final int TABLESWITCH = 170;
+  int TABLESWITCH = 170;
   
-  public static final int LOOKUPSWITCH = 171;
+  int LOOKUPSWITCH = 171;
   
-  public static final int IRETURN = 172;
+  int IRETURN = 172;
   
-  public static final int LRETURN = 173;
+  int LRETURN = 173;
   
-  public static final int FRETURN = 174;
+  int FRETURN = 174;
   
-  public static final int DRETURN = 175;
+  int DRETURN = 175;
   
-  public static final int ARETURN = 176;
+  int ARETURN = 176;
   
-  public static final int RETURN = 177;
+  int RETURN = 177;
   
-  public static final int GETSTATIC = 178;
+  int GETSTATIC = 178;
   
-  public static final int PUTSTATIC = 179;
+  int PUTSTATIC = 179;
   
-  public static final int GETFIELD = 180;
+  int GETFIELD = 180;
   
-  public static final int PUTFIELD = 181;
+  int PUTFIELD = 181;
   
-  public static final int INVOKEVIRTUAL = 182;
+  int INVOKEVIRTUAL = 182;
   
-  public static final int INVOKESPECIAL = 183;
+  int INVOKESPECIAL = 183;
   
-  public static final int INVOKESTATIC = 184;
+  int INVOKESTATIC = 184;
   
-  public static final int INVOKEINTERFACE = 185;
+  int INVOKEINTERFACE = 185;
   
-  public static final int INVOKEDYNAMIC = 186;
+  int INVOKEDYNAMIC = 186;
   
-  public static final int NEW = 187;
+  int NEW = 187;
   
-  public static final int NEWARRAY = 188;
+  int NEWARRAY = 188;
   
-  public static final int ANEWARRAY = 189;
+  int ANEWARRAY = 189;
   
-  public static final int ARRAYLENGTH = 190;
+  int ARRAYLENGTH = 190;
   
-  public static final int ATHROW = 191;
+  int ATHROW = 191;
   
-  public static final int CHECKCAST = 192;
+  int CHECKCAST = 192;
   
-  public static final int INSTANCEOF = 193;
+  int INSTANCEOF = 193;
   
-  public static final int MONITORENTER = 194;
+  int MONITORENTER = 194;
   
-  public static final int MONITOREXIT = 195;
+  int MONITOREXIT = 195;
   
-  public static final int MULTIANEWARRAY = 197;
+  int MULTIANEWARRAY = 197;
   
-  public static final int IFNULL = 198;
+  int IFNULL = 198;
   
-  public static final int IFNONNULL = 199;
+  int IFNONNULL = 199;
 }

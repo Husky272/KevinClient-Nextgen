@@ -25,7 +25,7 @@ public class GuiBeacon extends GuiContainer
 {
     private static final Logger logger = LogManager.getLogger();
     private static final ResourceLocation beaconGuiTextures = new ResourceLocation("textures/gui/container/beacon.png");
-    private IInventory tileBeacon;
+    private final IInventory tileBeacon;
     private GuiBeacon.ConfirmButton beaconConfirmButton;
     private boolean buttonsNotDrawn;
 
@@ -132,7 +132,7 @@ public class GuiBeacon extends GuiContainer
     {
         if (button.id == -2)
         {
-            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.displayGuiScreen(null);
         }
         else if (button.id == -1)
         {
@@ -141,7 +141,7 @@ public class GuiBeacon extends GuiContainer
             packetbuffer.writeInt(this.tileBeacon.getField(1));
             packetbuffer.writeInt(this.tileBeacon.getField(2));
             this.mc.getNetHandler().addToSendQueue(new C17PacketCustomPayload(s, packetbuffer));
-            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.displayGuiScreen(null);
         }
         else if (button instanceof GuiBeacon.PowerButton)
         {
@@ -239,7 +239,7 @@ public class GuiBeacon extends GuiContainer
                 }
                 else if (this.field_146142_r)
                 {
-                    j += this.width * 1;
+                    j += this.width;
                 }
                 else if (this.hovered)
                 {
@@ -301,7 +301,7 @@ public class GuiBeacon extends GuiContainer
 
         public PowerButton(int p_i1076_2_, int p_i1076_3_, int p_i1076_4_, int p_i1076_5_, int p_i1076_6_)
         {
-            super(p_i1076_2_, p_i1076_3_, p_i1076_4_, GuiContainer.inventoryBackground, 0 + Potion.potionTypes[p_i1076_5_].getStatusIconIndex() % 8 * 18, 198 + Potion.potionTypes[p_i1076_5_].getStatusIconIndex() / 8 * 18);
+            super(p_i1076_2_, p_i1076_3_, p_i1076_4_, GuiContainer.inventoryBackground, Potion.potionTypes[p_i1076_5_].getStatusIconIndex() % 8 * 18, 198 + Potion.potionTypes[p_i1076_5_].getStatusIconIndex() / 8 * 18);
             this.field_146149_p = p_i1076_5_;
             this.field_146148_q = p_i1076_6_;
         }

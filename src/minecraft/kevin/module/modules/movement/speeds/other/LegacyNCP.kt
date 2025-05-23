@@ -55,9 +55,9 @@ object LegacyNCP : SpeedMode("LegacyNCP") {  // from Rise
                 mc.timer.timerSpeed += (mc.thePlayer.getActivePotionEffect(Potion.moveSpeed).amplifier + 1) / 12.5F
             }
             if (mc.timer.timerSpeed > 1.5F) {
-                mc.timer.timerSpeed = 1.5F;
+                mc.timer.timerSpeed = 1.5F
             } else if (mc.timer.timerSpeed < 0.6F) {
-                mc.timer.timerSpeed = 0.6F;
+                mc.timer.timerSpeed = 0.6F
             }
         }
     }

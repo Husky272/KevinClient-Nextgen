@@ -139,12 +139,12 @@ public class CommandClone extends CommandBase
                                             }
                                             else if (!iblockstate.getBlock().isFullBlock() && !iblockstate.getBlock().isFullCube())
                                             {
-                                                list2.add(new CommandClone.StaticCloneData(blockpos5, iblockstate, (NBTTagCompound)null));
+                                                list2.add(new CommandClone.StaticCloneData(blockpos5, iblockstate, null));
                                                 linkedlist.addFirst(blockpos4);
                                             }
                                             else
                                             {
-                                                list.add(new CommandClone.StaticCloneData(blockpos5, iblockstate, (NBTTagCompound)null));
+                                                list.add(new CommandClone.StaticCloneData(blockpos5, iblockstate, null));
                                                 linkedlist.addLast(blockpos4);
                                             }
                                         }
@@ -242,7 +242,7 @@ public class CommandClone extends CommandBase
                             else
                             {
                                 sender.setCommandStat(CommandResultStats.Type.AFFECTED_BLOCKS, i);
-                                notifyOperators(sender, this, "commands.clone.success", new Object[] {i});
+                                notifyOperators(sender, this, "commands.clone.success", i);
                             }
                         }
                         else
@@ -275,11 +275,11 @@ public class CommandClone extends CommandBase
         }
         else if (args.length == 10)
         {
-            return getListOfStringsMatchingLastWord(args, new String[] {"replace", "masked", "filtered"});
+            return getListOfStringsMatchingLastWord(args, "replace", "masked", "filtered");
         }
         else if (args.length == 11)
         {
-            return getListOfStringsMatchingLastWord(args, new String[] {"normal", "force", "move"});
+            return getListOfStringsMatchingLastWord(args, "normal", "force", "move");
         }
         else
         {

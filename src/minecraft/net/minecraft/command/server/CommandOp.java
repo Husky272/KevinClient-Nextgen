@@ -53,7 +53,7 @@ public class CommandOp extends CommandBase
             else
             {
                 minecraftserver.getConfigurationManager().addOp(gameprofile);
-                notifyOperators(sender, this, "commands.op.success", new Object[] {args[0]});
+                notifyOperators(sender, this, "commands.op.success", args[0]);
             }
         }
         else

@@ -18,6 +18,7 @@ import java.net.Proxy;
 import java.net.ServerSocket;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.Executors;
@@ -50,27 +51,13 @@ public class HttpUtil
                 stringbuilder.append('&');
             }
 
-            try
-            {
-                stringbuilder.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-            }
-            catch (UnsupportedEncodingException unsupportedencodingexception1)
-            {
-                unsupportedencodingexception1.printStackTrace();
-            }
+            stringbuilder.append(URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8));
 
             if (entry.getValue() != null)
             {
                 stringbuilder.append('=');
 
-                try
-                {
-                    stringbuilder.append(URLEncoder.encode(entry.getValue().toString(), "UTF-8"));
-                }
-                catch (UnsupportedEncodingException unsupportedencodingexception)
-                {
-                    unsupportedencodingexception.printStackTrace();
-                }
+                stringbuilder.append(URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8));
             }
         }
 
@@ -128,7 +115,7 @@ public class HttpUtil
         {
             if (!skipLoggingErrors)
             {
-                logger.error("Could not post to " + url, (Throwable)exception);
+                logger.error("Could not post to " + url, exception);
             }
 
             return "";
@@ -159,7 +146,7 @@ public class HttpUtil
                         URL url = new URL(packUrl);
                         httpurlconnection = (HttpURLConnection)url.openConnection(p_180192_5_);
                         float f = 0.0F;
-                        float f1 = (float)p_180192_2_.entrySet().size();
+                        float f1 = (float) p_180192_2_.size();
 
                         for (Entry<String, String> entry : p_180192_2_.entrySet())
                         {
@@ -253,7 +240,6 @@ public class HttpUtil
                         if (p_180192_4_ != null)
                         {
                             p_180192_4_.setDoneWorking();
-                            return;
                         }
                     }
                     catch (Throwable throwable)
@@ -277,7 +263,6 @@ public class HttpUtil
                         if (p_180192_4_ != null)
                         {
                             p_180192_4_.setDoneWorking();
-                            return;
                         }
                     }
                 }
@@ -312,7 +297,6 @@ public class HttpUtil
             }
             catch (IOException var8)
             {
-                ;
             }
         }
 

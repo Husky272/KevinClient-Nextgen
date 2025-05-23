@@ -41,7 +41,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate
         switch (this.sensitivity)
         {
             case EVERYTHING:
-                list = worldIn.getEntitiesWithinAABBExcludingEntity((Entity)null, axisalignedbb);
+                list = worldIn.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb);
                 break;
 
             case MOBS:
@@ -87,9 +87,9 @@ public class BlockPressurePlate extends BlockBasePressurePlate
         return new BlockState(this, POWERED);
     }
 
-    public static enum Sensitivity
+    public enum Sensitivity
     {
         EVERYTHING,
-        MOBS;
+        MOBS
     }
 }

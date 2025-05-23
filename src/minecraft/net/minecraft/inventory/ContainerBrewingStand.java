@@ -8,7 +8,7 @@ import net.minecraft.stats.AchievementList;
 
 public class ContainerBrewingStand extends Container
 {
-    private IInventory tileBrewingStand;
+    private final IInventory tileBrewingStand;
 
     /** Instance of Slot. */
     private final Slot theSlot;
@@ -132,7 +132,7 @@ public class ContainerBrewingStand extends Container
 
             if (itemstack1.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack(null);
             }
             else
             {
@@ -159,7 +159,7 @@ public class ContainerBrewingStand extends Container
 
         public boolean isItemValid(ItemStack stack)
         {
-            return stack != null ? stack.getItem().isPotionIngredient(stack) : false;
+            return stack != null && stack.getItem().isPotionIngredient(stack);
         }
 
         public int getSlotStackLimit()
@@ -170,7 +170,7 @@ public class ContainerBrewingStand extends Container
 
     static class Potion extends Slot
     {
-        private EntityPlayer player;
+        private final EntityPlayer player;
 
         public Potion(EntityPlayer playerIn, IInventory inventoryIn, int index, int xPosition, int yPosition)
         {

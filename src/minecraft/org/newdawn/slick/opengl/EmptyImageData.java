@@ -11,9 +11,9 @@ import org.lwjgl.BufferUtils;
  */
 public class EmptyImageData implements ImageData {
 	/** The width of the data */
-	private int width;
+	private final int width;
 	/** The height of the data */
-	private int height;
+	private final int height;
 	
 	/**
 	 * Create an empty image data source

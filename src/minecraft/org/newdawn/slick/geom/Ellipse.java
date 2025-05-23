@@ -19,7 +19,7 @@ public class Ellipse extends Shape {
     /**
      * The number of segments for graphical representation.
      */
-    private int segmentCount;
+    private final int segmentCount;
     /**
      * horizontal radius
      */
@@ -170,7 +170,7 @@ public class Ellipse extends Shape {
         
         Polygon resultPolygon = new Polygon();
         
-        float result[] = new float[points.length];
+        float[] result = new float[points.length];
         transform.transform(points, 0, result, 0, points.length / 2);
         resultPolygon.points = result;
         resultPolygon.checkPoints();

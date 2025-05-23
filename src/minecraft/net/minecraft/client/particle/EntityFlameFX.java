@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 public class EntityFlameFX extends EntityFX
 {
     /** the scale of the flame FX */
-    private float flameScale;
+    private final float flameScale;
 
     protected EntityFlameFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn)
     {
@@ -16,9 +16,9 @@ public class EntityFlameFX extends EntityFX
         this.motionX = this.motionX * (double)0.01F + xSpeedIn;
         this.motionY = this.motionY * (double)0.01F + ySpeedIn;
         this.motionZ = this.motionZ * (double)0.01F + zSpeedIn;
-        this.posX += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.05F);
-        this.posY += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.05F);
-        this.posZ += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.05F);
+        this.posX += (this.rand.nextFloat() - this.rand.nextFloat()) * 0.05F;
+        this.posY += (this.rand.nextFloat() - this.rand.nextFloat()) * 0.05F;
+        this.posZ += (this.rand.nextFloat() - this.rand.nextFloat()) * 0.05F;
         this.flameScale = this.particleScale;
         this.particleRed = this.particleGreen = this.particleBlue = 1.0F;
         this.particleMaxAge = (int)(8.0D / (Math.random() * 0.8D + 0.2D)) + 4;
@@ -79,14 +79,14 @@ public class EntityFlameFX extends EntityFX
         }
 
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
-        this.motionX *= (double)0.96F;
-        this.motionY *= (double)0.96F;
-        this.motionZ *= (double)0.96F;
+        this.motionX *= 0.96F;
+        this.motionY *= 0.96F;
+        this.motionZ *= 0.96F;
 
         if (this.onGround)
         {
-            this.motionX *= (double)0.7F;
-            this.motionZ *= (double)0.7F;
+            this.motionX *= 0.7F;
+            this.motionZ *= 0.7F;
         }
     }
 

@@ -110,7 +110,7 @@ class Nuker : ClientModule("Nuker", "Breaks all blocks around you.", ModuleCateg
 
             do{
                 val (blockPos, block) = when(priorityValue.get()) {
-                    "Distance" -> validBlocks.minByOrNull { (pos, block) ->
+                    "Distance" -> validBlocks.minByOrNull { (pos, _) ->
                         val distance = getCenterDistance(pos)
                         val safePos = BlockPos(thePlayer.posX, thePlayer.posY - 1, thePlayer.posZ)
 

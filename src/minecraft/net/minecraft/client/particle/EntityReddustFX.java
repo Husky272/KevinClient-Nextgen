@@ -17,9 +17,9 @@ public class EntityReddustFX extends EntityFX
     protected EntityReddustFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, float p_i46350_8_, float p_i46350_9_, float p_i46350_10_, float p_i46350_11_)
     {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-        this.motionX *= (double)0.1F;
-        this.motionY *= (double)0.1F;
-        this.motionZ *= (double)0.1F;
+        this.motionX *= 0.1F;
+        this.motionY *= 0.1F;
+        this.motionZ *= 0.1F;
 
         if (p_i46350_9_ == 0.0F)
         {
@@ -72,14 +72,14 @@ public class EntityReddustFX extends EntityFX
             this.motionZ *= 1.1D;
         }
 
-        this.motionX *= (double)0.96F;
-        this.motionY *= (double)0.96F;
-        this.motionZ *= (double)0.96F;
+        this.motionX *= 0.96F;
+        this.motionY *= 0.96F;
+        this.motionZ *= 0.96F;
 
         if (this.onGround)
         {
-            this.motionX *= (double)0.7F;
-            this.motionZ *= (double)0.7F;
+            this.motionX *= 0.7F;
+            this.motionZ *= 0.7F;
         }
     }
 

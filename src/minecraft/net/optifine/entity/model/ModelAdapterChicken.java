@@ -8,70 +8,45 @@ import net.minecraft.client.renderer.entity.RenderChicken;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.passive.EntityChicken;
 
-public class ModelAdapterChicken extends ModelAdapter
-{
-    public ModelAdapterChicken()
-    {
+public class ModelAdapterChicken extends ModelAdapter {
+    public ModelAdapterChicken() {
         super(EntityChicken.class, "chicken", 0.3F);
     }
 
-    public ModelBase makeModel()
-    {
+    public ModelBase makeModel() {
         return new ModelChicken();
     }
 
-    public ModelRenderer getModelRenderer(ModelBase model, String modelPart)
-    {
-        if (!(model instanceof ModelChicken))
-        {
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+        if (!(model instanceof ModelChicken modelchicken)) {
             return null;
-        }
-        else
-        {
-            ModelChicken modelchicken = (ModelChicken)model;
+        } else {
 
-            if (modelPart.equals("head"))
-            {
+            if (modelPart.equals("head")) {
                 return modelchicken.head;
-            }
-            else if (modelPart.equals("body"))
-            {
+            } else if (modelPart.equals("body")) {
                 return modelchicken.body;
-            }
-            else if (modelPart.equals("right_leg"))
-            {
+            } else if (modelPart.equals("right_leg")) {
                 return modelchicken.rightLeg;
-            }
-            else if (modelPart.equals("left_leg"))
-            {
+            } else if (modelPart.equals("left_leg")) {
                 return modelchicken.leftLeg;
-            }
-            else if (modelPart.equals("right_wing"))
-            {
+            } else if (modelPart.equals("right_wing")) {
                 return modelchicken.rightWing;
-            }
-            else if (modelPart.equals("left_wing"))
-            {
+            } else if (modelPart.equals("left_wing")) {
                 return modelchicken.leftWing;
-            }
-            else if (modelPart.equals("bill"))
-            {
+            } else if (modelPart.equals("bill")) {
                 return modelchicken.bill;
-            }
-            else
-            {
+            } else {
                 return modelPart.equals("chin") ? modelchicken.chin : null;
             }
         }
     }
 
-    public String[] getModelRendererNames()
-    {
-        return new String[] {"head", "body", "right_leg", "left_leg", "right_wing", "left_wing", "bill", "chin"};
+    public String[] getModelRendererNames() {
+        return new String[]{"head", "body", "right_leg", "left_leg", "right_wing", "left_wing", "bill", "chin"};
     }
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize)
-    {
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
         RenderChicken renderchicken = new RenderChicken(rendermanager, modelBase, shadowSize);
         return renderchicken;

@@ -15,24 +15,23 @@ public class NextTickListEntry implements Comparable<NextTickListEntry>
     public int priority;
 
     /** The id of the tick entry */
-    private long tickEntryID;
+    private final long tickEntryID;
 
     public NextTickListEntry(BlockPos positionIn, Block blockIn)
     {
-        this.tickEntryID = (long)(nextTickEntryID++);
+        this.tickEntryID = nextTickEntryID++;
         this.position = positionIn;
         this.block = blockIn;
     }
 
     public boolean equals(Object p_equals_1_)
     {
-        if (!(p_equals_1_ instanceof NextTickListEntry))
+        if (!(p_equals_1_ instanceof NextTickListEntry nextticklistentry))
         {
             return false;
         }
         else
         {
-            NextTickListEntry nextticklistentry = (NextTickListEntry)p_equals_1_;
             return this.position.equals(nextticklistentry.position) && Block.isEqualTo(this.block, nextticklistentry.block);
         }
     }

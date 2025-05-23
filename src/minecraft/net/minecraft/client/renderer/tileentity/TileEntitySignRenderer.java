@@ -148,10 +148,7 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
                 Entity entity = Config.getMinecraft().getRenderViewEntity();
                 double d0 = p_isRenderText_0_.getDistanceSq(entity.posX, entity.posY, entity.posZ);
 
-                if (d0 > textRenderDistanceSq)
-                {
-                    return false;
-                }
+                return !(d0 > textRenderDistanceSq);
             }
 
             return true;
@@ -161,7 +158,7 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
     public static void updateTextRenderDistance()
     {
         Minecraft minecraft = Config.getMinecraft();
-        double d0 = (double)Config.limit(minecraft.gameSettings.fovSetting, 1.0F, 120.0F);
+        double d0 = Config.limit(minecraft.gameSettings.fovSetting, 1.0F, 120.0F);
         double d1 = Math.max(1.5D * (double)minecraft.displayHeight / d0, 16.0D);
         textRenderDistanceSq = d1 * d1;
     }

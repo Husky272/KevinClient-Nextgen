@@ -179,7 +179,6 @@ public class InventoryPlayer implements IInventory
 
         for (this.currentItem -= direction; this.currentItem < 0; this.currentItem += 9)
         {
-            ;
         }
 
         while (this.currentItem >= 9)
@@ -673,7 +672,7 @@ public class InventoryPlayer implements IInventory
      */
     public IChatComponent getDisplayName()
     {
-        return (IChatComponent)(this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName()));
+        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 
     /**
@@ -697,7 +696,7 @@ public class InventoryPlayer implements IInventory
             if (autoTool.getState()&&autoTool.getSilentValue().get()&&autoTool.getNowSlot()!=this.currentItem){
                 itemstack = this.getStackInSlot(autoTool.getNowSlot());
             }
-            return itemstack != null ? itemstack.canHarvestBlock(blockIn) : false;
+            return itemstack != null && itemstack.canHarvestBlock(blockIn);
         }
     }
 

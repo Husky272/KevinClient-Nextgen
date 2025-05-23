@@ -1108,7 +1108,7 @@ public abstract class EntityPlayer extends EntityLivingBase
         }
         else
         {
-            return !team.isSameTeam(team1) ? true : team.getAllowFriendlyFire();
+            return !team.isSameTeam(team1) || team.getAllowFriendlyFire();
         }
     }
 
@@ -2389,7 +2389,7 @@ public abstract class EntityPlayer extends EntityLivingBase
         else
         {
             ItemStack itemstack = this.getCurrentEquippedItem();
-            return itemstack != null && itemstack.hasDisplayName() ? itemstack.getDisplayName().equals(code.getLock()) : false;
+            return itemstack != null && itemstack.hasDisplayName() && itemstack.getDisplayName().equals(code.getLock());
         }
     }
 
@@ -2469,7 +2469,7 @@ public abstract class EntityPlayer extends EntityLivingBase
         this.hasReducedDebug = reducedDebug;
     }
 
-    public static enum EnumChatVisibility
+    public enum EnumChatVisibility
     {
         FULL(0, "options.chat.visibility.full"),
         SYSTEM(1, "options.chat.visibility.system"),
@@ -2479,7 +2479,7 @@ public abstract class EntityPlayer extends EntityLivingBase
         private final int chatVisibility;
         private final String resourceKey;
 
-        private EnumChatVisibility(int id, String resourceKey)
+        EnumChatVisibility(int id, String resourceKey)
         {
             this.chatVisibility = id;
             this.resourceKey = resourceKey;
@@ -2508,13 +2508,13 @@ public abstract class EntityPlayer extends EntityLivingBase
         }
     }
 
-    public static enum EnumStatus
+    public enum EnumStatus
     {
         OK,
         NOT_POSSIBLE_HERE,
         NOT_POSSIBLE_NOW,
         TOO_FAR_AWAY,
         OTHER_PROBLEM,
-        NOT_SAFE;
+        NOT_SAFE
     }
 }

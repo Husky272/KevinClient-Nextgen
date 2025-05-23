@@ -94,11 +94,11 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
 
     protected void entityInit()
     {
-        this.dataWatcher.addObject(17, new Integer(0));
-        this.dataWatcher.addObject(18, new Integer(1));
+        this.dataWatcher.addObject(17, Integer.valueOf(0));
+        this.dataWatcher.addObject(18, Integer.valueOf(1));
         this.dataWatcher.addObject(19, new Float(0.0F));
-        this.dataWatcher.addObject(20, new Integer(0));
-        this.dataWatcher.addObject(21, new Integer(6));
+        this.dataWatcher.addObject(20, Integer.valueOf(0));
+        this.dataWatcher.addObject(21, Integer.valueOf(6));
         this.dataWatcher.addObject(22, (byte)0);
     }
 
@@ -170,7 +170,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
                 {
                     if (this.riddenByEntity != null)
                     {
-                        this.riddenByEntity.mountEntity((Entity)null);
+                        this.riddenByEntity.mountEntity(null);
                     }
 
                     if (flag && !this.hasCustomName())
@@ -332,7 +332,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
             this.prevPosX = this.posX;
             this.prevPosY = this.posY;
             this.prevPosZ = this.posZ;
-            this.motionY -= (double)0.04F;
+            this.motionY -= 0.04F;
             int k = MathHelper.floor_double(this.posX);
             int l = MathHelper.floor_double(this.posY);
             int i1 = MathHelper.floor_double(this.posZ);
@@ -374,7 +374,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
                 }
             }
 
-            double d3 = (double)MathHelper.wrapAngleTo180_float(this.rotationYaw - this.prevRotationYaw);
+            double d3 = MathHelper.wrapAngleTo180_float(this.rotationYaw - this.prevRotationYaw);
 
             if (d3 < -170.0D || d3 >= 170.0D)
             {
@@ -384,7 +384,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
 
             this.setRotation(this.rotationYaw, this.rotationPitch);
 
-            for (Entity entity : this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand((double)0.2F, 0.0D, (double)0.2F)))
+            for (Entity entity : this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(0.2F, 0.0D, 0.2F)))
             {
                 if (entity != this.riddenByEntity && entity.canBePushed() && entity instanceof EntityMinecart)
                 {
@@ -441,9 +441,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
 
         if (!this.onGround)
         {
-            this.motionX *= (double)0.95F;
-            this.motionY *= (double)0.95F;
-            this.motionZ *= (double)0.95F;
+            this.motionX *= 0.95F;
+            this.motionY *= 0.95F;
+            this.motionZ *= 0.95F;
         }
     }
 
@@ -451,7 +451,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
     {
         this.fallDistance = 0.0F;
         Vec3 vec3 = this.func_70489_a(this.posX, this.posY, this.posZ);
-        this.posY = (double)p_180460_1_.getY();
+        this.posY = p_180460_1_.getY();
         boolean flag = false;
         boolean flag1 = false;
         BlockRailBase blockrailbase = (BlockRailBase)p_180460_2_.getBlock();
@@ -488,8 +488,8 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
         }
 
         int[][] aint = matrix[blockrailbase$enumraildirection.getMetadata()];
-        double d1 = (double)(aint[1][0] - aint[0][0]);
-        double d2 = (double)(aint[1][2] - aint[0][2]);
+        double d1 = aint[1][0] - aint[0][0];
+        double d2 = aint[1][2] - aint[0][2];
         double d3 = Math.sqrt(d1 * d1 + d2 * d2);
         double d4 = this.motionX * d1 + this.motionZ * d2;
 
@@ -511,12 +511,12 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
 
         if (this.riddenByEntity instanceof EntityLivingBase)
         {
-            double d6 = (double)((EntityLivingBase)this.riddenByEntity).moveForward;
+            double d6 = ((EntityLivingBase)this.riddenByEntity).moveForward;
 
             if (d6 > 0.0D)
             {
-                double d7 = -Math.sin((double)(this.riddenByEntity.rotationYaw * (float)Math.PI / 180.0F));
-                double d8 = Math.cos((double)(this.riddenByEntity.rotationYaw * (float)Math.PI / 180.0F));
+                double d7 = -Math.sin(this.riddenByEntity.rotationYaw * (float)Math.PI / 180.0F);
+                double d8 = Math.cos(this.riddenByEntity.rotationYaw * (float)Math.PI / 180.0F);
                 double d9 = this.motionX * this.motionX + this.motionZ * this.motionZ;
 
                 if (d9 < 0.01D)
@@ -663,15 +663,15 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
     {
         if (this.riddenByEntity != null)
         {
-            this.motionX *= (double)0.997F;
+            this.motionX *= 0.997F;
             this.motionY *= 0.0D;
-            this.motionZ *= (double)0.997F;
+            this.motionZ *= 0.997F;
         }
         else
         {
-            this.motionX *= (double)0.96F;
+            this.motionX *= 0.96F;
             this.motionY *= 0.0D;
-            this.motionZ *= (double)0.96F;
+            this.motionZ *= 0.96F;
         }
     }
 
@@ -704,16 +704,16 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
         if (BlockRailBase.isRailBlock(iblockstate))
         {
             BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getValue(((BlockRailBase)iblockstate.getBlock()).getShapeProperty());
-            p_70495_3_ = (double)j;
+            p_70495_3_ = j;
 
             if (blockrailbase$enumraildirection.isAscending())
             {
-                p_70495_3_ = (double)(j + 1);
+                p_70495_3_ = j + 1;
             }
 
             int[][] aint = matrix[blockrailbase$enumraildirection.getMetadata()];
-            double d0 = (double)(aint[1][0] - aint[0][0]);
-            double d1 = (double)(aint[1][2] - aint[0][2]);
+            double d0 = aint[1][0] - aint[0][0];
+            double d1 = aint[1][2] - aint[0][2];
             double d2 = Math.sqrt(d0 * d0 + d1 * d1);
             d0 = d0 / d2;
             d1 = d1 / d2;
@@ -722,11 +722,11 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
 
             if (aint[0][1] != 0 && MathHelper.floor_double(p_70495_1_) - i == aint[0][0] && MathHelper.floor_double(p_70495_5_) - k == aint[0][2])
             {
-                p_70495_3_ += (double)aint[0][1];
+                p_70495_3_ += aint[0][1];
             }
             else if (aint[1][1] != 0 && MathHelper.floor_double(p_70495_1_) - i == aint[1][0] && MathHelper.floor_double(p_70495_5_) - k == aint[1][2])
             {
-                p_70495_3_ += (double)aint[1][1];
+                p_70495_3_ += aint[1][1];
             }
 
             return this.func_70489_a(p_70495_1_, p_70495_3_, p_70495_5_);
@@ -892,7 +892,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
 
                     if (d2 >= (double)1.0E-4F)
                     {
-                        d2 = (double)MathHelper.sqrt_double(d2);
+                        d2 = MathHelper.sqrt_double(d2);
                         d0 = d0 / d2;
                         d1 = d1 / d2;
                         double d3 = 1.0D / d2;
@@ -916,7 +916,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
                             double d4 = entityIn.posX - this.posX;
                             double d5 = entityIn.posZ - this.posZ;
                             Vec3 vec3 = (new Vec3(d4, 0.0D, d5)).normalize();
-                            Vec3 vec31 = (new Vec3((double)MathHelper.cos(this.rotationYaw * (float)Math.PI / 180.0F), 0.0D, (double)MathHelper.sin(this.rotationYaw * (float)Math.PI / 180.0F))).normalize();
+                            Vec3 vec31 = (new Vec3(MathHelper.cos(this.rotationYaw * (float)Math.PI / 180.0F), 0.0D, MathHelper.sin(this.rotationYaw * (float)Math.PI / 180.0F))).normalize();
                             double d6 = Math.abs(vec3.dotProduct(vec31));
 
                             if (d6 < (double)0.8F)
@@ -929,29 +929,29 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
 
                             if (((EntityMinecart)entityIn).getMinecartType() == EntityMinecart.EnumMinecartType.FURNACE && this.getMinecartType() != EntityMinecart.EnumMinecartType.FURNACE)
                             {
-                                this.motionX *= (double)0.2F;
-                                this.motionZ *= (double)0.2F;
+                                this.motionX *= 0.2F;
+                                this.motionZ *= 0.2F;
                                 this.addVelocity(entityIn.motionX - d0, 0.0D, entityIn.motionZ - d1);
-                                entityIn.motionX *= (double)0.95F;
-                                entityIn.motionZ *= (double)0.95F;
+                                entityIn.motionX *= 0.95F;
+                                entityIn.motionZ *= 0.95F;
                             }
                             else if (((EntityMinecart)entityIn).getMinecartType() != EntityMinecart.EnumMinecartType.FURNACE && this.getMinecartType() == EntityMinecart.EnumMinecartType.FURNACE)
                             {
-                                entityIn.motionX *= (double)0.2F;
-                                entityIn.motionZ *= (double)0.2F;
+                                entityIn.motionX *= 0.2F;
+                                entityIn.motionZ *= 0.2F;
                                 entityIn.addVelocity(this.motionX + d0, 0.0D, this.motionZ + d1);
-                                this.motionX *= (double)0.95F;
-                                this.motionZ *= (double)0.95F;
+                                this.motionX *= 0.95F;
+                                this.motionZ *= 0.95F;
                             }
                             else
                             {
                                 d7 = d7 / 2.0D;
                                 d8 = d8 / 2.0D;
-                                this.motionX *= (double)0.2F;
-                                this.motionZ *= (double)0.2F;
+                                this.motionX *= 0.2F;
+                                this.motionZ *= 0.2F;
                                 this.addVelocity(d7 - d0, 0.0D, d8 - d1);
-                                entityIn.motionX *= (double)0.2F;
-                                entityIn.motionZ *= (double)0.2F;
+                                entityIn.motionX *= 0.2F;
+                                entityIn.motionZ *= 0.2F;
                                 entityIn.addVelocity(d7 + d0, 0.0D, d8 + d1);
                             }
                         }
@@ -971,8 +971,8 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
         this.minecartX = x;
         this.minecartY = y;
         this.minecartZ = z;
-        this.minecartYaw = (double)yaw;
-        this.minecartPitch = (double)pitch;
+        this.minecartYaw = yaw;
+        this.minecartPitch = pitch;
         this.turnProgress = posRotationIncrements + 2;
         this.motionX = this.velocityX;
         this.motionY = this.velocityY;
@@ -1133,7 +1133,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
         }
     }
 
-    public static enum EnumMinecartType
+    public enum EnumMinecartType
     {
         RIDEABLE(0, "MinecartRideable"),
         CHEST(1, "MinecartChest"),
@@ -1147,7 +1147,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
         private final int networkID;
         private final String name;
 
-        private EnumMinecartType(int networkID, String name)
+        EnumMinecartType(int networkID, String name)
         {
             this.networkID = networkID;
             this.name = name;

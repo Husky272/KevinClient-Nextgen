@@ -10,9 +10,9 @@ import java.io.Serializable;
  */
 public abstract class Shape implements Serializable {
     /** The points representing this polygon. */
-    protected float points[];
+    protected float[] points;
     /** Center point of the polygon. */
-    protected float center[];
+    protected float[] center;
     /** The left most point of this shape. */
     protected float x;
     /** The top most point of this shape. */
@@ -284,7 +284,7 @@ public abstract class Shape implements Serializable {
     public float[] getPoint(int index) {
         checkPoints();
 
-        float result[] = new float[2];
+        float[] result = new float[2];
         
         result[0] = points[index * 2];
         result[1] = points[index * 2 + 1];
@@ -480,8 +480,8 @@ public abstract class Shape implements Serializable {
         checkPoints();
 
         boolean result = false;
-        float points[] = getPoints();           // (x3, y3)  and (x4, y4)
-        float thatPoints[] = shape.getPoints(); // (x1, y1)  and (x2, y2)
+        float[] points = getPoints();           // (x3, y3)  and (x4, y4)
+        float[] thatPoints = shape.getPoints(); // (x1, y1)  and (x2, y2)
         int length = points.length;
         int thatLength = thatPoints.length;
         double unknownA;

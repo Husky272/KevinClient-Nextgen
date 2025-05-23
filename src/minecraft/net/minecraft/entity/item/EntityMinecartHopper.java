@@ -21,7 +21,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
     /** Whether this hopper minecart is being blocked by an activator rail. */
     private boolean isBlocked = true;
     private int transferTicker = -1;
-    private BlockPos field_174900_c = BlockPos.ORIGIN;
+    private final BlockPos field_174900_c = BlockPos.ORIGIN;
 
     public EntityMinecartHopper(World worldIn)
     {

@@ -45,12 +45,11 @@ public class CommandDifficulty extends CommandBase
         {
             EnumDifficulty enumdifficulty = this.getDifficultyFromCommand(args[0]);
             MinecraftServer.getServer().setDifficultyForAllWorlds(enumdifficulty);
-            notifyOperators(sender, this, "commands.difficulty.success", new Object[] {new ChatComponentTranslation(enumdifficulty.getDifficultyResourceKey())});
+            notifyOperators(sender, this, "commands.difficulty.success", new ChatComponentTranslation(enumdifficulty.getDifficultyResourceKey()));
         }
     }
 
-    protected EnumDifficulty getDifficultyFromCommand(String p_180531_1_) throws CommandException, NumberInvalidException
-    {
+    protected EnumDifficulty getDifficultyFromCommand(String p_180531_1_) throws CommandException {
         if (!p_180531_1_.equalsIgnoreCase("peaceful") && !p_180531_1_.equalsIgnoreCase("p"))
         {
             if (!p_180531_1_.equalsIgnoreCase("easy") && !p_180531_1_.equalsIgnoreCase("e"))
@@ -77,6 +76,6 @@ public class CommandDifficulty extends CommandBase
 
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
     {
-        return args.length == 1 ? getListOfStringsMatchingLastWord(args, new String[] {"peaceful", "easy", "normal", "hard"}) : null;
+        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "peaceful", "easy", "normal", "hard") : null;
     }
 }

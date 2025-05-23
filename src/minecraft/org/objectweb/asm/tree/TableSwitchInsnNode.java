@@ -27,7 +27,7 @@ public class TableSwitchInsnNode extends AbstractInsnNode {
   public void accept(MethodVisitor methodVisitor) {
     Label[] labelsArray = new Label[this.labels.size()];
     for (int i = 0, n = labelsArray.length; i < n; i++)
-      labelsArray[i] = ((LabelNode)this.labels.get(i)).getLabel(); 
+      labelsArray[i] = this.labels.get(i).getLabel();
     methodVisitor.visitTableSwitchInsn(this.min, this.max, this.dflt.getLabel(), labelsArray);
     acceptAnnotations(methodVisitor);
   }

@@ -5,8 +5,8 @@ import net.minecraft.client.resources.I18n;
 
 public class GuiErrorScreen extends GuiScreen
 {
-    private String field_146313_a;
-    private String field_146312_f;
+    private final String field_146313_a;
+    private final String field_146312_f;
 
     public GuiErrorScreen(String p_i46319_1_, String p_i46319_2_)
     {
@@ -48,6 +48,6 @@ public class GuiErrorScreen extends GuiScreen
      */
     protected void actionPerformed(GuiButton button) throws IOException
     {
-        this.mc.displayGuiScreen((GuiScreen)null);
+        this.mc.displayGuiScreen(null);
     }
 }

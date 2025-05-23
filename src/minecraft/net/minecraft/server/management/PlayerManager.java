@@ -298,7 +298,7 @@ public class PlayerManager
     {
         int i = x1 - x2;
         int j = z1 - z2;
-        return i >= -radius && i <= radius ? j >= -radius && j <= radius : false;
+        return i >= -radius && i <= radius && j >= -radius && j <= radius;
     }
 
     /**
@@ -441,7 +441,6 @@ public class PlayerManager
 
         for (f = p_getNearest_2_.rotationYaw + 90.0F; f <= -180.0F; f += 360.0F)
         {
-            ;
         }
 
         while (f > 180.0F)
@@ -450,7 +449,7 @@ public class PlayerManager
         }
 
         double d0 = (double)f * (Math.PI / 180D);
-        double d1 = (double)p_getNearest_2_.rotationPitch;
+        double d1 = p_getNearest_2_.rotationPitch;
         double d2 = d1 * (Math.PI / 180D);
         ChunkPosComparator chunkposcomparator = new ChunkPosComparator(p_getNearest_2_.chunkCoordX, p_getNearest_2_.chunkCoordZ, d0, d2);
         Comparator<ChunkCoordIntPair> comparator = Collections.reverseOrder(chunkposcomparator);
@@ -502,7 +501,7 @@ public class PlayerManager
     {
         private final List<EntityPlayerMP> playersWatchingChunk = Lists.newArrayList();
         private final ChunkCoordIntPair chunkCoords;
-        private short[] locationOfBlockChange = new short[64];
+        private final short[] locationOfBlockChange = new short[64];
         private int numBlocksToUpdate;
         private int flagsYAreasToUpdate;
         private long previousWorldTime;

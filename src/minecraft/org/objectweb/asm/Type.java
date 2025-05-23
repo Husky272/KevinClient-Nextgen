@@ -232,11 +232,9 @@ public final class Type {
     if (this.sort == 10)
       return this.valueBuffer.substring(this.valueBegin - 1, this.valueEnd + 1); 
     if (this.sort == 12)
-      return (new StringBuilder())
-        .append('L')
-        .append(this.valueBuffer, this.valueBegin, this.valueEnd)
-        .append(';')
-        .toString(); 
+      return 'L' +
+              this.valueBuffer.substring(this.valueBegin, this.valueEnd) +
+              ';';
     return this.valueBuffer.substring(this.valueBegin, this.valueEnd);
   }
   
@@ -444,10 +442,9 @@ public final class Type {
   public boolean equals(Object object) {
     if (this == object)
       return true; 
-    if (!(object instanceof Type))
-      return false; 
-    Type other = (Type)object;
-    if (((this.sort == 12) ? 10 : this.sort) != ((other.sort == 12) ? 10 : other.sort))
+    if (!(object instanceof Type other))
+      return false;
+      if (((this.sort == 12) ? 10 : this.sort) != ((other.sort == 12) ? 10 : other.sort))
       return false; 
     int begin = this.valueBegin;
     int end = this.valueEnd;

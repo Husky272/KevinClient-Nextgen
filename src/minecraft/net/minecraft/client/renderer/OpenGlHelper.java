@@ -348,7 +348,6 @@ public class OpenGlHelper
         }
         catch (Throwable var5)
         {
-            ;
         }
     }
 

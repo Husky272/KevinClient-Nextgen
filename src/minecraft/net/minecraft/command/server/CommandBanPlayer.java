@@ -69,7 +69,7 @@ public class CommandBanPlayer extends CommandBase
                     s = getChatComponentFromNthArg(sender, args, 1).getUnformattedText();
                 }
 
-                UserListBansEntry userlistbansentry = new UserListBansEntry(gameprofile, (Date)null, sender.getName(), (Date)null, s);
+                UserListBansEntry userlistbansentry = new UserListBansEntry(gameprofile, null, sender.getName(), null, s);
                 minecraftserver.getConfigurationManager().getBannedPlayers().addEntry(userlistbansentry);
                 EntityPlayerMP entityplayermp = minecraftserver.getConfigurationManager().getPlayerByUsername(args[0]);
 
@@ -78,7 +78,7 @@ public class CommandBanPlayer extends CommandBase
                     entityplayermp.playerNetServerHandler.kickPlayerFromServer("You are banned from this server.");
                 }
 
-                notifyOperators(sender, this, "commands.ban.success", new Object[] {args[0]});
+                notifyOperators(sender, this, "commands.ban.success", args[0]);
             }
         }
         else

@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 public class EntityDropParticleFX extends EntityFX
 {
     /** the material type for dropped items/blocks */
-    private Material materialType;
+    private final Material materialType;
 
     /** The height of the current bob */
     private int bobTimer;
@@ -78,7 +78,7 @@ public class EntityDropParticleFX extends EntityFX
             this.particleBlue = 4.0F / (float)(40 - this.bobTimer + 8);
         }
 
-        this.motionY -= (double)this.particleGravity;
+        this.motionY -= this.particleGravity;
 
         if (this.bobTimer-- > 0)
         {
@@ -93,9 +93,9 @@ public class EntityDropParticleFX extends EntityFX
         }
 
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
-        this.motionX *= (double)0.98F;
-        this.motionY *= (double)0.98F;
-        this.motionZ *= (double)0.98F;
+        this.motionX *= 0.98F;
+        this.motionY *= 0.98F;
+        this.motionZ *= 0.98F;
 
         if (this.particleMaxAge-- <= 0)
         {
@@ -114,8 +114,8 @@ public class EntityDropParticleFX extends EntityFX
                 this.setParticleTextureIndex(114);
             }
 
-            this.motionX *= (double)0.7F;
-            this.motionZ *= (double)0.7F;
+            this.motionX *= 0.7F;
+            this.motionZ *= 0.7F;
         }
 
         BlockPos blockpos = new BlockPos(this);
@@ -128,7 +128,7 @@ public class EntityDropParticleFX extends EntityFX
 
             if (iblockstate.getBlock() instanceof BlockLiquid)
             {
-                d0 = (double)BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL));
+                d0 = BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL));
             }
 
             double d1 = (double)(MathHelper.floor_double(this.posY) + 1) - d0;

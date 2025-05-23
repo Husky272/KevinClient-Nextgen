@@ -26,7 +26,7 @@ public class RealmsScreen
     protected Minecraft minecraft;
     public int width;
     public int height;
-    private GuiScreenRealmsProxy proxy = new GuiScreenRealmsProxy(this);
+    private final GuiScreenRealmsProxy proxy = new GuiScreenRealmsProxy(this);
 
     public GuiScreenRealmsProxy getProxy()
     {

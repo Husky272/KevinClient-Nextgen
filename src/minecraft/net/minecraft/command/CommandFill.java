@@ -213,7 +213,7 @@ public class CommandFill extends CommandBase
                 else
                 {
                     sender.setCommandStat(CommandResultStats.Type.AFFECTED_BLOCKS, j);
-                    notifyOperators(sender, this, "commands.fill.success", new Object[] {j});
+                    notifyOperators(sender, this, "commands.fill.success", j);
                 }
             }
             else
@@ -239,7 +239,7 @@ public class CommandFill extends CommandBase
         }
         else if (args.length == 9)
         {
-            return getListOfStringsMatchingLastWord(args, new String[] {"replace", "destroy", "keep", "hollow", "outline"});
+            return getListOfStringsMatchingLastWord(args, "replace", "destroy", "keep", "hollow", "outline");
         }
         else
         {

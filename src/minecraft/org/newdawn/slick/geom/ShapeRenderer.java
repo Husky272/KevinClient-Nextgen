@@ -15,9 +15,9 @@ import org.newdawn.slick.opengl.renderer.SGL;
  */
 public final class ShapeRenderer {
 	/** The renderer to use for all GL operations */
-	private static SGL GL = Renderer.get();
+	private static final SGL GL = Renderer.get();
 	/** The renderer to use line strips */
-	private static LineStripRenderer LSR = Renderer.getLineStripRenderer();
+	private static final LineStripRenderer LSR = Renderer.getLineStripRenderer();
 	
     /**
      * Draw the outline of the given shape.  Only the vertices are set.  
@@ -25,11 +25,11 @@ public final class ShapeRenderer {
      * 
      * @param shape The shape to draw.
      */
-    public static final void draw(Shape shape) {
+    public static void draw(Shape shape) {
         Texture t = TextureImpl.getLastBind();
         TextureImpl.bindNone();
         
-        float points[] = shape.getPoints();
+        float[] points = shape.getPoints();
         
         LSR.start();
         for(int i=0;i<points.length;i+=2) {
@@ -56,13 +56,13 @@ public final class ShapeRenderer {
      * @param shape The shape to draw.
      * @param fill The fill to apply
      */
-    public static final void draw(Shape shape, ShapeFill fill) {
-        float points[] = shape.getPoints();
+    public static void draw(Shape shape, ShapeFill fill) {
+        float[] points = shape.getPoints();
         
         Texture t = TextureImpl.getLastBind();
         TextureImpl.bindNone();
 
-        float center[] = shape.getCenter();
+        float[] center = shape.getCenter();
         GL.glBegin(SGL.GL_LINE_STRIP);
         for(int i=0;i<points.length;i+=2) {
             fill.colorAt(shape, points[i], points[i + 1]).bind();
@@ -103,7 +103,7 @@ public final class ShapeRenderer {
      * 
      * @param shape The shape to fill.
      */
-    public static final void fill(Shape shape) {
+    public static void fill(Shape shape) {
     	if (!validFill(shape)) {
     		return;
     	}
@@ -132,7 +132,7 @@ public final class ShapeRenderer {
      * @param shape The shape to fill.
      * @param callback The callback that will be invoked for each shape point
      */
-    private static final void fill(Shape shape, PointCallback callback) {
+    private static void fill(Shape shape, PointCallback callback) {
     	Triangulator tris = shape.getTriangles();
 
         GL.glBegin(SGL.GL_TRIANGLES);
@@ -158,7 +158,7 @@ public final class ShapeRenderer {
      * @param shape The shape to texture.
      * @param image The image to tile across the shape
      */
-    public static final void texture(Shape shape, Image image) {
+    public static void texture(Shape shape, Image image) {
     	texture(shape, image, 0.01f, 0.01f);
     }
 
@@ -170,7 +170,7 @@ public final class ShapeRenderer {
      * @param shape The shape to texture.
      * @param image The image to tile across the shape
      */
-    public static final void textureFit(Shape shape, Image image) {
+    public static void textureFit(Shape shape, Image image) {
     	textureFit(shape, image,1f,1f);
     }
     
@@ -183,7 +183,7 @@ public final class ShapeRenderer {
      * @param scaleX The scale to apply on the x axis for texturing
      * @param scaleY The scale to apply on the y axis for texturing
      */
-    public static final void texture(Shape shape, final Image image, final float scaleX, final float scaleY) {
+    public static void texture(Shape shape, final Image image, final float scaleX, final float scaleY) {
     	if (!validFill(shape)) {
     		return;
     	}
@@ -204,7 +204,7 @@ public final class ShapeRenderer {
 			}
     	});
     	
-        float points[] = shape.getPoints();
+        float[] points = shape.getPoints();
         
         if (t == null) {
         	TextureImpl.bindNone();
@@ -223,12 +223,12 @@ public final class ShapeRenderer {
      * @param scaleX The scale to apply on the x axis for texturing
      * @param scaleY The scale to apply on the y axis for texturing
      */
-    public static final void textureFit(Shape shape, final Image image, final float scaleX, final float scaleY) {
+    public static void textureFit(Shape shape, final Image image, final float scaleX, final float scaleY) {
     	if (!validFill(shape)) {
     		return;
     	}
     	
-        float points[] = shape.getPoints();
+        float[] points = shape.getPoints();
         
         Texture t = TextureImpl.getLastBind();
         image.getTexture().bind();
@@ -271,7 +271,7 @@ public final class ShapeRenderer {
      * @param shape The shape to fill.
      * @param fill The fill to apply
      */
-    public static final void fill(final Shape shape, final ShapeFill fill) {
+    public static void fill(final Shape shape, final ShapeFill fill) {
         if (!validFill(shape)) {
     		return;
     	}
@@ -279,7 +279,7 @@ public final class ShapeRenderer {
         Texture t = TextureImpl.getLastBind();
         TextureImpl.bindNone();
 
-        final float center[] = shape.getCenter();
+        final float[] center = shape.getCenter();
         fill(shape, new PointCallback() {
 			public float[] preRenderPoint(Shape shape, float x, float y) {
 	            fill.colorAt(shape, x, y).bind();
@@ -307,7 +307,7 @@ public final class ShapeRenderer {
      * @param scaleY The scale to apply on the y axis for texturing
      * @param fill The fill to apply
      */
-    public static final void texture(final Shape shape, final Image image, final float scaleX, final float scaleY, final ShapeFill fill) {
+    public static void texture(final Shape shape, final Image image, final float scaleX, final float scaleY, final ShapeFill fill) {
     	if (!validFill(shape)) {
     		return;
     	}
@@ -315,7 +315,7 @@ public final class ShapeRenderer {
         Texture t = TextureImpl.getLastBind();
         image.getTexture().bind();
         
-        final float center[] = shape.getCenter();
+        final float[] center = shape.getCenter();
         fill(shape, new PointCallback() {
 			public float[] preRenderPoint(Shape shape, float x, float y) {
 	            fill.colorAt(shape, x - center[0], y - center[1]).bind();
@@ -350,12 +350,12 @@ public final class ShapeRenderer {
      * @param image The image to tile across the shape
      * @param gen The texture coordinate generator to create coordiantes for the shape
      */
-    public static final void texture(final Shape shape, Image image, final TexCoordGenerator gen) {
+    public static void texture(final Shape shape, Image image, final TexCoordGenerator gen) {
         Texture t = TextureImpl.getLastBind();
 
         image.getTexture().bind();
 
-        final float center[] = shape.getCenter();
+        final float[] center = shape.getCenter();
         fill(shape, new PointCallback() {
 			public float[] preRenderPoint(Shape shape, float x, float y) {
 				Vector2f tex = gen.getCoordFor(x, y);
@@ -377,7 +377,7 @@ public final class ShapeRenderer {
      *
      * @author kevin
      */
-    private static interface PointCallback {
+    private interface PointCallback {
     	/** 
     	 * Apply feature before the call to glVertex
     	 * 

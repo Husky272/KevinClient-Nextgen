@@ -39,7 +39,7 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob
     {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(4.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)0.2F);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.2F);
     }
 
     /**

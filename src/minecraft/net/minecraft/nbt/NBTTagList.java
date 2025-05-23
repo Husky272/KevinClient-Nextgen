@@ -245,7 +245,7 @@ public class NBTTagList extends NBTBase
      */
     public NBTBase get(int idx)
     {
-        return (NBTBase)(idx >= 0 && idx < this.tagList.size() ? this.tagList.get(idx) : new NBTTagEnd());
+        return idx >= 0 && idx < this.tagList.size() ? this.tagList.get(idx) : new NBTTagEnd();
     }
 
     /**

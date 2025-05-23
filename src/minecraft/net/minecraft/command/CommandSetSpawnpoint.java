@@ -48,7 +48,7 @@ public class CommandSetSpawnpoint extends CommandBase
             if (entityplayermp.worldObj != null)
             {
                 entityplayermp.setSpawnPoint(blockpos, true);
-                notifyOperators(sender, this, "commands.spawnpoint.success", new Object[] {entityplayermp.getName(), blockpos.getX(), blockpos.getY(), blockpos.getZ()});
+                notifyOperators(sender, this, "commands.spawnpoint.success", entityplayermp.getName(), blockpos.getX(), blockpos.getY(), blockpos.getZ());
             }
         }
     }

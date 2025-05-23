@@ -88,7 +88,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
     private int careerLevel;
     private boolean isLookingForHome;
     private boolean areAdditionalTasksSet;
-    private InventoryBasic villagerInventory = new InventoryBasic("Items", false, 8);
+    private final InventoryBasic villagerInventory = new InventoryBasic("Items", false, 8);
 
     /**
      * A multi-dimensional array mapping the various professions, careers and career levels that a Villager may offer
@@ -177,7 +177,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
             else
             {
                 BlockPos blockpos1 = this.villageObj.getCenter();
-                this.setHomePosAndDistance(blockpos1, (int)((float)this.villageObj.getVillageRadius() * 1.0F));
+                this.setHomePosAndDistance(blockpos1, (int)((float) this.villageObj.getVillageRadius()));
 
                 if (this.isLookingForHome)
                 {
@@ -761,7 +761,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
     public EntityVillager createChild(EntityAgeable ageable)
     {
         EntityVillager entityvillager = new EntityVillager(this.worldObj);
-        entityvillager.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entityvillager)), (IEntityLivingData)null);
+        entityvillager.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entityvillager)), null);
         return entityvillager;
     }
 
@@ -779,7 +779,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
         {
             EntityWitch entitywitch = new EntityWitch(this.worldObj);
             entitywitch.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-            entitywitch.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entitywitch)), (IEntityLivingData)null);
+            entitywitch.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entitywitch)), null);
             entitywitch.setNoAI(this.isAIDisabled());
 
             if (this.hasCustomName())

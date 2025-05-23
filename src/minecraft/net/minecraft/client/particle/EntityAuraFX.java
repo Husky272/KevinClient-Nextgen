@@ -14,9 +14,9 @@ public class EntityAuraFX extends EntityFX
         this.setParticleTextureIndex(0);
         this.setSize(0.02F, 0.02F);
         this.particleScale *= this.rand.nextFloat() * 0.6F + 0.5F;
-        this.motionX *= (double)0.02F;
-        this.motionY *= (double)0.02F;
-        this.motionZ *= (double)0.02F;
+        this.motionX *= 0.02F;
+        this.motionY *= 0.02F;
+        this.motionZ *= 0.02F;
         this.particleMaxAge = (int)(20.0D / (Math.random() * 0.8D + 0.2D));
         this.noClip = true;
     }

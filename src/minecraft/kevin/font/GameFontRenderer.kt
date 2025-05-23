@@ -120,7 +120,7 @@ class GameFontRenderer(font: Font): FontRenderer(
         if (currentColor and -0x4000000 == 0)
             currentColor = currentColor or -16777216
 
-        val defaultColor = currentColor
+        currentColor
 
         val alpha: Int = (currentColor shr 24 and 0xff)
 

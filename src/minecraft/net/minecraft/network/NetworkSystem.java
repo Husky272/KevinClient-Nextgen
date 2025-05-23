@@ -116,7 +116,6 @@ public class NetworkSystem
                     }
                     catch (ChannelException var3)
                     {
-                        ;
                     }
 
                     p_initChannel_1_.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("legacy_query", new PingResponseHandler(NetworkSystem.this)).addLast("splitter", new MessageDeserializer2()).addLast("decoder", new MessageDeserializer(EnumPacketDirection.SERVERBOUND)).addLast("prepender", new MessageSerializer2()).addLast("encoder", new MessageSerializer(EnumPacketDirection.CLIENTBOUND));
@@ -217,7 +216,7 @@ public class NetworkSystem
                                 throw new ReportedException(crashreport);
                             }
 
-                            logger.warn("Failed to handle packet for " + networkmanager.getRemoteAddress(), (Throwable)exception);
+                            logger.warn("Failed to handle packet for " + networkmanager.getRemoteAddress(), exception);
                             final ChatComponentText chatcomponenttext = new ChatComponentText("Internal server error");
                             networkmanager.sendPacket(new S40PacketDisconnect(chatcomponenttext), new GenericFutureListener<Future<? super Void>>()
                             {

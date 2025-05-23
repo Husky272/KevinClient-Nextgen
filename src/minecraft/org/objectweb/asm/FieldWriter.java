@@ -150,5 +150,5 @@ final class FieldWriter extends FieldVisitor {
       this.firstAttribute.putAttributes(this.symbolTable, output); 
   }
   
-  final void collectAttributePrototypes(Attribute.Set attributePrototypes) { attributePrototypes.addAttributes(this.firstAttribute); }
+  void collectAttributePrototypes(Attribute.Set attributePrototypes) { attributePrototypes.addAttributes(this.firstAttribute); }
 }

@@ -10,68 +10,46 @@ import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.src.Config;
 import net.optifine.reflect.Reflector;
 
-public class ModelAdapterBoat extends ModelAdapter
-{
-    public ModelAdapterBoat()
-    {
+public class ModelAdapterBoat extends ModelAdapter {
+    public ModelAdapterBoat() {
         super(EntityBoat.class, "boat", 0.5F);
     }
 
-    public ModelBase makeModel()
-    {
+    public ModelBase makeModel() {
         return new ModelBoat();
     }
 
-    public ModelRenderer getModelRenderer(ModelBase model, String modelPart)
-    {
-        if (!(model instanceof ModelBoat))
-        {
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+        if (!(model instanceof ModelBoat modelboat)) {
             return null;
-        }
-        else
-        {
-            ModelBoat modelboat = (ModelBoat)model;
+        } else {
 
-            if (modelPart.equals("bottom"))
-            {
+            if (modelPart.equals("bottom")) {
                 return modelboat.boatSides[0];
-            }
-            else if (modelPart.equals("back"))
-            {
+            } else if (modelPart.equals("back")) {
                 return modelboat.boatSides[1];
-            }
-            else if (modelPart.equals("front"))
-            {
+            } else if (modelPart.equals("front")) {
                 return modelboat.boatSides[2];
-            }
-            else if (modelPart.equals("right"))
-            {
+            } else if (modelPart.equals("right")) {
                 return modelboat.boatSides[3];
-            }
-            else
-            {
+            } else {
                 return modelPart.equals("left") ? modelboat.boatSides[4] : null;
             }
         }
     }
 
-    public String[] getModelRendererNames()
-    {
-        return new String[] {"bottom", "back", "front", "right", "left"};
+    public String[] getModelRendererNames() {
+        return new String[]{"bottom", "back", "front", "right", "left"};
     }
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize)
-    {
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
         RenderBoat renderboat = new RenderBoat(rendermanager);
 
-        if (!Reflector.RenderBoat_modelBoat.exists())
-        {
+        if (!Reflector.RenderBoat_modelBoat.exists()) {
             Config.warn("Field not found: RenderBoat.modelBoat");
             return null;
-        }
-        else
-        {
+        } else {
             Reflector.setFieldValue(renderboat, Reflector.RenderBoat_modelBoat, modelBase);
             renderboat.shadowSize = shadowSize;
             return renderboat;

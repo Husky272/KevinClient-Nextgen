@@ -191,7 +191,7 @@ public class BlockDoor extends Block
             {
                 worldIn.setBlockState(blockpos, iblockstate1.withProperty(OPEN, open), 2);
                 worldIn.markBlockRangeForRenderUpdate(blockpos, pos);
-                worldIn.playAuxSFXAtEntity((EntityPlayer)null, open ? 1003 : 1006, pos, 0);
+                worldIn.playAuxSFXAtEntity(null, open ? 1003 : 1006, pos, 0);
             }
         }
     }
@@ -257,7 +257,7 @@ public class BlockDoor extends Block
                     {
                         worldIn.setBlockState(pos, state.withProperty(OPEN, flag), 2);
                         worldIn.markBlockRangeForRenderUpdate(pos, pos);
-                        worldIn.playAuxSFXAtEntity((EntityPlayer)null, flag ? 1003 : 1006, pos, 0);
+                        worldIn.playAuxSFXAtEntity(null, flag ? 1003 : 1006, pos, 0);
                     }
                 }
             }
@@ -472,7 +472,7 @@ public class BlockDoor extends Block
         return new BlockState(this, HALF, FACING, OPEN, HINGE, POWERED);
     }
 
-    public static enum EnumDoorHalf implements IStringSerializable
+    public enum EnumDoorHalf implements IStringSerializable
     {
         UPPER,
         LOWER;
@@ -488,7 +488,7 @@ public class BlockDoor extends Block
         }
     }
 
-    public static enum EnumHingePosition implements IStringSerializable
+    public enum EnumHingePosition implements IStringSerializable
     {
         LEFT,
         RIGHT;

@@ -34,7 +34,7 @@ import org.newdawn.slick.util.ResourceLoader;
  */
 public class AngelCodeFont implements Font {
 	/** The renderer to use for all GL operations */
-	private static SGL GL = Renderer.get();
+	private static final SGL GL = Renderer.get();
 
 	/**
 	 * The line cache size, this is how many lines we can render before starting
@@ -49,7 +49,7 @@ public class AngelCodeFont implements Font {
 	private boolean displayListCaching = true;
 
 	/** The image containing the bitmap font */
-	private Image fontImage;
+	private final Image fontImage;
 	/** The characters building up the font */
 	private CharDef[] chars;
 	/** The height of a line */
@@ -239,13 +239,13 @@ public class AngelCodeFont implements Font {
 						int second = Integer.parseInt(tokens.nextToken()); // second value
 						tokens.nextToken(); // offset
 						int offset = Integer.parseInt(tokens.nextToken()); // offset value
-						List values = (List)kerning.get(new Short(first));
+						List values = (List)kerning.get(Short.valueOf(first));
 						if (values == null) {
 							values = new ArrayList();
-							kerning.put(new Short(first), values);
+							kerning.put(Short.valueOf(first), values);
 						}
 						// Pack the character and kerning offset into a short.
-						values.add(new Short((short)((offset << 8) | second)));
+						values.add(Short.valueOf((short) ((offset << 8) | second)));
 					}
 				}
 			}
@@ -439,7 +439,7 @@ public class AngelCodeFont implements Font {
 			minYOffset = Math.min(charDef.yoffset, minYOffset);
 		}
 
-		if (displayList != null) displayList.yOffset = new Short((short)minYOffset);
+		if (displayList != null) displayList.yOffset = Short.valueOf((short) minYOffset);
 		
 		return minYOffset;
 	}
@@ -478,7 +478,7 @@ public class AngelCodeFont implements Font {
 
 		maxHeight += lines * getLineHeight();
 		
-		if (displayList != null) displayList.height = new Short((short)maxHeight);
+		if (displayList != null) displayList.height = Short.valueOf((short) maxHeight);
 		
 		return maxHeight;
 	}
@@ -521,7 +521,7 @@ public class AngelCodeFont implements Font {
 			maxWidth = Math.max(maxWidth, width);
 		}
 		
-		if (displayList != null) displayList.width = new Short((short)maxWidth);
+		if (displayList != null) displayList.width = Short.valueOf((short) maxWidth);
 		
 		return maxWidth;
 	}

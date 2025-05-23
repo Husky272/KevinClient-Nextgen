@@ -76,7 +76,7 @@ public class CommandTestFor extends CommandBase
                 }
             }
 
-            notifyOperators(sender, this, "commands.testfor.success", new Object[] {entity.getName()});
+            notifyOperators(sender, this, "commands.testfor.success", entity.getName());
         }
     }
 

@@ -56,7 +56,7 @@ public class SoundManager
     private int playTime = 0;
     private final Map<String, ISound> playingSounds = HashBiMap.create();
     private final Map<ISound, String> invPlayingSounds = ((BiMap)this.playingSounds).inverse();
-    private Map<ISound, SoundPoolEntry> playingSoundPoolEntries = Maps.newHashMap();
+    private final Map<ISound, SoundPoolEntry> playingSoundPoolEntries = Maps.newHashMap();
     private final Multimap<SoundCategory, String> categorySounds = HashMultimap.create();
     private final List<ITickableSound> tickableSounds = Lists.newArrayList();
     private final Map<ISound, Integer> delayedSounds = Maps.newHashMap();
@@ -74,7 +74,7 @@ public class SoundManager
         }
         catch (SoundSystemException soundsystemexception)
         {
-            logger.error(LOG_MARKER, "Error linking with the LibraryJavaSound plug-in", (Throwable)soundsystemexception);
+            logger.error(LOG_MARKER, "Error linking with the LibraryJavaSound plug-in", soundsystemexception);
         }
     }
 
@@ -131,7 +131,7 @@ public class SoundManager
             }
             catch (RuntimeException runtimeexception)
             {
-                logger.error(LOG_MARKER, "Error starting SoundSystem. Turning off sounds & music", (Throwable)runtimeexception);
+                logger.error(LOG_MARKER, "Error starting SoundSystem. Turning off sounds & music", runtimeexception);
                 this.options.setSoundLevel(SoundCategory.MASTER, 0.0F);
                 this.options.saveOptions();
             }
@@ -265,7 +265,6 @@ public class SoundManager
                     }
                     catch (RuntimeException var8)
                     {
-                        ;
                     }
 
                     if (isound instanceof ITickableSound)
@@ -370,7 +369,7 @@ public class SoundManager
 
                         SoundCategory soundcategory = soundeventaccessorcomposite.getSoundCategory();
                         float f2 = this.getNormalizedVolume(p_sound, soundpoolentry, soundcategory);
-                        double d0 = (double)this.getNormalizedPitch(p_sound, soundpoolentry);
+                        double d0 = this.getNormalizedPitch(p_sound, soundpoolentry);
                         ResourceLocation resourcelocation = soundpoolentry.getSoundPoolEntryLocation();
 
                         if (f2 == 0.0F)
@@ -485,7 +484,7 @@ public class SoundManager
 
         try
         {
-            return new URL((URL)null, s, urlstreamhandler);
+            return new URL(null, s, urlstreamhandler);
         }
         catch (MalformedURLException var4)
         {

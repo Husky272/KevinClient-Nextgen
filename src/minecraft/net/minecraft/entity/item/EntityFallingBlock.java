@@ -106,11 +106,11 @@ public class EntityFallingBlock extends Entity
                 }
             }
 
-            this.motionY -= (double)0.04F;
+            this.motionY -= 0.04F;
             this.moveEntity(this.motionX, this.motionY, this.motionZ);
-            this.motionX *= (double)0.98F;
-            this.motionY *= (double)0.98F;
-            this.motionZ *= (double)0.98F;
+            this.motionX *= 0.98F;
+            this.motionY *= 0.98F;
+            this.motionZ *= 0.98F;
 
             if (!this.worldObj.isRemote)
             {
@@ -118,8 +118,8 @@ public class EntityFallingBlock extends Entity
 
                 if (this.onGround)
                 {
-                    this.motionX *= (double)0.7F;
-                    this.motionZ *= (double)0.7F;
+                    this.motionX *= 0.7F;
+                    this.motionZ *= 0.7F;
                     this.motionY *= -0.5D;
 
                     if (this.worldObj.getBlockState(blockpos1).getBlock() != Blocks.piston_extension)
@@ -128,7 +128,7 @@ public class EntityFallingBlock extends Entity
 
                         if (!this.canSetAsBlock)
                         {
-                            if (this.worldObj.canBlockBePlaced(block, blockpos1, true, EnumFacing.UP, (Entity)null, (ItemStack)null) && !BlockFalling.canFallInto(this.worldObj, blockpos1.down()) && this.worldObj.setBlockState(blockpos1, this.fallTile, 3))
+                            if (this.worldObj.canBlockBePlaced(block, blockpos1, true, EnumFacing.UP, null, null) && !BlockFalling.canFallInto(this.worldObj, blockpos1.down()) && this.worldObj.setBlockState(blockpos1, this.fallTile, 3))
                             {
                                 if (block instanceof BlockFalling)
                                 {

@@ -21,7 +21,7 @@ public class Polygon extends Shape {
      * 
      * @param points An array of points in x, y order.
      */
-    public Polygon(float points[]) {
+    public Polygon(float[] points) {
         int length = points.length;
         
         this.points = new float[length];
@@ -136,7 +136,7 @@ public class Polygon extends Shape {
         
         Polygon resultPolygon = new Polygon();
         
-        float result[] = new float[points.length];
+        float[] result = new float[points.length];
         transform.transform(points, 0, result, 0, points.length / 2);
         resultPolygon.points = result;
         resultPolygon.findCenter();

@@ -20,7 +20,7 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase
     private static final Logger LOGGER = LogManager.getLogger();
 
     /** The entity that use this AI */
-    private EntityLiving entityLiving;
+    private final EntityLiving entityLiving;
     private final Predicate<Entity> predicate;
 
     /** Used to compare two entities */
@@ -56,7 +56,7 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase
 
                     if (p_apply_1_.isSneaking())
                     {
-                        d0 *= (double)0.8F;
+                        d0 *= 0.8F;
                     }
 
                     if (p_apply_1_.isInvisible())
@@ -68,10 +68,10 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase
                             f = 0.1F;
                         }
 
-                        d0 *= (double)(0.7F * f);
+                        d0 *= 0.7F * f;
                     }
 
-                    return (double)p_apply_1_.getDistanceToEntity(EntityAIFindEntityNearestPlayer.this.entityLiving) > d0 ? false : EntityAITarget.isSuitableTarget(EntityAIFindEntityNearestPlayer.this.entityLiving, (EntityLivingBase)p_apply_1_, false, true);
+                    return !((double) p_apply_1_.getDistanceToEntity(EntityAIFindEntityNearestPlayer.this.entityLiving) > d0) && EntityAITarget.isSuitableTarget(EntityAIFindEntityNearestPlayer.this.entityLiving, (EntityLivingBase) p_apply_1_, false, true);
                 }
             }
         };
@@ -156,7 +156,7 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase
      */
     public void resetTask()
     {
-        this.entityLiving.setAttackTarget((EntityLivingBase)null);
+        this.entityLiving.setAttackTarget(null);
         super.startExecuting();
     }
 

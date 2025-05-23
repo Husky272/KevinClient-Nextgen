@@ -19,7 +19,7 @@ public class AccessFixer
         for (FieldNode fieldnode : list1)
         {
             String s = fieldnode.name;
-            FieldNode fieldnode1 = (FieldNode)map.get(s);
+            FieldNode fieldnode1 = map.get(s);
 
             if (fieldnode1 != null && fieldnode.access != fieldnode1.access)
             {
@@ -34,7 +34,7 @@ public class AccessFixer
         for (MethodNode methodnode : list3)
         {
             String s1 = methodnode.name + methodnode.desc;
-            MethodNode methodnode1 = (MethodNode)map1.get(s1);
+            MethodNode methodnode1 = map1.get(s1);
 
             if (methodnode1 != null && methodnode.access != methodnode1.access)
             {
@@ -49,7 +49,7 @@ public class AccessFixer
         for (InnerClassNode innerclassnode : list5)
         {
             String s2 = innerclassnode.name;
-            InnerClassNode innerclassnode1 = (InnerClassNode)map2.get(s2);
+            InnerClassNode innerclassnode1 = map2.get(s2);
 
             if (innerclassnode1 != null && innerclassnode.access != innerclassnode1.access)
             {

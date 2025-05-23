@@ -58,7 +58,7 @@ public class TileEntityRendererDispatcher
     public double entityY;
     public double entityZ;
     public TileEntity tileEntityRendered;
-    private Tessellator batchBuffer = new Tessellator(2097152);
+    private final Tessellator batchBuffer = new Tessellator(2097152);
     private boolean drawingBatch = false;
 
     private TileEntityRendererDispatcher()
@@ -128,7 +128,7 @@ public class TileEntityRendererDispatcher
             int i = this.worldObj.getCombinedLight(tileentityIn.getPos(), 0);
             int j = i % 65536;
             int k = i / 65536;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j / 1.0F, (float)k / 1.0F);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
             BlockPos blockpos = tileentityIn.getPos();

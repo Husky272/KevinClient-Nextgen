@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,7 +95,7 @@ public class Differ
                     addStat(map1, s, "delta");
                     byte[] abyte2 = HashUtils.getHashMd5(abyte);
                     String s1 = HashUtils.toHexString(abyte2);
-                    byte[] abyte3 = s1.getBytes("ASCII");
+                    byte[] abyte3 = s1.getBytes(StandardCharsets.US_ASCII);
                     ZipEntry zipentry2 = new ZipEntry("patch/" + s + ".md5");
                     zipoutputstream.putNextEntry(zipentry2);
                     zipoutputstream.write(abyte3);
@@ -165,10 +166,10 @@ public class Differ
 
         if (integer == null)
         {
-            integer = new Integer(0);
+            integer = Integer.valueOf(0);
         }
 
-        integer = new Integer(integer + 1);
+        integer = Integer.valueOf(integer + 1);
         map.put(type, integer);
     }
 

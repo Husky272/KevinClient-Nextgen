@@ -125,17 +125,17 @@ public class ChunkCompileTaskGenerator
         return this.finished;
     }
 
-    public static enum Status
+    public enum Status
     {
         PENDING,
         COMPILING,
         UPLOADING,
-        DONE;
+        DONE
     }
 
-    public static enum Type
+    public enum Type
     {
         REBUILD_CHUNK,
-        RESORT_TRANSPARENCY;
+        RESORT_TRANSPARENCY
     }
 }

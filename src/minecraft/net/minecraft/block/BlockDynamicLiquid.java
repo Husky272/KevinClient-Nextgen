@@ -253,7 +253,7 @@ public class BlockDynamicLiquid extends BlockLiquid
 
         if (!(block instanceof BlockDoor) && block != Blocks.standing_sign && block != Blocks.ladder && block != Blocks.reeds)
         {
-            return block.blockMaterial == Material.portal ? true : block.blockMaterial.blocksMovement();
+            return block.blockMaterial == Material.portal || block.blockMaterial.blocksMovement();
         }
         else
         {

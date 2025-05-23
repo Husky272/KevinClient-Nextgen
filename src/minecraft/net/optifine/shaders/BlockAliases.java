@@ -18,7 +18,7 @@ import net.optifine.util.StrUtils;
 
 public class BlockAliases
 {
-    private static BlockAlias[][] blockAliases = (BlockAlias[][])null;
+    private static BlockAlias[][] blockAliases = null;
     private static PropertiesOrdered blockLayerPropertes = null;
     private static boolean updateOnResourcesReloaded;
 
@@ -106,7 +106,6 @@ public class BlockAliases
             }
             catch (IOException var6)
             {
-                ;
             }
         }
     }
@@ -190,7 +189,7 @@ public class BlockAliases
 
             while (j >= blocksAliases.size())
             {
-                blocksAliases.add((List<BlockAlias>)null);
+                blocksAliases.add(null);
             }
 
             List<BlockAlias> list = blocksAliases.get(j);
@@ -230,7 +229,7 @@ public class BlockAliases
 
     public static void reset()
     {
-        blockAliases = (BlockAlias[][])null;
+        blockAliases = null;
         blockLayerPropertes = null;
     }
 }

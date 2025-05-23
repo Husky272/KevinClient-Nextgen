@@ -192,9 +192,8 @@ public class BlockPistonBase extends Block
                 {
                     TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
-                    if (tileentity instanceof TileEntityPiston)
+                    if (tileentity instanceof TileEntityPiston tileentitypiston)
                     {
-                        TileEntityPiston tileentitypiston = (TileEntityPiston)tileentity;
 
                         if (tileentitypiston.getFacing() == enumfacing && tileentitypiston.isExtending())
                         {
@@ -346,12 +345,7 @@ public class BlockPistonBase extends Block
 
                     if (blockIn.getMobilityFlag() == 1)
                     {
-                        if (!allowDestroy)
-                        {
-                            return false;
-                        }
-
-                        return true;
+                        return allowDestroy;
                     }
                 }
                 else if (worldIn.getBlockState(pos).getValue(EXTENDED))

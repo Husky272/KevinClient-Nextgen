@@ -99,7 +99,7 @@ public class PlayerProfileCache
 
         if (!server.isServerInOnlineMode() && agameprofile[0] == null)
         {
-            UUID uuid = EntityPlayer.getUUID(new GameProfile((UUID)null, username));
+            UUID uuid = EntityPlayer.getUUID(new GameProfile(null, username));
             GameProfile gameprofile = new GameProfile(uuid, username);
             profilelookupcallback.onProfileLookupSucceeded(gameprofile);
         }
@@ -112,7 +112,7 @@ public class PlayerProfileCache
      */
     public void addEntry(GameProfile gameProfile)
     {
-        this.addEntry(gameProfile, (Date)null);
+        this.addEntry(gameProfile, null);
     }
 
     /**
@@ -244,15 +244,13 @@ public class PlayerProfileCache
         }
         catch (FileNotFoundException var9)
         {
-            ;
         }
         catch (JsonParseException var10)
         {
-            ;
         }
         finally
         {
-            IOUtils.closeQuietly((Reader)bufferedreader);
+            IOUtils.closeQuietly(bufferedreader);
         }
     }
 
@@ -268,19 +266,16 @@ public class PlayerProfileCache
         {
             bufferedwriter = Files.newWriter(this.usercacheFile, Charsets.UTF_8);
             bufferedwriter.write(s);
-            return;
         }
         catch (FileNotFoundException var8)
         {
-            ;
         }
         catch (IOException var9)
         {
-            return;
         }
         finally
         {
-            IOUtils.closeQuietly((Writer)bufferedwriter);
+            IOUtils.closeQuietly(bufferedwriter);
         }
     }
 

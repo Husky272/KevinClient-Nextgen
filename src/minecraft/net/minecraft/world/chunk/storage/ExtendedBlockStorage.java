@@ -11,7 +11,7 @@ public class ExtendedBlockStorage
     /**
      * Contains the bottom-most Y block represented by this ExtendedBlockStorage. Typically a multiple of 16.
      */
-    private int yBase;
+    private final int yBase;
 
     /**
      * A total count of the number of non-air blocks in this block storage's Chunk.

@@ -65,9 +65,8 @@ public class ModelBlockDefinition
         {
             return true;
         }
-        else if (p_equals_1_ instanceof ModelBlockDefinition)
+        else if (p_equals_1_ instanceof ModelBlockDefinition modelblockdefinition)
         {
-            ModelBlockDefinition modelblockdefinition = (ModelBlockDefinition)p_equals_1_;
             return this.mapVariants.equals(modelblockdefinition.mapVariants);
         }
         else
@@ -173,13 +172,12 @@ public class ModelBlockDefinition
             {
                 return true;
             }
-            else if (!(p_equals_1_ instanceof ModelBlockDefinition.Variant))
+            else if (!(p_equals_1_ instanceof Variant modelblockdefinition$variant))
             {
                 return false;
             }
             else
             {
-                ModelBlockDefinition.Variant modelblockdefinition$variant = (ModelBlockDefinition.Variant)p_equals_1_;
                 return this.modelLocation.equals(modelblockdefinition$variant.modelLocation) && this.modelRotation == modelblockdefinition$variant.modelRotation && this.uvLock == modelblockdefinition$variant.uvLock;
             }
         }
@@ -266,13 +264,12 @@ public class ModelBlockDefinition
             {
                 return true;
             }
-            else if (!(p_equals_1_ instanceof ModelBlockDefinition.Variants))
+            else if (!(p_equals_1_ instanceof Variants modelblockdefinition$variants))
             {
                 return false;
             }
             else
             {
-                ModelBlockDefinition.Variants modelblockdefinition$variants = (ModelBlockDefinition.Variants)p_equals_1_;
 
                 if (!this.name.equals(modelblockdefinition$variants.name))
                 {

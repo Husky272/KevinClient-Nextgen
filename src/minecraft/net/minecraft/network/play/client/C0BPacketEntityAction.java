@@ -66,7 +66,7 @@ public class C0BPacketEntityAction implements Packet<INetHandlerPlayServer>
         return this.auxData;
     }
 
-    public static enum Action
+    public enum Action
     {
         START_SNEAKING,
         STOP_SNEAKING,
@@ -74,6 +74,6 @@ public class C0BPacketEntityAction implements Packet<INetHandlerPlayServer>
         START_SPRINTING,
         STOP_SPRINTING,
         RIDING_JUMP,
-        OPEN_INVENTORY;
+        OPEN_INVENTORY
     }
 }

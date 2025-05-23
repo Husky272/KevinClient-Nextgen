@@ -350,7 +350,7 @@ public abstract class BlockButton extends Block
     {
         int i;
 
-        switch ((EnumFacing)state.getValue(FACING))
+        switch (state.getValue(FACING))
         {
             case EAST:
                 i = 1;

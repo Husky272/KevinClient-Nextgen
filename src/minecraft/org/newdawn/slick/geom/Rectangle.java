@@ -46,12 +46,8 @@ public class Rectangle extends Shape {
 		if (xp >= maxX) {
 			return false;
 		}
-		if (yp >= maxY) {
-			return false;
-		}
-		
-		return true;
-	}
+        return !(yp >= maxY);
+    }
 	
 	/**
 	 * Set the bounds of this rectangle based on the given rectangle
@@ -163,15 +159,11 @@ public class Rectangle extends Shape {
 	 * @return True if the rectangles touch
 	 */
 	public boolean intersects(Shape shape) {
-        if(shape instanceof Rectangle) {
-            Rectangle other = (Rectangle)shape;
-    		if ((x > (other.x + other.width)) || ((x + width) < other.x)) {
+        if(shape instanceof Rectangle other) {
+            if ((x > (other.x + other.width)) || ((x + width) < other.x)) {
     			return false;
     		}
-    		if ((y > (other.y + other.height)) || ((y + height) < other.y)) {
-    			return false;
-    		}
-            return true;
+            return (!(y > (other.y + other.height))) && (!((y + height) < other.y));
         }
         else if(shape instanceof Circle) {
             return intersects((Circle)shape);
@@ -258,7 +250,7 @@ public class Rectangle extends Shape {
         
         Polygon resultPolygon = new Polygon();
         
-        float result[] = new float[points.length];
+        float[] result = new float[points.length];
         transform.transform(points, 0, result, 0, points.length / 2);
         resultPolygon.points = result;
         resultPolygon.findCenter();

@@ -7,7 +7,7 @@ public class IPBanEntry extends BanEntry<String>
 {
     public IPBanEntry(String valueIn)
     {
-        this(valueIn, (Date)null, (String)null, (Date)null, (String)null);
+        this(valueIn, null, null, null, null);
     }
 
     public IPBanEntry(String valueIn, Date startDate, String banner, Date endDate, String banReason)

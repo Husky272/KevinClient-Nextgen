@@ -35,10 +35,9 @@ public final class Handle {
   public boolean equals(Object object) {
     if (object == this)
       return true; 
-    if (!(object instanceof Handle))
-      return false; 
-    Handle handle = (Handle)object;
-    return (this.tag == handle.tag && this.isInterface == handle.isInterface && this.owner
+    if (!(object instanceof Handle handle))
+      return false;
+      return (this.tag == handle.tag && this.isInterface == handle.isInterface && this.owner
       
       .equals(handle.owner) && this.name
       .equals(handle.name) && this.descriptor

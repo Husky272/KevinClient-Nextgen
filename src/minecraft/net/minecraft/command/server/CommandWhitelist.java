@@ -53,12 +53,12 @@ public class CommandWhitelist extends CommandBase
             if (args[0].equals("on"))
             {
                 minecraftserver.getConfigurationManager().setWhiteListEnabled(true);
-                notifyOperators(sender, this, "commands.whitelist.enabled", new Object[0]);
+                notifyOperators(sender, this, "commands.whitelist.enabled");
             }
             else if (args[0].equals("off"))
             {
                 minecraftserver.getConfigurationManager().setWhiteListEnabled(false);
-                notifyOperators(sender, this, "commands.whitelist.disabled", new Object[0]);
+                notifyOperators(sender, this, "commands.whitelist.disabled");
             }
             else if (args[0].equals("list"))
             {
@@ -81,7 +81,7 @@ public class CommandWhitelist extends CommandBase
                 }
 
                 minecraftserver.getConfigurationManager().addWhitelistedPlayer(gameprofile);
-                notifyOperators(sender, this, "commands.whitelist.add.success", new Object[] {args[1]});
+                notifyOperators(sender, this, "commands.whitelist.add.success", args[1]);
             }
             else if (args[0].equals("remove"))
             {
@@ -98,12 +98,12 @@ public class CommandWhitelist extends CommandBase
                 }
 
                 minecraftserver.getConfigurationManager().removePlayerFromWhitelist(gameprofile1);
-                notifyOperators(sender, this, "commands.whitelist.remove.success", new Object[] {args[1]});
+                notifyOperators(sender, this, "commands.whitelist.remove.success", args[1]);
             }
             else if (args[0].equals("reload"))
             {
                 minecraftserver.getConfigurationManager().loadWhiteList();
-                notifyOperators(sender, this, "commands.whitelist.reloaded", new Object[0]);
+                notifyOperators(sender, this, "commands.whitelist.reloaded");
             }
         }
     }
@@ -112,7 +112,7 @@ public class CommandWhitelist extends CommandBase
     {
         if (args.length == 1)
         {
-            return getListOfStringsMatchingLastWord(args, new String[] {"on", "off", "list", "add", "remove", "reload"});
+            return getListOfStringsMatchingLastWord(args, "on", "off", "list", "add", "remove", "reload");
         }
         else
         {

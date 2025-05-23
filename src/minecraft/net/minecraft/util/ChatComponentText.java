@@ -49,13 +49,12 @@ public class ChatComponentText extends ChatComponentStyle
         {
             return true;
         }
-        else if (!(p_equals_1_ instanceof ChatComponentText))
+        else if (!(p_equals_1_ instanceof ChatComponentText chatcomponenttext))
         {
             return false;
         }
         else
         {
-            ChatComponentText chatcomponenttext = (ChatComponentText)p_equals_1_;
             return this.text.equals(chatcomponenttext.getChatComponentText_TextValue()) && super.equals(p_equals_1_);
         }
     }

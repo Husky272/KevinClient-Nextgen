@@ -16,6 +16,6 @@ public class ModuleExportNode {
     this.modules = modules;
   }
   
-  public void accept(ModuleVisitor moduleVisitor) { moduleVisitor.visitExport(this.packaze, this.access, (this.modules == null) ? null : (String[])this.modules
+  public void accept(ModuleVisitor moduleVisitor) { moduleVisitor.visitExport(this.packaze, this.access, (this.modules == null) ? null : this.modules
         .toArray(new String[0])); }
 }

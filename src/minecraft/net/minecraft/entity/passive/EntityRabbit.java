@@ -40,7 +40,7 @@ import net.minecraft.world.World;
 
 public class EntityRabbit extends EntityAnimal
 {
-    private EntityRabbit.AIAvoidEntity<EntityWolf> aiAvoidWolves;
+    private final EntityRabbit.AIAvoidEntity<EntityWolf> aiAvoidWolves;
     private int field_175540_bm = 0;
     private int field_175535_bn = 0;
     private boolean field_175536_bo = false;
@@ -48,7 +48,7 @@ public class EntityRabbit extends EntityAnimal
     private int currentMoveTypeDuration = 0;
     private EntityRabbit.EnumMoveType moveType = EntityRabbit.EnumMoveType.HOP;
     private int carrotTicks = 0;
-    private EntityPlayer field_175543_bt = null;
+    private final EntityPlayer field_175543_bt = null;
 
     public EntityRabbit(World worldIn)
     {
@@ -266,7 +266,7 @@ public class EntityRabbit extends EntityAnimal
     {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)0.3F);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.3F);
     }
 
     /**
@@ -344,7 +344,7 @@ public class EntityRabbit extends EntityAnimal
      */
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
-        return this.isEntityInvulnerable(source) ? false : super.attackEntityFrom(source, amount);
+        return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
     }
 
     /**
@@ -504,7 +504,7 @@ public class EntityRabbit extends EntityAnimal
 
     static class AIAvoidEntity<T extends Entity> extends EntityAIAvoidEntity<T>
     {
-        private EntityRabbit entityInstance;
+        private final EntityRabbit entityInstance;
 
         public AIAvoidEntity(EntityRabbit rabbit, Class<T> p_i46403_2_, float p_i46403_3_, double p_i46403_4_, double p_i46403_6_)
         {
@@ -527,13 +527,13 @@ public class EntityRabbit extends EntityAnimal
 
         protected double func_179512_a(EntityLivingBase attackTarget)
         {
-            return (double)(4.0F + attackTarget.width);
+            return 4.0F + attackTarget.width;
         }
     }
 
     static class AIPanic extends EntityAIPanic
     {
-        private EntityRabbit theEntity;
+        private final EntityRabbit theEntity;
 
         public AIPanic(EntityRabbit rabbit, double speedIn)
         {
@@ -556,7 +556,7 @@ public class EntityRabbit extends EntityAnimal
 
         public AIRaidFarm(EntityRabbit rabbitIn)
         {
-            super(rabbitIn, (double)0.7F, 16);
+            super(rabbitIn, 0.7F, 16);
             this.rabbit = rabbitIn;
         }
 
@@ -594,7 +594,7 @@ public class EntityRabbit extends EntityAnimal
         public void updateTask()
         {
             super.updateTask();
-            this.rabbit.getLookHelper().setLookPosition((double)this.destinationBlock.getX() + 0.5D, (double)(this.destinationBlock.getY() + 1), (double)this.destinationBlock.getZ() + 0.5D, 10.0F, (float)this.rabbit.getVerticalFaceSpeed());
+            this.rabbit.getLookHelper().setLookPosition((double)this.destinationBlock.getX() + 0.5D, this.destinationBlock.getY() + 1, (double)this.destinationBlock.getZ() + 0.5D, 10.0F, (float)this.rabbit.getVerticalFaceSpeed());
 
             if (this.getIsAboveDestination())
             {
@@ -636,7 +636,7 @@ public class EntityRabbit extends EntityAnimal
         }
     }
 
-    static enum EnumMoveType
+    enum EnumMoveType
     {
         NONE(0.0F, 0.0F, 30, 1),
         HOP(0.8F, 0.2F, 20, 10),
@@ -649,7 +649,7 @@ public class EntityRabbit extends EntityAnimal
         private final int duration;
         private final int field_180085_i;
 
-        private EnumMoveType(float typeSpeed, float p_i45866_4_, int typeDuration, int p_i45866_6_)
+        EnumMoveType(float typeSpeed, float p_i45866_4_, int typeDuration, int p_i45866_6_)
         {
             this.speed = typeSpeed;
             this.field_180077_g = p_i45866_4_;
@@ -680,7 +680,7 @@ public class EntityRabbit extends EntityAnimal
 
     public class RabbitJumpHelper extends EntityJumpHelper
     {
-        private EntityRabbit theEntity;
+        private final EntityRabbit theEntity;
         private boolean field_180068_d = false;
 
         public RabbitJumpHelper(EntityRabbit rabbit)
@@ -716,7 +716,7 @@ public class EntityRabbit extends EntityAnimal
 
     static class RabbitMoveHelper extends EntityMoveHelper
     {
-        private EntityRabbit theEntity;
+        private final EntityRabbit theEntity;
 
         public RabbitMoveHelper(EntityRabbit rabbit)
         {

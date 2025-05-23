@@ -5,7 +5,7 @@ package org.newdawn.slick.geom;
  * 
  * @author Kevin Glass
  */
-public strictfp class Circle extends Ellipse {
+public class Circle extends Ellipse {
 	/** The radius of the circle */
 	public float radius;
 	
@@ -83,9 +83,8 @@ public strictfp class Circle extends Ellipse {
 	 * @return True if they touch
 	 */
 	public boolean intersects(Shape shape) {
-        if(shape instanceof Circle) {
-            Circle other = (Circle)shape;
-    		float totalRad2 = getRadius() + other.getRadius();
+        if(shape instanceof Circle other) {
+            float totalRad2 = getRadius() + other.getRadius();
     		
     		if (Math.abs(other.getCenterX() - getCenterX()) > totalRad2) {
     			return false;

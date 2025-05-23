@@ -31,7 +31,7 @@ public final class SpawnerAnimals
 {
     private static final int MOB_COUNT_DIV = (int)Math.pow(17.0D, 2.0D);
     private final Set<ChunkCoordIntPair> eligibleChunksForSpawning = Sets.newHashSet();
-    private Map<Class, EntityLiving> mapSampleEntitiesByClass = new HashMap<>();
+    private final Map<Class, EntityLiving> mapSampleEntitiesByClass = new HashMap<>();
     private int lastPlayerChunkX = Integer.MAX_VALUE;
     private int lastPlayerChunkZ = Integer.MAX_VALUE;
     private int countChunkPos;
@@ -150,7 +150,7 @@ public final class SpawnerAnimals
                                         float f = (float)l2 + 0.5F;
                                         float f1 = (float)j3 + 0.5F;
 
-                                        if (!worldServerIn.isAnyPlayerWithinRangeAt((double)f, (double)i3, (double)f1, 24.0D) && blockpos2.distanceSq((double)f, (double)i3, (double)f1) >= 576.0D)
+                                        if (!worldServerIn.isAnyPlayerWithinRangeAt(f, i3, f1, 24.0D) && blockpos2.distanceSq(f, i3, f1) >= 576.0D)
                                         {
                                             if (biomegenbase$spawnlistentry == null)
                                             {
@@ -182,7 +182,7 @@ public final class SpawnerAnimals
                                                     return j4;
                                                 }
 
-                                                entityliving.setLocationAndAngles((double)f, (double)i3, (double)f1, worldServerIn.rand.nextFloat() * 360.0F, 0.0F);
+                                                entityliving.setLocationAndAngles(f, i3, f1, worldServerIn.rand.nextFloat() * 360.0F, 0.0F);
                                                 boolean flag2 = entityliving.getCanSpawnHere() && entityliving.isNotColliding();
 
                                                 if (flag2)
@@ -223,7 +223,7 @@ public final class SpawnerAnimals
         }
     }
 
-    protected static BlockPos getRandomChunkPosition(World worldIn, int x, int z)
+    private static BlockPos getRandomChunkPosition(World worldIn, int x, int z)
     {
         Chunk chunk = worldIn.getChunkFromChunkCoords(x, z);
         int i = x * 16 + worldIn.rand.nextInt(16);
@@ -323,7 +323,7 @@ public final class SpawnerAnimals
                                 continue;
                             }
 
-                            entityliving.setLocationAndAngles((double)((float)j + 0.5F), (double)blockpos.getY(), (double)((float)k + 0.5F), randomIn.nextFloat() * 360.0F, 0.0F);
+                            entityliving.setLocationAndAngles((float)j + 0.5F, blockpos.getY(), (float)k + 0.5F, randomIn.nextFloat() * 360.0F, 0.0F);
                             worldIn.spawnEntityInWorld(entityliving);
                             ientitylivingdata = entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), ientitylivingdata);
                             flag = true;

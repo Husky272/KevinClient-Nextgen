@@ -32,7 +32,7 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback
     private GuiSelectWorld.List availableWorlds;
     private String field_146637_u;
     private String field_146636_v;
-    private String[] field_146635_w = new String[4];
+    private final String[] field_146635_w = new String[4];
     private boolean confirmingDelete;
     private GuiButton deleteButton;
     private GuiButton selectButton;
@@ -58,7 +58,7 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback
         }
         catch (AnvilConverterException anvilconverterexception)
         {
-            logger.error("Couldn't load level list", (Throwable)anvilconverterexception);
+            logger.error("Couldn't load level list", anvilconverterexception);
             this.mc.displayGuiScreen(new GuiErrorScreen("Unable to load worlds", anvilconverterexception.getMessage()));
             return;
         }
@@ -177,7 +177,7 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback
 
     public void func_146615_e(int p_146615_1_)
     {
-        this.mc.displayGuiScreen((GuiScreen)null);
+        this.mc.displayGuiScreen(null);
 
         if (!this.field_146634_i)
         {
@@ -198,7 +198,7 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback
 
             if (this.mc.getSaveLoader().canLoadWorld(s))
             {
-                this.mc.launchIntegratedServer(s, s1, (WorldSettings)null);
+                this.mc.launchIntegratedServer(s, s1, null);
             }
         }
     }
@@ -221,7 +221,7 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback
                 }
                 catch (AnvilConverterException anvilconverterexception)
                 {
-                    logger.error("Couldn't load level list", (Throwable)anvilconverterexception);
+                    logger.error("Couldn't load level list", anvilconverterexception);
                 }
             }
 

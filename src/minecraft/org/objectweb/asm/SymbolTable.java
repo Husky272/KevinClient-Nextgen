@@ -15,7 +15,7 @@ final class SymbolTable {
   
   private int constantPoolCount;
   
-  private ByteVector constantPool;
+  private final ByteVector constantPool;
   
   private int bootstrapMethodCount;
   
@@ -225,27 +225,24 @@ final class SymbolTable {
       return addConstantDouble(((Double)value).doubleValue()); 
     if (value instanceof String)
       return addConstantString((String)value); 
-    if (value instanceof Type) {
-      Type type = (Type)value;
-      int typeSort = type.getSort();
+    if (value instanceof Type type) {
+        int typeSort = type.getSort();
       if (typeSort == 10)
         return addConstantClass(type.getInternalName()); 
       if (typeSort == 11)
         return addConstantMethodType(type.getDescriptor()); 
       return addConstantClass(type.getDescriptor());
     } 
-    if (value instanceof Handle) {
-      Handle handle = (Handle)value;
-      return addConstantMethodHandle(handle
+    if (value instanceof Handle handle) {
+        return addConstantMethodHandle(handle
           .getTag(), handle
           .getOwner(), handle
           .getName(), handle
           .getDesc(), handle
           .isInterface());
     } 
-    if (value instanceof ConstantDynamic) {
-      ConstantDynamic constantDynamic = (ConstantDynamic)value;
-      return addConstantDynamic(constantDynamic
+    if (value instanceof ConstantDynamic constantDynamic) {
+        return addConstantDynamic(constantDynamic
           .getName(), constantDynamic
           .getDescriptor(), constantDynamic
           .getBootstrapMethod(), constantDynamic
@@ -513,7 +510,7 @@ final class SymbolTable {
   }
   
   int addMergedType(int typeTableIndex1, int typeTableIndex2) {
-    long data = typeTableIndex1 | typeTableIndex2 << 32;
+    long data = typeTableIndex1 | (long) typeTableIndex2 << 32;
     int hashCode = hash(130, typeTableIndex1 + typeTableIndex2);
     Entry entry = get(hashCode);
     while (entry != null) {

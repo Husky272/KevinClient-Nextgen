@@ -129,7 +129,7 @@ public class Launch {
             // Finally we turn to the primary tweaker, and let it tell us where to go to launch
             final String launchTarget = primaryTweaker.getLaunchTarget();
             final Class<?> clazz = Class.forName(launchTarget, false, classLoader);
-            final Method mainMethod = clazz.getMethod("main", new Class[]{String[].class});
+            final Method mainMethod = clazz.getMethod("main", String[].class);
 
             LogWrapper.info("Launching wrapped minecraft {%s}", launchTarget);
             mainMethod.invoke(null, (Object) argumentList.toArray(new String[argumentList.size()]));

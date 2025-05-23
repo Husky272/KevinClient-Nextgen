@@ -24,7 +24,7 @@ public class PBufferUniqueGraphics extends Graphics {
 	/** The pbuffer we're going to render to */
 	private Pbuffer pbuffer;
 	/** The image we're we're sort of rendering to */
-	private Image image;
+	private final Image image;
 	
 	/**
 	 * Create a new graphics context around a pbuffer

@@ -74,7 +74,7 @@ public class TextureAtlasSprite
     protected static TextureAtlasSprite makeAtlasSprite(ResourceLocation spriteResourceLocation)
     {
         String s = spriteResourceLocation.toString();
-        return (TextureAtlasSprite)(locationNameClock.equals(s) ? new TextureClock(s) : (locationNameCompass.equals(s) ? new TextureCompass(s) : new TextureAtlasSprite(s)));
+        return locationNameClock.equals(s) ? new TextureClock(s) : (locationNameCompass.equals(s) ? new TextureCompass(s) : new TextureAtlasSprite(s));
     }
 
     public static void setLocationNameClock(String clockName)
@@ -240,7 +240,7 @@ public class TextureAtlasSprite
     {
         if (this.animationMetadata != null)
         {
-            this.animationActive = SmartAnimations.isActive() ? SmartAnimations.isSpriteRendered(this.animationIndex) : true;
+            this.animationActive = !SmartAnimations.isActive() || SmartAnimations.isSpriteRendered(this.animationIndex);
             ++this.tickCounter;
 
             if (this.tickCounter >= this.animationMetadata.getFrameTimeSingle(this.frameCounter))
@@ -514,7 +514,7 @@ public class TextureAtlasSprite
         {
             for (int i = this.framesTextureData.size(); i <= index; ++i)
             {
-                this.framesTextureData.add((int[][])null);
+                this.framesTextureData.add(null);
             }
         }
 
@@ -657,9 +657,9 @@ public class TextureAtlasSprite
                     int l1 = j1 >> 16 & 255;
                     int i2 = j1 >> 8 & 255;
                     int j2 = j1 & 255;
-                    i += (long)l1;
-                    j += (long)i2;
-                    k += (long)j2;
+                    i += l1;
+                    j += i2;
+                    k += j2;
                     ++l;
                 }
             }
@@ -688,13 +688,13 @@ public class TextureAtlasSprite
     public double getSpriteU16(float p_getSpriteU16_1_)
     {
         float f = this.maxU - this.minU;
-        return (double)((p_getSpriteU16_1_ - this.minU) / f * 16.0F);
+        return (p_getSpriteU16_1_ - this.minU) / f * 16.0F;
     }
 
     public double getSpriteV16(float p_getSpriteV16_1_)
     {
         float f = this.maxV - this.minV;
-        return (double)((p_getSpriteV16_1_ - this.minV) / f * 16.0F);
+        return (p_getSpriteV16_1_ - this.minV) / f * 16.0F;
     }
 
     public void bindSpriteTexture()

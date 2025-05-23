@@ -95,7 +95,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     private final Random random = new Random();
 
     /** The server's port. */
-    private int serverPort = -1;
+    private final int serverPort = -1;
 
     /** The server world instances. */
     public WorldServer[] worldServers;
@@ -453,7 +453,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
 
                     try
                     {
-                        worldserver.saveAllChunks(true, (IProgressUpdate)null);
+                        worldserver.saveAllChunks(true, null);
                     }
                     catch (MinecraftException minecraftexception)
                     {
@@ -575,7 +575,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
             }
             else
             {
-                this.finalTick((CrashReport)null);
+                this.finalTick(null);
             }
         }
         catch (Throwable throwable1)
@@ -642,7 +642,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
             }
             catch (Exception exception)
             {
-                logger.error("Couldn't load server icon", (Throwable)exception);
+                logger.error("Couldn't load server icon", exception);
             }
             finally
             {

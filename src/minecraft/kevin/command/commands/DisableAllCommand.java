@@ -15,7 +15,7 @@ public final class DisableAllCommand implements ICommand {
     public void run(@Nullable String[] args) {
 
         for(ClientModule mod : KevinClient.INSTANCE.getModuleManager().getModules()) {
-            ((ClientModule)mod).setState(false);
+            mod.setState(false);
         }
 
         ChatUtils.messageWithStart("§aDisabled all modules.");

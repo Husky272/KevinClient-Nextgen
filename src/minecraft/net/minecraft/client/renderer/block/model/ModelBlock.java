@@ -29,7 +29,7 @@ public class ModelBlock
     private final List<BlockPart> elements;
     private final boolean gui3d;
     private final boolean ambientOcclusion;
-    private ItemCameraTransforms cameraTransforms;
+    private final ItemCameraTransforms cameraTransforms;
     public String name = "";
     protected final Map<String, String> textures;
     protected ModelBlock parent;
@@ -47,7 +47,7 @@ public class ModelBlock
 
     protected ModelBlock(List<BlockPart> elementsIn, Map<String, String> texturesIn, boolean ambientOcclusionIn, boolean gui3dIn, ItemCameraTransforms cameraTransformsIn)
     {
-        this((ResourceLocation)null, elementsIn, texturesIn, ambientOcclusionIn, gui3dIn, cameraTransformsIn);
+        this(null, elementsIn, texturesIn, ambientOcclusionIn, gui3dIn, cameraTransformsIn);
     }
 
     protected ModelBlock(ResourceLocation parentLocationIn, Map<String, String> texturesIn, boolean ambientOcclusionIn, boolean gui3dIn, ItemCameraTransforms cameraTransformsIn)
@@ -195,7 +195,6 @@ public class ModelBlock
             }
             catch (NullPointerException var5)
             {
-                ;
             }
         }
     }

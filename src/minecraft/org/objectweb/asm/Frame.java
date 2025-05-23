@@ -134,7 +134,6 @@ class Frame {
       case '[':
         int elementDescriptorOffset;
         for(elementDescriptorOffset = offset + 1; buffer.charAt(elementDescriptorOffset) == 91; ++elementDescriptorOffset) {
-          ;
         }
 
         int typeValue;

@@ -522,10 +522,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         {
             Item item = stack.getItem();
 
-            if (item != Items.water_bucket && item != Items.bucket)
-            {
-                return false;
-            }
+            return item == Items.water_bucket || item == Items.bucket;
         }
 
         return true;

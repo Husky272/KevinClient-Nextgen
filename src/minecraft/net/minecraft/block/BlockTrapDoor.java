@@ -163,7 +163,7 @@ public class BlockTrapDoor extends Block
                     if (flag1 != flag)
                     {
                         worldIn.setBlockState(pos, state.withProperty(OPEN, flag), 2);
-                        worldIn.playAuxSFXAtEntity((EntityPlayer)null, flag ? 1003 : 1006, pos, 0);
+                        worldIn.playAuxSFXAtEntity(null, flag ? 1003 : 1006, pos, 0);
                     }
                 }
             }
@@ -286,14 +286,14 @@ public class BlockTrapDoor extends Block
         return new BlockState(this, FACING, OPEN, HALF);
     }
 
-    public static enum DoorHalf implements IStringSerializable
+    public enum DoorHalf implements IStringSerializable
     {
         TOP("top"),
         BOTTOM("bottom");
 
         private final String name;
 
-        private DoorHalf(String name)
+        DoorHalf(String name)
         {
             this.name = name;
         }

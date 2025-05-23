@@ -78,13 +78,12 @@ public class JsonBlendingMode
         {
             return true;
         }
-        else if (!(p_equals_1_ instanceof JsonBlendingMode))
+        else if (!(p_equals_1_ instanceof JsonBlendingMode jsonblendingmode))
         {
             return false;
         }
         else
         {
-            JsonBlendingMode jsonblendingmode = (JsonBlendingMode)p_equals_1_;
 
             if (this.field_148112_f != jsonblendingmode.field_148112_f)
             {

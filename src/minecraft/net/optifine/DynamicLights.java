@@ -35,9 +35,9 @@ import net.optifine.util.PropertiesOrdered;
 
 public class DynamicLights
 {
-    private static DynamicLightsMap mapDynamicLights = new DynamicLightsMap();
-    private static Map<Class, Integer> mapEntityLightLevels = new HashMap<>();
-    private static Map<Item, Integer> mapItemLightLevels = new HashMap<>();
+    private static final DynamicLightsMap mapDynamicLights = new DynamicLightsMap();
+    private static final Map<Class, Integer> mapEntityLightLevels = new HashMap<>();
+    private static final Map<Item, Integer> mapItemLightLevels = new HashMap<>();
     private static long timeUpdateMs = 0L;
     private static final double MAX_DIST = 7.5D;
     private static final double MAX_DIST_SQ = 56.25D;
@@ -117,7 +117,6 @@ public class DynamicLights
             }
             catch (IOException var5)
             {
-                ;
             }
         }
 
@@ -186,7 +185,7 @@ public class DynamicLights
 
                         if (j >= 0 && j <= 15)
                         {
-                            mapLightLevels.put(object, new Integer(j));
+                            mapLightLevels.put(object, Integer.valueOf(j));
                         }
                         else
                         {
@@ -242,7 +241,7 @@ public class DynamicLights
 
     public static int getCombinedLight(Entity entity, int combinedLight)
     {
-        double d0 = (double)getLightLevel(entity);
+        double d0 = getLightLevel(entity);
         combinedLight = getCombinedLight(d0, combinedLight);
         return combinedLight;
     }
@@ -322,9 +321,8 @@ public class DynamicLights
         {
             Item item = itemStack.getItem();
 
-            if (item instanceof ItemBlock)
+            if (item instanceof ItemBlock itemblock)
             {
-                ItemBlock itemblock = (ItemBlock)item;
                 Block block = itemblock.getBlock();
 
                 if (block != null)
@@ -385,9 +383,8 @@ public class DynamicLights
         }
         else
         {
-            if (entity instanceof EntityPlayer)
+            if (entity instanceof EntityPlayer entityplayer)
             {
-                EntityPlayer entityplayer = (EntityPlayer)entity;
 
                 if (entityplayer.isSpectator())
                 {
@@ -419,21 +416,18 @@ public class DynamicLights
                 {
                     return 15;
                 }
-                else if (entity instanceof EntityBlaze)
+                else if (entity instanceof EntityBlaze entityblaze)
                 {
-                    EntityBlaze entityblaze = (EntityBlaze)entity;
                     return entityblaze.func_70845_n() ? 15 : 10;
                 }
-                else if (entity instanceof EntityMagmaCube)
+                else if (entity instanceof EntityMagmaCube entitymagmacube)
                 {
-                    EntityMagmaCube entitymagmacube = (EntityMagmaCube)entity;
                     return (double)entitymagmacube.squishFactor > 0.6D ? 13 : 8;
                 }
                 else
                 {
-                    if (entity instanceof EntityCreeper)
+                    if (entity instanceof EntityCreeper entitycreeper)
                     {
-                        EntityCreeper entitycreeper = (EntityCreeper)entity;
 
                         if ((double)entitycreeper.getCreeperFlashIntensity(0.0F) > 0.001D)
                         {
@@ -441,18 +435,16 @@ public class DynamicLights
                         }
                     }
 
-                    if (entity instanceof EntityLivingBase)
+                    if (entity instanceof EntityLivingBase entitylivingbase)
                     {
-                        EntityLivingBase entitylivingbase = (EntityLivingBase)entity;
                         ItemStack itemstack2 = entitylivingbase.getHeldItem();
                         int i = getLightLevel(itemstack2);
                         ItemStack itemstack1 = entitylivingbase.getEquipmentInSlot(4);
                         int j = getLightLevel(itemstack1);
                         return Math.max(i, j);
                     }
-                    else if (entity instanceof EntityItem)
+                    else if (entity instanceof EntityItem entityitem)
                     {
-                        EntityItem entityitem = (EntityItem)entity;
                         ItemStack itemstack = getItemStack(entityitem);
                         return getLightLevel(itemstack);
                     }

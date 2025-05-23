@@ -245,7 +245,7 @@ public class MethodNode extends MethodVisitor {
   }
   
   public AnnotationVisitor visitTryCatchAnnotation(int typeRef, TypePath typePath, String descriptor, boolean visible) {
-    TryCatchBlockNode tryCatchBlock = (TryCatchBlockNode)this.tryCatchBlocks.get((typeRef & 0xFFFF00) >> 8);
+    TryCatchBlockNode tryCatchBlock = this.tryCatchBlocks.get((typeRef & 0xFFFF00) >> 8);
     TypeAnnotationNode typeAnnotation = new TypeAnnotationNode(typeRef, typePath, descriptor);
     if (visible) {
       if (tryCatchBlock.visibleTypeAnnotations == null)
@@ -322,7 +322,7 @@ public class MethodNode extends MethodVisitor {
         throw new UnsupportedClassVersionException(); 
       if (this.tryCatchBlocks != null)
         for (int i = this.tryCatchBlocks.size() - 1; i >= 0; i--) {
-          TryCatchBlockNode tryCatchBlock = (TryCatchBlockNode)this.tryCatchBlocks.get(i);
+          TryCatchBlockNode tryCatchBlock = this.tryCatchBlocks.get(i);
           if (tryCatchBlock.visibleTypeAnnotations != null && 
             !tryCatchBlock.visibleTypeAnnotations.isEmpty())
             throw new UnsupportedClassVersionException(); 
@@ -375,7 +375,7 @@ public class MethodNode extends MethodVisitor {
   public void accept(MethodVisitor methodVisitor) {
     if (this.parameters != null)
       for (int i = 0, n = this.parameters.size(); i < n; i++)
-        ((ParameterNode)this.parameters.get(i)).accept(methodVisitor);  
+        this.parameters.get(i).accept(methodVisitor);
     if (this.annotationDefault != null) {
       AnnotationVisitor annotationVisitor = methodVisitor.visitAnnotationDefault();
       AnnotationNode.accept(annotationVisitor, null, this.annotationDefault);
@@ -384,23 +384,23 @@ public class MethodNode extends MethodVisitor {
     } 
     if (this.visibleAnnotations != null)
       for (int i = 0, n = this.visibleAnnotations.size(); i < n; i++) {
-        AnnotationNode annotation = (AnnotationNode)this.visibleAnnotations.get(i);
+        AnnotationNode annotation = this.visibleAnnotations.get(i);
         annotation.accept(methodVisitor.visitAnnotation(annotation.desc, true));
       }  
     if (this.invisibleAnnotations != null)
       for (int i = 0, n = this.invisibleAnnotations.size(); i < n; i++) {
-        AnnotationNode annotation = (AnnotationNode)this.invisibleAnnotations.get(i);
+        AnnotationNode annotation = this.invisibleAnnotations.get(i);
         annotation.accept(methodVisitor.visitAnnotation(annotation.desc, false));
       }  
     if (this.visibleTypeAnnotations != null)
       for (int i = 0, n = this.visibleTypeAnnotations.size(); i < n; i++) {
-        TypeAnnotationNode typeAnnotation = (TypeAnnotationNode)this.visibleTypeAnnotations.get(i);
+        TypeAnnotationNode typeAnnotation = this.visibleTypeAnnotations.get(i);
         typeAnnotation.accept(methodVisitor
             .visitTypeAnnotation(typeAnnotation.typeRef, typeAnnotation.typePath, typeAnnotation.desc, true));
       }  
     if (this.invisibleTypeAnnotations != null)
       for (int i = 0, n = this.invisibleTypeAnnotations.size(); i < n; i++) {
-        TypeAnnotationNode typeAnnotation = (TypeAnnotationNode)this.invisibleTypeAnnotations.get(i);
+        TypeAnnotationNode typeAnnotation = this.invisibleTypeAnnotations.get(i);
         typeAnnotation.accept(methodVisitor
             .visitTypeAnnotation(typeAnnotation.typeRef, typeAnnotation.typePath, typeAnnotation.desc, false));
       }  
@@ -411,7 +411,7 @@ public class MethodNode extends MethodVisitor {
         List<AnnotationNode> parameterAnnotations = this.visibleParameterAnnotations[i];
         if (parameterAnnotations != null)
           for (int j = 0, m = parameterAnnotations.size(); j < m; j++) {
-            AnnotationNode annotation = (AnnotationNode)parameterAnnotations.get(j);
+            AnnotationNode annotation = parameterAnnotations.get(j);
             annotation.accept(methodVisitor.visitParameterAnnotation(i, annotation.desc, true));
           }  
       }  
@@ -422,7 +422,7 @@ public class MethodNode extends MethodVisitor {
         List<AnnotationNode> parameterAnnotations = this.invisibleParameterAnnotations[i];
         if (parameterAnnotations != null)
           for (int j = 0, m = parameterAnnotations.size(); j < m; j++) {
-            AnnotationNode annotation = (AnnotationNode)parameterAnnotations.get(j);
+            AnnotationNode annotation = parameterAnnotations.get(j);
             annotation.accept(methodVisitor.visitParameterAnnotation(i, annotation.desc, false));
           }  
       }  
@@ -430,24 +430,24 @@ public class MethodNode extends MethodVisitor {
       this.instructions.resetLabels(); 
     if (this.attrs != null)
       for (int i = 0, n = this.attrs.size(); i < n; i++)
-        methodVisitor.visitAttribute((Attribute)this.attrs.get(i));  
+        methodVisitor.visitAttribute(this.attrs.get(i));
     if (this.instructions.size() > 0) {
       methodVisitor.visitCode();
       if (this.tryCatchBlocks != null)
         for (int i = 0, n = this.tryCatchBlocks.size(); i < n; i++) {
-          ((TryCatchBlockNode)this.tryCatchBlocks.get(i)).updateIndex(i);
-          ((TryCatchBlockNode)this.tryCatchBlocks.get(i)).accept(methodVisitor);
+          this.tryCatchBlocks.get(i).updateIndex(i);
+          this.tryCatchBlocks.get(i).accept(methodVisitor);
         }  
       this.instructions.accept(methodVisitor);
       if (this.localVariables != null)
         for (int i = 0, n = this.localVariables.size(); i < n; i++)
-          ((LocalVariableNode)this.localVariables.get(i)).accept(methodVisitor);  
+          this.localVariables.get(i).accept(methodVisitor);
       if (this.visibleLocalVariableAnnotations != null)
         for (int i = 0, n = this.visibleLocalVariableAnnotations.size(); i < n; i++)
-          ((LocalVariableAnnotationNode)this.visibleLocalVariableAnnotations.get(i)).accept(methodVisitor, true);  
+          this.visibleLocalVariableAnnotations.get(i).accept(methodVisitor, true);
       if (this.invisibleLocalVariableAnnotations != null)
         for (int i = 0, n = this.invisibleLocalVariableAnnotations.size(); i < n; i++)
-          ((LocalVariableAnnotationNode)this.invisibleLocalVariableAnnotations.get(i)).accept(methodVisitor, false);  
+          this.invisibleLocalVariableAnnotations.get(i).accept(methodVisitor, false);
       methodVisitor.visitMaxs(this.maxStack, this.maxLocals);
       this.visited = true;
     } 

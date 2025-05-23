@@ -90,7 +90,7 @@ public class CommandBanIp extends CommandBase
 
     protected void func_147210_a(ICommandSender sender, String address, String reason)
     {
-        IPBanEntry ipbanentry = new IPBanEntry(address, (Date)null, sender.getName(), (Date)null, reason);
+        IPBanEntry ipbanentry = new IPBanEntry(address, null, sender.getName(), null, reason);
         MinecraftServer.getServer().getConfigurationManager().getBannedIPs().addEntry(ipbanentry);
         List<EntityPlayerMP> list = MinecraftServer.getServer().getConfigurationManager().getPlayersMatchingAddress(address);
         String[] astring = new String[list.size()];
@@ -104,11 +104,11 @@ public class CommandBanIp extends CommandBase
 
         if (list.isEmpty())
         {
-            notifyOperators(sender, this, "commands.banip.success", new Object[] {address});
+            notifyOperators(sender, this, "commands.banip.success", address);
         }
         else
         {
-            notifyOperators(sender, this, "commands.banip.success.players", new Object[] {address, joinNiceString(astring)});
+            notifyOperators(sender, this, "commands.banip.success.players", address, joinNiceString(astring));
         }
     }
 }

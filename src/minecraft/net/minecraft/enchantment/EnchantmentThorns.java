@@ -45,7 +45,7 @@ public class EnchantmentThorns extends Enchantment
      */
     public boolean canApply(ItemStack stack)
     {
-        return stack.getItem() instanceof ItemArmor ? true : super.canApply(stack);
+        return stack.getItem() instanceof ItemArmor || super.canApply(stack);
     }
 
     /**

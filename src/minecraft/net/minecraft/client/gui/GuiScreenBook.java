@@ -49,8 +49,8 @@ public class GuiScreenBook extends GuiScreen
 
     /** Update ticks since the gui was opened */
     private int updateCount;
-    private int bookImageWidth = 192;
-    private int bookImageHeight = 192;
+    private final int bookImageWidth = 192;
+    private final int bookImageHeight = 192;
     private int bookTotalPages = 1;
     private int currPage;
     private NBTTagList bookPages;
@@ -220,7 +220,7 @@ public class GuiScreenBook extends GuiScreen
         {
             if (button.id == 0)
             {
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen(null);
                 this.sendBookToServer(false);
             }
             else if (button.id == 3 && this.bookIsUnsigned)
@@ -253,7 +253,7 @@ public class GuiScreenBook extends GuiScreen
             else if (button.id == 5 && this.bookGettingSigned)
             {
                 this.sendBookToServer(true);
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen(null);
             }
             else if (button.id == 4 && this.bookGettingSigned)
             {
@@ -353,7 +353,7 @@ public class GuiScreenBook extends GuiScreen
                 if (!this.bookTitle.isEmpty())
                 {
                     this.sendBookToServer(true);
-                    this.mc.displayGuiScreen((GuiScreen)null);
+                    this.mc.displayGuiScreen(null);
                 }
 
                 return;
@@ -361,7 +361,7 @@ public class GuiScreenBook extends GuiScreen
             default:
                 if (this.bookTitle.length() < 16 && ChatAllowedCharacters.isAllowedCharacter(p_146460_1_))
                 {
-                    this.bookTitle = this.bookTitle + Character.toString(p_146460_1_);
+                    this.bookTitle = this.bookTitle + p_146460_1_;
                     this.updateButtons();
                     this.bookIsModified = true;
                 }
@@ -395,7 +395,7 @@ public class GuiScreenBook extends GuiScreen
     {
         String s = this.pageGetCurrent();
         String s1 = s + p_146459_1_;
-        int i = this.fontRendererObj.splitStringWidth(s1 + "" + EnumChatFormatting.BLACK + "_", 118);
+        int i = this.fontRendererObj.splitStringWidth(s1 + EnumChatFormatting.BLACK + "_", 118);
 
         if (i <= 128 && s1.length() < 256)
         {
@@ -422,11 +422,11 @@ public class GuiScreenBook extends GuiScreen
             {
                 if (this.updateCount / 6 % 2 == 0)
                 {
-                    s = s + "" + EnumChatFormatting.BLACK + "_";
+                    s = s + EnumChatFormatting.BLACK + "_";
                 }
                 else
                 {
-                    s = s + "" + EnumChatFormatting.GRAY + "_";
+                    s = s + EnumChatFormatting.GRAY + "_";
                 }
             }
 
@@ -459,11 +459,11 @@ public class GuiScreenBook extends GuiScreen
                 }
                 else if (this.updateCount / 6 % 2 == 0)
                 {
-                    s5 = s5 + "" + EnumChatFormatting.BLACK + "_";
+                    s5 = s5 + EnumChatFormatting.BLACK + "_";
                 }
                 else
                 {
-                    s5 = s5 + "" + EnumChatFormatting.GRAY + "_";
+                    s5 = s5 + EnumChatFormatting.GRAY + "_";
                 }
             }
             else if (this.field_175387_B != this.currPage)
@@ -482,7 +482,7 @@ public class GuiScreenBook extends GuiScreen
                 }
                 else
                 {
-                    ChatComponentText chatcomponenttext = new ChatComponentText(EnumChatFormatting.DARK_RED.toString() + "* Invalid book tag *");
+                    ChatComponentText chatcomponenttext = new ChatComponentText(EnumChatFormatting.DARK_RED + "* Invalid book tag *");
                     this.field_175386_A = Lists.newArrayList(chatcomponenttext);
                 }
 
@@ -566,7 +566,6 @@ public class GuiScreenBook extends GuiScreen
             }
             catch (Throwable var5)
             {
-                ;
             }
 
             return false;
@@ -577,7 +576,7 @@ public class GuiScreenBook extends GuiScreen
 
             if (flag && clickevent.getAction() == ClickEvent.Action.RUN_COMMAND)
             {
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen(null);
             }
 
             return flag;

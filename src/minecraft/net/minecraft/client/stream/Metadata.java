@@ -20,7 +20,7 @@ public class Metadata
 
     public Metadata(String p_i1030_1_)
     {
-        this(p_i1030_1_, (String)null);
+        this(p_i1030_1_, null);
     }
 
     public void func_152807_a(String p_152807_1_)

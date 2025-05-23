@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -66,9 +67,7 @@ public class AdminDetector extends ClientModule implements ICommand {
 
         String command = args[0];
         List<String> argNames = new ArrayList<>();
-        for (int i = 1; i < args.length; i++) {
-            argNames.add(args[i]);
-        }
+        argNames.addAll(Arrays.asList(args).subList(1, args.length));
 
         List<String> names = readLines(adminNamesFile);
 

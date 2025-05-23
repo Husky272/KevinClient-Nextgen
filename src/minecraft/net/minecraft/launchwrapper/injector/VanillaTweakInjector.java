@@ -100,7 +100,7 @@ public class VanillaTweakInjector implements IClassTransformer {
             Frame[] frames = Frame.getFrames();
 
             if (frames != null) {
-                final List<Image> icons = Arrays.<Image>asList(ImageIO.read(smallIcon), ImageIO.read(bigIcon));
+                final List<Image> icons = Arrays.asList(ImageIO.read(smallIcon), ImageIO.read(bigIcon));
 
                 for (Frame frame : frames) {
                     try {

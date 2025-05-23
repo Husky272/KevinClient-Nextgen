@@ -196,7 +196,7 @@ public class CustomItemProperties
 
                 if (j >= 0)
                 {
-                    set.add(new Integer(j));
+                    set.add(Integer.valueOf(j));
                 }
                 else
                 {
@@ -222,7 +222,7 @@ public class CustomItemProperties
                                         continue label57;
                                     }
 
-                                    set.add(new Integer(k1));
+                                    set.add(Integer.valueOf(k1));
                                     ++k1;
                                 }
                             }
@@ -245,7 +245,7 @@ public class CustomItemProperties
                         }
                         else
                         {
-                            set.add(new Integer(i2));
+                            set.add(Integer.valueOf(i2));
                         }
                     }
                 }
@@ -511,7 +511,7 @@ public class CustomItemProperties
 
     private RangeListInt parseRangeListInt(String str)
     {
-        return this.parseRangeListInt(str, (IParserInt)null);
+        return this.parseRangeListInt(str, null);
     }
 
     private RangeListInt parseRangeListInt(String str, IParserInt parser)
@@ -914,9 +914,8 @@ public class CustomItemProperties
                 return new String[] {s5, s6};
             }
 
-            if (item instanceof ItemArmor)
+            if (item instanceof ItemArmor itemarmor)
             {
-                ItemArmor itemarmor = (ItemArmor)item;
 
                 if (itemarmor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER)
                 {
@@ -1035,7 +1034,7 @@ public class CustomItemProperties
 
     public String toString()
     {
-        return "" + this.basePath + "/" + this.name + ", type: " + this.type + ", items: [" + Config.arrayToString(this.items) + "], textture: " + this.texture;
+        return this.basePath + "/" + this.name + ", type: " + this.type + ", items: [" + Config.arrayToString(this.items) + "], textture: " + this.texture;
     }
 
     public float getTextureWidth(TextureManager textureManager)

@@ -56,7 +56,7 @@ public class FlatGeneratorInfo
     public String toString()
     {
         StringBuilder stringbuilder = new StringBuilder();
-        stringbuilder.append((int)3);
+        stringbuilder.append(3);
         stringbuilder.append(";");
 
         for (int i = 0; i < this.flatLayers.size(); ++i)

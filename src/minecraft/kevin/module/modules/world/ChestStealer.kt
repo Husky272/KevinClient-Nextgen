@@ -243,5 +243,5 @@ class ChestStealer : ClientModule("ChestStealer", "Automatically steals all item
     }
 
     private val fullInventory: Boolean
-        get() = mc.thePlayer?.inventory?.mainInventory?.none(ItemUtils::isStackEmpty) ?: false
+        get() = mc.thePlayer?.inventory?.mainInventory?.none(ItemUtils::isStackEmpty) == true
 }

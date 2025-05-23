@@ -27,7 +27,7 @@ public class Checksum
             i += j;
         }
 
-        return (long)((i & 65535) << 16 | j & 65535);
+        return (long) (i & 65535) << 16 | j & 65535;
     }
 
     public static long incrementChecksum(long checksum, byte out, byte in)
@@ -36,7 +36,7 @@ public class Checksum
         char c1 = single_hash[in + 128];
         int i = (int)(checksum & 65535L) - c0 + c1 & 65535;
         int j = (int)(checksum >> 16) - c0 * 16 + i & 65535;
-        return (long)(j << 16 | i & 65535);
+        return (long) j << 16 | i & 65535;
     }
 
     public static int generateHash(long checksum)
@@ -127,7 +127,7 @@ public class Checksum
 
     private static int findClosestPrime(int size)
     {
-        int i = (int)SimplePrime.belowOrEqual((long)(size - 1));
+        int i = (int)SimplePrime.belowOrEqual(size - 1);
         return i < 2 ? 1 : i;
     }
 

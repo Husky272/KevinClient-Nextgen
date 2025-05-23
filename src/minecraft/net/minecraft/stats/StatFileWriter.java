@@ -81,7 +81,7 @@ public class StatFileWriter
     public <T extends IJsonSerializable> T func_150870_b(StatBase p_150870_1_)
     {
         TupleIntJsonSerializable tupleintjsonserializable = this.statsData.get(p_150870_1_);
-        return (T)(tupleintjsonserializable != null ? tupleintjsonserializable.getJsonSerializableValue() : null);
+        return tupleintjsonserializable != null ? tupleintjsonserializable.getJsonSerializableValue() : null;
     }
 
     public <T extends IJsonSerializable> T func_150872_a(StatBase p_150872_1_, T p_150872_2_)

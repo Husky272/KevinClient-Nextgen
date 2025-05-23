@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 
 public class EntitySilverfish extends EntityMob
 {
-    private EntitySilverfish.AISummonSilverfish summonSilverfish;
+    private final EntitySilverfish.AISummonSilverfish summonSilverfish;
 
     public EntitySilverfish(World worldIn)
     {
@@ -214,7 +214,7 @@ public class EntitySilverfish extends EntityMob
 
         public boolean continueExecuting()
         {
-            return this.field_179484_c ? false : super.continueExecuting();
+            return !this.field_179484_c && super.continueExecuting();
         }
 
         public void startExecuting()
@@ -241,7 +241,7 @@ public class EntitySilverfish extends EntityMob
 
     static class AISummonSilverfish extends EntityAIBase
     {
-        private EntitySilverfish silverfish;
+        private final EntitySilverfish silverfish;
         private int field_179463_b;
 
         public AISummonSilverfish(EntitySilverfish silverfishIn)
@@ -272,11 +272,11 @@ public class EntitySilverfish extends EntityMob
                 Random random = this.silverfish.getRNG();
                 BlockPos blockpos = new BlockPos(this.silverfish);
 
-                for (int i = 0; i <= 5 && i >= -5; i = i <= 0 ? 1 - i : 0 - i)
+                for (int i = 0; i <= 5 && i >= -5; i = i <= 0 ? 1 - i : -i)
                 {
-                    for (int j = 0; j <= 10 && j >= -10; j = j <= 0 ? 1 - j : 0 - j)
+                    for (int j = 0; j <= 10 && j >= -10; j = j <= 0 ? 1 - j : -j)
                     {
-                        for (int k = 0; k <= 10 && k >= -10; k = k <= 0 ? 1 - k : 0 - k)
+                        for (int k = 0; k <= 10 && k >= -10; k = k <= 0 ? 1 - k : -k)
                         {
                             BlockPos blockpos1 = blockpos.add(j, i, k);
                             IBlockState iblockstate = world.getBlockState(blockpos1);

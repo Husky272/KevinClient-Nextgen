@@ -14,7 +14,7 @@ public class VertexFormat
     /** The next available offset in this vertex format */
     private int nextOffset = 0;
     private int colorElementOffset = -1;
-    private List<Integer> uvOffsetsById = Lists.newArrayList();
+    private final List<Integer> uvOffsetsById = Lists.newArrayList();
     private int normalElementOffset = -1;
 
     public VertexFormat(VertexFormat vertexFormatIn)

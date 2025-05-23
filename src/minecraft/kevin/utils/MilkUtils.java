@@ -77,7 +77,7 @@ public class MilkUtils {
             float max = range[1] - range[0];
             float value = progress - range[0];
             float weight = value / max;
-            return ColorUtils.blend(colorRange[0], colorRange[1], (double)(1.0F - weight));
+            return ColorUtils.blend(colorRange[0], colorRange[1], 1.0F - weight);
         } else {
             throw new IllegalArgumentException("Fractions and colours must have equal number of elements");
         }

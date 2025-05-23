@@ -105,7 +105,7 @@ public class Chunk
      * Contains the current round-robin relight check index, and is implied as the relight check location as well.
      */
     private int queuedLightChecks = 4096;
-    private ConcurrentLinkedQueue<BlockPos> tileEntityPosQueue = Queues.newConcurrentLinkedQueue();
+    private final ConcurrentLinkedQueue<BlockPos> tileEntityPosQueue = Queues.newConcurrentLinkedQueue();
 
     public Chunk(World worldIn, int x, int z)
     {
@@ -1116,7 +1116,7 @@ public class Chunk
 
     public Random getRandomWithSeed(long seed)
     {
-        return new Random(this.worldObj.getSeed() + (long)(this.xPosition * this.xPosition * 4987142) + (long)(this.xPosition * 5947611) + (long)(this.zPosition * this.zPosition) * 4392871L + (long)(this.zPosition * 389711) ^ seed);
+        return new Random(this.worldObj.getSeed() + (long)((long) this.xPosition * this.xPosition * 4987142) + (long)(this.xPosition * 5947611L) + (long)((long) this.zPosition * this.zPosition) * 4392871L + (long)(this.zPosition * 389711L) ^ seed);
     }
 
     public boolean isEmpty()
@@ -1301,10 +1301,7 @@ public class Chunk
         }
         else
         {
-            for (int i = 0; i < this.storageArrays.length; ++i)
-            {
-                this.storageArrays[i] = newStorageArrays[i];
-            }
+            System.arraycopy(newStorageArrays, 0, this.storageArrays, 0, this.storageArrays.length);
         }
     }
 
@@ -1425,10 +1422,7 @@ public class Chunk
         }
         else
         {
-            for (int i = 0; i < this.blockBiomeArray.length; ++i)
-            {
-                this.blockBiomeArray[i] = biomeArray[i];
-            }
+            System.arraycopy(biomeArray, 0, this.blockBiomeArray, 0, this.blockBiomeArray.length);
         }
     }
 
@@ -1639,10 +1633,7 @@ public class Chunk
         }
         else
         {
-            for (int i = 0; i < this.heightMap.length; ++i)
-            {
-                this.heightMap[i] = newHeightMap[i];
-            }
+            System.arraycopy(newHeightMap, 0, this.heightMap, 0, this.heightMap.length);
         }
     }
 
@@ -1710,10 +1701,10 @@ public class Chunk
         return new ChunkSnapshot(storageArrays);
     }
 
-    public static enum EnumCreateEntityType
+    public enum EnumCreateEntityType
     {
         IMMEDIATE,
         QUEUED,
-        CHECK;
+        CHECK
     }
 }

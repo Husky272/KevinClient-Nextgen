@@ -12,7 +12,7 @@ public class ParseException extends Exception
 
     public ParseException(int errorType)
     {
-        this(-1, errorType, (Object)null);
+        this(-1, errorType, null);
     }
 
     public ParseException(int errorType, Object unexpectedObject)

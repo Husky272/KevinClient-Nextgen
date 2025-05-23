@@ -139,7 +139,7 @@ public abstract class GuiContainer extends GuiScreen
         this.theSlot = null;
         int k = 240;
         int l = 240;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)k / 1.0F, (float)l / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) k, (float) l);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
         for (int i1 = 0; i1 < this.inventorySlots.inventorySlots.size(); ++i1)
@@ -186,7 +186,7 @@ public abstract class GuiContainer extends GuiScreen
 
                 if (itemstack.stackSize == 0)
                 {
-                    s = "" + EnumChatFormatting.YELLOW + "0";
+                    s = EnumChatFormatting.YELLOW + "0";
                 }
             }
 
@@ -207,7 +207,7 @@ public abstract class GuiContainer extends GuiScreen
             int i3 = this.returningStackDestSlot.yDisplayPosition - this.touchUpY;
             int l1 = this.touchUpX + (int)((float)l2 * f);
             int i2 = this.touchUpY + (int)((float)i3 * f);
-            this.drawItemStack(this.returningStack, l1, i2, (String)null);
+            this.drawItemStack(this.returningStack, l1, i2, null);
         }
 
         GlStateManager.popMatrix();
@@ -408,7 +408,7 @@ public abstract class GuiContainer extends GuiScreen
 
             if (this.mc.gameSettings.touchscreen && flag1 && this.mc.thePlayer.inventory.getItemStack() == null)
             {
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen(null);
                 return;
             }
 
@@ -554,7 +554,7 @@ public abstract class GuiContainer extends GuiScreen
             k = -999;
         }
 
-        if (this.doubleClick && slot != null && state == 0 && this.inventorySlots.canMergeSlot((ItemStack)null, slot))
+        if (this.doubleClick && slot != null && state == 0 && this.inventorySlots.canMergeSlot(null, slot))
         {
             if (isShiftKeyDown())
             {
@@ -638,14 +638,14 @@ public abstract class GuiContainer extends GuiScreen
             }
             else if (this.dragSplitting && !this.dragSplittingSlots.isEmpty())
             {
-                this.handleMouseClick((Slot)null, -999, Container.func_94534_d(0, this.dragSplittingLimit), 5);
+                this.handleMouseClick(null, -999, Container.func_94534_d(0, this.dragSplittingLimit), 5);
 
                 for (Slot slot1 : this.dragSplittingSlots)
                 {
                     this.handleMouseClick(slot1, slot1.slotNumber, Container.func_94534_d(1, this.dragSplittingLimit), 5);
                 }
 
-                this.handleMouseClick((Slot)null, -999, Container.func_94534_d(2, this.dragSplittingLimit), 5);
+                this.handleMouseClick(null, -999, Container.func_94534_d(2, this.dragSplittingLimit), 5);
             }
             else if (this.mc.thePlayer.inventory.getItemStack() != null)
             {

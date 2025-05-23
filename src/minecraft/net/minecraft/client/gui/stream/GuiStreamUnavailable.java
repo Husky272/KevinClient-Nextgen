@@ -33,7 +33,7 @@ public class GuiStreamUnavailable extends GuiScreen
 
     public GuiStreamUnavailable(GuiScreen p_i1070_1_, GuiStreamUnavailable.Reason p_i1070_2_)
     {
-        this(p_i1070_1_, p_i1070_2_, (List<ChatComponentTranslation>)null);
+        this(p_i1070_1_, p_i1070_2_, null);
     }
 
     public GuiStreamUnavailable(GuiScreen parentScreenIn, GuiStreamUnavailable.Reason p_i46311_2_, List<ChatComponentTranslation> p_i46311_3_)
@@ -140,7 +140,7 @@ public class GuiStreamUnavailable extends GuiScreen
         try
         {
             Class<?> oclass = Class.forName("java.awt.Desktop");
-            Object object = oclass.getMethod("getDesktop").invoke((Object)null);
+            Object object = oclass.getMethod("getDesktop").invoke(null);
             oclass.getMethod("browse", URI.class).invoke(object, new URI(p_152320_1_));
         }
         catch (Throwable throwable)
@@ -216,7 +216,7 @@ public class GuiStreamUnavailable extends GuiScreen
         }
         else if (istream.func_152912_E() != null)
         {
-            List<ChatComponentTranslation> list1 = Arrays.asList(new ChatComponentTranslation("stream.unavailable.initialization_failure.extra", ErrorCode.getString(istream.func_152912_E())));
+            List<ChatComponentTranslation> list1 = List.of(new ChatComponentTranslation("stream.unavailable.initialization_failure.extra", ErrorCode.getString(istream.func_152912_E())));
             minecraft.displayGuiScreen(new GuiStreamUnavailable(p_152321_0_, GuiStreamUnavailable.Reason.INITIALIZATION_FAILURE, list1));
         }
         else
@@ -225,7 +225,7 @@ public class GuiStreamUnavailable extends GuiScreen
         }
     }
 
-    public static enum Reason
+    public enum Reason
     {
         NO_FBO(new ChatComponentTranslation("stream.unavailable.no_fbo")),
         LIBRARY_ARCH_MISMATCH(new ChatComponentTranslation("stream.unavailable.library_arch_mismatch")),
@@ -243,12 +243,12 @@ public class GuiStreamUnavailable extends GuiScreen
         private final IChatComponent field_152574_m;
         private final IChatComponent field_152575_n;
 
-        private Reason(IChatComponent p_i1066_3_)
+        Reason(IChatComponent p_i1066_3_)
         {
-            this(p_i1066_3_, (IChatComponent)null);
+            this(p_i1066_3_, null);
         }
 
-        private Reason(IChatComponent p_i1067_3_, IChatComponent p_i1067_4_)
+        Reason(IChatComponent p_i1067_3_, IChatComponent p_i1067_4_)
         {
             this.field_152574_m = p_i1067_3_;
             this.field_152575_n = p_i1067_4_;

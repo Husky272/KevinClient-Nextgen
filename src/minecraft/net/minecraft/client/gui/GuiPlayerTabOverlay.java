@@ -267,7 +267,7 @@ public class GuiPlayerTabOverlay extends Gui
         }
 
         this.zLevel += 100.0F;
-        this.drawTexturedModalRect(p_175245_2_ + p_175245_1_ - 11, p_175245_3_, 0 + i * 10, 176 + j * 8, 10, 8);
+        this.drawTexturedModalRect(p_175245_2_ + p_175245_1_ - 11, p_175245_3_, i * 10, 176 + j * 8, 10, 8);
         this.zLevel -= 100.0F;
     }
 
@@ -284,12 +284,12 @@ public class GuiPlayerTabOverlay extends Gui
                 if (i < p_175247_6_.func_178835_l())
                 {
                     p_175247_6_.func_178846_a(Minecraft.getSystemTime());
-                    p_175247_6_.func_178844_b((long)(this.guiIngame.getUpdateCounter() + 20));
+                    p_175247_6_.func_178844_b(this.guiIngame.getUpdateCounter() + 20);
                 }
                 else if (i > p_175247_6_.func_178835_l())
                 {
                     p_175247_6_.func_178846_a(Minecraft.getSystemTime());
-                    p_175247_6_.func_178844_b((long)(this.guiIngame.getUpdateCounter() + 10));
+                    p_175247_6_.func_178844_b(this.guiIngame.getUpdateCounter() + 10);
                 }
             }
 

@@ -7,9 +7,9 @@ public class EntityFishWakeFX extends EntityFX
     protected EntityFishWakeFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i45073_8_, double p_i45073_10_, double p_i45073_12_)
     {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-        this.motionX *= (double)0.3F;
+        this.motionX *= 0.3F;
         this.motionY = Math.random() * (double)0.2F + (double)0.1F;
-        this.motionZ *= (double)0.3F;
+        this.motionZ *= 0.3F;
         this.particleRed = 1.0F;
         this.particleGreen = 1.0F;
         this.particleBlue = 1.0F;
@@ -30,11 +30,11 @@ public class EntityFishWakeFX extends EntityFX
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
-        this.motionY -= (double)this.particleGravity;
+        this.motionY -= this.particleGravity;
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
-        this.motionX *= (double)0.98F;
-        this.motionY *= (double)0.98F;
-        this.motionZ *= (double)0.98F;
+        this.motionX *= 0.98F;
+        this.motionY *= 0.98F;
+        this.motionZ *= 0.98F;
         int i = 60 - this.particleMaxAge;
         float f = (float)i * 0.001F;
         this.setSize(f, f);

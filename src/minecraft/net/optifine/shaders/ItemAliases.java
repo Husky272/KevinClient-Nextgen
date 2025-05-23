@@ -86,7 +86,6 @@ public class ItemAliases
             }
             catch (IOException var6)
             {
-                ;
             }
         }
     }

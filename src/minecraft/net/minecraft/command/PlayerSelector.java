@@ -63,7 +63,7 @@ public class PlayerSelector
     public static <T extends Entity> T matchOneEntity(ICommandSender sender, String token, Class<? extends T> targetClass)
     {
         List<T> list = matchEntities(sender, token, targetClass);
-        return (T)(list.size() == 1 ? list.get(0) : null);
+        return list.size() == 1 ? list.get(0) : null;
     }
 
     public static IChatComponent matchEntitiesToChatComponent(ICommandSender sender, String token)
@@ -220,13 +220,12 @@ public class PlayerSelector
             {
                 public boolean apply(Entity p_apply_1_)
                 {
-                    if (!(p_apply_1_ instanceof EntityPlayerMP))
+                    if (!(p_apply_1_ instanceof EntityPlayerMP entityplayermp))
                     {
                         return false;
                     }
                     else
                     {
-                        EntityPlayerMP entityplayermp = (EntityPlayerMP)p_apply_1_;
                         return (i <= -1 || entityplayermp.experienceLevel >= i) && (j <= -1 || entityplayermp.experienceLevel <= j);
                     }
                 }
@@ -247,13 +246,12 @@ public class PlayerSelector
             {
                 public boolean apply(Entity p_apply_1_)
                 {
-                    if (!(p_apply_1_ instanceof EntityPlayerMP))
+                    if (!(p_apply_1_ instanceof EntityPlayerMP entityplayermp))
                     {
                         return false;
                     }
                     else
                     {
-                        EntityPlayerMP entityplayermp = (EntityPlayerMP)p_apply_1_;
                         return entityplayermp.theItemInWorldManager.getGameType().getID() == i;
                     }
                 }
@@ -281,13 +279,12 @@ public class PlayerSelector
             {
                 public boolean apply(Entity p_apply_1_)
                 {
-                    if (!(p_apply_1_ instanceof EntityLivingBase))
+                    if (!(p_apply_1_ instanceof EntityLivingBase entitylivingbase))
                     {
                         return false;
                     }
                     else
                     {
-                        EntityLivingBase entitylivingbase = (EntityLivingBase)p_apply_1_;
                         Team team = entitylivingbase.getTeam();
                         String s1 = team == null ? "" : team.getRegisteredName();
                         return s1.equals(ss) != flag;
@@ -420,7 +417,7 @@ public class PlayerSelector
             {
                 public boolean apply(Entity p_apply_1_)
                 {
-                    int i1 = PlayerSelector.func_179650_a((int)Math.floor((double)p_apply_1_.rotationYaw));
+                    int i1 = PlayerSelector.func_179650_a((int)Math.floor(p_apply_1_.rotationYaw));
 
                     if (i > j)
                     {
@@ -442,7 +439,7 @@ public class PlayerSelector
             {
                 public boolean apply(Entity p_apply_1_)
                 {
-                    int i1 = PlayerSelector.func_179650_a((int)Math.floor((double)p_apply_1_.rotationPitch));
+                    int i1 = PlayerSelector.func_179650_a((int)Math.floor(p_apply_1_.rotationPitch));
 
                     if (k > l)
                     {
@@ -483,7 +480,7 @@ public class PlayerSelector
             {
                 if (l >= 0)
                 {
-                    AxisAlignedBB axisalignedbb1 = new AxisAlignedBB((double)(position.getX() - l), (double)(position.getY() - l), (double)(position.getZ() - l), (double)(position.getX() + l + 1), (double)(position.getY() + l + 1), (double)(position.getZ() + l + 1));
+                    AxisAlignedBB axisalignedbb1 = new AxisAlignedBB(position.getX() - l, position.getY() - l, position.getZ() - l, position.getX() + l + 1, position.getY() + l + 1, position.getZ() + l + 1);
 
                     if (flag && flag2 && !flag1)
                     {
@@ -604,7 +601,7 @@ public class PlayerSelector
         int l = p_179661_0_.getX() + (flag ? 0 : p_179661_1_) + 1;
         int i1 = p_179661_0_.getY() + (flag1 ? 0 : p_179661_2_) + 1;
         int j1 = p_179661_0_.getZ() + (flag2 ? 0 : p_179661_3_) + 1;
-        return new AxisAlignedBB((double)i, (double)j, (double)k, (double)l, (double)i1, (double)j1);
+        return new AxisAlignedBB(i, j, k, l, i1, j1);
     }
 
     public static int func_179650_a(int p_179650_0_)

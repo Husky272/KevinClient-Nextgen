@@ -92,7 +92,7 @@ public class CommandBlockData extends CommandBase
                         tileentity.markDirty();
                         world.markBlockForUpdate(blockpos);
                         sender.setCommandStat(CommandResultStats.Type.AFFECTED_BLOCKS, 1);
-                        notifyOperators(sender, this, "commands.blockdata.success", new Object[] {nbttagcompound.toString()});
+                        notifyOperators(sender, this, "commands.blockdata.success", nbttagcompound.toString());
                     }
                 }
             }

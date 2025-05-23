@@ -60,15 +60,15 @@ public class CustomColors
     private static CustomColormap swampFoliageColors = null;
     private static CustomColormap swampGrassColors = null;
     private static CustomColormap[] colorsBlockColormaps = null;
-    private static CustomColormap[][] blockColormaps = (CustomColormap[][])null;
+    private static CustomColormap[][] blockColormaps = null;
     private static CustomColormap skyColors = null;
-    private static CustomColorFader skyColorFader = new CustomColorFader();
+    private static final CustomColorFader skyColorFader = new CustomColorFader();
     private static CustomColormap fogColors = null;
-    private static CustomColorFader fogColorFader = new CustomColorFader();
+    private static final CustomColorFader fogColorFader = new CustomColorFader();
     private static CustomColormap underwaterColors = null;
-    private static CustomColorFader underwaterColorFader = new CustomColorFader();
+    private static final CustomColorFader underwaterColorFader = new CustomColorFader();
     private static CustomColormap underlavaColors = null;
-    private static CustomColorFader underlavaColorFader = new CustomColorFader();
+    private static final CustomColorFader underlavaColorFader = new CustomColorFader();
     private static LightMapPack[] lightMapPacks = null;
     private static int lightmapMinDimensionId = 0;
     private static CustomColormap redstoneColors = null;
@@ -91,8 +91,8 @@ public class CustomColors
     private static Vec3 skyColorEnd = null;
     private static int[] spawnEggPrimaryColors = null;
     private static int[] spawnEggSecondaryColors = null;
-    private static float[][] wolfCollarColors = (float[][])null;
-    private static float[][] sheepColors = (float[][])null;
+    private static float[][] wolfCollarColors = null;
+    private static float[][] sheepColors = null;
     private static int[] textColors = null;
     private static int[] mapColorsOriginal = null;
     private static int[] potionColors = null;
@@ -195,12 +195,12 @@ public class CustomColors
         fogColorEnd = null;
         skyColorEnd = null;
         colorsBlockColormaps = null;
-        blockColormaps = (CustomColormap[][])null;
+        blockColormaps = null;
         useDefaultGrassFoliageColors = true;
         spawnEggPrimaryColors = null;
         spawnEggSecondaryColors = null;
-        wolfCollarColors = (float[][])null;
-        sheepColors = (float[][])null;
+        wolfCollarColors = null;
+        sheepColors = null;
         textColors = null;
         setMapColors(mapColorsOriginal);
         potionColors = null;
@@ -276,12 +276,12 @@ public class CustomColors
                     if (!list.contains(s))
                     {
                         warn("Invalid value: " + key + "=" + s);
-                        warn("Expected values: " + Config.arrayToString((Object[])validValues));
+                        warn("Expected values: " + Config.arrayToString(validValues));
                         return valDef;
                     }
                     else
                     {
-                        dbg("" + key + "=" + s);
+                        dbg(key + "=" + s);
                         return s;
                     }
                 }
@@ -323,11 +323,11 @@ public class CustomColors
 
         Set<Integer> set = map.keySet();
         Integer[] ainteger = set.toArray(new Integer[set.size()]);
-        Arrays.sort((Object[])ainteger);
+        Arrays.sort(ainteger);
 
         if (ainteger.length <= 0)
         {
-            return new ImmutablePair<>((LightMapPack[])null, 0);
+            return new ImmutablePair<>(null, 0);
         }
         else
         {
@@ -451,7 +451,6 @@ public class CustomColors
         }
         catch (FileNotFoundException var5)
         {
-            return;
         }
         catch (IOException ioexception)
         {
@@ -528,7 +527,7 @@ public class CustomColors
     private static CustomColormap[][] readBlockColormaps(String[] basePaths, CustomColormap[] basePalettes, int width, int height)
     {
         String[] astring = ResUtils.collectFiles(basePaths, new String[] {".properties"});
-        Arrays.sort((Object[])astring);
+        Arrays.sort(astring);
         List list = new ArrayList();
 
         for (int i = 0; i < astring.length; ++i)
@@ -578,7 +577,7 @@ public class CustomColors
 
         if (list.size() <= 0)
         {
-            return (CustomColormap[][])null;
+            return null;
         }
         else
         {
@@ -729,7 +728,7 @@ public class CustomColors
             float f = (float)j / 255.0F;
             float f1 = (float)k / 255.0F;
             float f2 = (float)l / 255.0F;
-            return new Vec3((double)f, (double)f1, (double)f2);
+            return new Vec3(f, f1, f2);
         }
     }
 
@@ -933,13 +932,12 @@ public class CustomColors
         {
             return null;
         }
-        else if (!(blockState instanceof BlockStateBase))
+        else if (!(blockState instanceof BlockStateBase blockstatebase))
         {
             return null;
         }
         else
         {
-            BlockStateBase blockstatebase = (BlockStateBase)blockState;
             int i = blockstatebase.getBlockId();
 
             if (i >= 0 && i < blockColormaps.length)
@@ -1093,13 +1091,12 @@ public class CustomColors
         {
             Object object = state.getValue(BlockRedstoneWire.POWER);
 
-            if (!(object instanceof Integer))
+            if (!(object instanceof Integer integer))
             {
                 return def;
             }
             else
             {
-                Integer integer = (Integer)object;
                 return integer;
             }
         }
@@ -1215,7 +1212,7 @@ public class CustomColors
             f = f * f3;
             f1 = f1 * f4;
             f2 = f2 * f5;
-            Vec3 vec3 = skyColorFader.getColor((double)f, (double)f1, (double)f2);
+            Vec3 vec3 = skyColorFader.getColor(f, f1, f2);
             return vec3;
         }
     }
@@ -1241,7 +1238,7 @@ public class CustomColors
             f = f * f3;
             f1 = f1 * f4;
             f2 = f2 * f5;
-            Vec3 vec3 = fogColorFader.getColor((double)f, (double)f1, (double)f2);
+            Vec3 vec3 = fogColorFader.getColor(f, f1, f2);
             return vec3;
         }
     }
@@ -1271,7 +1268,7 @@ public class CustomColors
             float f = (float)j / 255.0F;
             float f1 = (float)k / 255.0F;
             float f2 = (float)l / 255.0F;
-            Vec3 vec3 = underFluidColorFader.getColor((double)f, (double)f1, (double)f2);
+            Vec3 vec3 = underFluidColorFader.getColor(f, f1, f2);
             return vec3;
         }
     }
@@ -1319,7 +1316,7 @@ public class CustomColors
             if (j >= 0 && j < lightMapPacks.length)
             {
                 LightMapPack lightmappack = lightMapPacks[j];
-                return lightmappack == null ? false : lightmappack.updateLightmap(world, torchFlickerX, lmColors, nightvision, partialTicks);
+                return lightmappack != null && lightmappack.updateLightmap(world, torchFlickerX, lmColors, nightvision, partialTicks);
             }
             else
             {
@@ -1515,7 +1512,7 @@ public class CustomColors
 
         if (k <= 0)
         {
-            return (float[][])null;
+            return null;
         }
         else
         {

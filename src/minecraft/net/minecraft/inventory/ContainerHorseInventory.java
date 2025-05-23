@@ -7,8 +7,8 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerHorseInventory extends Container
 {
-    private IInventory horseInventory;
-    private EntityHorse theHorse;
+    private final IInventory horseInventory;
+    private final EntityHorse theHorse;
 
     public ContainerHorseInventory(IInventory playerInventory, IInventory horseInventoryIn, final EntityHorse horse, EntityPlayer player)
     {
@@ -107,7 +107,7 @@ public class ContainerHorseInventory extends Container
 
             if (itemstack1.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack(null);
             }
             else
             {

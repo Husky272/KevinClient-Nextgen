@@ -697,7 +697,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
         GlyphVector vector = font.layoutGlyphVector(GlyphPage.renderContext, chars, 0, chars.length, Font.LAYOUT_LEFT_TO_RIGHT);
         int yOffset = ascent + vector.getPixelBounds(null, 0, 0).y;
 
-        if (displayList != null) displayList.yOffset = new Short((short)yOffset);
+        if (displayList != null) displayList.yOffset = Short.valueOf((short) yOffset);
 
         return yOffset;
     }
@@ -943,7 +943,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
             // Worst case if this UnicodeFont was loaded without a ttfFileRef, try to get the font file from Sun's classes.
             try {
                 Object font2D = Class.forName("sun.font.FontManager").getDeclaredMethod("getFont2D", new Class[] {Font.class})
-                        .invoke(null, new Object[] {font});
+                        .invoke(null, font);
                 Field platNameField = Class.forName("sun.font.PhysicalFont").getDeclaredField("platName");
                 platNameField.setAccessible(true);
                 ttfFileRef = (String)platNameField.get(font2D);

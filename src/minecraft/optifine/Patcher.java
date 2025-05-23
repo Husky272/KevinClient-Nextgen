@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -89,7 +90,7 @@ public class Patcher
                 if (zipentry2 != null)
                 {
                     byte[] abyte1 = Utils.readAll(zipfile.getInputStream(zipentry2));
-                    String s2 = new String(abyte1, "ASCII");
+                    String s2 = new String(abyte1, StandardCharsets.US_ASCII);
                     byte[] abyte2 = HashUtils.getHashMd5(abyte3);
                     String s3 = HashUtils.toHexString(abyte2);
 

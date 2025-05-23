@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.URI;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
@@ -54,7 +55,7 @@ public class Installer
             jtextarea.setFont(font1);
             JScrollPane jscrollpane = new JScrollPane(jtextarea);
             jscrollpane.setPreferredSize(new Dimension(600, 400));
-            JOptionPane.showMessageDialog((Component)null, jscrollpane, "Error", 0);
+            JOptionPane.showMessageDialog(null, jscrollpane, "Error", 0);
         }
     }
 
@@ -126,7 +127,7 @@ public class Installer
             jsonobject2.put("icon", ProfileIcon.DATA);
             jsonobject.put("selectedProfile", "OptiFine");
             FileOutputStream fileoutputstream = new FileOutputStream(file1);
-            OutputStreamWriter outputstreamwriter = new OutputStreamWriter(fileoutputstream, "UTF-8");
+            OutputStreamWriter outputstreamwriter = new OutputStreamWriter(fileoutputstream, StandardCharsets.UTF_8);
             JSONWriter jsonwriter = new JSONWriter(outputstreamwriter);
             jsonwriter.writeObject(jsonobject);
             outputstreamwriter.flush();
@@ -187,7 +188,7 @@ public class Installer
         jsonobject3.put("name", "optifine:OptiFine:" + mcVer + "_" + ofEd);
         jsonarray.add(0, jsonobject3);
         FileOutputStream fileoutputstream = new FileOutputStream(file2);
-        OutputStreamWriter outputstreamwriter = new OutputStreamWriter(fileoutputstream, "UTF-8");
+        OutputStreamWriter outputstreamwriter = new OutputStreamWriter(fileoutputstream, StandardCharsets.UTF_8);
         JSONWriter jsonwriter = new JSONWriter(outputstreamwriter);
         jsonwriter.writeObject(jsonobject1);
         outputstreamwriter.flush();
@@ -252,7 +253,7 @@ public class Installer
             file3 = new File(file1.getParentFile(), "OptiFine_" + mcVer + "_" + ofEd + "_MOD.jar");
             JFileChooser jfilechooser = new JFileChooser(file3.getParentFile());
             jfilechooser.setSelectedFile(file3);
-            int i = jfilechooser.showSaveDialog((Component)null);
+            int i = jfilechooser.showSaveDialog(null);
 
             if (i != 0)
             {
@@ -264,7 +265,7 @@ public class Installer
             if (file3.exists())
             {
                 JOptionPane.setDefaultLocale(Locale.ENGLISH);
-                int j = JOptionPane.showConfirmDialog((Component)null, "The file \"" + file3.getName() + "\" already exists.\nDo you want to overwrite it?", "Save", 1);
+                int j = JOptionPane.showConfirmDialog(null, "The file \"" + file3.getName() + "\" already exists.\nDo you want to overwrite it?", "Save", 1);
 
                 if (j != 0)
                 {
@@ -275,7 +276,7 @@ public class Installer
 
         if (file3.equals(file1))
         {
-            JOptionPane.showMessageDialog((Component)null, "Source and target file are the same.", "Save", 0);
+            JOptionPane.showMessageDialog(null, "Source and target file are the same.", "Save", 0);
             return false;
         }
         else
@@ -461,7 +462,7 @@ public class Installer
     public static String getOptiFineVersion(InputStream in) throws IOException
     {
         byte[] abyte = Utils.readAll(in);
-        byte[] abyte1 = "OptiFine_".getBytes("ASCII");
+        byte[] abyte1 = "OptiFine_".getBytes(StandardCharsets.US_ASCII);
         int i = Utils.find(abyte, abyte1);
 
         if (i < 0)
@@ -480,7 +481,7 @@ public class Installer
                 }
             }
 
-            String s = new String(abyte, i, i - i, "ASCII");
+            String s = new String(abyte, i, 0, StandardCharsets.US_ASCII);
             return s;
         }
     }

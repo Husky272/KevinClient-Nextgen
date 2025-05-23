@@ -98,7 +98,7 @@ public class CommandSetBlock extends CommandBase
 
                         if (block == Blocks.air)
                         {
-                            notifyOperators(sender, this, "commands.setblock.success", new Object[0]);
+                            notifyOperators(sender, this, "commands.setblock.success");
                             return;
                         }
                     }
@@ -143,7 +143,7 @@ public class CommandSetBlock extends CommandBase
 
                     world.notifyNeighborsRespectDebug(blockpos, iblockstate.getBlock());
                     sender.setCommandStat(CommandResultStats.Type.AFFECTED_BLOCKS, 1);
-                    notifyOperators(sender, this, "commands.setblock.success", new Object[0]);
+                    notifyOperators(sender, this, "commands.setblock.success");
                 }
             }
         }
@@ -161,7 +161,7 @@ public class CommandSetBlock extends CommandBase
         }
         else
         {
-            return args.length == 6 ? getListOfStringsMatchingLastWord(args, new String[] {"replace", "destroy", "keep"}) : null;
+            return args.length == 6 ? getListOfStringsMatchingLastWord(args, "replace", "destroy", "keep") : null;
         }
     }
 }

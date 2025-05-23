@@ -54,7 +54,7 @@ public class S34PacketMaps implements Packet<INetHandlerPlayClient>
 
         for (int i = 0; i < this.mapVisiblePlayersVec4b.length; ++i)
         {
-            short short1 = (short)buf.readByte();
+            short short1 = buf.readByte();
             this.mapVisiblePlayersVec4b[i] = new Vec4b((byte)(short1 >> 4 & 15), buf.readByte(), buf.readByte(), (byte)(short1 & 15));
         }
 

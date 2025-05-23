@@ -8,6 +8,7 @@ import com.mojang.authlib.properties.Property;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Set;
 import net.minecraft.client.Minecraft;
@@ -93,7 +94,7 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
                 {
                     try
                     {
-                        URL url = new URL("https://api.twitch.tv/kraken?oauth_token=" + URLEncoder.encode(streamProperty.getValue(), "UTF-8"));
+                        URL url = new URL("https://api.twitch.tv/kraken?oauth_token=" + URLEncoder.encode(streamProperty.getValue(), StandardCharsets.UTF_8));
                         String s = HttpUtil.get(url);
                         JsonObject jsonobject = JsonUtils.getJsonObject((new JsonParser()).parse(s), "Response");
                         JsonObject jsonobject1 = JsonUtils.getJsonObject(jsonobject, "token");
@@ -126,7 +127,7 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
                     catch (IOException ioexception)
                     {
                         TwitchStream.this.authFailureReason = IStream.AuthFailureReason.ERROR;
-                        TwitchStream.LOGGER.error(TwitchStream.STREAM_MARKER, "Could not authenticate with twitch", (Throwable)ioexception);
+                        TwitchStream.LOGGER.error(TwitchStream.STREAM_MARKER, "Could not authenticate with twitch", ioexception);
                     }
                 }
             };
@@ -210,7 +211,7 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
         if (this.broadcastController.isBroadcasting() && !this.broadcastController.isBroadcastPaused())
         {
             long i = System.nanoTime();
-            long j = (long)(1000000000 / this.targetFPS);
+            long j = 1000000000 / this.targetFPS;
             long k = i - this.field_152959_k;
             boolean flag = k >= j;
 
@@ -222,7 +223,7 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
                 GlStateManager.matrixMode(5889);
                 GlStateManager.pushMatrix();
                 GlStateManager.loadIdentity();
-                GlStateManager.ortho(0.0D, (double)this.framebuffer.framebufferWidth, (double)this.framebuffer.framebufferHeight, 0.0D, 1000.0D, 3000.0D);
+                GlStateManager.ortho(0.0D, this.framebuffer.framebufferWidth, this.framebuffer.framebufferHeight, 0.0D, 1000.0D, 3000.0D);
                 GlStateManager.matrixMode(5888);
                 GlStateManager.pushMatrix();
                 GlStateManager.loadIdentity();
@@ -242,9 +243,9 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
                 Tessellator tessellator = Tessellator.getInstance();
                 WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                 worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-                worldrenderer.pos(0.0D, (double)f1, 0.0D).tex(0.0D, (double)f3).endVertex();
-                worldrenderer.pos((double)f, (double)f1, 0.0D).tex((double)f2, (double)f3).endVertex();
-                worldrenderer.pos((double)f, 0.0D, 0.0D).tex((double)f2, 0.0D).endVertex();
+                worldrenderer.pos(0.0D, f1, 0.0D).tex(0.0D, f3).endVertex();
+                worldrenderer.pos(f, f1, 0.0D).tex(f2, f3).endVertex();
+                worldrenderer.pos(f, 0.0D, 0.0D).tex(f2, 0.0D).endVertex();
                 worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 0.0D).endVertex();
                 tessellator.draw();
                 framebuffer1.unbindFramebufferTexture();
@@ -408,7 +409,7 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
         this.field_152957_i = gamesettings.streamSendMetadata;
         this.broadcastController.func_152836_a(videoparams);
         LOGGER.info(STREAM_MARKER, "Streaming at {}/{} at {} kbps to {}", videoparams.outputWidth, videoparams.outputHeight, videoparams.maxKbps, this.broadcastController.getIngestServer().serverUrl);
-        this.broadcastController.func_152828_a((String)null, "Minecraft", (String)null);
+        this.broadcastController.func_152828_a(null, "Minecraft", null);
     }
 
     public void stopBroadcasting()
@@ -599,7 +600,7 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
                 IChatComponent ichatcomponent2 = new ChatComponentText("");
                 ichatcomponent2.appendSibling(new ChatComponentTranslation("stream.userinfo.chatTooltip"));
 
-                for (IChatComponent ichatcomponent3 : GuiTwitchUserMode.func_152328_a(chatrawmessage.modes, chatrawmessage.subscriptions, (IStream)null))
+                for (IChatComponent ichatcomponent3 : GuiTwitchUserMode.func_152328_a(chatrawmessage.modes, chatrawmessage.subscriptions, null))
                 {
                     ichatcomponent2.appendText("\n");
                     ichatcomponent2.appendSibling(ichatcomponent3);
@@ -656,7 +657,7 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
         }
         else
         {
-            return p_176028_3_ == 1 ? p_176028_2_.contains(ChatUserSubscription.TTV_CHAT_USERSUB_SUBSCRIBER) : false;
+            return p_176028_3_ == 1 && p_176028_2_.contains(ChatUserSubscription.TTV_CHAT_USERSUB_SUBSCRIBER);
         }
     }
 

@@ -133,7 +133,7 @@ public abstract class ServerConfigurationManager
         WorldServer worldserver = this.mcServer.worldServerForDimension(playerIn.dimension);
         WorldInfo worldinfo = worldserver.getWorldInfo();
         BlockPos blockpos = worldserver.getSpawnPoint();
-        this.setPlayerGameTypeBasedOnOther(playerIn, (EntityPlayerMP)null, worldserver);
+        this.setPlayerGameTypeBasedOnOther(playerIn, null, worldserver);
         NetHandlerPlayServer nethandlerplayserver = new NetHandlerPlayServer(this.mcServer, netManager, playerIn);
         nethandlerplayserver.sendPacket(new S01PacketJoinGame(playerIn.getEntityId(), playerIn.theItemInWorldManager.getGameType(), worldinfo.isHardcoreModeEnabled(), worldserver.provider.getDimensionId(), worldserver.getDifficulty(), this.getMaxPlayers(), worldinfo.getTerrainType(), worldserver.getGameRules().getBoolean("reducedDebugInfo")));
         nethandlerplayserver.sendPacket(new S3FPacketCustomPayload("MC|Brand", (new PacketBuffer(Unpooled.buffer())).writeString(this.getServerInstance().getServerModName())));
@@ -314,7 +314,7 @@ public abstract class ServerConfigurationManager
         this.sendPacketToAllPlayers(new S38PacketPlayerListItem(S38PacketPlayerListItem.Action.ADD_PLAYER, playerIn));
         WorldServer worldserver = this.mcServer.worldServerForDimension(playerIn.dimension);
         worldserver.spawnEntityInWorld(playerIn);
-        this.preparePlayer(playerIn, (WorldServer)null);
+        this.preparePlayer(playerIn, null);
 
         for (int i = 0; i < this.playerEntityList.size(); ++i)
         {
@@ -482,7 +482,7 @@ public abstract class ServerConfigurationManager
 
             if (blockpos1 != null)
             {
-                entityplayermp.setLocationAndAngles((double)((float)blockpos1.getX() + 0.5F), (double)((float)blockpos1.getY() + 0.1F), (double)((float)blockpos1.getZ() + 0.5F), 0.0F, 0.0F);
+                entityplayermp.setLocationAndAngles((float)blockpos1.getX() + 0.5F, (float)blockpos1.getY() + 0.1F, (float)blockpos1.getZ() + 0.5F, 0.0F, 0.0F);
                 entityplayermp.setSpawnPoint(blockpos, flag);
             }
             else
@@ -587,9 +587,9 @@ public abstract class ServerConfigurationManager
                 blockpos = toWorldIn.getSpawnCoordinate();
             }
 
-            d0 = (double)blockpos.getX();
-            entityIn.posY = (double)blockpos.getY();
-            d1 = (double)blockpos.getZ();
+            d0 = blockpos.getX();
+            entityIn.posY = blockpos.getY();
+            d1 = blockpos.getZ();
             entityIn.setLocationAndAngles(d0, entityIn.posY, d1, 90.0F, 0.0F);
 
             if (entityIn.isEntityAlive())
@@ -603,8 +603,8 @@ public abstract class ServerConfigurationManager
         if (p_82448_2_ != 1)
         {
             oldWorldIn.theProfiler.startSection("placing");
-            d0 = (double)MathHelper.clamp_int((int)d0, -29999872, 29999872);
-            d1 = (double)MathHelper.clamp_int((int)d1, -29999872, 29999872);
+            d0 = MathHelper.clamp_int((int)d0, -29999872, 29999872);
+            d1 = MathHelper.clamp_int((int)d1, -29999872, 29999872);
 
             if (entityIn.isEntityAlive())
             {
@@ -791,7 +791,7 @@ public abstract class ServerConfigurationManager
      */
     public void sendToAllNear(double x, double y, double z, double radius, int dimension, Packet packetIn)
     {
-        this.sendToAllNearExcept((EntityPlayer)null, x, y, z, radius, dimension, packetIn);
+        this.sendToAllNearExcept(null, x, y, z, radius, dimension, packetIn);
     }
 
     /**

@@ -12,7 +12,7 @@ public class GuiYesNo extends GuiScreen
      */
     protected GuiYesNoCallback parentScreen;
     protected String messageLine1;
-    private String messageLine2;
+    private final String messageLine2;
     private final List<String> field_175298_s = Lists.newArrayList();
 
     /** The text shown for the first button in GuiYesNo */

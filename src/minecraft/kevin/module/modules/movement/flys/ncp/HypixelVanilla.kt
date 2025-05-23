@@ -113,7 +113,7 @@ object  HypixelVanilla : FlyMode("HypixelVanilla") {
     }
 
     override fun onUpdate(event: UpdateEvent) {
-        enabledTicks++;
+        enabledTicks++
         if (true) {
             if (enabledTicks == 6) {
                 KevinClient.hud.addNotification(Notification("exploited You can fly freely until you disable fly.", "WatchDoge PacketClip exploit"))

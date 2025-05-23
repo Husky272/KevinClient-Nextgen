@@ -284,7 +284,7 @@ public class RegionFile
      */
     private void write(int sectorNumber, byte[] data, int length) throws IOException
     {
-        this.dataFile.seek((long)(sectorNumber * 4096));
+        this.dataFile.seek(sectorNumber * 4096L);
         this.dataFile.writeInt(length + 1);
         this.dataFile.writeByte(2);
         this.dataFile.write(data, 0, length);
@@ -320,7 +320,7 @@ public class RegionFile
     private void setOffset(int x, int z, int offset) throws IOException
     {
         this.offsets[x + z * 32] = offset;
-        this.dataFile.seek((long)((x + z * 32) * 4));
+        this.dataFile.seek((x + z * 32L) * 4);
         this.dataFile.writeInt(offset);
     }
 
@@ -330,7 +330,7 @@ public class RegionFile
     private void setChunkTimestamp(int x, int z, int timestamp) throws IOException
     {
         this.chunkTimestamps[x + z * 32] = timestamp;
-        this.dataFile.seek((long)(4096 + (x + z * 32) * 4));
+        this.dataFile.seek(4096 + (x + z * 32L) * 4);
         this.dataFile.writeInt(timestamp);
     }
 
@@ -347,8 +347,8 @@ public class RegionFile
 
     class ChunkBuffer extends ByteArrayOutputStream
     {
-        private int chunkX;
-        private int chunkZ;
+        private final int chunkX;
+        private final int chunkZ;
 
         public ChunkBuffer(int x, int z)
         {

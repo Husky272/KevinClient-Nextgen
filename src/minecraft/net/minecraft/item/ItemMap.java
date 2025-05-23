@@ -53,7 +53,7 @@ public class ItemMap extends ItemMapBase
             s = "map_" + stack.getMetadata();
             mapdata = new MapData(s);
             mapdata.scale = 3;
-            mapdata.calculateMapCenter((double)worldIn.getWorldInfo().getSpawnX(), (double)worldIn.getWorldInfo().getSpawnZ(), mapdata.scale);
+            mapdata.calculateMapCenter(worldIn.getWorldInfo().getSpawnX(), worldIn.getWorldInfo().getSpawnZ(), mapdata.scale);
             mapdata.dimension = (byte)worldIn.provider.getDimensionId();
             mapdata.markDirty();
             worldIn.setItemData(s, mapdata);
@@ -238,9 +238,8 @@ public class ItemMap extends ItemMapBase
         {
             MapData mapdata = this.getMapData(stack, worldIn);
 
-            if (entityIn instanceof EntityPlayer)
+            if (entityIn instanceof EntityPlayer entityplayer)
             {
-                EntityPlayer entityplayer = (EntityPlayer)entityIn;
                 mapdata.updateVisiblePlayers(entityplayer, stack);
             }
 
@@ -273,7 +272,7 @@ public class ItemMap extends ItemMapBase
                 mapdata1.scale = 4;
             }
 
-            mapdata1.calculateMapCenter((double)mapdata.xCenter, (double)mapdata.zCenter, mapdata1.scale);
+            mapdata1.calculateMapCenter(mapdata.xCenter, mapdata.zCenter, mapdata1.scale);
             mapdata1.dimension = mapdata.dimension;
             mapdata1.markDirty();
             worldIn.setItemData("map_" + stack.getMetadata(), mapdata1);

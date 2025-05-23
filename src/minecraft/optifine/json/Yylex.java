@@ -38,7 +38,7 @@ class Yylex
     private int yycolumn;
     private boolean zzAtBOL = true;
     private boolean zzAtEOF;
-    private StringBuffer sb = new StringBuffer();
+    private final StringBuffer sb = new StringBuffer();
 
     private static int[] zzUnpackAction()
     {
@@ -401,22 +401,22 @@ class Yylex
                     break;
 
                 case 5:
-                    return new Yytoken(1, (Object)null);
+                    return new Yytoken(1, null);
 
                 case 6:
-                    return new Yytoken(2, (Object)null);
+                    return new Yytoken(2, null);
 
                 case 7:
-                    return new Yytoken(3, (Object)null);
+                    return new Yytoken(3, null);
 
                 case 8:
-                    return new Yytoken(4, (Object)null);
+                    return new Yytoken(4, null);
 
                 case 9:
-                    return new Yytoken(5, (Object)null);
+                    return new Yytoken(5, null);
 
                 case 10:
-                    return new Yytoken(6, (Object)null);
+                    return new Yytoken(6, null);
 
                 case 11:
                     this.sb.append(this.yytext());
@@ -463,7 +463,7 @@ class Yylex
                     return new Yytoken(0, d0);
 
                 case 22:
-                    return new Yytoken(0, (Object)null);
+                    return new Yytoken(0, null);
 
                 case 23:
                     Boolean obool = Boolean.valueOf(this.yytext());

@@ -75,7 +75,7 @@ public class JsonException extends IOException
 
         public String func_151372_b()
         {
-            return StringUtils.join((Iterable<?>)this.field_151375_b, "->");
+            return StringUtils.join(this.field_151375_b, "->");
         }
 
         public String toString()

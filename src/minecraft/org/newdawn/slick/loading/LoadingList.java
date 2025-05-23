@@ -12,7 +12,7 @@ import org.newdawn.slick.opengl.InternalTextureLoader;
  */
 public class LoadingList {
 	/** The single instance of this list */
-	private static LoadingList single = new LoadingList();
+	private static final LoadingList single = new LoadingList();
 	
 	/**
 	 * Get the single global loading list
@@ -45,7 +45,7 @@ public class LoadingList {
 	}
 	
 	/** The list of deferred resources to load */
-	private ArrayList deferred = new ArrayList();
+	private final ArrayList deferred = new ArrayList();
 	/** The total number of elements that have been added - does not go down as elements are removed */
 	private int total;
 	

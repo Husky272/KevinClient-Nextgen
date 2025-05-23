@@ -125,7 +125,7 @@ public class CrashReport
                     }
                 }
 
-                return String.format("%d total; %s", i, stringbuilder.toString());
+                return String.format("%d total; %s", i, stringbuilder);
             }
         });
         this.theReportCategory.addCrashSectionCallable("IntCache", new Callable<String>()
@@ -225,8 +225,8 @@ public class CrashReport
         }
         finally
         {
-            IOUtils.closeQuietly((Writer)stringwriter);
-            IOUtils.closeQuietly((Writer)printwriter);
+            IOUtils.closeQuietly(stringwriter);
+            IOUtils.closeQuietly(printwriter);
         }
 
         return s;

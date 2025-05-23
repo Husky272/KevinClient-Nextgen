@@ -10,77 +10,52 @@ import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.src.Config;
 import net.optifine.reflect.Reflector;
 
-public class ModelAdapterMinecart extends ModelAdapter
-{
-    public ModelAdapterMinecart()
-    {
+public class ModelAdapterMinecart extends ModelAdapter {
+    public ModelAdapterMinecart() {
         super(EntityMinecart.class, "minecart", 0.5F);
     }
 
-    protected ModelAdapterMinecart(Class entityClass, String name, float shadow)
-    {
+    protected ModelAdapterMinecart(Class entityClass, String name, float shadow) {
         super(entityClass, name, shadow);
     }
 
-    public ModelBase makeModel()
-    {
+    public ModelBase makeModel() {
         return new ModelMinecart();
     }
 
-    public ModelRenderer getModelRenderer(ModelBase model, String modelPart)
-    {
-        if (!(model instanceof ModelMinecart))
-        {
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+        if (!(model instanceof ModelMinecart modelminecart)) {
             return null;
-        }
-        else
-        {
-            ModelMinecart modelminecart = (ModelMinecart)model;
+        } else {
 
-            if (modelPart.equals("bottom"))
-            {
+            if (modelPart.equals("bottom")) {
                 return modelminecart.sideModels[0];
-            }
-            else if (modelPart.equals("back"))
-            {
+            } else if (modelPart.equals("back")) {
                 return modelminecart.sideModels[1];
-            }
-            else if (modelPart.equals("front"))
-            {
+            } else if (modelPart.equals("front")) {
                 return modelminecart.sideModels[2];
-            }
-            else if (modelPart.equals("right"))
-            {
+            } else if (modelPart.equals("right")) {
                 return modelminecart.sideModels[3];
-            }
-            else if (modelPart.equals("left"))
-            {
+            } else if (modelPart.equals("left")) {
                 return modelminecart.sideModels[4];
-            }
-            else
-            {
+            } else {
                 return modelPart.equals("dirt") ? modelminecart.sideModels[5] : null;
             }
         }
     }
 
-    public String[] getModelRendererNames()
-    {
-        return new String[] {"bottom", "back", "front", "right", "left", "dirt"};
+    public String[] getModelRendererNames() {
+        return new String[]{"bottom", "back", "front", "right", "left", "dirt"};
     }
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize)
-    {
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
         RenderMinecart renderminecart = new RenderMinecart(rendermanager);
 
-        if (!Reflector.RenderMinecart_modelMinecart.exists())
-        {
+        if (!Reflector.RenderMinecart_modelMinecart.exists()) {
             Config.warn("Field not found: RenderMinecart.modelMinecart");
             return null;
-        }
-        else
-        {
+        } else {
             Reflector.setFieldValue(renderminecart, Reflector.RenderMinecart_modelMinecart, modelBase);
             renderminecart.shadowSize = shadowSize;
             return renderminecart;

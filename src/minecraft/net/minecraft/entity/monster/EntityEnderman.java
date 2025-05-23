@@ -42,7 +42,7 @@ import net.minecraft.world.World;
 public class EntityEnderman extends EntityMob
 {
     private static final UUID attackingSpeedBoostModifierUUID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E291A0");
-    private static final AttributeModifier attackingSpeedBoostModifier = (new AttributeModifier(attackingSpeedBoostModifierUUID, "Attacking speed boost", (double)0.15F, 0)).setSaved(false);
+    private static final AttributeModifier attackingSpeedBoostModifier = (new AttributeModifier(attackingSpeedBoostModifierUUID, "Attacking speed boost", 0.15F, 0)).setSaved(false);
     private static final Set<Block> carriableBlocks = Sets.newIdentityHashSet();
     private boolean isAggressive;
 
@@ -73,7 +73,7 @@ public class EntityEnderman extends EntityMob
     {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)0.3F);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.3F);
         this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(7.0D);
         this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(64.0D);
     }
@@ -81,9 +81,9 @@ public class EntityEnderman extends EntityMob
     protected void entityInit()
     {
         super.entityInit();
-        this.dataWatcher.addObject(16, new Short((short)0));
-        this.dataWatcher.addObject(17, new Byte((byte)0));
-        this.dataWatcher.addObject(18, new Byte((byte)0));
+        this.dataWatcher.addObject(16, Short.valueOf((short) 0));
+        this.dataWatcher.addObject(17, Byte.valueOf((byte) 0));
+        this.dataWatcher.addObject(18, Byte.valueOf((byte) 0));
     }
 
     /**
@@ -135,7 +135,7 @@ public class EntityEnderman extends EntityMob
             double d0 = vec31.lengthVector();
             vec31 = vec31.normalize();
             double d1 = vec3.dotProduct(vec31);
-            return d1 > 1.0D - 0.025D / d0 ? player.canEntityBeSeen(this) : false;
+            return d1 > 1.0D - 0.025D / d0 && player.canEntityBeSeen(this);
         }
     }
 
@@ -180,7 +180,7 @@ public class EntityEnderman extends EntityMob
 
             if (f > 0.5F && this.worldObj.canSeeSky(new BlockPos(this)) && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F)
             {
-                this.setAttackTarget((EntityLivingBase)null);
+                this.setAttackTarget(null);
                 this.setScreaming(false);
                 this.isAggressive = false;
                 this.teleportRandomly();
@@ -278,7 +278,7 @@ public class EntityEnderman extends EntityMob
                 double d3 = d0 + (this.posX - d0) * d6 + (this.rand.nextDouble() - 0.5D) * (double)this.width * 2.0D;
                 double d4 = d1 + (this.posY - d1) * d6 + this.rand.nextDouble() * (double)this.height;
                 double d5 = d2 + (this.posZ - d2) * d6 + (this.rand.nextDouble() - 0.5D) * (double)this.width * 2.0D;
-                this.worldObj.spawnParticle(EnumParticleTypes.PORTAL, d3, d4, d5, (double)f, (double)f1, (double)f2);
+                this.worldObj.spawnParticle(EnumParticleTypes.PORTAL, d3, d4, d5, f, f1, f2);
             }
 
             this.worldObj.playSoundEffect(d0, d1, d2, "mob.endermen.portal", 1.0F, 1.0F);
@@ -444,7 +444,7 @@ public class EntityEnderman extends EntityMob
         private EntityPlayer player;
         private int field_179450_h;
         private int field_179451_i;
-        private EntityEnderman enderman;
+        private final EntityEnderman enderman;
 
         public AIFindPlayer(EntityEnderman p_i45842_1_)
         {
@@ -546,7 +546,7 @@ public class EntityEnderman extends EntityMob
 
     static class AIPlaceBlock extends EntityAIBase
     {
-        private EntityEnderman enderman;
+        private final EntityEnderman enderman;
 
         public AIPlaceBlock(EntityEnderman p_i45843_1_)
         {
@@ -610,7 +610,7 @@ public class EntityEnderman extends EntityMob
 
     static class AITakeBlock extends EntityAIBase
     {
-        private EntityEnderman enderman;
+        private final EntityEnderman enderman;
 
         public AITakeBlock(EntityEnderman p_i45841_1_)
         {

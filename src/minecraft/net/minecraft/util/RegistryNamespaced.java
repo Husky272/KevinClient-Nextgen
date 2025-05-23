@@ -23,7 +23,7 @@ public class RegistryNamespaced<K, V> extends RegistrySimple<K, V> implements IO
 
     public V getObject(K name)
     {
-        return (V)super.getObject(name);
+        return super.getObject(name);
     }
 
     /**

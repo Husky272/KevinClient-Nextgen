@@ -150,9 +150,8 @@ public class ConnectedProperties
 
             for (Object object : props.keySet())
             {
-                if (object instanceof String)
+                if (object instanceof String s)
                 {
-                    String s = (String)object;
                     String s1 = "ctm.";
 
                     if (s.startsWith(s1))
@@ -1178,7 +1177,7 @@ public class ConnectedProperties
 
                 if (skipTiles && s3.endsWith("<skip>.png"))
                 {
-                    list.add((Object)null);
+                    list.add(null);
                 }
                 else if (defaultTiles && s3.endsWith("<default>.png"))
                 {
@@ -1237,7 +1236,7 @@ public class ConnectedProperties
 
     public String toString()
     {
-        return "CTM name: " + this.name + ", basePath: " + this.basePath + ", matchBlocks: " + Config.arrayToString((Object[])this.matchBlocks) + ", matchTiles: " + Config.arrayToString((Object[])this.matchTiles);
+        return "CTM name: " + this.name + ", basePath: " + this.basePath + ", matchBlocks: " + Config.arrayToString(this.matchBlocks) + ", matchTiles: " + Config.arrayToString(this.matchTiles);
     }
 
     public boolean matchesBiome(BiomeGenBase biome)

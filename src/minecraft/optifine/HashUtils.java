@@ -1,5 +1,6 @@
 package optifine;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -24,7 +25,7 @@ public class HashUtils
     {
         try
         {
-            byte[] abyte = getHash(data.getBytes("UTF-8"), digest);
+            byte[] abyte = getHash(data.getBytes(StandardCharsets.UTF_8), digest);
             return toHexString(abyte);
         }
         catch (Exception exception)
@@ -39,7 +40,7 @@ public class HashUtils
 
         for (int i = 0; i < data.length; ++i)
         {
-            stringbuffer.append(Integer.toHexString(data[i] & 255 | 256).substring(1, 3));
+            stringbuffer.append(Integer.toHexString(data[i] & 255 | 256), 1, 3);
         }
 
         return stringbuffer.toString();

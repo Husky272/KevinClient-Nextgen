@@ -35,8 +35,8 @@ public class FallingPlayer extends MinecraftInstance {
 
     private final float yaw;
 
-    private float strafe;
-    private float forward;
+    private final float strafe;
+    private final float forward;
 
     public FallingPlayer(double x, double y, double z, double motionX, double motionY, double motionZ, float yaw, float strafe, float forward) {
         this.x = x;

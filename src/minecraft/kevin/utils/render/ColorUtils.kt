@@ -279,7 +279,7 @@ object ColorUtils {
         try {
             color3 = Color(red, green, blue)
         } catch (exp: java.lang.IllegalArgumentException) {
-            val nf = NumberFormat.getNumberInstance()
+            NumberFormat.getNumberInstance()
             // System.out.println(nf.format(red) + "; " + nf.format(green) + "; " + nf.format(blue));
             exp.printStackTrace()
         }

@@ -15,12 +15,12 @@ public interface DeferredResource {
 	 * 
 	 * @throws IOException Indicates a failure to load the resource
 	 */
-	public void load() throws IOException;
+    void load() throws IOException;
 	
 	/**
 	 * Get a description of the resource to be loaded
 	 * 
 	 * @return The description of the resource to be loaded
 	 */
-	public String getDescription();
+    String getDescription();
 }

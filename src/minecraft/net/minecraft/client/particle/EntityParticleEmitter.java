@@ -7,10 +7,10 @@ import net.minecraft.world.World;
 
 public class EntityParticleEmitter extends EntityFX
 {
-    private Entity attachedEntity;
+    private final Entity attachedEntity;
     private int age;
-    private int lifetime;
-    private EnumParticleTypes particleTypes;
+    private final int lifetime;
+    private final EnumParticleTypes particleTypes;
 
     public EntityParticleEmitter(World worldIn, Entity p_i46279_2_, EnumParticleTypes particleTypesIn)
     {
@@ -35,9 +35,9 @@ public class EntityParticleEmitter extends EntityFX
     {
         for (int i = 0; i < 16; ++i)
         {
-            double d0 = (double)(this.rand.nextFloat() * 2.0F - 1.0F);
-            double d1 = (double)(this.rand.nextFloat() * 2.0F - 1.0F);
-            double d2 = (double)(this.rand.nextFloat() * 2.0F - 1.0F);
+            double d0 = this.rand.nextFloat() * 2.0F - 1.0F;
+            double d1 = this.rand.nextFloat() * 2.0F - 1.0F;
+            double d2 = this.rand.nextFloat() * 2.0F - 1.0F;
 
             if (!(d0 * d0 + d1 * d1 + d2 * d2 > 1.0D))
             {

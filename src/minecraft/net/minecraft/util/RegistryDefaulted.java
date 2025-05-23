@@ -14,7 +14,7 @@ public class RegistryDefaulted<K, V> extends RegistrySimple<K, V>
 
     public V getObject(K name)
     {
-        V v = (V)super.getObject(name);
-        return (V)(v == null ? this.defaultObject : v);
+        V v = super.getObject(name);
+        return v == null ? this.defaultObject : v;
     }
 }

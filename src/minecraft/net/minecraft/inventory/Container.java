@@ -27,7 +27,7 @@ public abstract class Container
     private int dragEvent;
     private final Set<Slot> dragSlots = Sets.newHashSet();
     protected List<ICrafting> crafters = Lists.newArrayList();
-    private Set<EntityPlayer> playerList = Sets.newHashSet();
+    private final Set<EntityPlayer> playerList = Sets.newHashSet();
 
     /**
      * Adds an item slot to this container
@@ -36,7 +36,7 @@ public abstract class Container
     {
         slotIn.slotNumber = this.inventorySlots.size();
         this.inventorySlots.add(slotIn);
-        this.inventoryItemStacks.add((ItemStack)null);
+        this.inventoryItemStacks.add(null);
         return slotIn;
     }
 
@@ -238,7 +238,7 @@ public abstract class Container
                     if (clickedButton == 0)
                     {
                         playerIn.dropPlayerItemWithRandomChoice(inventoryplayer.getItemStack(), true);
-                        inventoryplayer.setItemStack((ItemStack)null);
+                        inventoryplayer.setItemStack(null);
                     }
 
                     if (clickedButton == 1)
@@ -247,7 +247,7 @@ public abstract class Container
 
                         if (inventoryplayer.getItemStack().stackSize == 0)
                         {
-                            inventoryplayer.setItemStack((ItemStack)null);
+                            inventoryplayer.setItemStack(null);
                         }
                     }
                 }
@@ -314,7 +314,7 @@ public abstract class Container
 
                             if (itemstack10.stackSize == 0)
                             {
-                                inventoryplayer.setItemStack((ItemStack)null);
+                                inventoryplayer.setItemStack(null);
                             }
                         }
                     }
@@ -328,7 +328,7 @@ public abstract class Container
 
                             if (itemstack9.stackSize == 0)
                             {
-                                slot7.putStack((ItemStack)null);
+                                slot7.putStack(null);
                             }
 
                             slot7.onPickupFromSlot(playerIn, inventoryplayer.getItemStack());
@@ -353,7 +353,7 @@ public abstract class Container
 
                                 if (itemstack10.stackSize == 0)
                                 {
-                                    inventoryplayer.setItemStack((ItemStack)null);
+                                    inventoryplayer.setItemStack(null);
                                 }
 
                                 itemstack9.stackSize += i2;
@@ -375,7 +375,7 @@ public abstract class Container
 
                                 if (itemstack9.stackSize == 0)
                                 {
-                                    slot7.putStack((ItemStack)null);
+                                    slot7.putStack(null);
                                 }
 
                                 slot7.onPickupFromSlot(playerIn, inventoryplayer.getItemStack());
@@ -414,7 +414,7 @@ public abstract class Container
                         {
                             inventoryplayer.addItemStackToInventory(itemstack7);
                             slot5.decrStackSize(itemstack11.stackSize);
-                            slot5.putStack((ItemStack)null);
+                            slot5.putStack(null);
                             slot5.onPickupFromSlot(playerIn, itemstack11);
                         }
                     }
@@ -427,7 +427,7 @@ public abstract class Container
                 }
                 else if (!slot5.getHasStack() && itemstack7 != null && slot5.isItemValid(itemstack7))
                 {
-                    inventoryplayer.setInventorySlotContents(clickedButton, (ItemStack)null);
+                    inventoryplayer.setInventorySlotContents(clickedButton, null);
                     slot5.putStack(itemstack7);
                 }
             }
@@ -478,7 +478,7 @@ public abstract class Container
 
                             if (itemstack2.stackSize <= 0)
                             {
-                                slot8.putStack((ItemStack)null);
+                                slot8.putStack(null);
                             }
 
                             slot8.onPickupFromSlot(playerIn, itemstack2);
@@ -520,7 +520,7 @@ public abstract class Container
         if (inventoryplayer.getItemStack() != null)
         {
             playerIn.dropPlayerItemWithRandomChoice(inventoryplayer.getItemStack(), false);
-            inventoryplayer.setItemStack((ItemStack)null);
+            inventoryplayer.setItemStack(null);
         }
     }
 

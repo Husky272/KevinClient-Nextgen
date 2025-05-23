@@ -179,7 +179,7 @@ public class ShaderUtil  {
             "}";
 
 
-    private String roundedRect = "#version 120\n" +
+    private final String roundedRect = "#version 120\n" +
             "\n" +
             "uniform vec2 location, rectSize;\n" +
             "uniform vec4 color;\n" +

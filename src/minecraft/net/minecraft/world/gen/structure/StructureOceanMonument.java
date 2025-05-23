@@ -76,17 +76,14 @@ public class StructureOceanMonument extends MapGenStructure
 
         if (i == k && j == l)
         {
-            if (this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), (BiomeGenBase)null) != BiomeGenBase.deepOcean)
+            if (this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), null) != BiomeGenBase.deepOcean)
             {
                 return false;
             }
 
             boolean flag = this.worldObj.getWorldChunkManager().areBiomesViable(i * 16 + 8, j * 16 + 8, 29, field_175802_d);
 
-            if (flag)
-            {
-                return true;
-            }
+            return flag;
         }
 
         return false;
@@ -109,7 +106,7 @@ public class StructureOceanMonument extends MapGenStructure
 
     public static class StartMonument extends StructureStart
     {
-        private Set<ChunkCoordIntPair> field_175791_c = Sets.newHashSet();
+        private final Set<ChunkCoordIntPair> field_175791_c = Sets.newHashSet();
         private boolean field_175790_d;
 
         public StartMonument()
@@ -151,7 +148,7 @@ public class StructureOceanMonument extends MapGenStructure
 
         public boolean func_175788_a(ChunkCoordIntPair pair)
         {
-            return this.field_175791_c.contains(pair) ? false : super.func_175788_a(pair);
+            return !this.field_175791_c.contains(pair) && super.func_175788_a(pair);
         }
 
         public void func_175787_b(ChunkCoordIntPair pair)

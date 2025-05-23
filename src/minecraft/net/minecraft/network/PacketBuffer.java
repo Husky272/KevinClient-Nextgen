@@ -86,7 +86,7 @@ public class PacketBuffer extends ByteBuf
 
     public <T extends Enum<T>> T readEnumValue(Class<T> enumClass)
     {
-        return (T)(enumClass.getEnumConstants())[this.readVarIntFromBuffer()];
+        return (enumClass.getEnumConstants())[this.readVarIntFromBuffer()];
     }
 
     public void writeEnumValue(Enum<?> value)

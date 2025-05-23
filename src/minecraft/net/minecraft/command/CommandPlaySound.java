@@ -73,7 +73,7 @@ public class CommandPlaySound extends CommandBase
 
             if (args.length > i)
             {
-                d3 = parseDouble(args[i++], 0.0D, (double)Float.MAX_VALUE);
+                d3 = parseDouble(args[i++], 0.0D, Float.MAX_VALUE);
             }
 
             double d4 = 1.0D;
@@ -116,7 +116,7 @@ public class CommandPlaySound extends CommandBase
             }
 
             entityplayermp.playerNetServerHandler.sendPacket(new S29PacketSoundEffect(s, d0, d1, d2, (float)d3, (float)d4));
-            notifyOperators(sender, this, "commands.playsound.success", new Object[] {s, entityplayermp.getName()});
+            notifyOperators(sender, this, "commands.playsound.success", s, entityplayermp.getName());
         }
     }
 

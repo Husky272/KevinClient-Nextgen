@@ -102,7 +102,7 @@ public class BlockTripWireHook extends Block
      */
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
-        this.func_176260_a(worldIn, pos, state, false, false, -1, (IBlockState)null);
+        this.func_176260_a(worldIn, pos, state, false, false, -1, null);
     }
 
     /**
@@ -227,7 +227,7 @@ public class BlockTripWireHook extends Block
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        this.func_176260_a(worldIn, pos, state, false, true, -1, (IBlockState)null);
+        this.func_176260_a(worldIn, pos, state, false, true, -1, null);
     }
 
     private void func_180694_a(World worldIn, BlockPos pos, boolean p_180694_3_, boolean p_180694_4_, boolean p_180694_5_, boolean p_180694_6_)
@@ -274,7 +274,7 @@ public class BlockTripWireHook extends Block
     {
         float f = 0.1875F;
 
-        switch ((EnumFacing)worldIn.getBlockState(pos).getValue(FACING))
+        switch (worldIn.getBlockState(pos).getValue(FACING))
         {
             case EAST:
                 this.setBlockBounds(0.0F, 0.2F, 0.5F - f, f * 2.0F, 0.8F, 0.5F + f);
@@ -300,7 +300,7 @@ public class BlockTripWireHook extends Block
 
         if (flag || flag1)
         {
-            this.func_176260_a(worldIn, pos, state, true, false, -1, (IBlockState)null);
+            this.func_176260_a(worldIn, pos, state, true, false, -1, null);
         }
 
         if (flag1)

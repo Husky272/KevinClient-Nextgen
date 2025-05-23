@@ -55,9 +55,8 @@ public class EntityEnderPearl extends EntityThrowable
 
         if (!this.worldObj.isRemote)
         {
-            if (entitylivingbase instanceof EntityPlayerMP)
+            if (entitylivingbase instanceof EntityPlayerMP entityplayermp)
             {
-                EntityPlayerMP entityplayermp = (EntityPlayerMP)entitylivingbase;
 
                 if (entityplayermp.playerNetServerHandler.getNetworkManager().isChannelOpen() && entityplayermp.worldObj == this.worldObj && !entityplayermp.isPlayerSleeping())
                 {
@@ -71,7 +70,7 @@ public class EntityEnderPearl extends EntityThrowable
 
                     if (entitylivingbase.isRiding())
                     {
-                        entitylivingbase.mountEntity((Entity)null);
+                        entitylivingbase.mountEntity(null);
                     }
 
                     entitylivingbase.setPositionAndUpdate(this.posX, this.posY, this.posZ);

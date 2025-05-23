@@ -17,7 +17,7 @@ public class S3EPacketTeams implements Packet<INetHandlerPlayClient>
     private String suffix = "";
     private String nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
     private int color = -1;
-    private Collection<String> players = Lists.newArrayList();
+    private final Collection<String> players = Lists.newArrayList();
     private int action;
     private int friendlyFlags;
 

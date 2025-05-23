@@ -98,7 +98,7 @@ public class BlockBed extends BlockDirectional
                     worldIn.setBlockToAir(blockpos);
                 }
 
-                worldIn.newExplosion((Entity)null, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, 5.0F, true, true);
+                worldIn.newExplosion(null, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, 5.0F, true, true);
                 return true;
             }
         }
@@ -310,14 +310,14 @@ public class BlockBed extends BlockDirectional
         return new BlockState(this, FACING, PART, OCCUPIED);
     }
 
-    public static enum EnumPartType implements IStringSerializable
+    public enum EnumPartType implements IStringSerializable
     {
         HEAD("head"),
         FOOT("foot");
 
         private final String name;
 
-        private EnumPartType(String name)
+        EnumPartType(String name)
         {
             this.name = name;
         }

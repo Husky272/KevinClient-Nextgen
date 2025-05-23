@@ -57,7 +57,7 @@ public abstract class EntityAgeable extends EntityCreature
 
                             if (itemstack.stackSize <= 0)
                             {
-                                player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
+                                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                             }
                         }
                     }
@@ -103,7 +103,7 @@ public abstract class EntityAgeable extends EntityCreature
             }
         }
 
-        int j = i - i;
+        int j = 0;
         this.setGrowingAge(i);
 
         if (p_175501_2_)

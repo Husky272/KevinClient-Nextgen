@@ -23,25 +23,25 @@ public class VAOGLRenderer extends ImmediateModeOGLRenderer {
 	/** The type of the geometry array currently being built - i.e. GL_QUADS */
 	private int currentType = NONE;
 	/** The last colour applied */
-	private float[] color = new float[] {1f,1f,1f,1f};
+	private final float[] color = new float[] {1f,1f,1f,1f};
 	/** The last texture applied */
-	private float[] tex = new float[] {0f,0f};
+	private final float[] tex = new float[] {0f,0f};
 	/** The index of the next vertex to be created */
 	private int vertIndex;
 	
 	/** The vertex data cached */
-	private float[] verts = new float[MAX_VERTS*3];
+	private final float[] verts = new float[MAX_VERTS*3];
 	/** The vertex colour data cached */
-	private float[] cols = new float[MAX_VERTS*4];
+	private final float[] cols = new float[MAX_VERTS*4];
 	/** The vertex texture coordiante data cached */
-	private float[] texs = new float[MAX_VERTS*3];
+	private final float[] texs = new float[MAX_VERTS*3];
 	
 	/** The buffer used to pass the vertex data to the card */
-	private FloatBuffer vertices = BufferUtils.createFloatBuffer(MAX_VERTS * 3);
+	private final FloatBuffer vertices = BufferUtils.createFloatBuffer(MAX_VERTS * 3);
 	/** The buffer used to pass the vertex color data to the card */
-	private FloatBuffer colors = BufferUtils.createFloatBuffer(MAX_VERTS * 4);
+	private final FloatBuffer colors = BufferUtils.createFloatBuffer(MAX_VERTS * 4);
 	/** The buffer used to pass the vertex texture coordinate data to the card */
-	private FloatBuffer textures = BufferUtils.createFloatBuffer(MAX_VERTS * 2);
+	private final FloatBuffer textures = BufferUtils.createFloatBuffer(MAX_VERTS * 2);
 	
 	/** The stack for entering list creation mode - when we're creating a list we can't use our VAs */
 	private int listMode = 0;
@@ -79,9 +79,9 @@ public class VAOGLRenderer extends ImmediateModeOGLRenderer {
 		if (vertIndex < TOLERANCE) {
 			GL11.glBegin(currentType);
 			for (int i=0;i<vertIndex;i++) {
-				GL11.glColor4f(cols[(i*4)+0], cols[(i*4)+1], cols[(i*4)+2], cols[(i*4)+3]);
-				GL11.glTexCoord2f(texs[(i*2)+0], texs[(i*2)+1]);
-				GL11.glVertex3f(verts[(i*3)+0], verts[(i*3)+1], verts[(i*3)+2]);
+				GL11.glColor4f(cols[(i * 4)], cols[(i*4)+1], cols[(i*4)+2], cols[(i*4)+3]);
+				GL11.glTexCoord2f(texs[(i * 2)], texs[(i*2)+1]);
+				GL11.glVertex3f(verts[(i * 3)], verts[(i*3)+1], verts[(i*3)+2]);
 			}
 			GL11.glEnd();
 			currentType = NONE;
@@ -160,8 +160,7 @@ public class VAOGLRenderer extends ImmediateModeOGLRenderer {
 		
 		if (listMode > 0) {
 			super.glColor4f(r,g,b,a);
-			return;
-		}
+        }
 	}
 
 	/**
@@ -170,8 +169,7 @@ public class VAOGLRenderer extends ImmediateModeOGLRenderer {
 	public void glEnd() {
 		if (listMode > 0) {
 			super.glEnd();
-			return;
-		}
+        }
 	}
 
 	/**
@@ -208,14 +206,14 @@ public class VAOGLRenderer extends ImmediateModeOGLRenderer {
 			return;
 		}
 		
-		verts[(vertIndex*3)+0] = x;
+		verts[(vertIndex * 3)] = x;
 		verts[(vertIndex*3)+1] = y;
 		verts[(vertIndex*3)+2] = z;
-		cols[(vertIndex*4)+0] = color[0];
+		cols[(vertIndex * 4)] = color[0];
 		cols[(vertIndex*4)+1] = color[1];
 		cols[(vertIndex*4)+2] = color[2];
 		cols[(vertIndex*4)+3] = color[3];
-		texs[(vertIndex*2)+0] = tex[0];
+		texs[(vertIndex * 2)] = tex[0];
 		texs[(vertIndex*2)+1] = tex[1];
 		vertIndex++;
 		

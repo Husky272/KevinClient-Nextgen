@@ -52,7 +52,7 @@ public class CommandDeOp extends CommandBase
             else
             {
                 minecraftserver.getConfigurationManager().removeOp(gameprofile);
-                notifyOperators(sender, this, "commands.deop.success", new Object[] {args[0]});
+                notifyOperators(sender, this, "commands.deop.success", args[0]);
             }
         }
         else

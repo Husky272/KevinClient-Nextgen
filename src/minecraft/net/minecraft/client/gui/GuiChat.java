@@ -28,7 +28,7 @@ public class GuiChat extends GuiScreen
     private boolean playerNamesFound;
     private boolean waitingOnAutocomplete;
     private int autocompleteIndex;
-    private List<String> foundPlayerNames = Lists.newArrayList();
+    private final List<String> foundPlayerNames = Lists.newArrayList();
 
     /** Chat entry field */
     protected GuiTextField inputField;
@@ -99,7 +99,7 @@ public class GuiChat extends GuiScreen
 
         if (keyCode == 1)
         {
-            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.displayGuiScreen(null);
         }
         else if (keyCode != 28 && keyCode != 156)
         {
@@ -133,7 +133,7 @@ public class GuiChat extends GuiScreen
                 this.sendChatMessage(s);
             }
 
-            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.displayGuiScreen(null);
         }
     }
 

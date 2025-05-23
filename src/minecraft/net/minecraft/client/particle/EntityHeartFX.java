@@ -17,9 +17,9 @@ public class EntityHeartFX extends EntityFX
     protected EntityHeartFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i46354_8_, double p_i46354_10_, double p_i46354_12_, float scale)
     {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-        this.motionX *= (double)0.01F;
-        this.motionY *= (double)0.01F;
-        this.motionZ *= (double)0.01F;
+        this.motionX *= 0.01F;
+        this.motionY *= 0.01F;
+        this.motionZ *= 0.01F;
         this.motionY += 0.1D;
         this.particleScale *= 0.75F;
         this.particleScale *= scale;
@@ -62,14 +62,14 @@ public class EntityHeartFX extends EntityFX
             this.motionZ *= 1.1D;
         }
 
-        this.motionX *= (double)0.86F;
-        this.motionY *= (double)0.86F;
-        this.motionZ *= (double)0.86F;
+        this.motionX *= 0.86F;
+        this.motionY *= 0.86F;
+        this.motionZ *= 0.86F;
 
         if (this.onGround)
         {
-            this.motionX *= (double)0.7F;
-            this.motionZ *= (double)0.7F;
+            this.motionX *= 0.7F;
+            this.motionZ *= 0.7F;
         }
     }
 

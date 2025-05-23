@@ -60,7 +60,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
     private int iconGridCountY = -1;
     private double iconGridSizeU = -1.0D;
     private double iconGridSizeV = -1.0D;
-    private CounterInt counterIndexInMap = new CounterInt(0);
+    private final CounterInt counterIndexInMap = new CounterInt(0);
     public int atlasWidth = 0;
     public int atlasHeight = 0;
     private int countAnimationsActive;
@@ -748,7 +748,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                     }
                     else
                     {
-                        return p_isTerrainAnimationActive_1_ != TextureUtils.iconClock && p_isTerrainAnimationActive_1_ != TextureUtils.iconCompass ? Config.isAnimatedTerrain() : true;
+                        return p_isTerrainAnimationActive_1_ == TextureUtils.iconClock || p_isTerrainAnimationActive_1_ == TextureUtils.iconCompass || Config.isAnimatedTerrain();
                     }
                 }
                 else

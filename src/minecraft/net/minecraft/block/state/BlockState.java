@@ -128,7 +128,7 @@ public class BlockState
             }
             else
             {
-                return (T)(property.getValueClass().cast(this.properties.get(property)));
+                return property.getValueClass().cast(this.properties.get(property));
             }
         }
 
@@ -144,7 +144,7 @@ public class BlockState
             }
             else
             {
-                return (IBlockState)(this.properties.get(property) == value ? this : (IBlockState)this.propertyValueTable.get(property, value));
+                return this.properties.get(property) == value ? this : this.propertyValueTable.get(property, value);
             }
         }
 

@@ -88,7 +88,7 @@ class ExperimentalBlockFly :
             itemstack = mc.thePlayer.heldItem
         }
         if (itemstack.item is ItemBlock) {
-            val willFall = willThisTickOutOfEdge()
+            willThisTickOutOfEdge()
             val b = isBlockSolid(BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 0.5, mc.thePlayer.posZ))
             //            Pair<Rotation, BlockData> pair = searchBlock(new BlockPos(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ).down(), !b, (ItemBlock) itemstack.getItem(), itemstack);
             val pair = search2(itemstack.item as ItemBlock, itemstack)

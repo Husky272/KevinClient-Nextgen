@@ -156,7 +156,7 @@ public class ClientModule extends MinecraftInstance implements Listenable {
         if (this.state != value) {
             this.onToggle(value);
             if (!KevinClient.INSTANCE.isStarting()) {
-                Minecraft.getMinecraft().getSoundHandler().playSound((ISound) PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), value ? 1.0F : 0.6F));
+                Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), value ? 1.0F : 0.6F));
                 KevinClient.INSTANCE.getHud().addNotification(new Notification((value ? "Enabled" : "Disabled") + ' ' + this.name, "ModuleManager", value ? ConnectNotificationType.Connect : ConnectNotificationType.Disconnect));
             }
 

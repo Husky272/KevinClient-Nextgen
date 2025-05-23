@@ -738,7 +738,7 @@ class ClickGui : ClientModule("ClickGui","Opens the ClickGUI.", Keyboard.KEY_RSH
             glPopMatrix()
             //DrawLine
 //            RenderUtils.drawLineStart(if(mode==1)Color(255,255,255)else Color(20,20,20,225),5F)
-            val lx2 = (x2 - x1) * lineAnim["Line1"]!! / 100.0
+            (x2 - x1) * lineAnim["Line1"]!! / 100.0
 //            RenderUtils.drawLine(x1.toDouble(),y1+radius*2.25,lx2+x1,y1+radius*2.25)
 //            RenderUtils.drawLineEnd()
 //            RenderUtils.drawLineStart(if(mode==1)Color(255,255,255)else Color(20,20,20,225),3F)
@@ -754,14 +754,14 @@ class ClickGui : ClientModule("ClickGui","Opens the ClickGUI.", Keyboard.KEY_RSH
                 KevinClient.fontManager.font35.drawString("Kevin",x1+10F,y1+6.5F,0)
             }
             //DrawModeButton
-            val modeButtonLight = isClick(mouseX.toFloat(),mouseY.toFloat(),x2-32F,y1+9.5F,x2-20F,y1+7.25F+ KevinClient.fontManager.font35.fontHeight*0.6F)
+            isClick(mouseX.toFloat(),mouseY.toFloat(),x2-32F,y1+9.5F,x2-20F,y1+7.25F+ KevinClient.fontManager.font35.fontHeight*0.6F)
             glPushMatrix()
             glScaled(.6,.6,.6)
 //            KevinClient.fontManager.font35.drawString("D",(x2-35F)/.6F,(y1+9.5F)/.6F,if(mode==1)Color(255,255,255).rgb else Color(20,20,20,225).rgb)
 //            KevinClient.fontManager.font35.drawString("L",(x2-19F)/.6F,(y1+9.5F)/.6F,if(mode==1)Color(255,255,255).rgb else Color(20,20,20,225).rgb)
             glPopMatrix()
             animButton("ModeButton",10F,mode==1)
-            mode=0;
+            mode=0
 //            drawButton1(x2-32F,y1+9.5F,x2-20F,y1+7.25F+ KevinClient.fontManager.font35.fontHeight*0.6F,if (mode==1) if(modeButtonLight) Color(170,170,170) else Color.white else if(modeButtonLight) Color.darkGray else Color.black,Color(0,111,255),buttonsAnim["ModeButton"]!!)
             //DrawCategoryButtons
             val mouseButtonDown = Mouse.isButtonDown(0) || Mouse.isButtonDown(1)

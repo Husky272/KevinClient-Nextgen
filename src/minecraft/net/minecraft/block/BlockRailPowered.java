@@ -155,7 +155,7 @@ public class BlockRailPowered extends BlockRailBase
                 {
                     if (iblockstate.getValue(POWERED))
                     {
-                        return worldIn.isBlockPowered(p_176567_2_) ? true : this.func_176566_a(worldIn, p_176567_2_, iblockstate, p_176567_3_, distance + 1);
+                        return worldIn.isBlockPowered(p_176567_2_) || this.func_176566_a(worldIn, p_176567_2_, iblockstate, p_176567_3_, distance + 1);
                     }
                     else
                     {

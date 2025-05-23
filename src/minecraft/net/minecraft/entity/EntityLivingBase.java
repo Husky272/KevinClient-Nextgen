@@ -772,10 +772,7 @@ public abstract class EntityLivingBase extends Entity
         {
             int i = potioneffectIn.getPotionID();
 
-            if (i == Potion.regeneration.id || i == Potion.poison.id)
-            {
-                return false;
-            }
+            return i != Potion.regeneration.id && i != Potion.poison.id;
         }
 
         return true;
@@ -934,9 +931,8 @@ public abstract class EntityLivingBase extends Entity
                         this.recentlyHit = 100;
                         this.attackingPlayer = (EntityPlayer)entity;
                     }
-                    else if (entity instanceof EntityWolf)
+                    else if (entity instanceof EntityWolf entitywolf)
                     {
-                        EntityWolf entitywolf = (EntityWolf)entity;
 
                         if (entitywolf.isTamed())
                         {
@@ -1355,7 +1351,7 @@ public abstract class EntityLivingBase extends Entity
             return animations.getAnimationSpeed().get();
         } else if (this.isPotionActive(Potion.digSpeed))
         {
-            return 6 - (1 + this.getActivePotionEffect(Potion.digSpeed).getAmplifier()) * 1;
+            return 6 - (1 + this.getActivePotionEffect(Potion.digSpeed).getAmplifier());
         }
         else
         {
@@ -1754,7 +1750,7 @@ public abstract class EntityLivingBase extends Entity
                 if (f3 > 0.0F)
                 {
                     f1 += (0.54600006F - f1) * f3 / 3.0F;
-                    f2 += (this.getAIMoveSpeed() * 1.0F - f2) * f3 / 3.0F;
+                    f2 += (this.getAIMoveSpeed() - f2) * f3 / 3.0F;
                 }
 
                 this.moveFlying(strafe, forward, f2);
@@ -2324,7 +2320,7 @@ public abstract class EntityLivingBase extends Entity
      */
     public boolean isOnTeam(Team teamIn)
     {
-        return this.getTeam() != null ? this.getTeam().isSameTeam(teamIn) : false;
+        return this.getTeam() != null && this.getTeam().isSameTeam(teamIn);
     }
 
     /**

@@ -27,7 +27,7 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase>
         if (i > 0)
         {
             Entity entity = new EntityArrow(entitylivingbaseIn.worldObj, entitylivingbaseIn.posX, entitylivingbaseIn.posY, entitylivingbaseIn.posZ);
-            Random random = new Random((long)entitylivingbaseIn.getEntityId());
+            Random random = new Random(entitylivingbaseIn.getEntityId());
             RenderHelper.disableStandardItemLighting();
 
             for (int j = 0; j < i; ++j)
@@ -50,8 +50,8 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase>
                 f1 = f1 * -1.0F;
                 f2 = f2 * -1.0F;
                 float f6 = MathHelper.sqrt_float(f * f + f2 * f2);
-                entity.prevRotationYaw = entity.rotationYaw = (float)(Math.atan2((double)f, (double)f2) * 180.0D / (double)(float)Math.PI);
-                entity.prevRotationPitch = entity.rotationPitch = (float)(Math.atan2((double)f1, (double)f6) * 180.0D / (double)(float)Math.PI);
+                entity.prevRotationYaw = entity.rotationYaw = (float)(Math.atan2(f, f2) * 180.0D / (double)(float)Math.PI);
+                entity.prevRotationPitch = entity.rotationPitch = (float)(Math.atan2(f1, f6) * 180.0D / (double)(float)Math.PI);
                 double d0 = 0.0D;
                 double d1 = 0.0D;
                 double d2 = 0.0D;

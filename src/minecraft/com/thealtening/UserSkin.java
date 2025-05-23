@@ -2,14 +2,14 @@ package com.thealtening;
 
 public class UserSkin {
 
-	private final AlteningAlt account;
+    private final AlteningAlt account;
 
-	public UserSkin(AlteningAlt account) {
-		this.account = account;
-	}
+    public UserSkin(AlteningAlt account) {
+        this.account = account;
+    }
 
-	public AlteningAlt getAccount() {
-		return account;
-	}
+    public AlteningAlt getAccount() {
+        return account;
+    }
 
 }

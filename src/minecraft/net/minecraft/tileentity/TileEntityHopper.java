@@ -347,9 +347,8 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
      */
     private boolean isInventoryFull(IInventory inventoryIn, EnumFacing side)
     {
-        if (inventoryIn instanceof ISidedInventory)
+        if (inventoryIn instanceof ISidedInventory isidedinventory)
         {
-            ISidedInventory isidedinventory = (ISidedInventory)inventoryIn;
             int[] aint = isidedinventory.getSlotsForFace(side);
 
             for (int k = 0; k < aint.length; ++k)
@@ -385,9 +384,8 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
      */
     private static boolean isInventoryEmpty(IInventory inventoryIn, EnumFacing side)
     {
-        if (inventoryIn instanceof ISidedInventory)
+        if (inventoryIn instanceof ISidedInventory isidedinventory)
         {
-            ISidedInventory isidedinventory = (ISidedInventory)inventoryIn;
             int[] aint = isidedinventory.getSlotsForFace(side);
 
             for (int i = 0; i < aint.length; ++i)
@@ -427,9 +425,8 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
                 return false;
             }
 
-            if (iinventory instanceof ISidedInventory)
+            if (iinventory instanceof ISidedInventory isidedinventory)
             {
-                ISidedInventory isidedinventory = (ISidedInventory)iinventory;
                 int[] aint = isidedinventory.getSlotsForFace(enumfacing);
 
                 for (int i = 0; i < aint.length; ++i)
@@ -478,7 +475,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         if (itemstack != null && canExtractItemFromSlot(inventoryIn, itemstack, index, direction))
         {
             ItemStack itemstack1 = itemstack.copy();
-            ItemStack itemstack2 = putStackInInventoryAllSlots(hopper, inventoryIn.decrStackSize(index, 1), (EnumFacing)null);
+            ItemStack itemstack2 = putStackInInventoryAllSlots(hopper, inventoryIn.decrStackSize(index, 1), null);
 
             if (itemstack2 == null || itemstack2.stackSize == 0)
             {
@@ -507,7 +504,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         else
         {
             ItemStack itemstack = itemIn.getEntityItem().copy();
-            ItemStack itemstack1 = putStackInInventoryAllSlots(p_145898_0_, itemstack, (EnumFacing)null);
+            ItemStack itemstack1 = putStackInInventoryAllSlots(p_145898_0_, itemstack, null);
 
             if (itemstack1 != null && itemstack1.stackSize != 0)
             {
@@ -528,9 +525,8 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
      */
     public static ItemStack putStackInInventoryAllSlots(IInventory inventoryIn, ItemStack stack, EnumFacing side)
     {
-        if (inventoryIn instanceof ISidedInventory && side != null)
+        if (inventoryIn instanceof ISidedInventory isidedinventory && side != null)
         {
-            ISidedInventory isidedinventory = (ISidedInventory)inventoryIn;
             int[] aint = isidedinventory.getSlotsForFace(side);
 
             for (int k = 0; k < aint.length && stack != null && stack.stackSize > 0; ++k)
@@ -607,9 +603,8 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 
             if (flag)
             {
-                if (inventoryIn instanceof TileEntityHopper)
+                if (inventoryIn instanceof TileEntityHopper tileentityhopper)
                 {
-                    TileEntityHopper tileentityhopper = (TileEntityHopper)inventoryIn;
 
                     if (tileentityhopper.mayTransfer())
                     {
@@ -632,7 +627,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     private IInventory getInventoryForHopperTransfer()
     {
         EnumFacing enumfacing = BlockHopper.getFacing(this.getBlockMetadata());
-        return getInventoryAtPosition(this.getWorld(), (double)(this.pos.getX() + enumfacing.getFrontOffsetX()), (double)(this.pos.getY() + enumfacing.getFrontOffsetY()), (double)(this.pos.getZ() + enumfacing.getFrontOffsetZ()));
+        return getInventoryAtPosition(this.getWorld(), this.pos.getX() + enumfacing.getFrontOffsetX(), this.pos.getY() + enumfacing.getFrontOffsetY(), this.pos.getZ() + enumfacing.getFrontOffsetZ());
     }
 
     /**
@@ -677,7 +672,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 
         if (iinventory == null)
         {
-            List<Entity> list = worldIn.getEntitiesInAABBexcluding((Entity)null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.selectInventories);
+            List<Entity> list = worldIn.getEntitiesInAABBexcluding(null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.selectInventories);
 
             if (list.size() > 0)
             {

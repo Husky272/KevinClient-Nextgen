@@ -15,7 +15,7 @@ public class LaunchUtils
             {
                 Class oclass = Class.forName("net.minecraft.launchwrapper.Launch");
                 Field field = oclass.getField("blackboard");
-                Map<String, Object> map = (Map)field.get((Object)null);
+                Map<String, Object> map = (Map)field.get(null);
                 Map<String, String> map1 = (Map)map.get("launchArgs");
                 String s = map1.get("--accessToken");
                 String s1 = map1.get("--version");

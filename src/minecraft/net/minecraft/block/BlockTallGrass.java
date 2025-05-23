@@ -174,7 +174,7 @@ public class BlockTallGrass extends BlockBush implements IGrowable
         return Block.EnumOffsetType.XYZ;
     }
 
-    public static enum EnumType implements IStringSerializable
+    public enum EnumType implements IStringSerializable
     {
         DEAD_BUSH(0, "dead_bush"),
         GRASS(1, "tall_grass"),
@@ -184,7 +184,7 @@ public class BlockTallGrass extends BlockBush implements IGrowable
         private final int meta;
         private final String name;
 
-        private EnumType(int meta, String name)
+        EnumType(int meta, String name)
         {
             this.meta = meta;
             this.name = name;

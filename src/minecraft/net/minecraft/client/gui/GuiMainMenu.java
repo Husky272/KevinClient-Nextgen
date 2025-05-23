@@ -47,7 +47,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
     private static final Random RANDOM = new Random();
 
     /** Counts the number of screen updates. */
-    private float updateCounter;
+    private final float updateCounter;
 
     /** The splash message. */
     private String splashText;
@@ -60,7 +60,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
      * Texture allocated for the current viewport of the main menu's panorama background.
      */
     private DynamicTexture viewportTexture;
-    private boolean field_175375_v = true;
+    private final boolean field_175375_v = true;
 
     /**
      * The Object object utilized as a thread lock when performing non thread-safe operations
@@ -136,7 +136,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         }
         catch (IOException var12)
         {
-            ;
         }
         finally
         {
@@ -148,7 +147,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
                 }
                 catch (IOException var111)
                 {
-                    ;
                 }
             }
         }
@@ -378,7 +376,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
                 try
                 {
                     Class<?> oclass = Class.forName("java.awt.Desktop");
-                    Object object = oclass.getMethod("getDesktop").invoke((Object)null);
+                    Object object = oclass.getMethod("getDesktop").invoke(null);
                     oclass.getMethod("browse", URI.class).invoke(object, new URI(this.openGLWarningLink));
                 }
                 catch (Throwable throwable1)
@@ -526,10 +524,10 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
             int l = this.width;
             int i1 = this.height;
             float f1 = (float)(k - i / 2) / 256.0F;
-            worldrenderer.pos((double)l, (double)i1, (double)this.zLevel).tex((double)(0.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            worldrenderer.pos((double)l, 0.0D, (double)this.zLevel).tex((double)(1.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            worldrenderer.pos(0.0D, 0.0D, (double)this.zLevel).tex((double)(1.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            worldrenderer.pos(0.0D, (double)i1, (double)this.zLevel).tex((double)(0.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            worldrenderer.pos(l, i1, this.zLevel).tex(0.0F + f1, 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            worldrenderer.pos(l, 0.0D, this.zLevel).tex(1.0F + f1, 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            worldrenderer.pos(0.0D, 0.0D, this.zLevel).tex(1.0F + f1, 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            worldrenderer.pos(0.0D, i1, this.zLevel).tex(0.0F + f1, 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
         }
 
         tessellator.draw();
@@ -570,10 +568,10 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(0.0D, (double)l, (double)this.zLevel).tex((double)(0.5F - f), (double)(0.5F + f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        worldrenderer.pos((double)k, (double)l, (double)this.zLevel).tex((double)(0.5F - f), (double)(0.5F - f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        worldrenderer.pos((double)k, 0.0D, (double)this.zLevel).tex((double)(0.5F + f), (double)(0.5F - f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        worldrenderer.pos(0.0D, 0.0D, (double)this.zLevel).tex((double)(0.5F + f), (double)(0.5F + f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        worldrenderer.pos(0.0D, l, this.zLevel).tex(0.5F - f, 0.5F + f1).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        worldrenderer.pos(k, l, this.zLevel).tex(0.5F - f, 0.5F - f1).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        worldrenderer.pos(k, 0.0D, this.zLevel).tex(0.5F + f, 0.5F - f1).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        worldrenderer.pos(0.0D, 0.0D, this.zLevel).tex(0.5F + f, 0.5F + f1).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
         tessellator.draw();
     }
 

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
@@ -89,7 +90,7 @@ public class OptiFineClassTransformer implements IClassTransformer, IResourcePro
         else
         {
             abyte = this.getOptiFineResourcePatched(name, this);
-            return abyte != null ? abyte : null;
+            return abyte;
         }
     }
 
@@ -157,7 +158,7 @@ public class OptiFineClassTransformer implements IClassTransformer, IResourcePro
 
                     if (abyte2 != null)
                     {
-                        String s2 = new String(abyte2, "ASCII");
+                        String s2 = new String(abyte2, StandardCharsets.US_ASCII);
                         byte[] abyte3 = HashUtils.getHashMd5(abyte1);
                         String s3 = HashUtils.toHexString(abyte3);
 

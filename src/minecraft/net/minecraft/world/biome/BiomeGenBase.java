@@ -244,7 +244,7 @@ public abstract class BiomeGenBase
 
     public WorldGenAbstractTree genBigTreeChance(Random rand)
     {
-        return (WorldGenAbstractTree)(rand.nextInt(10) == 0 ? this.worldGeneratorBigTree : this.worldGeneratorTrees);
+        return rand.nextInt(10) == 0 ? this.worldGeneratorBigTree : this.worldGeneratorTrees;
     }
 
     /**
@@ -353,7 +353,7 @@ public abstract class BiomeGenBase
      */
     public boolean canRain()
     {
-        return this.isSnowyBiome() ? false : this.enableRain;
+        return !this.isSnowyBiome() && this.enableRain;
     }
 
     /**
@@ -395,7 +395,7 @@ public abstract class BiomeGenBase
     {
         if (pos.getY() > 64)
         {
-            float f = (float)(temperatureNoise.func_151601_a((double)pos.getX() * 1.0D / 8.0D, (double)pos.getZ() * 1.0D / 8.0D) * 4.0D);
+            float f = (float)(temperatureNoise.func_151601_a((double) pos.getX() / 8.0D, (double) pos.getZ() / 8.0D) * 4.0D);
             return this.temperature - (f + (float)pos.getY() - 64.0F) * 0.05F / 30.0F;
         }
         else
@@ -411,15 +411,15 @@ public abstract class BiomeGenBase
 
     public int getGrassColorAtPos(BlockPos pos)
     {
-        double d0 = (double)MathHelper.clamp_float(this.getFloatTemperature(pos), 0.0F, 1.0F);
-        double d1 = (double)MathHelper.clamp_float(this.getFloatRainfall(), 0.0F, 1.0F);
+        double d0 = MathHelper.clamp_float(this.getFloatTemperature(pos), 0.0F, 1.0F);
+        double d1 = MathHelper.clamp_float(this.getFloatRainfall(), 0.0F, 1.0F);
         return ColorizerGrass.getGrassColor(d0, d1);
     }
 
     public int getFoliageColorAtPos(BlockPos pos)
     {
-        double d0 = (double)MathHelper.clamp_float(this.getFloatTemperature(pos), 0.0F, 1.0F);
-        double d1 = (double)MathHelper.clamp_float(this.getFloatRainfall(), 0.0F, 1.0F);
+        double d0 = MathHelper.clamp_float(this.getFloatTemperature(pos), 0.0F, 1.0F);
+        double d1 = MathHelper.clamp_float(this.getFloatRainfall(), 0.0F, 1.0F);
         return ColorizerFoliage.getFoliageColor(d0, d1);
     }
 
@@ -588,7 +588,7 @@ public abstract class BiomeGenBase
      */
     public static BiomeGenBase getBiome(int id)
     {
-        return getBiomeFromBiomeList(id, (BiomeGenBase)null);
+        return getBiomeFromBiomeList(id, null);
     }
 
     public static BiomeGenBase getBiomeFromBiomeList(int biomeId, BiomeGenBase biome)
@@ -693,11 +693,11 @@ public abstract class BiomeGenBase
         }
     }
 
-    public static enum TempCategory
+    public enum TempCategory
     {
         OCEAN,
         COLD,
         MEDIUM,
-        WARM;
+        WARM
     }
 }

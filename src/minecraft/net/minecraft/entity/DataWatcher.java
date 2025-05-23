@@ -28,7 +28,7 @@ public class DataWatcher
 
     /** true if one or more object was changed */
     private boolean objectChanged;
-    private ReadWriteLock lock = new ReentrantReadWriteLock();
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
     public BiomeGenBase spawnBiome = BiomeGenBase.plains;
     public BlockPos spawnPosition = BlockPos.ORIGIN;
 
@@ -68,7 +68,7 @@ public class DataWatcher
      */
     public void addObjectByDataType(int id, int type)
     {
-        DataWatcher.WatchableObject datawatcher$watchableobject = new DataWatcher.WatchableObject(type, id, (Object)null);
+        DataWatcher.WatchableObject datawatcher$watchableobject = new DataWatcher.WatchableObject(type, id, null);
         this.lock.writeLock().lock();
         this.watchedObjects.put(id, datawatcher$watchableobject);
         this.lock.writeLock().unlock();

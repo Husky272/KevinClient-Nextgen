@@ -20,8 +20,8 @@ public class WorldChunkManager
     private GenLayer biomeIndexLayer;
 
     /** The biome list. */
-    private BiomeCache biomeCache = new BiomeCache(this);
-    private List<BiomeGenBase> biomesToSpawnIn;
+    private final BiomeCache biomeCache = new BiomeCache(this);
+    private final List<BiomeGenBase> biomesToSpawnIn;
     private String generatorOptions = "";
 
     protected WorldChunkManager()
@@ -60,7 +60,7 @@ public class WorldChunkManager
      */
     public BiomeGenBase getBiomeGenerator(BlockPos pos)
     {
-        return this.getBiomeGenerator(pos, (BiomeGenBase)null);
+        return this.getBiomeGenerator(pos, null);
     }
 
     public BiomeGenBase getBiomeGenerator(BlockPos pos, BiomeGenBase biomeGenBaseIn)

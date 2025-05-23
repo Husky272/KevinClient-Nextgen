@@ -243,7 +243,7 @@ class TargetHUD : Element() {
                     val onGround = target.onGround
 
                     val nameText = "Name: ${target.name}"
-                    val IDText = "ID: ${target.uniqueID}"
+                    "ID: ${target.uniqueID}"
                     val healthText = "Health: $health/$maxHealth  $healthPercent%"
                     val hurtTimeText = "HurtTime: $hurtTime"
                     val pingText = "Ping: $ping"

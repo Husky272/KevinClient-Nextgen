@@ -9,7 +9,7 @@ public class UserListBansEntry extends BanEntry<GameProfile>
 {
     public UserListBansEntry(GameProfile profile)
     {
-        this(profile, (Date)null, (String)null, (Date)null, (String)null);
+        this(profile, null, null, null, null);
     }
 
     public UserListBansEntry(GameProfile profile, Date startDate, String banner, Date endDate, String banReason)

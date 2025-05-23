@@ -19,7 +19,7 @@ public interface ShapeFill {
 	 * @param y The y coordinate of the point being coloured
 	 * @return The colour that should be applied based on the control points of this gradient
 	 */
-	public Color colorAt(Shape shape, float x, float y);
+    Color colorAt(Shape shape, float x, float y);
 
 	/**
 	 * Get the offset for a vertex at a given location based on it's shape
@@ -29,5 +29,5 @@ public interface ShapeFill {
 	 * @param y The y coordinate of the point being drawn
 	 * @return The offset to apply to this vertex
 	 */
-	public Vector2f getOffsetAt(Shape shape, float x, float y);
+    Vector2f getOffsetAt(Shape shape, float x, float y);
 }

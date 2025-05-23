@@ -15,7 +15,7 @@ public class Transform {
      * |3 4 5|   
      * |6 7 8|   
      */   
-    private float matrixPosition[];   
+    private float[] matrixPosition;
    
     /**   
      * Create and identity transform   
@@ -32,9 +32,7 @@ public class Transform {
      */   
     public Transform(Transform other) {   
     	matrixPosition = new float[9];
-    	for (int i=0;i<9;i++) {
-    		matrixPosition[i] = other.matrixPosition[i];
-    	}
+        System.arraycopy(other.matrixPosition, 0, matrixPosition, 0, 9);
     }   
        
     /**
@@ -54,7 +52,7 @@ public class Transform {
      * @param matrixPosition An array of float[6] to set up a transform   
      * @throws RuntimeException if the array is not of length 6   
      */   
-    public Transform(float matrixPosition[]) {   
+    public Transform(float[] matrixPosition) {
         if(matrixPosition.length != 6) {   
             throw new RuntimeException("The parameter must be a float array of length 6.");   
         }   
@@ -89,9 +87,9 @@ public class Transform {
      * @param numberOfPoints Number of points to be transformed   
      * @throws ArrayIndexOutOfBoundsException if sourceOffset + numberOfPoints * 2 > source.length or the same operation on the destination array   
      */   
-    public void transform(float source[], int sourceOffset, float destination[], int destOffset, int numberOfPoints) {   
+    public void transform(float[] source, int sourceOffset, float[] destination, int destOffset, int numberOfPoints) {
         //TODO performance can be improved by removing the safety to the destination array   
-        float result[] = source == destination ? new float[numberOfPoints * 2] : destination;
+        float[] result = source == destination ? new float[numberOfPoints * 2] : destination;
            
         for(int i=0;i<numberOfPoints * 2;i+=2) {   
             for(int j=0;j<6;j+=3) {   
@@ -151,7 +149,7 @@ public class Transform {
         "][" + matrixPosition[3] + "," + matrixPosition[4] + "," + matrixPosition[5] + 
         "][" + matrixPosition[6] + "," + matrixPosition[7] + "," + matrixPosition[8] + "]]";   
            
-        return result.toString();   
+        return result;
     }   
    
     /**   

@@ -38,7 +38,7 @@ public enum EnumChatFormatting
      * Matches formatting codes that indicate that the client should treat the following text as bold, recolored,
      * obfuscated, etc.
      */
-    private static final Pattern formattingCodePattern = Pattern.compile("(?i)" + String.valueOf('\u00a7') + "[0-9A-FK-OR]");
+    private static final Pattern formattingCodePattern = Pattern.compile("(?i)" + '\u00a7' + "[0-9A-FK-OR]");
 
     /** The name of this color/formatting */
     private final String name;
@@ -61,17 +61,17 @@ public enum EnumChatFormatting
         return p_175745_0_.toLowerCase().replaceAll("[^a-z]", "");
     }
 
-    private EnumChatFormatting(String formattingName, char formattingCodeIn, int colorIndex)
+    EnumChatFormatting(String formattingName, char formattingCodeIn, int colorIndex)
     {
         this(formattingName, formattingCodeIn, false, colorIndex);
     }
 
-    private EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn)
+    EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn)
     {
         this(formattingName, formattingCodeIn, fancyStylingIn, -1);
     }
 
-    private EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn, int colorIndex)
+    EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn, int colorIndex)
     {
         this.name = formattingName;
         this.formattingCode = formattingCodeIn;

@@ -13,6 +13,6 @@ public interface Renderable {
 	 * @param x The x coordinate to draw the artefact at
 	 * @param y The y coordinate to draw the artefact at 
 	 */
-	public void draw(float x, float y);
+    void draw(float x, float y);
 	
 }

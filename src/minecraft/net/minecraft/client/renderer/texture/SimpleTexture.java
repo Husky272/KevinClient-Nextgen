@@ -52,7 +52,7 @@ public class SimpleTexture extends AbstractTexture
                 }
                 catch (RuntimeException runtimeexception1)
                 {
-                    logger.warn("Failed reading metadata of: " + this.textureLocation, (Throwable)runtimeexception1);
+                    logger.warn("Failed reading metadata of: " + this.textureLocation, runtimeexception1);
                 }
             }
 

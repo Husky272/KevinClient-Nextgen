@@ -49,11 +49,11 @@ public class StatisticsFile extends StatFileWriter
             }
             catch (IOException ioexception)
             {
-                logger.error("Couldn't read statistics file " + this.statsFile, (Throwable)ioexception);
+                logger.error("Couldn't read statistics file " + this.statsFile, ioexception);
             }
             catch (JsonParseException jsonparseexception)
             {
-                logger.error("Couldn't parse statistics file " + this.statsFile, (Throwable)jsonparseexception);
+                logger.error("Couldn't parse statistics file " + this.statsFile, jsonparseexception);
             }
         }
     }
@@ -66,7 +66,7 @@ public class StatisticsFile extends StatFileWriter
         }
         catch (IOException ioexception)
         {
-            logger.error("Couldn't save stats", (Throwable)ioexception);
+            logger.error("Couldn't save stats", ioexception);
         }
     }
 
@@ -162,7 +162,7 @@ public class StatisticsFile extends StatFileWriter
                 }
                 else
                 {
-                    logger.warn("Invalid statistic in " + this.statsFile + ": Don't know what " + (String)entry.getKey() + " is");
+                    logger.warn("Invalid statistic in " + this.statsFile + ": Don't know what " + entry.getKey() + " is");
                 }
             }
 
@@ -183,7 +183,7 @@ public class StatisticsFile extends StatFileWriter
 
                 try
                 {
-                    jsonobject1.add("progress", entry.getValue().<IJsonSerializable>getJsonSerializableValue().getSerializableElement());
+                    jsonobject1.add("progress", entry.getValue().getJsonSerializableValue().getSerializableElement());
                 }
                 catch (Throwable throwable)
                 {

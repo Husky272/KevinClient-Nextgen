@@ -9,8 +9,8 @@ import net.optifine.config.MatchBlock;
 
 public class BlockAlias
 {
-    private int blockAliasId;
-    private MatchBlock[] matchBlocks;
+    private final int blockAliasId;
+    private final MatchBlock[] matchBlocks;
 
     public BlockAlias(int blockAliasId, MatchBlock[] matchBlocks)
     {
@@ -74,6 +74,6 @@ public class BlockAlias
 
     public String toString()
     {
-        return "block." + this.blockAliasId + "=" + Config.arrayToString((Object[])this.matchBlocks);
+        return "block." + this.blockAliasId + "=" + Config.arrayToString(this.matchBlocks);
     }
 }

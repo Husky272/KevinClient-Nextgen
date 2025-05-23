@@ -15,5 +15,5 @@ public interface TexCoordGenerator {
 	 * @param y The y coordinate of the vertex being rendered
 	 * @return The texture coordinate to apply
 	 */
-	public Vector2f getCoordFor(float x, float y);
+    Vector2f getCoordFor(float x, float y);
 }

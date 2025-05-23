@@ -8,87 +8,55 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderSpider;
 import net.minecraft.entity.monster.EntitySpider;
 
-public class ModelAdapterSpider extends ModelAdapter
-{
-    public ModelAdapterSpider()
-    {
+public class ModelAdapterSpider extends ModelAdapter {
+    public ModelAdapterSpider() {
         super(EntitySpider.class, "spider", 1.0F);
     }
 
-    protected ModelAdapterSpider(Class entityClass, String name, float shadowSize)
-    {
+    protected ModelAdapterSpider(Class entityClass, String name, float shadowSize) {
         super(entityClass, name, shadowSize);
     }
 
-    public ModelBase makeModel()
-    {
+    public ModelBase makeModel() {
         return new ModelSpider();
     }
 
-    public ModelRenderer getModelRenderer(ModelBase model, String modelPart)
-    {
-        if (!(model instanceof ModelSpider))
-        {
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+        if (!(model instanceof ModelSpider modelspider)) {
             return null;
-        }
-        else
-        {
-            ModelSpider modelspider = (ModelSpider)model;
+        } else {
 
-            if (modelPart.equals("head"))
-            {
+            if (modelPart.equals("head")) {
                 return modelspider.spiderHead;
-            }
-            else if (modelPart.equals("neck"))
-            {
+            } else if (modelPart.equals("neck")) {
                 return modelspider.spiderNeck;
-            }
-            else if (modelPart.equals("body"))
-            {
+            } else if (modelPart.equals("body")) {
                 return modelspider.spiderBody;
-            }
-            else if (modelPart.equals("leg1"))
-            {
+            } else if (modelPart.equals("leg1")) {
                 return modelspider.spiderLeg1;
-            }
-            else if (modelPart.equals("leg2"))
-            {
+            } else if (modelPart.equals("leg2")) {
                 return modelspider.spiderLeg2;
-            }
-            else if (modelPart.equals("leg3"))
-            {
+            } else if (modelPart.equals("leg3")) {
                 return modelspider.spiderLeg3;
-            }
-            else if (modelPart.equals("leg4"))
-            {
+            } else if (modelPart.equals("leg4")) {
                 return modelspider.spiderLeg4;
-            }
-            else if (modelPart.equals("leg5"))
-            {
+            } else if (modelPart.equals("leg5")) {
                 return modelspider.spiderLeg5;
-            }
-            else if (modelPart.equals("leg6"))
-            {
+            } else if (modelPart.equals("leg6")) {
                 return modelspider.spiderLeg6;
-            }
-            else if (modelPart.equals("leg7"))
-            {
+            } else if (modelPart.equals("leg7")) {
                 return modelspider.spiderLeg7;
-            }
-            else
-            {
+            } else {
                 return modelPart.equals("leg8") ? modelspider.spiderLeg8 : null;
             }
         }
     }
 
-    public String[] getModelRendererNames()
-    {
-        return new String[] {"head", "neck", "body", "leg1", "leg2", "leg3", "leg4", "leg5", "leg6", "leg7", "leg8"};
+    public String[] getModelRendererNames() {
+        return new String[]{"head", "neck", "body", "leg1", "leg2", "leg3", "leg4", "leg5", "leg6", "leg7", "leg8"};
     }
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize)
-    {
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
         RenderSpider renderspider = new RenderSpider(rendermanager);
         renderspider.mainModel = modelBase;

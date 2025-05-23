@@ -156,7 +156,7 @@ public class EntityIronGolem extends EntityGolem
         }
         else
         {
-            return cls == EntityCreeper.class ? false : super.canAttackClass(cls);
+            return cls != EntityCreeper.class && super.canAttackClass(cls);
         }
     }
 
@@ -186,7 +186,7 @@ public class EntityIronGolem extends EntityGolem
 
         if (flag)
         {
-            entityIn.motionY += (double)0.4F;
+            entityIn.motionY += 0.4F;
             this.applyEnchantments(this, entityIn);
         }
 
@@ -334,7 +334,7 @@ public class EntityIronGolem extends EntityGolem
 
                             if (p_apply_1_.isSneaking())
                             {
-                                d0 *= (double)0.8F;
+                                d0 *= 0.8F;
                             }
 
                             if (p_apply_1_.isInvisible())
@@ -346,7 +346,7 @@ public class EntityIronGolem extends EntityGolem
                                     f = 0.1F;
                                 }
 
-                                d0 *= (double)(0.7F * f);
+                                d0 *= 0.7F * f;
                             }
 
                             if ((double)p_apply_1_.getDistanceToEntity(creature) > d0)

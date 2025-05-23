@@ -2,11 +2,9 @@ package kevin.persional.milk.utils.render.anims;
 
 import kevin.utils.timer.MSTimer;
 
-;
-
 public class AnimationUtils {
-    private static float defaultSpeed = 0.125f;
-    private MSTimer timerUtil = new MSTimer();
+    private static final float defaultSpeed = 0.125f;
+    private final MSTimer timerUtil = new MSTimer();
 
     public static float calculateCompensation(float target, float current, long delta, double speed) {
         float diff = current - target;

@@ -100,9 +100,9 @@ public class S3CPacketUpdateScore implements Packet<INetHandlerPlayClient>
         return this.action;
     }
 
-    public static enum Action
+    public enum Action
     {
         CHANGE,
-        REMOVE;
+        REMOVE
     }
 }

@@ -71,12 +71,12 @@ public class BlockSapling extends BlockBush implements IGrowable
 
     public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        WorldGenerator worldgenerator = (WorldGenerator)(rand.nextInt(10) == 0 ? new WorldGenBigTree(true) : new WorldGenTrees(true));
+        WorldGenerator worldgenerator = rand.nextInt(10) == 0 ? new WorldGenBigTree(true) : new WorldGenTrees(true);
         int i = 0;
         int j = 0;
         boolean flag = false;
 
-        switch ((BlockPlanks.EnumType)state.getValue(TYPE))
+        switch (state.getValue(TYPE))
         {
             case SPRUCE:
                 label68:

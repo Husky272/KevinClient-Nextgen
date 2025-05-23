@@ -68,13 +68,13 @@ public abstract class AbstractInsnNode {
   protected final void acceptAnnotations(MethodVisitor methodVisitor) {
     if (this.visibleTypeAnnotations != null)
       for (int i = 0, n = this.visibleTypeAnnotations.size(); i < n; i++) {
-        TypeAnnotationNode typeAnnotation = (TypeAnnotationNode)this.visibleTypeAnnotations.get(i);
+        TypeAnnotationNode typeAnnotation = this.visibleTypeAnnotations.get(i);
         typeAnnotation.accept(methodVisitor
             .visitInsnAnnotation(typeAnnotation.typeRef, typeAnnotation.typePath, typeAnnotation.desc, true));
       }  
     if (this.invisibleTypeAnnotations != null)
       for (int i = 0, n = this.invisibleTypeAnnotations.size(); i < n; i++) {
-        TypeAnnotationNode typeAnnotation = (TypeAnnotationNode)this.invisibleTypeAnnotations.get(i);
+        TypeAnnotationNode typeAnnotation = this.invisibleTypeAnnotations.get(i);
         typeAnnotation.accept(methodVisitor
             .visitInsnAnnotation(typeAnnotation.typeRef, typeAnnotation.typePath, typeAnnotation.desc, false));
       }  
@@ -82,12 +82,12 @@ public abstract class AbstractInsnNode {
   
   public abstract AbstractInsnNode clone(Map<LabelNode, LabelNode> paramMap);
   
-  static LabelNode clone(LabelNode label, Map<LabelNode, LabelNode> clonedLabels) { return (LabelNode)clonedLabels.get(label); }
+  static LabelNode clone(LabelNode label, Map<LabelNode, LabelNode> clonedLabels) { return clonedLabels.get(label); }
   
   static LabelNode[] clone(List<LabelNode> labels, Map<LabelNode, LabelNode> clonedLabels) {
     LabelNode[] clones = new LabelNode[labels.size()];
     for (int i = 0, n = clones.length; i < n; i++)
-      clones[i] = (LabelNode)clonedLabels.get(labels.get(i)); 
+      clones[i] = clonedLabels.get(labels.get(i));
     return clones;
   }
   
@@ -95,7 +95,7 @@ public abstract class AbstractInsnNode {
     if (insnNode.visibleTypeAnnotations != null) {
       this.visibleTypeAnnotations = new ArrayList();
       for (int i = 0, n = insnNode.visibleTypeAnnotations.size(); i < n; i++) {
-        TypeAnnotationNode sourceAnnotation = (TypeAnnotationNode)insnNode.visibleTypeAnnotations.get(i);
+        TypeAnnotationNode sourceAnnotation = insnNode.visibleTypeAnnotations.get(i);
         TypeAnnotationNode cloneAnnotation = new TypeAnnotationNode(sourceAnnotation.typeRef, sourceAnnotation.typePath, sourceAnnotation.desc);
         sourceAnnotation.accept(cloneAnnotation);
         this.visibleTypeAnnotations.add(cloneAnnotation);
@@ -104,7 +104,7 @@ public abstract class AbstractInsnNode {
     if (insnNode.invisibleTypeAnnotations != null) {
       this.invisibleTypeAnnotations = new ArrayList();
       for (int i = 0, n = insnNode.invisibleTypeAnnotations.size(); i < n; i++) {
-        TypeAnnotationNode sourceAnnotation = (TypeAnnotationNode)insnNode.invisibleTypeAnnotations.get(i);
+        TypeAnnotationNode sourceAnnotation = insnNode.invisibleTypeAnnotations.get(i);
         TypeAnnotationNode cloneAnnotation = new TypeAnnotationNode(sourceAnnotation.typeRef, sourceAnnotation.typePath, sourceAnnotation.desc);
         sourceAnnotation.accept(cloneAnnotation);
         this.invisibleTypeAnnotations.add(cloneAnnotation);

@@ -35,13 +35,12 @@ public class Vec3i implements Comparable<Vec3i>
         {
             return true;
         }
-        else if (!(p_equals_1_ instanceof Vec3i))
+        else if (!(p_equals_1_ instanceof Vec3i vec3i))
         {
             return false;
         }
         else
         {
-            Vec3i vec3i = (Vec3i)p_equals_1_;
 
             if (this.getX() != vec3i.getX())
             {
@@ -134,7 +133,7 @@ public class Vec3i implements Comparable<Vec3i>
      */
     public double distanceSq(Vec3i to)
     {
-        return this.distanceSq((double)to.getX(), (double)to.getY(), (double)to.getZ());
+        return this.distanceSq(to.getX(), to.getY(), to.getZ());
     }
 
     public String toString()

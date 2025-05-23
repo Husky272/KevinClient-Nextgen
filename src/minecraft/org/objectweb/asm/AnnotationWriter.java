@@ -45,44 +45,36 @@ final class AnnotationWriter extends AnnotationVisitor {
       this.annotation.put12(83, (this.symbolTable.addConstantInteger(((Short)value).shortValue())).index);
     } else if (value instanceof Type) {
       this.annotation.put12(99, this.symbolTable.addConstantUtf8(((Type)value).getDescriptor()));
-    } else if (value instanceof byte[]) {
-      byte[] byteArray = (byte[])value;
-      this.annotation.put12(91, byteArray.length);
+    } else if (value instanceof byte[] byteArray) {
+        this.annotation.put12(91, byteArray.length);
       for (byte byteValue : byteArray)
         this.annotation.put12(66, (this.symbolTable.addConstantInteger(byteValue)).index); 
-    } else if (value instanceof boolean[]) {
-      boolean[] booleanArray = (boolean[])value;
-      this.annotation.put12(91, booleanArray.length);
+    } else if (value instanceof boolean[] booleanArray) {
+        this.annotation.put12(91, booleanArray.length);
       for (boolean booleanValue : booleanArray)
         this.annotation.put12(90, (this.symbolTable.addConstantInteger(booleanValue ? 1 : 0)).index); 
-    } else if (value instanceof short[]) {
-      short[] shortArray = (short[])value;
-      this.annotation.put12(91, shortArray.length);
+    } else if (value instanceof short[] shortArray) {
+        this.annotation.put12(91, shortArray.length);
       for (short shortValue : shortArray)
         this.annotation.put12(83, (this.symbolTable.addConstantInteger(shortValue)).index); 
-    } else if (value instanceof char[]) {
-      char[] charArray = (char[])value;
-      this.annotation.put12(91, charArray.length);
+    } else if (value instanceof char[] charArray) {
+        this.annotation.put12(91, charArray.length);
       for (char charValue : charArray)
         this.annotation.put12(67, (this.symbolTable.addConstantInteger(charValue)).index); 
-    } else if (value instanceof int[]) {
-      int[] intArray = (int[])value;
-      this.annotation.put12(91, intArray.length);
+    } else if (value instanceof int[] intArray) {
+        this.annotation.put12(91, intArray.length);
       for (int intValue : intArray)
         this.annotation.put12(73, (this.symbolTable.addConstantInteger(intValue)).index); 
-    } else if (value instanceof long[]) {
-      long[] longArray = (long[])value;
-      this.annotation.put12(91, longArray.length);
+    } else if (value instanceof long[] longArray) {
+        this.annotation.put12(91, longArray.length);
       for (long longValue : longArray)
         this.annotation.put12(74, (this.symbolTable.addConstantLong(longValue)).index); 
-    } else if (value instanceof float[]) {
-      float[] floatArray = (float[])value;
-      this.annotation.put12(91, floatArray.length);
+    } else if (value instanceof float[] floatArray) {
+        this.annotation.put12(91, floatArray.length);
       for (float floatValue : floatArray)
         this.annotation.put12(70, (this.symbolTable.addConstantFloat(floatValue)).index); 
-    } else if (value instanceof double[]) {
-      double[] doubleArray = (double[])value;
-      this.annotation.put12(91, doubleArray.length);
+    } else if (value instanceof double[] doubleArray) {
+        this.annotation.put12(91, doubleArray.length);
       for (double doubleValue : doubleArray)
         this.annotation.put12(68, (this.symbolTable.addConstantDouble(doubleValue)).index); 
     } else {

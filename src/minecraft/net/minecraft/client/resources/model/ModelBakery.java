@@ -66,15 +66,15 @@ public class ModelBakery
     private final BlockModelShapes blockModelShapes;
     private final FaceBakery faceBakery = new FaceBakery();
     private final ItemModelGenerator itemModelGenerator = new ItemModelGenerator();
-    private RegistrySimple<ModelResourceLocation, IBakedModel> bakedRegistry = new RegistrySimple<>();
+    private final RegistrySimple<ModelResourceLocation, IBakedModel> bakedRegistry = new RegistrySimple<>();
     private static final ModelBlock MODEL_GENERATED = ModelBlock.deserialize("{\"elements\":[{  \"from\": [0, 0, 0],   \"to\": [16, 16, 16],   \"faces\": {       \"down\": {\"uv\": [0, 0, 16, 16], \"texture\":\"\"}   }}]}");
     private static final ModelBlock MODEL_COMPASS = ModelBlock.deserialize("{\"elements\":[{  \"from\": [0, 0, 0],   \"to\": [16, 16, 16],   \"faces\": {       \"down\": {\"uv\": [0, 0, 16, 16], \"texture\":\"\"}   }}]}");
     private static final ModelBlock MODEL_CLOCK = ModelBlock.deserialize("{\"elements\":[{  \"from\": [0, 0, 0],   \"to\": [16, 16, 16],   \"faces\": {       \"down\": {\"uv\": [0, 0, 16, 16], \"texture\":\"\"}   }}]}");
     private static final ModelBlock MODEL_ENTITY = ModelBlock.deserialize("{\"elements\":[{  \"from\": [0, 0, 0],   \"to\": [16, 16, 16],   \"faces\": {       \"down\": {\"uv\": [0, 0, 16, 16], \"texture\":\"\"}   }}]}");
-    private Map<String, ResourceLocation> itemLocations = Maps.newLinkedHashMap();
+    private final Map<String, ResourceLocation> itemLocations = Maps.newLinkedHashMap();
     private final Map<ResourceLocation, ModelBlockDefinition> blockDefinitions = Maps.newHashMap();
-    private Map<Item, List<String>> variantNames = Maps.newIdentityHashMap();
-    private static Map<RegistryDelegate<Item>, Set<String>> customVariantNames = Maps.newHashMap();
+    private final Map<Item, List<String>> variantNames = Maps.newIdentityHashMap();
+    private static final Map<RegistryDelegate<Item>, Set<String>> customVariantNames = Maps.newHashMap();
 
     public ModelBakery(IResourceManager p_i46085_1_, TextureMap p_i46085_2_, BlockModelShapes p_i46085_3_)
     {
@@ -119,12 +119,12 @@ public class ModelBakery
                 }
                 catch (Exception exception1)
                 {
-                    LOGGER.warn("Unable to load variant: " + modelresourcelocation.getVariant() + " from " + modelresourcelocation, (Throwable)exception1);
+                    LOGGER.warn("Unable to load variant: " + modelresourcelocation.getVariant() + " from " + modelresourcelocation, exception1);
                 }
             }
             catch (Exception exception1)
             {
-                LOGGER.warn("Unable to load definition " + modelresourcelocation, (Throwable)exception1);
+                LOGGER.warn("Unable to load definition " + modelresourcelocation, exception1);
             }
         }
     }
@@ -167,7 +167,7 @@ public class ModelBakery
             }
             catch (IOException ioexception)
             {
-                throw new RuntimeException("Encountered an exception when loading model definition of model " + resourcelocation.toString(), ioexception);
+                throw new RuntimeException("Encountered an exception when loading model definition of model " + resourcelocation, ioexception);
             }
 
             modelblockdefinition = new ModelBlockDefinition(list);
@@ -199,7 +199,7 @@ public class ModelBakery
                     }
                     catch (Exception exception1)
                     {
-                        LOGGER.warn("Unable to load block model: '" + resourcelocation + "' for variant: '" + modelresourcelocation + "'", (Throwable)exception1);
+                        LOGGER.warn("Unable to load block model: '" + resourcelocation + "' for variant: '" + modelresourcelocation + "'", exception1);
                     }
                 }
             }
@@ -308,7 +308,7 @@ public class ModelBakery
                     }
                     catch (Exception exception1)
                     {
-                        LOGGER.warn("Unable to load item model: '" + resourcelocation + "' for item: '" + Item.itemRegistry.getNameForObject(item) + "'", (Throwable)exception1);
+                        LOGGER.warn("Unable to load item model: '" + resourcelocation + "' for item: '" + Item.itemRegistry.getNameForObject(item) + "'", exception1);
                     }
                 }
             }

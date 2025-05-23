@@ -31,7 +31,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) ? super.canPlaceBlockAt(worldIn, pos) : false;
+        return World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) && super.canPlaceBlockAt(worldIn, pos);
     }
 
     public boolean canBlockStay(World worldIn, BlockPos pos)

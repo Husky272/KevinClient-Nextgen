@@ -105,7 +105,7 @@ class Notification(private val message: String, val title: String = "", val type
     private var firstY = 0f
     private var animeTime: Long = 0
 
-    public enum class FadeState { IN, STAY, OUT, END }
+    enum class FadeState { IN, STAY, OUT, END }
 
     init {
         stayTimer.reset()
@@ -497,7 +497,7 @@ class Notification(private val message: String, val title: String = "", val type
             firstY = y
             animeTime = System.currentTimeMillis()
         }
-        val c = 16.0 / 48.0
+        16.0 / 48.0
         val long = textLength
         // Draw notification
 
@@ -559,7 +559,7 @@ class Notification(private val message: String, val title: String = "", val type
             firstY = y
             animeTime = System.currentTimeMillis()
         }
-        val c = 16.0 / 48.0
+        16.0 / 48.0
         val long = textLength + KevinClient.fontManager.font35.getStringWidth("[$title] ")
         // Draw notification
         RenderUtils.drawRect(8 + long - x, -y, -x, -20F - y, Color(0, 0, 0, 155).rgb)
@@ -612,7 +612,7 @@ class Notification(private val message: String, val title: String = "", val type
             firstY = y
             animeTime = System.currentTimeMillis()
         }
-        val c = 16.0 / 48.0
+        16.0 / 48.0
         val long = textLength
         // Draw notification
         RenderUtils.drawRect(8 + long - x, -y, -x, -19F - y, Color(0, 0, 0, 173).rgb)

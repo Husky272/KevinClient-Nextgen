@@ -315,32 +315,32 @@ public class ChatStyle
 
             if (this.getColor() != null)
             {
-                stringbuilder.append((Object)this.getColor());
+                stringbuilder.append(this.getColor());
             }
 
             if (this.getBold())
             {
-                stringbuilder.append((Object)EnumChatFormatting.BOLD);
+                stringbuilder.append(EnumChatFormatting.BOLD);
             }
 
             if (this.getItalic())
             {
-                stringbuilder.append((Object)EnumChatFormatting.ITALIC);
+                stringbuilder.append(EnumChatFormatting.ITALIC);
             }
 
             if (this.getUnderlined())
             {
-                stringbuilder.append((Object)EnumChatFormatting.UNDERLINE);
+                stringbuilder.append(EnumChatFormatting.UNDERLINE);
             }
 
             if (this.getObfuscated())
             {
-                stringbuilder.append((Object)EnumChatFormatting.OBFUSCATED);
+                stringbuilder.append(EnumChatFormatting.OBFUSCATED);
             }
 
             if (this.getStrikethrough())
             {
-                stringbuilder.append((Object)EnumChatFormatting.STRIKETHROUGH);
+                stringbuilder.append(EnumChatFormatting.STRIKETHROUGH);
             }
 
             return stringbuilder.toString();
@@ -366,13 +366,12 @@ public class ChatStyle
         {
             return true;
         }
-        else if (!(p_equals_1_ instanceof ChatStyle))
+        else if (!(p_equals_1_ instanceof ChatStyle chatstyle))
         {
             return false;
         }
         else
         {
-            ChatStyle chatstyle = (ChatStyle)p_equals_1_;
 
             if (this.getBold() == chatstyle.getBold() && this.getColor() == chatstyle.getColor() && this.getItalic() == chatstyle.getItalic() && this.getObfuscated() == chatstyle.getObfuscated() && this.getStrikethrough() == chatstyle.getStrikethrough() && this.getUnderlined() == chatstyle.getUnderlined())
             {
@@ -402,15 +401,9 @@ public class ChatStyle
 
                 if (this.getInsertion() != null)
                 {
-                    if (this.getInsertion().equals(chatstyle.getInsertion()))
-                    {
-                        return true;
-                    }
+                    return this.getInsertion().equals(chatstyle.getInsertion());
                 }
-                else if (chatstyle.getInsertion() == null)
-                {
-                    return true;
-                }
+                else return chatstyle.getInsertion() == null;
             }
 
             return false;

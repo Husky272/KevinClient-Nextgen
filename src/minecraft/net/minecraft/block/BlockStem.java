@@ -37,7 +37,7 @@ public class BlockStem extends BlockBush implements IGrowable
         this.setTickRandomly(true);
         float f = 0.125F;
         this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
-        this.setCreativeTab((CreativeTabs)null);
+        this.setCreativeTab(null);
     }
 
     /**
@@ -145,7 +145,7 @@ public class BlockStem extends BlockBush implements IGrowable
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
     {
-        this.maxY = (double)((float)(worldIn.getBlockState(pos).getValue(AGE) * 2 + 2) / 16.0F);
+        this.maxY = (float)(worldIn.getBlockState(pos).getValue(AGE) * 2 + 2) / 16.0F;
         float f = 0.125F;
         this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, (float)this.maxY, 0.5F + f);
     }
@@ -199,7 +199,7 @@ public class BlockStem extends BlockBush implements IGrowable
     public Item getItem(World worldIn, BlockPos pos)
     {
         Item item = this.getSeedItem();
-        return item != null ? item : null;
+        return item;
     }
 
     /**

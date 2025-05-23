@@ -144,7 +144,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     private static Minecraft theMinecraft;
     public PlayerControllerMP playerController;
     private boolean fullscreen;
-    private boolean enableGLErrorChecking = true;
+    private final boolean enableGLErrorChecking = true;
     private boolean hasCrashed;
 
     /** Instance of CrashReport. */
@@ -183,10 +183,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     public int leftClickCounter;
 
     /** Display width */
-    private int tempDisplayWidth;
+    private final int tempDisplayWidth;
 
     /** Display height */
-    private int tempDisplayHeight;
+    private final int tempDisplayHeight;
 
     /** Instance of IntegratedServer. */
     private IntegratedServer theIntegratedServer;
@@ -266,7 +266,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     private MinecraftSessionService sessionService;
     private SkinManager skinManager;
     private final Queue<FutureTask<?>> scheduledTasks = Queues.newArrayDeque();
-    private long field_175615_aJ = 0L;
+    private final long field_175615_aJ = 0L;
     private final Thread mcThread = Thread.currentThread();
     private ModelManager modelManager;
 
@@ -602,7 +602,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage
             }
             catch (InterruptedException var3)
             {
-                ;
             }
 
             if (this.fullscreen)
@@ -701,7 +700,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                     }
                     catch (InterruptedException var2)
                     {
-                        ;
                     }
                 }
             }
@@ -1031,7 +1029,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage
             }
             catch (Throwable var5)
             {
-                ;
             }
 
             this.mcSoundHandler.unloadSounds();
@@ -1250,7 +1247,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         }
         catch (Throwable var3)
         {
-            ;
         }
 
         try
@@ -1260,7 +1256,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         }
         catch (Throwable var2)
         {
-            ;
         }
 
         System.gc();
@@ -1945,27 +1940,22 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
                         if (k == 17 && Keyboard.isKeyDown(61))
                         {
-                            ;
                         }
 
                         if (k == 18 && Keyboard.isKeyDown(61))
                         {
-                            ;
                         }
 
                         if (k == 47 && Keyboard.isKeyDown(61))
                         {
-                            ;
                         }
 
                         if (k == 38 && Keyboard.isKeyDown(61))
                         {
-                            ;
                         }
 
                         if (k == 22 && Keyboard.isKeyDown(61))
                         {
-                            ;
                         }
 
                         if (k == 20 && Keyboard.isKeyDown(61))
@@ -2118,17 +2108,14 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
                     while (this.gameSettings.keyBindAttack.isPressed())
                     {
-                        ;
                     }
 
                     while (this.gameSettings.keyBindUseItem.isPressed())
                     {
-                        ;
                     }
 
                     while (this.gameSettings.keyBindPickBlock.isPressed())
                     {
-                        ;
                     }
                 }
                 else
@@ -2538,9 +2525,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                 {
                     item = Items.lead;
                 }
-                else if (this.objectMouseOver.entityHit instanceof EntityItemFrame)
+                else if (this.objectMouseOver.entityHit instanceof EntityItemFrame entityitemframe)
                 {
-                    EntityItemFrame entityitemframe = (EntityItemFrame)this.objectMouseOver.entityHit;
                     ItemStack itemstack = entityitemframe.getDisplayedItem();
 
                     if (itemstack == null)
@@ -2554,9 +2540,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                         flag1 = true;
                     }
                 }
-                else if (this.objectMouseOver.entityHit instanceof EntityMinecart)
+                else if (this.objectMouseOver.entityHit instanceof EntityMinecart entityminecart)
                 {
-                    EntityMinecart entityminecart = (EntityMinecart)this.objectMouseOver.entityHit;
 
                     switch (entityminecart.getMinecartType())
                     {

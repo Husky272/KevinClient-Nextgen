@@ -37,7 +37,7 @@ import org.newdawn.slick.font.effects.ConfigurableEffect.Value;
  */
 public class EffectUtil {
 	/** A graphics 2D temporary surface to be used when generating effects */
-	static private BufferedImage scratchImage = new BufferedImage(GlyphPage.MAX_GLYPH_SIZE, GlyphPage.MAX_GLYPH_SIZE,
+	static private final BufferedImage scratchImage = new BufferedImage(GlyphPage.MAX_GLYPH_SIZE, GlyphPage.MAX_GLYPH_SIZE,
 		BufferedImage.TYPE_INT_ARGB);
 
 	/**
@@ -155,7 +155,7 @@ public class EffectUtil {
 	 * @return The value selected by the user
 	 */
 	static public Value optionValue (String name, final String currentValue, final String[][] options, final String description) {
-		return new DefaultValue(name, currentValue.toString()) {
+		return new DefaultValue(name, currentValue) {
 			public void showDialog () {
 				int selectedIndex = -1;
 				DefaultComboBoxModel model = new DefaultComboBoxModel();
@@ -175,7 +175,7 @@ public class EffectUtil {
 
 			public String toString () {
 				for (int i = 0; i < options.length; i++)
-					if (getValue(i).equals(value)) return options[i][0].toString();
+					if (getValue(i).equals(value)) return options[i][0];
 				return "";
 			}
 
@@ -262,7 +262,7 @@ public class EffectUtil {
 			if (value == null) {
 				return "";
 			}
-			return value.toString();
+			return value;
 		}
 
 		/**
@@ -287,9 +287,9 @@ public class EffectUtil {
 			dialog.setVisible(true);
 			return dialog.okPressed;
 		}
-	};
+	}
 
-	/**
+    /**
 	 * Provides generic functionality for a dialog to configure a value.
 	 */
 	static private class ValueDialog extends JDialog {

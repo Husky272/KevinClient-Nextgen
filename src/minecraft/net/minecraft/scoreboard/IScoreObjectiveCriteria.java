@@ -26,7 +26,7 @@ public interface IScoreObjectiveCriteria
 
     IScoreObjectiveCriteria.EnumRenderType getRenderType();
 
-    public static enum EnumRenderType
+    enum EnumRenderType
     {
         INTEGER("integer"),
         HEARTS("hearts");
@@ -34,7 +34,7 @@ public interface IScoreObjectiveCriteria
         private static final Map<String, IScoreObjectiveCriteria.EnumRenderType> field_178801_c = Maps.newHashMap();
         private final String field_178798_d;
 
-        private EnumRenderType(String p_i45548_3_)
+        EnumRenderType(String p_i45548_3_)
         {
             this.field_178798_d = p_i45548_3_;
         }

@@ -4,10 +4,10 @@ package javax.jnlp;
 
 public interface BasicService {
 
-  public java.net.URL getCodeBase();
-  public boolean isOffline();
-  public boolean showDocument(java.net.URL url);
-  public boolean isWebBrowserSupported();
+  java.net.URL getCodeBase();
+  boolean isOffline();
+  boolean showDocument(java.net.URL url);
+  boolean isWebBrowserSupported();
 
 }
 

@@ -13,9 +13,8 @@ public class ChatComponentProcessor
     {
         IChatComponent ichatcomponent = null;
 
-        if (component instanceof ChatComponentScore)
+        if (component instanceof ChatComponentScore chatcomponentscore)
         {
-            ChatComponentScore chatcomponentscore = (ChatComponentScore)component;
             String s = chatcomponentscore.getName();
 
             if (PlayerSelector.hasArguments(s))

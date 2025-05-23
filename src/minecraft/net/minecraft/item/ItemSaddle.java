@@ -18,9 +18,8 @@ public class ItemSaddle extends Item
      */
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target)
     {
-        if (target instanceof EntityPig)
+        if (target instanceof EntityPig entitypig)
         {
-            EntityPig entitypig = (EntityPig)target;
 
             if (!entitypig.getSaddled() && !entitypig.isChild())
             {
@@ -43,7 +42,7 @@ public class ItemSaddle extends Item
      */
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
     {
-        this.itemInteractionForEntity(stack, (EntityPlayer)null, target);
+        this.itemInteractionForEntity(stack, null, target);
         return true;
     }
 }

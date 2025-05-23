@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public class EntityAIMate extends EntityAIBase
 {
-    private EntityAnimal theAnimal;
+    private final EntityAnimal theAnimal;
     World theWorld;
     private EntityAnimal targetMate;
 
@@ -89,7 +89,7 @@ public class EntityAIMate extends EntityAIBase
     private EntityAnimal getNearbyMate()
     {
         float f = 8.0F;
-        List<EntityAnimal> list = this.theWorld.getEntitiesWithinAABB(this.theAnimal.getClass(), this.theAnimal.getEntityBoundingBox().expand((double)f, (double)f, (double)f));
+        List<EntityAnimal> list = this.theWorld.getEntitiesWithinAABB(this.theAnimal.getClass(), this.theAnimal.getEntityBoundingBox().expand(f, f, f));
         double d0 = Double.MAX_VALUE;
         EntityAnimal entityanimal = null;
 

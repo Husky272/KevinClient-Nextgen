@@ -26,9 +26,9 @@ public class LocalVariableAnnotationNode extends TypeAnnotationNode {
     Label[] endLabels = new Label[this.end.size()];
     int[] indices = new int[this.index.size()];
     for (int i = 0, n = startLabels.length; i < n; i++) {
-      startLabels[i] = ((LabelNode)this.start.get(i)).getLabel();
-      endLabels[i] = ((LabelNode)this.end.get(i)).getLabel();
-      indices[i] = ((Integer)this.index.get(i)).intValue();
+      startLabels[i] = this.start.get(i).getLabel();
+      endLabels[i] = this.end.get(i).getLabel();
+      indices[i] = this.index.get(i).intValue();
     } 
     accept(methodVisitor
         .visitLocalVariableAnnotation(this.typeRef, this.typePath, startLabels, endLabels, indices, this.desc, visible));

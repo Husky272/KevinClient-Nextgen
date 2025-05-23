@@ -7,9 +7,9 @@ import org.lwjgl.opengl.GL11;
 public class RenderHelper
 {
     /** Float buffer used to set OpenGL material colors */
-    private static FloatBuffer colorBuffer = GLAllocation.createDirectFloatBuffer(16);
-    private static final Vec3 LIGHT0_POS = (new Vec3((double)0.2F, 1.0D, (double) -0.7F)).normalize();
-    private static final Vec3 LIGHT1_POS = (new Vec3((double) -0.2F, 1.0D, (double)0.7F)).normalize();
+    private static final FloatBuffer colorBuffer = GLAllocation.createDirectFloatBuffer(16);
+    private static final Vec3 LIGHT0_POS = (new Vec3(0.2F, 1.0D, -0.7F)).normalize();
+    private static final Vec3 LIGHT1_POS = (new Vec3(-0.2F, 1.0D, 0.7F)).normalize();
 
     /**
      * Disables the OpenGL lighting properties enabled by enableStandardItemLighting

@@ -54,7 +54,7 @@ public class ClassWriter extends ClassVisitor {
   private int compute;
 
   public ClassWriter(int flags) {
-    this((ClassReader)null, flags);
+    this(null, flags);
   }
 
   public ClassWriter(ClassReader classReader, int flags) {

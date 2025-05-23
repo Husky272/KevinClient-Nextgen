@@ -141,12 +141,10 @@ public class CommandReplaceItem extends CommandBase
                 World world = sender.getEntityWorld();
                 TileEntity tileentity = world.getTileEntity(blockpos);
 
-                if (tileentity == null || !(tileentity instanceof IInventory))
+                if (tileentity == null || !(tileentity instanceof IInventory iinventory))
                 {
                     throw new CommandException("commands.replaceitem.noContainer", blockpos.getX(), blockpos.getY(), blockpos.getZ());
                 }
-
-                IInventory iinventory = (IInventory)tileentity;
 
                 if (j >= 0 && j < iinventory.getSizeInventory())
                 {
@@ -175,7 +173,7 @@ public class CommandReplaceItem extends CommandBase
             }
 
             sender.setCommandStat(CommandResultStats.Type.AFFECTED_ITEMS, k);
-            notifyOperators(sender, this, "commands.replaceitem.success", new Object[] {j, k, itemstack == null ? "Air" : itemstack.getChatComponent()});
+            notifyOperators(sender, this, "commands.replaceitem.success", j, k, itemstack == null ? "Air" : itemstack.getChatComponent());
         }
     }
 
@@ -195,7 +193,7 @@ public class CommandReplaceItem extends CommandBase
     {
         if (args.length == 1)
         {
-            return getListOfStringsMatchingLastWord(args, new String[] {"entity", "block"});
+            return getListOfStringsMatchingLastWord(args, "entity", "block");
         }
         else if (args.length == 2 && args[0].equals("entity"))
         {

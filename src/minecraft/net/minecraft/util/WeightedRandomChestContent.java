@@ -12,13 +12,13 @@ import net.minecraft.tileentity.TileEntityDispenser;
 public class WeightedRandomChestContent extends WeightedRandom.Item
 {
     /** The Item/Block ID to generate in the Chest. */
-    private ItemStack theItemId;
+    private final ItemStack theItemId;
 
     /** The minimum stack size of generated item. */
-    private int minStackSize;
+    private final int minStackSize;
 
     /** The maximum stack size of generated item. */
-    private int maxStackSize;
+    private final int maxStackSize;
 
     public WeightedRandomChestContent(Item p_i45311_1_, int p_i45311_2_, int minimumChance, int maximumChance, int itemWeightIn)
     {

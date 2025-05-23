@@ -15,7 +15,7 @@ import net.minecraft.world.gen.ChunkProviderSettings;
 
 public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder
 {
-    private GuiCreateWorld field_175343_i;
+    private final GuiCreateWorld field_175343_i;
     protected String field_175341_a = "Customize World Settings";
     protected String field_175333_f = "Page 1 of 3";
     protected String field_175335_g = "Basic Settings";
@@ -32,7 +32,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
     private boolean field_175338_A = false;
     private int field_175339_B = 0;
     private boolean field_175340_C = false;
-    private Predicate<String> field_175332_D = new Predicate<String>()
+    private final Predicate<String> field_175332_D = new Predicate<String>()
     {
         public boolean apply(String p_apply_1_)
         {
@@ -40,11 +40,11 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
             return p_apply_1_.length() == 0 || f != null && Floats.isFinite(f) && f >= 0.0F;
         }
     };
-    private ChunkProviderSettings.Factory field_175334_E = new ChunkProviderSettings.Factory();
+    private final ChunkProviderSettings.Factory field_175334_E = new ChunkProviderSettings.Factory();
     private ChunkProviderSettings.Factory field_175336_F;
 
     /** A Random instance for this world customization */
-    private Random random = new Random();
+    private final Random random = new Random();
 
     public GuiCustomizeWorldScreen(GuiScreen p_i45521_1_, String p_i45521_2_)
     {
@@ -151,7 +151,6 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
         }
         catch (NumberFormatException var5)
         {
-            ;
         }
 
         float f1 = 0.0F;
@@ -744,9 +743,8 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
                         GuiPageButtonList.GuiEntry guipagebuttonlist$guientry = this.field_175349_r.getListEntry(i);
                         Gui gui = guipagebuttonlist$guientry.func_178022_a();
 
-                        if (gui instanceof GuiButton)
+                        if (gui instanceof GuiButton guibutton)
                         {
-                            GuiButton guibutton = (GuiButton)gui;
 
                             if (guibutton instanceof GuiSlider)
                             {
@@ -761,9 +759,8 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
 
                         Gui gui1 = guipagebuttonlist$guientry.func_178021_b();
 
-                        if (gui1 instanceof GuiButton)
+                        if (gui1 instanceof GuiButton guibutton1)
                         {
-                            GuiButton guibutton1 = (GuiButton)gui1;
 
                             if (guibutton1 instanceof GuiSlider)
                             {
@@ -894,7 +891,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
     {
         Gui gui = this.field_175349_r.func_178056_g();
 
-        if (gui instanceof GuiTextField)
+        if (gui instanceof GuiTextField guitextfield)
         {
             float f = p_175327_1_;
 
@@ -917,7 +914,6 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
                 }
             }
 
-            GuiTextField guitextfield = (GuiTextField)gui;
             Float f1 = Floats.tryParse(guitextfield.getText());
 
             if (f1 != null)
@@ -990,10 +986,10 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             float f2 = 32.0F;
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-            worldrenderer.pos((double)(this.width / 2 - 90), 185.0D, 0.0D).tex(0.0D, 2.65625D).color(64, 64, 64, 64).endVertex();
-            worldrenderer.pos((double)(this.width / 2 + 90), 185.0D, 0.0D).tex(5.625D, 2.65625D).color(64, 64, 64, 64).endVertex();
-            worldrenderer.pos((double)(this.width / 2 + 90), 100.0D, 0.0D).tex(5.625D, 0.0D).color(64, 64, 64, 64).endVertex();
-            worldrenderer.pos((double)(this.width / 2 - 90), 100.0D, 0.0D).tex(0.0D, 0.0D).color(64, 64, 64, 64).endVertex();
+            worldrenderer.pos(this.width / 2 - 90, 185.0D, 0.0D).tex(0.0D, 2.65625D).color(64, 64, 64, 64).endVertex();
+            worldrenderer.pos(this.width / 2 + 90, 185.0D, 0.0D).tex(5.625D, 2.65625D).color(64, 64, 64, 64).endVertex();
+            worldrenderer.pos(this.width / 2 + 90, 100.0D, 0.0D).tex(5.625D, 0.0D).color(64, 64, 64, 64).endVertex();
+            worldrenderer.pos(this.width / 2 - 90, 100.0D, 0.0D).tex(0.0D, 0.0D).color(64, 64, 64, 64).endVertex();
             tessellator.draw();
             this.drawCenteredString(this.fontRendererObj, I18n.format("createWorld.customize.custom.confirmTitle"), this.width / 2, 105, 16777215);
             this.drawCenteredString(this.fontRendererObj, I18n.format("createWorld.customize.custom.confirm1"), this.width / 2, 125, 16777215);

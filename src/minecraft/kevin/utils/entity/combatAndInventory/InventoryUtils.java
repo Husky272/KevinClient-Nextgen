@@ -105,8 +105,7 @@ public final class InventoryUtils extends MinecraftInstance {
         for (int i = 36; i < 45; i++) {
             final ItemStack itemStack = mc.thePlayer.inventoryContainer.getSlot(i).getStack();
 
-            if (itemStack != null && itemStack.getItem() instanceof ItemBlock && itemStack.stackSize > 0) {
-                final ItemBlock itemBlock = (ItemBlock) itemStack.getItem();
+            if (itemStack != null && itemStack.getItem() instanceof ItemBlock itemBlock && itemStack.stackSize > 0) {
                 final Block block = itemBlock.getBlock();
 
                 if (block.isFullCube() && !BLOCK_BLACKLIST.contains(block)
@@ -118,8 +117,7 @@ public final class InventoryUtils extends MinecraftInstance {
         for (int i = 36; i < 45; i++) {
             final ItemStack itemStack = mc.thePlayer.inventoryContainer.getSlot(i).getStack();
 
-            if (itemStack != null && itemStack.getItem() instanceof ItemBlock && itemStack.stackSize > 0) {
-                final ItemBlock itemBlock = (ItemBlock) itemStack.getItem();
+            if (itemStack != null && itemStack.getItem() instanceof ItemBlock itemBlock && itemStack.stackSize > 0) {
                 final Block block = itemBlock.getBlock();
 
                 if (!BLOCK_BLACKLIST.contains(block) && !(block instanceof BlockBush))

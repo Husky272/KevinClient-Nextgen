@@ -8,10 +8,10 @@ import net.minecraft.world.World;
 
 public class EntityAIBeg extends EntityAIBase
 {
-    private EntityWolf theWolf;
+    private final EntityWolf theWolf;
     private EntityPlayer thePlayer;
-    private World worldObject;
-    private float minPlayerDistance;
+    private final World worldObject;
+    private final float minPlayerDistance;
     private int timeoutCounter;
 
     public EntityAIBeg(EntityWolf wolf, float minDistance)
@@ -27,8 +27,8 @@ public class EntityAIBeg extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        this.thePlayer = this.worldObject.getClosestPlayerToEntity(this.theWolf, (double)this.minPlayerDistance);
-        return this.thePlayer == null ? false : this.hasPlayerGotBoneInHand(this.thePlayer);
+        this.thePlayer = this.worldObject.getClosestPlayerToEntity(this.theWolf, this.minPlayerDistance);
+        return this.thePlayer != null && this.hasPlayerGotBoneInHand(this.thePlayer);
     }
 
     /**
@@ -90,7 +90,7 @@ public class EntityAIBeg extends EntityAIBase
         }
         else
         {
-            return !this.theWolf.isTamed() && itemstack.getItem() == Items.bone ? true : this.theWolf.isBreedingItem(itemstack);
+            return !this.theWolf.isTamed() && itemstack.getItem() == Items.bone || this.theWolf.isBreedingItem(itemstack);
         }
     }
 }

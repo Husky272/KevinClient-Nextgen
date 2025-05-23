@@ -29,7 +29,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
     private final Map<ResourceLocation, ITextureObject> mapTextureObjects = Maps.newHashMap();
     private final List<ITickable> listTickables = Lists.newArrayList();
     private final Map<String, Integer> mapTextureCounters = Maps.newHashMap();
-    private IResourceManager theResourceManager;
+    private final IResourceManager theResourceManager;
 
     public TextureManager(IResourceManager resourceManager)
     {
@@ -94,7 +94,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
         }
         catch (IOException ioexception)
         {
-            logger.warn("Failed to load texture: " + textureLocation, (Throwable)ioexception);
+            logger.warn("Failed to load texture: " + textureLocation, ioexception);
             textureObj = TextureUtil.missingTexture;
             this.mapTextureObjects.put(textureLocation, textureObj);
             flag = false;
@@ -184,9 +184,8 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
             {
                 ITextureObject itextureobject = this.mapTextureObjects.get(resourcelocation);
 
-                if (itextureobject instanceof AbstractTexture)
+                if (itextureobject instanceof AbstractTexture abstracttexture)
                 {
-                    AbstractTexture abstracttexture = (AbstractTexture)itextureobject;
                     abstracttexture.deleteGlTexture();
                 }
 

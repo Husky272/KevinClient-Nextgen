@@ -72,11 +72,11 @@ public class CustomLoadingScreens
 
         Set<Integer> set = map.keySet();
         Integer[] ainteger = set.toArray(new Integer[set.size()]);
-        Arrays.sort((Object[])ainteger);
+        Arrays.sort(ainteger);
 
         if (ainteger.length <= 0)
         {
-            return new ImmutablePair<>((CustomLoadingScreen[])null, 0);
+            return new ImmutablePair<>(null, 0);
         }
         else
         {

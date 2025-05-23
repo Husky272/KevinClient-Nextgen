@@ -116,9 +116,8 @@ public class EnchantmentProtection extends Enchantment
      */
     public boolean canApplyTogether(Enchantment ench)
     {
-        if (ench instanceof EnchantmentProtection)
+        if (ench instanceof EnchantmentProtection enchantmentprotection)
         {
-            EnchantmentProtection enchantmentprotection = (EnchantmentProtection)ench;
 
             if (enchantmentprotection.protectionType == this.protectionType)
             {
@@ -156,7 +155,7 @@ public class EnchantmentProtection extends Enchantment
 
         if (i > 0)
         {
-            p_92092_1_ -= (double)MathHelper.floor_double(p_92092_1_ * (double)((float)i * 0.15F));
+            p_92092_1_ -= MathHelper.floor_double(p_92092_1_ * (double)((float)i * 0.15F));
         }
 
         return p_92092_1_;

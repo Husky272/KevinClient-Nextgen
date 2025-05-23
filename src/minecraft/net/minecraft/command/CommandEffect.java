@@ -56,7 +56,7 @@ public class CommandEffect extends CommandBase
                 else
                 {
                     entitylivingbase.clearActivePotions();
-                    notifyOperators(sender, this, "commands.effect.success.removed.all", new Object[] {entitylivingbase.getName()});
+                    notifyOperators(sender, this, "commands.effect.success.removed.all", entitylivingbase.getName());
                 }
             }
             else
@@ -110,23 +110,18 @@ public class CommandEffect extends CommandBase
                         k = parseInt(args[3], 0, 255);
                     }
 
-                    boolean flag = true;
-
-                    if (args.length >= 5 && "true".equalsIgnoreCase(args[4]))
-                    {
-                        flag = false;
-                    }
+                    boolean flag = args.length < 5 || !"true".equalsIgnoreCase(args[4]);
 
                     if (l > 0)
                     {
                         PotionEffect potioneffect = new PotionEffect(i, j, k, false, flag);
                         entitylivingbase.addPotionEffect(potioneffect);
-                        notifyOperators(sender, this, "commands.effect.success", new Object[] {new ChatComponentTranslation(potioneffect.getEffectName()), i, k, entitylivingbase.getName(), l});
+                        notifyOperators(sender, this, "commands.effect.success", new ChatComponentTranslation(potioneffect.getEffectName()), i, k, entitylivingbase.getName(), l);
                     }
                     else if (entitylivingbase.isPotionActive(i))
                     {
                         entitylivingbase.removePotionEffect(i);
-                        notifyOperators(sender, this, "commands.effect.success.removed", new Object[] {new ChatComponentTranslation(potion1.getName()), entitylivingbase.getName()});
+                        notifyOperators(sender, this, "commands.effect.success.removed", new ChatComponentTranslation(potion1.getName()), entitylivingbase.getName());
                     }
                     else
                     {
@@ -153,7 +148,7 @@ public class CommandEffect extends CommandBase
         }
         else
         {
-            return args.length == 5 ? getListOfStringsMatchingLastWord(args, new String[] {"true", "false"}) : null;
+            return args.length == 5 ? getListOfStringsMatchingLastWord(args, "true", "false") : null;
         }
     }
 

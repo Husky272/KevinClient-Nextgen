@@ -207,7 +207,6 @@ public class BroadcastController
 
             if (ErrorCode.failed(p_getArchivingStateCallback_1_))
             {
-                ;
             }
         }
         public void runCommercialCallback(ErrorCode p_runCommercialCallback_1_)
@@ -506,7 +505,7 @@ public class BroadcastController
 
             if (!this.func_152853_a(errorcode))
             {
-                this.theStream.setStreamCallbacks((IStreamCallbacks)null);
+                this.theStream.setStreamCallbacks(null);
                 this.errorCode = errorcode;
                 return false;
             }
@@ -516,7 +515,7 @@ public class BroadcastController
 
                 if (!this.func_152853_a(errorcode))
                 {
-                    this.theStream.setStreamCallbacks((IStreamCallbacks)null);
+                    this.theStream.setStreamCallbacks(null);
                     this.streamCore.shutdown();
                     this.errorCode = errorcode;
                     return false;
@@ -551,8 +550,8 @@ public class BroadcastController
         {
             this.field_152878_n = true;
             this.func_152845_C();
-            this.theStream.setStreamCallbacks((IStreamCallbacks)null);
-            this.theStream.setStatCallbacks((IStatCallbacks)null);
+            this.theStream.setStreamCallbacks(null);
+            this.theStream.setStatCallbacks(null);
             ErrorCode errorcode = this.streamCore.shutdown();
             this.func_152853_a(errorcode);
             this.field_152876_l = false;
@@ -858,7 +857,7 @@ public class BroadcastController
 
         if (i == -1L)
         {
-            this.logError(String.format("Error in SendStartSpanMetaData\n"));
+            this.logError("Error in SendStartSpanMetaData\n");
         }
 
         return i;
@@ -1037,7 +1036,7 @@ public class BroadcastController
 
             if (!framebuffer.getIsValid())
             {
-                this.logError(String.format("Error while allocating frame buffer"));
+                this.logError("Error while allocating frame buffer");
                 return false;
             }
 
@@ -1064,7 +1063,7 @@ public class BroadcastController
     {
         if (this.field_152875_k.size() == 0)
         {
-            this.logError(String.format("Out of free buffers, this should never happen"));
+            this.logError("Out of free buffers, this should never happen");
             return null;
         }
         else
@@ -1198,7 +1197,7 @@ public class BroadcastController
         void func_152892_c(ErrorCode p_152892_1_);
     }
 
-    public static enum BroadcastState
+    public enum BroadcastState
     {
         Uninitialized,
         Initialized,
@@ -1213,6 +1212,6 @@ public class BroadcastController
         Broadcasting,
         Stopping,
         Paused,
-        IngestTesting;
+        IngestTesting
     }
 }

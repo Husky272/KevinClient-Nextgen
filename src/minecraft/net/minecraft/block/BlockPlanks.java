@@ -71,7 +71,7 @@ public class BlockPlanks extends Block
         return new BlockState(this, VARIANT);
     }
 
-    public static enum EnumType implements IStringSerializable
+    public enum EnumType implements IStringSerializable
     {
         OAK(0, "oak", MapColor.woodColor),
         SPRUCE(1, "spruce", MapColor.obsidianColor),
@@ -86,12 +86,12 @@ public class BlockPlanks extends Block
         private final String unlocalizedName;
         private final MapColor mapColor;
 
-        private EnumType(int p_i46388_3_, String p_i46388_4_, MapColor p_i46388_5_)
+        EnumType(int p_i46388_3_, String p_i46388_4_, MapColor p_i46388_5_)
         {
             this(p_i46388_3_, p_i46388_4_, p_i46388_4_, p_i46388_5_);
         }
 
-        private EnumType(int p_i46389_3_, String p_i46389_4_, String p_i46389_5_, MapColor p_i46389_6_)
+        EnumType(int p_i46389_3_, String p_i46389_4_, String p_i46389_5_, MapColor p_i46389_6_)
         {
             this.meta = p_i46389_3_;
             this.name = p_i46389_4_;

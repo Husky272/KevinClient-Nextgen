@@ -37,7 +37,6 @@ public class BlockCactus extends Block
 
             for (i = 1; worldIn.getBlockState(pos.down(i)).getBlock() == this; ++i)
             {
-                ;
             }
 
             if (i < 3)
@@ -62,13 +61,13 @@ public class BlockCactus extends Block
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
     {
         float f = 0.0625F;
-        return new AxisAlignedBB((double)((float)pos.getX() + f), (double)pos.getY(), (double)((float)pos.getZ() + f), (double)((float)(pos.getX() + 1) - f), (double)((float)(pos.getY() + 1) - f), (double)((float)(pos.getZ() + 1) - f));
+        return new AxisAlignedBB((float)pos.getX() + f, pos.getY(), (float)pos.getZ() + f, (float)(pos.getX() + 1) - f, (float)(pos.getY() + 1) - f, (float)(pos.getZ() + 1) - f);
     }
 
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos)
     {
         float f = 0.0625F;
-        return new AxisAlignedBB((double)((float)pos.getX() + f), (double)pos.getY(), (double)((float)pos.getZ() + f), (double)((float)(pos.getX() + 1) - f), (double)(pos.getY() + 1), (double)((float)(pos.getZ() + 1) - f));
+        return new AxisAlignedBB((float)pos.getX() + f, pos.getY(), (float)pos.getZ() + f, (float)(pos.getX() + 1) - f, pos.getY() + 1, (float)(pos.getZ() + 1) - f);
     }
 
     public boolean isFullCube()
@@ -86,7 +85,7 @@ public class BlockCactus extends Block
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return super.canPlaceBlockAt(worldIn, pos) ? this.canBlockStay(worldIn, pos) : false;
+        return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos);
     }
 
     /**

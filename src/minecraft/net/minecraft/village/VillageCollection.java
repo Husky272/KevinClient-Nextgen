@@ -101,7 +101,7 @@ public class VillageCollection extends WorldSavedData
     public Village getNearestVillage(BlockPos doorBlock, int radius)
     {
         Village village = null;
-        double d0 = (double)Float.MAX_VALUE;
+        double d0 = Float.MAX_VALUE;
 
         for (Village village1 : this.villageList)
         {

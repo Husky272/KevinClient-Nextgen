@@ -63,7 +63,7 @@ public class CommandDebug extends CommandBase
                     throw new WrongUsageException("commands.debug.usage");
                 }
 
-                notifyOperators(sender, this, "commands.debug.start", new Object[0]);
+                notifyOperators(sender, this, "commands.debug.start");
                 MinecraftServer.getServer().enableProfiling();
                 this.profileStartTime = MinecraftServer.getCurrentTimeMillis();
                 this.profileStartTick = MinecraftServer.getServer().getTickCounter();
@@ -91,7 +91,7 @@ public class CommandDebug extends CommandBase
                 int l = j - this.profileStartTick;
                 this.saveProfileResults(k, l);
                 MinecraftServer.getServer().theProfiler.profilingEnabled = false;
-                notifyOperators(sender, this, "commands.debug.stop", new Object[] {(float)k / 1000.0F, l});
+                notifyOperators(sender, this, "commands.debug.stop", (float)k / 1000.0F, l);
             }
         }
     }
@@ -128,7 +128,7 @@ public class CommandDebug extends CommandBase
         stringbuilder.append("\n\n");
         stringbuilder.append("Time span: ").append(timeSpan).append(" ms\n");
         stringbuilder.append("Tick span: ").append(tickSpan).append(" ticks\n");
-        stringbuilder.append("// This is approximately ").append(String.format("%.2f", (float)tickSpan / ((float)timeSpan / 1000.0F))).append(" ticks per second. It should be ").append((int)20).append(" ticks per second\n\n");
+        stringbuilder.append("// This is approximately ").append(String.format("%.2f", (float)tickSpan / ((float)timeSpan / 1000.0F))).append(" ticks per second. It should be ").append(20).append(" ticks per second\n\n");
         stringbuilder.append("--- BEGIN PROFILE DUMP ---\n\n");
         this.func_147202_a(0, "root", stringbuilder);
         stringbuilder.append("--- END PROFILE DUMP ---\n\n");
@@ -161,7 +161,7 @@ public class CommandDebug extends CommandBase
                     }
                     catch (Exception exception)
                     {
-                        stringBuilder.append("[[ EXCEPTION ").append((Object)exception).append(" ]]");
+                        stringBuilder.append("[[ EXCEPTION ").append(exception).append(" ]]");
                     }
                 }
             }
@@ -187,6 +187,6 @@ public class CommandDebug extends CommandBase
 
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
     {
-        return args.length == 1 ? getListOfStringsMatchingLastWord(args, new String[] {"start", "stop"}) : null;
+        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "start", "stop") : null;
     }
 }

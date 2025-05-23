@@ -30,14 +30,12 @@ public class JSONWriter
 
     public void writeObject(Object obj) throws IOException
     {
-        if (obj instanceof JSONObject)
+        if (obj instanceof JSONObject jsonobject)
         {
-            JSONObject jsonobject = (JSONObject)obj;
             this.writeJsonObject(jsonobject);
         }
-        else if (obj instanceof JSONArray)
+        else if (obj instanceof JSONArray jsonarray)
         {
-            JSONArray jsonarray = (JSONArray)obj;
             this.writeJsonArray(jsonarray);
         }
         else

@@ -444,12 +444,12 @@ public class Block
 
     protected final void setBlockBounds(float minX, float minY, float minZ, float maxX, float maxY, float maxZ)
     {
-        this.minX = (double)minX;
-        this.minY = (double)minY;
-        this.minZ = (double)minZ;
-        this.maxX = (double)maxX;
-        this.maxY = (double)maxY;
-        this.maxZ = (double)maxZ;
+        this.minX = minX;
+        this.minY = minY;
+        this.minZ = minZ;
+        this.maxX = maxX;
+        this.maxY = maxY;
+        this.maxZ = maxZ;
     }
 
     public int getMixedBrightnessForBlock(IBlockAccess worldIn, BlockPos pos)
@@ -752,8 +752,8 @@ public class Block
     public MovingObjectPosition collisionRayTrace(World worldIn, BlockPos pos, Vec3 start, Vec3 end)
     {
         this.setBlockBoundsBasedOnState(worldIn, pos);
-        start = start.addVector((double)(-pos.getX()), (double)(-pos.getY()), (double)(-pos.getZ()));
-        end = end.addVector((double)(-pos.getX()), (double)(-pos.getY()), (double)(-pos.getZ()));
+        start = start.addVector(-pos.getX(), -pos.getY(), -pos.getZ());
+        end = end.addVector(-pos.getX(), -pos.getY(), -pos.getZ());
         Vec3 vec3 = start.getIntermediateWithXValue(end, this.minX);
         Vec3 vec31 = start.getIntermediateWithXValue(end, this.maxX);
         Vec3 vec32 = start.getIntermediateWithYValue(end, this.minY);
@@ -861,7 +861,7 @@ public class Block
                 enumfacing = EnumFacing.SOUTH;
             }
 
-            return new MovingObjectPosition(vec36.addVector((double)pos.getX(), (double)pos.getY(), (double)pos.getZ()), enumfacing, pos);
+            return new MovingObjectPosition(vec36.addVector(pos.getX(), pos.getY(), pos.getZ()), enumfacing, pos);
         }
     }
 
@@ -1291,7 +1291,7 @@ public class Block
     {
         if (blockIn != null && other != null)
         {
-            return blockIn == other ? true : blockIn.isAssociatedBlock(other);
+            return blockIn == other || blockIn.isAssociatedBlock(other);
         }
         else
         {
@@ -1609,11 +1609,11 @@ public class Block
         registerBlock(id, new ResourceLocation(textualID), block_);
     }
 
-    public static enum EnumOffsetType
+    public enum EnumOffsetType
     {
         NONE,
         XZ,
-        XYZ;
+        XYZ
     }
 
     public static class SoundType

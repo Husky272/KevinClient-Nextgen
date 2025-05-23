@@ -55,13 +55,12 @@ public final class EntitySelectors
             {
                 return false;
             }
-            else if (!(p_apply_1_ instanceof EntityLivingBase))
+            else if (!(p_apply_1_ instanceof EntityLivingBase entitylivingbase))
             {
                 return false;
             }
             else
             {
-                EntityLivingBase entitylivingbase = (EntityLivingBase)p_apply_1_;
 
                 if (entitylivingbase.getEquipmentInSlot(EntityLiving.getArmorPosition(this.armor)) != null)
                 {

@@ -49,7 +49,7 @@ public class BehaviorDefaultDispenseItem implements IBehaviorDispenseItem
         EntityItem entityitem = new EntityItem(worldIn, d0, d1, d2, stack);
         double d3 = worldIn.rand.nextDouble() * 0.1D + 0.2D;
         entityitem.motionX = (double)facing.getFrontOffsetX() * d3;
-        entityitem.motionY = (double)0.2F;
+        entityitem.motionY = 0.2F;
         entityitem.motionZ = (double)facing.getFrontOffsetZ() * d3;
         entityitem.motionX += worldIn.rand.nextGaussian() * (double)0.0075F * (double)speed;
         entityitem.motionY += worldIn.rand.nextGaussian() * (double)0.0075F * (double)speed;

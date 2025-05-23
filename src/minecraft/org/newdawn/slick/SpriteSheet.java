@@ -13,9 +13,9 @@ import org.newdawn.slick.opengl.Texture;
  */
 public class SpriteSheet extends Image {
 	/** The width of a single element in pixels */
-	private int tw;
+	private final int tw;
 	/** The height of a single element in pixels  */
-	private int th;
+	private final int th;
 	/** The margin of the image */
 	private int margin = 0;    
 	/** Subimages */
@@ -23,7 +23,7 @@ public class SpriteSheet extends Image {
 	/** The spacing between tiles */
 	private int spacing;
 	/** The target image for this sheet */
-	private Image target;
+	private final Image target;
 
 	/**
 	 * Create a new sprite sheet based on a image location

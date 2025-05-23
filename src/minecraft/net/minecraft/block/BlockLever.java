@@ -154,7 +154,7 @@ public class BlockLever extends Block
     {
         float f = 0.1875F;
 
-        switch ((BlockLever.EnumOrientation)worldIn.getBlockState(pos).getValue(FACING))
+        switch (worldIn.getBlockState(pos).getValue(FACING))
         {
             case EAST:
                 this.setBlockBounds(0.0F, 0.2F, 0.5F - f, f * 2.0F, 0.8F, 0.5F + f);
@@ -269,7 +269,7 @@ public class BlockLever extends Block
         return new BlockState(this, FACING, POWERED);
     }
 
-    public static enum EnumOrientation implements IStringSerializable
+    public enum EnumOrientation implements IStringSerializable
     {
         DOWN_X(0, "down_x", EnumFacing.DOWN),
         EAST(1, "east", EnumFacing.EAST),
@@ -285,7 +285,7 @@ public class BlockLever extends Block
         private final String name;
         private final EnumFacing facing;
 
-        private EnumOrientation(int meta, String name, EnumFacing facing)
+        EnumOrientation(int meta, String name, EnumFacing facing)
         {
             this.meta = meta;
             this.name = name;

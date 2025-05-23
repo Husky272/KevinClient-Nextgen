@@ -26,8 +26,8 @@ import net.minecraft.world.gen.structure.StructureOceanMonument;
 
 public class ChunkProviderFlat implements IChunkProvider
 {
-    private World worldObj;
-    private Random random;
+    private final World worldObj;
+    private final Random random;
     private final IBlockState[] cachedBlockIDs = new IBlockState[256];
     private final FlatGeneratorInfo flatWorldGenInfo;
     private final List<MapGenStructure> structureGenerators = Lists.newArrayList();
@@ -119,7 +119,7 @@ public class ChunkProviderFlat implements IChunkProvider
         }
 
         worldIn.setSeaLevel(j);
-        this.hasDecoration = flag ? false : this.flatWorldGenInfo.getWorldFeatures().containsKey("decoration");
+        this.hasDecoration = !flag && this.flatWorldGenInfo.getWorldFeatures().containsKey("decoration");
     }
 
     /**
@@ -152,7 +152,7 @@ public class ChunkProviderFlat implements IChunkProvider
         }
 
         Chunk chunk = new Chunk(this.worldObj, chunkprimer, x, z);
-        BiomeGenBase[] abiomegenbase = this.worldObj.getWorldChunkManager().loadBlockGeneratorData((BiomeGenBase[])null, x * 16, z * 16, 16, 16);
+        BiomeGenBase[] abiomegenbase = this.worldObj.getWorldChunkManager().loadBlockGeneratorData(null, x * 16, z * 16, 16, 16);
         byte[] abyte = chunk.getBiomeArray();
 
         for (int l = 0; l < abyte.length; ++l)
@@ -304,7 +304,7 @@ public class ChunkProviderFlat implements IChunkProvider
     {
         for (MapGenStructure mapgenstructure : this.structureGenerators)
         {
-            mapgenstructure.generate(this, this.worldObj, x, z, (ChunkPrimer)null);
+            mapgenstructure.generate(this, this.worldObj, x, z, null);
         }
     }
 

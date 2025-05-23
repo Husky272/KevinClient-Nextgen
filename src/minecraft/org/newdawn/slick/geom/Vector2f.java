@@ -9,7 +9,7 @@ import org.newdawn.slick.util.FastTrig;
  * 
  * @author Kevin Glass
  */
-public strictfp class Vector2f implements Serializable {
+public class Vector2f implements Serializable {
 	/** The version ID for this class  */
 	private static final long serialVersionUID = 1339934L;
 	
@@ -372,7 +372,7 @@ public strictfp class Vector2f implements Serializable {
 		float dx = other.getX() - getX();
 		float dy = other.getY() - getY();
 		
-		return (float) (dx*dx)+(dy*dy);
+		return (dx*dx) +(dy*dy);
 	}
 	
 	/**
@@ -386,9 +386,8 @@ public strictfp class Vector2f implements Serializable {
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	public boolean equals(Object other) {
-		if (other instanceof Vector2f) {
-			Vector2f o = ((Vector2f) other);
-			return (o.x == x) && (o.y == y);
+		if (other instanceof Vector2f o) {
+            return (o.x == x) && (o.y == y);
 		}
 		
 		return false;

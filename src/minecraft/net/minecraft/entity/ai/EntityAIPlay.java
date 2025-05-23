@@ -7,9 +7,9 @@ import net.minecraft.util.Vec3;
 
 public class EntityAIPlay extends EntityAIBase
 {
-    private EntityVillager villagerObj;
+    private final EntityVillager villagerObj;
     private EntityLivingBase targetVillager;
-    private double speed;
+    private final double speed;
     private int playTime;
 
     public EntityAIPlay(EntityVillager villagerObjIn, double speedIn)
@@ -55,10 +55,7 @@ public class EntityAIPlay extends EntityAIBase
             {
                 Vec3 vec3 = RandomPositionGenerator.findRandomTarget(this.villagerObj, 16, 3);
 
-                if (vec3 == null)
-                {
-                    return false;
-                }
+                return vec3 != null;
             }
 
             return true;

@@ -153,9 +153,9 @@ public class BlockSponge extends Block
 
             if (enumfacing != EnumFacing.UP && !World.doesBlockHaveSolidTopSurface(worldIn, pos.offset(enumfacing)))
             {
-                double d0 = (double)pos.getX();
-                double d1 = (double)pos.getY();
-                double d2 = (double)pos.getZ();
+                double d0 = pos.getX();
+                double d1 = pos.getY();
+                double d2 = pos.getZ();
 
                 if (enumfacing == EnumFacing.DOWN)
                 {

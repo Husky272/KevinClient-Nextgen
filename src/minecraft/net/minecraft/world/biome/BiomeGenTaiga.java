@@ -24,7 +24,7 @@ public class BiomeGenTaiga extends BiomeGenBase
     private static final WorldGenMegaPineTree field_150641_aE = new WorldGenMegaPineTree(false, false);
     private static final WorldGenMegaPineTree field_150642_aF = new WorldGenMegaPineTree(false, true);
     private static final WorldGenBlockBlob field_150643_aG = new WorldGenBlockBlob(Blocks.mossy_cobblestone, 0);
-    private int field_150644_aH;
+    private final int field_150644_aH;
 
     public BiomeGenTaiga(int id, int p_i45385_2_)
     {
@@ -54,7 +54,7 @@ public class BiomeGenTaiga extends BiomeGenBase
         }
         else
         {
-            return (WorldGenAbstractTree)(rand.nextInt(3) == 0 ? field_150639_aC : field_150640_aD);
+            return rand.nextInt(3) == 0 ? field_150639_aC : field_150640_aD;
         }
     }
 

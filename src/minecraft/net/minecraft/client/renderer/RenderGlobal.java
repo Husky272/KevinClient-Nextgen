@@ -883,9 +883,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 BlockPos blockpos = destroyblockprogress.getPosition();
                 TileEntity tileentity2 = this.theWorld.getTileEntity(blockpos);
 
-                if (tileentity2 instanceof TileEntityChest)
+                if (tileentity2 instanceof TileEntityChest tileentitychest)
                 {
-                    TileEntityChest tileentitychest = (TileEntityChest)tileentity2;
 
                     if (tileentitychest.adjacentChestXNeg != null)
                     {
@@ -1157,7 +1156,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
             while (!deque.isEmpty())
             {
-                RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation5 = (RenderGlobal.ContainerLocalRenderInformation)deque.poll();
+                RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation5 = deque.poll();
                 RenderChunk renderchunk6 = renderglobal$containerlocalrenderinformation5.renderChunk;
                 EnumFacing enumfacing1 = renderglobal$containerlocalrenderinformation5.facing;
                 CompiledChunk compiledchunk = renderchunk6.compiledChunk;
