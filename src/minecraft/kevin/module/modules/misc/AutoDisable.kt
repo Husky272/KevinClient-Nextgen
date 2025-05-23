@@ -25,7 +25,7 @@ import kevin.module.BooleanValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.ChatUtils
-import kevin.utils.MSTimer
+import kevin.utils.timer.MSTimer
 import net.minecraft.network.play.server.S08PacketPlayerPosLook
 import java.util.*
 

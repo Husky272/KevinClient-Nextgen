@@ -13,7 +13,7 @@ import kevin.module.modules.movement.Sprint;
 import kevin.module.modules.render.*;
 import kevin.module.modules.world.Scaffold;
 import kevin.utils.Rotation;
-import kevin.utils.RotationUtils;
+import kevin.utils.entity.rotation.RotationUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;

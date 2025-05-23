@@ -16,7 +16,7 @@ package kevin.module.modules.player.nofalls.spartan
 
 import kevin.event.UpdateEvent
 import kevin.module.modules.player.nofalls.NoFallMode
-import kevin.utils.TickTimer
+import kevin.utils.timer.TickTimer
 import net.minecraft.network.play.client.C03PacketPlayer
 
 object SpartanNoFall : NoFallMode("Spartan") {

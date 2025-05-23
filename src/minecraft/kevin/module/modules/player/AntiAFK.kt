@@ -17,7 +17,7 @@ package kevin.module.modules.player
 import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.module.*
-import kevin.utils.MSTimer
+import kevin.utils.timer.MSTimer
 import kevin.utils.RandomUtils
 import net.minecraft.client.settings.GameSettings
 import net.minecraft.client.settings.KeyBinding

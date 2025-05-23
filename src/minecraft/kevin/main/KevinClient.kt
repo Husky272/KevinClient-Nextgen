@@ -38,8 +38,8 @@ import kevin.persional.milk.guis.clickgui.MilkClickGui
 import kevin.plugin.PluginManager
 import kevin.script.ScriptLoader
 import kevin.skin.SkinManager
-import kevin.utils.CombatManager
-import kevin.utils.RotationUtils
+import kevin.utils.entity.combatAndInventory.CombatManager
+import kevin.utils.entity.rotation.RotationUtils
 import kevin.via.ViaVersion
 import net.minecraft.client.Minecraft.logger
 import org.lwjgl.opengl.Display
@@ -48,7 +48,6 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import org.lwjgl.Sys
 
 object KevinClient {
     var name = "Kevin"
@@ -128,7 +127,7 @@ object KevinClient {
 
         combatManager = CombatManager()
 
-        ViaVersion.start()
+        ViaVersion.INSTANCE.start()
         PluginManager.initialize()
 
         Display.setTitle("Minecraft 1.8.9 | " + name + ' ' + version + " | LWJGL Version " + lwjglversion)

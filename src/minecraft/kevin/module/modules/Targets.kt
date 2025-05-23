@@ -20,7 +20,7 @@ import kevin.event.TickEvent
 import kevin.module.BooleanValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
-import kevin.utils.EntityUtils
+import kevin.utils.entity.combatAndInventory.EntityUtils
 
 class Targets : ClientModule("Targets","Targets",ModuleCategory.COMBAT) {
     private val players = BooleanValue("Players",true)

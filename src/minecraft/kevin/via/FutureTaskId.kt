@@ -22,9 +22,11 @@ class FutureTaskId(`object`: Future<*>) : PlatformTask<Future<*>> {
     override fun getObject(): Future<*> {
         return `object`
     }
+
     override fun cancel() {
         `object`.cancel(false)
     }
+
     init {
         this.`object` = `object`
     }

@@ -4,13 +4,10 @@ import java.io.IOException;
 import java.util.List;
 
 import kevin.altmanager.AltManager;
-import kevin.utils.ServerUtils;
-import kevin.utils.StringUtils;
-import kevin.utils.UserUtils;
+import kevin.utils.connection.ServerUtils;
 import kevin.utils.proxy.ProxyManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.IChatComponent;
-import net.minecraft.util.Session;
 
 public class GuiDisconnected extends GuiScreen
 {

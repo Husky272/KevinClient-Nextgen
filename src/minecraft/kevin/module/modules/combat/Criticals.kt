@@ -21,7 +21,7 @@ import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.modules.movement.Fly
 import kevin.utils.ChatUtils
-import kevin.utils.MSTimer
+import kevin.utils.timer.MSTimer
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.server.S0BPacketAnimation

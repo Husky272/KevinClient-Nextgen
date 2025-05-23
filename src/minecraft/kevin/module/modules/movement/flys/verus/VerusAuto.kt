@@ -24,7 +24,7 @@ import kevin.module.ListValue
 import kevin.module.modules.exploit.Disabler
 import kevin.module.modules.movement.flys.FlyMode
 import kevin.utils.MovementUtils
-import kevin.utils.TickTimer
+import kevin.utils.timer.TickTimer
 import net.minecraft.block.BlockAir
 import net.minecraft.client.settings.GameSettings
 import net.minecraft.init.Blocks

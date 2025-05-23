@@ -21,7 +21,7 @@ import kevin.event.UpdateEvent
 import kevin.module.BooleanValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
-import kevin.utils.MSTimer
+import kevin.utils.timer.MSTimer
 import net.minecraft.network.play.client.C09PacketHeldItemChange
 import net.minecraft.util.BlockPos
 

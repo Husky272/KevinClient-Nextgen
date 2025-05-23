@@ -2,7 +2,7 @@ package kevin.module.modules.movement.flys.other
 
 import kevin.event.*
 import kevin.module.modules.movement.flys.FlyMode
-import kevin.utils.MSTimer
+import kevin.utils.timer.MSTimer
 import kevin.utils.MovementUtils
 import kevin.utils.RandomUtils
 import net.minecraft.network.play.client.C03PacketPlayer

@@ -25,14 +25,20 @@ import com.viaversion.viaversion.protocols.protocol1_9to1_8.providers.MovementTr
 
 class ProviderLoader : ViaPlatformLoader {
     override fun load() {
-        Via.getManager().providers.use(MovementTransmitterProvider::class.java, BungeeMovementTransmitter())
-        Via.getManager().providers.use(VersionProvider::class.java, object : BaseVersionProvider() {
-            @Throws(Exception::class)
-            override fun getClosestServerProtocol(connection: UserConnection): Int {
-                return if (connection.isClientSide) ViaVersion.nowVersion
-                else super.getClosestServerProtocol(connection)
-            }
-        })
+        Via.getManager().providers.use(
+            MovementTransmitterProvider::class.java,
+            BungeeMovementTransmitter()
+        )
+        Via.getManager().providers.use(
+            VersionProvider::class.java,
+            object : BaseVersionProvider() {
+                @Throws(Exception::class)
+                override fun getClosestServerProtocol(connection: UserConnection): Int {
+                    return if (connection.isClientSide) ViaVersion.nowVersion
+                    else super.getClosestServerProtocol(connection)
+                }
+            })
     }
+
     override fun unload() {}
 }

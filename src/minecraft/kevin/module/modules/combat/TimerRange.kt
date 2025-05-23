@@ -21,6 +21,9 @@ import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.ClientModule
 import kevin.utils.*
+import kevin.utils.entity.combatAndInventory.EntityUtils
+import kevin.utils.entity.rotation.RaycastUtils
+import kevin.utils.entity.getNearestPointBB
 import net.minecraft.client.entity.EntityOtherPlayerMP
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -118,7 +121,11 @@ object TimerRange: ClientModule("TimerRange", "Make you walk to target faster", 
             val box2 = getNearestPointBB(
                 predictEyes,
                 if (entity is EntityOtherPlayerMP) {
-                    entityBox.offset(entity.otherPlayerMPX - entity.posX, entity.otherPlayerMPY - entity.posY, entity.otherPlayerMPZ - entity.posZ)
+                    entityBox.offset(
+                        entity.otherPlayerMPX - entity.posX,
+                        entity.otherPlayerMPY - entity.posY,
+                        entity.otherPlayerMPZ - entity.posZ
+                    )
                 } else entityBox
             )
             val range = box.distanceTo(vecEyes)
@@ -163,7 +170,11 @@ object TimerRange: ClientModule("TimerRange", "Make you walk to target faster", 
                     val box2 = getNearestPointBB(
                         afterEyes,
                         if (entity is EntityOtherPlayerMP) {
-                            entityBox.offset(entity.otherPlayerMPX - entity.posX, entity.otherPlayerMPY - entity.posY, entity.otherPlayerMPZ - entity.posZ)
+                            entityBox.offset(
+                                entity.otherPlayerMPX - entity.posX,
+                                entity.otherPlayerMPY - entity.posY,
+                                entity.otherPlayerMPZ - entity.posZ
+                            )
                         } else entityBox
                     )
                     val range = box.distanceTo(vecEyes)

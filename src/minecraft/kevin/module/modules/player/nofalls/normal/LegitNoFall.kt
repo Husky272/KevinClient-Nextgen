@@ -16,7 +16,7 @@ package kevin.module.modules.player.nofalls.normal
 
 import kevin.event.UpdateEvent
 import kevin.module.modules.player.nofalls.NoFallMode
-import kevin.utils.FallingPlayer
+import kevin.utils.entity.FallingPlayer
 
 object LegitNoFall: NoFallMode("Legit") {
     var working = false

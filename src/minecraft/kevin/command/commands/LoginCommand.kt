@@ -23,8 +23,8 @@ import com.thealtening.ReflectionUtility
 import kevin.command.ICommand
 import kevin.utils.ChatUtils
 import kevin.utils.MinecraftInstance
-import kevin.utils.ServerUtils
-import kevin.utils.UserUtils.getUUID
+import kevin.utils.connection.ServerUtils
+import kevin.utils.entity.UserUtils.getUUID
 import net.minecraft.client.Minecraft
 import net.minecraft.util.Session
 import java.net.MalformedURLException

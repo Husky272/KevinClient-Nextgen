@@ -21,8 +21,8 @@ import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.modules.player.InventoryCleaner
 import kevin.utils.ItemUtils
-import kevin.utils.MSTimer
-import kevin.utils.TimeUtils
+import kevin.utils.timer.MSTimer
+import kevin.utils.timer.TimeUtils
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.Slot
 import net.minecraft.item.Item
@@ -31,7 +31,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.network.play.server.S30PacketWindowItems
 import net.minecraft.util.ResourceLocation
 import kotlin.random.Random
-import kevin.utils.InventoryUtils.MouseSimulator.SHARED as mouseSimulator
+import kevin.utils.entity.combatAndInventory.InventoryUtils.MouseSimulator.SHARED as mouseSimulator
 
 class ChestStealer : ClientModule("ChestStealer", "Automatically steals all items from a chest.", ModuleCategory.WORLD) {
 

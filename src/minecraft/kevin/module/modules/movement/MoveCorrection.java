@@ -8,7 +8,7 @@ import kevin.module.ModuleCategory;
 import net.minecraft.util.MathHelper;
 import org.lwjgl.input.Keyboard;
 
-import static kevin.utils.RotationUtils.targetRotation;
+import static kevin.utils.entity.rotation.RotationUtils.targetRotation;
 
 public class MoveCorrection extends ClientModule {
     private final BooleanValue fixSprintSwitch = new BooleanValue("FixSprint", true);

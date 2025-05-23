@@ -6,7 +6,7 @@ import kevin.module.modules.render.Rotations;
 import kevin.module.modules.world.Breaker;
 import kevin.module.modules.world.Nuker;
 import kevin.module.modules.world.Scaffold;
-import kevin.utils.RotationUtils;
+import kevin.utils.entity.rotation.RotationUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;

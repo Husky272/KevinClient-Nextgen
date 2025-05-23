@@ -25,6 +25,7 @@ import kevin.module.modules.movement.flys.vanilla.*
 import kevin.module.modules.movement.flys.verus.VerusAuto
 import kevin.module.modules.movement.flys.vulcan.*
 import kevin.utils.*
+import kevin.utils.timer.MSTimer
 import org.lwjgl.input.Keyboard
 import java.awt.Color
 

@@ -22,7 +22,7 @@ import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.module.modules.combat.KillAura
 import kevin.utils.RandomUtils
-import kevin.utils.RotationUtils
+import kevin.utils.entity.rotation.RotationUtils
 import net.minecraft.network.play.client.C03PacketPlayer
 
 object Rotations : ClientModule("Rotations", "Allows you to see server-sided head and body rotations.", ModuleCategory.RENDER) {

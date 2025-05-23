@@ -17,6 +17,7 @@ package kevin.font
 import kevin.event.EventTarget
 import kevin.event.Listenable
 import kevin.event.TickEvent
+import net.minecraft.client.Minecraft
 
 object FontGC : Listenable {
     private val activeFontRenderers: ArrayList<GameFontRenderer> = ArrayList()
@@ -32,7 +33,7 @@ object FontGC : Listenable {
             activeFontRenderers.forEach { it.collectGarbage() }
             gcTicks = 0
             } catch (exception: Throwable){
-                net.minecraft.client.Minecraft.logger.warn("[FontGC] $exception")
+                Minecraft.logger.warn("[FontGC] $exception")
             }
         }
     }

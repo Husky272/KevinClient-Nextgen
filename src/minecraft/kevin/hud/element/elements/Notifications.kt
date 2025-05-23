@@ -14,16 +14,18 @@
  */
 package kevin.hud.element.elements
 
-import blur.GaussianBlur
-import kevin.persional.milk.utils.StencilUtil
 import kevin.hud.designer.GuiHudDesigner
+import kevin.utils.render.blur.GaussianBlur
+import kevin.persional.milk.utils.StencilUtil
 import kevin.hud.element.*
+import kevin.hud.element.elements.Notification.*
 import kevin.hud.element.elements.ConnectNotificationType.*
 import kevin.hud.element.elements.Notification.FadeState.*
+import kevin.hud.element.elements.PacketCounter.*
 import kevin.main.KevinClient
 import kevin.module.ListValue
 import kevin.utils.AnimationUtils
-import kevin.utils.MSTimer
+import kevin.utils.timer.MSTimer
 import kevin.utils.RenderUtils
 import org.lwjgl.opengl.GL11
 import java.awt.Color
@@ -103,7 +105,7 @@ class Notification(private val message: String, val title: String = "", val type
     private var firstY = 0f
     private var animeTime: Long = 0
 
-    enum class FadeState { IN, STAY, OUT, END }
+    public enum class FadeState { IN, STAY, OUT, END }
 
     init {
         stayTimer.reset()

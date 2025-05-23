@@ -20,7 +20,7 @@ import kevin.event.MoveEvent
 import kevin.event.UpdateEvent
 import kevin.module.*
 import kevin.utils.BlockUtils.getBlock
-import kevin.utils.MSTimer
+import kevin.utils.timer.MSTimer
 import kevin.utils.MovementUtils
 import net.minecraft.block.Block
 import net.minecraft.block.BlockPane
@@ -30,8 +30,6 @@ import net.minecraft.network.play.client.C0APacketAnimation
 import net.minecraft.util.BlockPos
 import net.minecraft.util.EnumFacing
 import java.util.*
-import kotlin.math.cos
-import kotlin.math.sin
 
 class HighJump : ClientModule("HighJump", "Allows you to jump higher.", ModuleCategory.MOVEMENT) {
     private val heightValue = FloatValue("Height", 2f, 0.5f, 5f)

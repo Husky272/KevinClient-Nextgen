@@ -27,6 +27,20 @@ import kevin.module.modules.player.Blink
 import kevin.module.modules.render.FreeCam
 import kevin.module.modules.world.Scaffold
 import kevin.utils.*
+import kevin.utils.entity.combatAndInventory.EntityUtils
+import kevin.utils.entity.rotation.RaycastUtils
+import kevin.utils.entity.rotation.RotationUtils
+import kevin.utils.entity.getDistanceToEntityBox
+import kevin.utils.entity.getLookDistanceToEntityBox
+import kevin.utils.entity.getNearestPointBB
+import kevin.utils.entity.getPing
+import kevin.utils.entity.isAnimal
+import kevin.utils.entity.isClientFriend
+import kevin.utils.entity.isMob
+import kevin.utils.timer.MSTimer
+import kevin.utils.timer.TickTimer
+import kevin.utils.timer.TimeList
+import kevin.utils.timer.TimeUtils
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
@@ -914,7 +928,10 @@ class KillAura : ClientModule("KillAura","Automatically attacks targets around y
                             )
                         }
                         lastHitVec
-                    } else getNearestPointBB(mc.thePlayer.getPositionEyes(1f), entity.entityBoundingBox),
+                    } else getNearestPointBB(
+                        mc.thePlayer.getPositionEyes(1f),
+                        entity.entityBoundingBox
+                    ),
                     predictValue.get(),
                     mc.thePlayer!!.getDistanceToEntityBox(entity) < throughWallsRangeValue.get(),
                     discoverRangeValue.get()

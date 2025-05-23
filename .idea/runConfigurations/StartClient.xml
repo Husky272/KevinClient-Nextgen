@@ -4,6 +4,7 @@
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="MAIN_CLASS_NAME" value="Start" />
     <module name="KevinClient-Nextgen" />
+    <option name="PROGRAM_PARAMETERS" value="--assetsDir ../assets/" />
     <option name="VM_PARAMETERS" value="-Djava.library.path=../versions/1.8.9/1.8.9-natives/" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/run/Game/" />
     <method v="2">

@@ -24,8 +24,8 @@ import kevin.utils.BlockUtils
 import kevin.utils.BlockUtils.getCenterDistance
 import kevin.utils.BlockUtils.searchBlocks
 import kevin.utils.RenderUtils
-import kevin.utils.RotationUtils
-import kevin.utils.TickTimer
+import kevin.utils.entity.rotation.RotationUtils
+import kevin.utils.timer.TickTimer
 import net.minecraft.block.Block
 import net.minecraft.block.BlockAir
 import net.minecraft.block.BlockLiquid

@@ -16,10 +16,9 @@ package kevin.font.renderer
 
 import kevin.font.FontGC
 import kevin.font.renderer.renderers.glyph.GlyphFontRenderer
-import kevin.font.renderer.renderers.vector.VectorFontRenderer
+import kevin.font.renderers.vector.VectorFontRenderer
 import kevin.main.KevinClient
 import kevin.utils.RenderUtils
-import kevin.utils.StringUtils
 import kevin.utils.fixToChar
 import org.lwjgl.opengl.GL11
 import java.awt.Canvas

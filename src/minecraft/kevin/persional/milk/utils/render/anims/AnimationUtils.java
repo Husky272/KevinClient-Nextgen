@@ -1,6 +1,6 @@
 package kevin.persional.milk.utils.render.anims;
 
-import kevin.utils.MSTimer;
+import kevin.utils.timer.MSTimer;
 
 ;
 

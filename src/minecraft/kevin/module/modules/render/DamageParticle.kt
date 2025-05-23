@@ -21,15 +21,13 @@ import kevin.event.WorldEvent
 import kevin.module.IntegerValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
-import kevin.utils.EntityUtils
+import kevin.utils.entity.combatAndInventory.EntityUtils
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.EntityLivingBase
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 import java.math.BigDecimal
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 import kotlin.math.abs
 
 class DamageParticle : ClientModule("DamageParticle","Damage particle",ModuleCategory.RENDER) {

@@ -15,13 +15,16 @@
 package client.script
 
 import kevin.event.*
-import kevin.module.Module
+import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.module.Value
 import net.minecraft.client.Minecraft
-import org.python.core.*
+import org.python.core.Py
+import org.python.core.PyDictionary
+import org.python.core.PyObject
+import org.python.core.PyString
 
-class ScriptModule(name: String, description: String, category: ModuleCategory, moduleObject: PyObject) : Module(name,description,category) {
+class ScriptModule(name: String, description: String, category: ModuleCategory, moduleObject: PyObject) : ClientModule(name,description,category) {
     private val events = HashMap<String, PyObject>()
     private val _values = LinkedHashMap<String, Value<*>>()
     private var _tag: String? = null
@@ -41,16 +44,24 @@ class ScriptModule(name: String, description: String, category: ModuleCategory, 
             _tag = moduleObject["tag"] as String
     }
 
-    override val values: List<Value<*>>
-        get() {
-            return _values.values.toList()
-        }
+// kotlin编译器死全家
+// kotlin编译器死全家
+// kotlin编译器死全家
+// kotlin编译器死全家
+// kotlin编译器死全家
 
-    override var tag: String?
-        get() = _tag
-        set(value) {
-            _tag = value
-        }
+//    val values: List<Value<*>>
+//        get() {
+//            return _values.values.toList()
+//        }
+
+    public fun setTag(v: String){
+        _tag = v;
+    }
+
+    public override fun getTag(): String? {
+        return _tag;
+    }
 
     fun on(event: String,pyObject: PyObject){
         events[event] = pyObject

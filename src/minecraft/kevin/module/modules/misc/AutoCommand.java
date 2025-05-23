@@ -12,7 +12,7 @@ import kevin.hud.element.elements.Notification;
 import kevin.main.KevinClient;
 import kevin.module.*;
 import kevin.utils.ChatUtils;
-import kevin.utils.MSTimer;
+import kevin.utils.timer.MSTimer;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.network.play.server.S02PacketChat;
 import net.minecraft.util.IChatComponent;

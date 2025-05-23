@@ -24,10 +24,10 @@ import kevin.command.commands.LoginUtils
 import kevin.file.FileManager
 import kevin.main.KevinClient
 import kevin.font.RainbowFontShader
-import kevin.utils.MSTimer
+import kevin.utils.timer.MSTimer
 import kevin.utils.RenderUtils
 import kevin.utils.StringUtils
-import kevin.utils.UserUtils
+import kevin.utils.entity.UserUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.GuiMainMenu

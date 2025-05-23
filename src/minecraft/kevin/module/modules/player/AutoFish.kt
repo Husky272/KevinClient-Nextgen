@@ -18,7 +18,7 @@ import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
-import kevin.utils.MSTimer
+import kevin.utils.timer.MSTimer
 import net.minecraft.item.ItemFishingRod
 
 class AutoFish : ClientModule("AutoFish", "Automatically catches fish when using a rod.", ModuleCategory.PLAYER) {

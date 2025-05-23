@@ -14,9 +14,15 @@ import kevin.utils.PacketUtils.sendPacket
 import kevin.utils.RandomUtils.nextFloat
 import kevin.utils.RenderUtils.drawBlockBox
 import kevin.utils.RenderUtils.drawBorderedRect
-import kevin.utils.RotationUtils.*
-import kevin.utils.TimeUtils.randomClickDelay
-import kevin.utils.TimeUtils.randomDelay
+import kevin.utils.entity.rotation.RotationUtils.*
+import kevin.utils.entity.combatAndInventory.InventoryUtils
+import kevin.utils.entity.eyesLoc
+import kevin.utils.entity.interpolatedPosition
+import kevin.utils.timer.DelayTimer
+import kevin.utils.timer.TimeUtils.randomClickDelay
+import kevin.utils.timer.TimeUtils.randomDelay
+import kevin.utils.timer.MSTimer
+import kevin.utils.timer.TickDelayTimer
 import net.minecraft.block.BlockBush
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager.resetColor
@@ -199,10 +205,13 @@ object BlockFly : ClientModule("BlockFly", "Scaffold skidded from lb b85", 0, Mo
     private var zitterDirection = false
 
     // Delay
-    private val delayTimer = object : DelayTimer(minDelayValue, maxDelayValue, MSTimer()) {
+    private val delayTimer = object : DelayTimer(minDelayValue, maxDelayValue,
+        MSTimer()
+    ) {
         override fun hasTimePassed() = !placeDelayValue.get() || super.hasTimePassed()
     }
-    private val zitterTickTimer = TickDelayTimer(minZitterTicksValue, maxZitterTicksValue)
+    private val zitterTickTimer =
+        TickDelayTimer(minZitterTicksValue, maxZitterTicksValue)
 
     // Eagle
     private var placedBlocksWithoutEagle = 0

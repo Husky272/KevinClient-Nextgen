@@ -17,17 +17,13 @@ package kevin.font
 import com.google.gson.*
 import kevin.main.KevinClient
 import kevin.utils.MinecraftInstance
-import net.minecraft.client.Minecraft
 import net.minecraft.client.Minecraft.*
 import net.minecraft.client.gui.FontRenderer
-import org.lwjgl.opengl.Display
 import java.awt.Font
 import java.io.*
 import java.nio.file.Files
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
-import kotlin.streams.toList
 
 class FontManager : MinecraftInstance(){
     private val CUSTOM_FONT_RENDERERS: HashMap<FontInfo, GameFontRenderer> = HashMap()

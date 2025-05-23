@@ -27,7 +27,7 @@ import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.module.modules.combat.KillAura
 import kevin.utils.MinecraftInstance
-import kevin.utils.RotationUtils
+import kevin.utils.entity.rotation.RotationUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.AbstractClientPlayer
 import net.minecraft.client.model.ModelBase
@@ -51,9 +51,7 @@ import java.util.*
 import java.util.function.Function
 import javax.imageio.ImageIO
 import javax.script.Invocable
-import javax.script.ScriptEngine
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 import kotlin.math.cos
 
 object Renderer : ClientModule("Renderer","Allows you to modify some renderings.",ModuleCategory.RENDER) {

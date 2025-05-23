@@ -21,6 +21,12 @@ import kevin.module.modules.movement.MoveCorrection
 import kevin.utils.*
 import kevin.utils.BlockUtils.canBeClicked
 import kevin.utils.BlockUtils.isReplaceable
+import kevin.utils.entity.combatAndInventory.InventoryUtils
+import kevin.utils.entity.rotation.RotationUtils
+import kevin.utils.entity.eyesLoc
+import kevin.utils.timer.MSTimer
+import kevin.utils.timer.TickTimer
+import kevin.utils.timer.TimeUtils
 import net.minecraft.block.*
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
@@ -96,7 +102,8 @@ class Scaffold : ClientModule("Scaffold", "Automatically places blocks beneath y
     val canSprint: Boolean
         get() = MovementUtils.isMoving && when (sprintValue.get().lowercase()) {
             "always", "dynamic" -> true
-            "smart" -> mc.thePlayer.moveForward > 0.3 && (lockRotation == null || (abs(RotationUtils.getAngleDifference(lockRotation!!.yaw, mc.thePlayer.rotationYaw)) < 90))
+            "smart" -> mc.thePlayer.moveForward > 0.3 && (lockRotation == null || (abs(
+                RotationUtils.getAngleDifference(lockRotation!!.yaw, mc.thePlayer.rotationYaw)) < 90))
             "onground" -> mc.thePlayer.onGround
             "offground" -> !mc.thePlayer.onGround
             else -> false

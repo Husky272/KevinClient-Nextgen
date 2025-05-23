@@ -20,9 +20,9 @@ import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.main.KevinClient
 import kevin.module.*
-import kevin.utils.MSTimer
+import kevin.utils.timer.MSTimer
 import kevin.utils.RandomUtils
-import kevin.utils.TimeUtils
+import kevin.utils.timer.TimeUtils
 import java.io.File
 import java.io.FileFilter
 import java.util.*

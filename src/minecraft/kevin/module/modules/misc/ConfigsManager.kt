@@ -28,7 +28,7 @@ import kevin.module.ListValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.ChatUtils
-import kevin.utils.ServerUtils
+import kevin.utils.connection.ServerUtils
 import kevin.utils.proxy.ProxyManager
 import net.minecraft.client.Minecraft
 import java.net.Proxy

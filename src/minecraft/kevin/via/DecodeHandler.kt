@@ -22,8 +22,7 @@ import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandler
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.MessageToMessageDecoder
-import kevin.via.CommonTransformer.compress
-import kevin.via.CommonTransformer.decompress
+import kevin.via.CommonTransformer.INSTANCE
 import java.lang.reflect.InvocationTargetException
 
 @ChannelHandler.Sharable
@@ -32,7 +31,11 @@ class DecodeHandler(val info: UserConnection) : MessageToMessageDecoder<ByteBuf?
     private var skipDoubleTransform = false
 
     @Throws(Exception::class)
-    override fun decode(ctx: ChannelHandlerContext?, p1: ByteBuf?, out: MutableList<Any>?) {
+    override fun decode(
+        ctx: ChannelHandlerContext?,
+        p1: ByteBuf?,
+        out: MutableList<Any>?
+    ) {
         if (skipDoubleTransform) {
             skipDoubleTransform = false
             out!!.add(p1!!.retain())
@@ -54,7 +57,7 @@ class DecodeHandler(val info: UserConnection) : MessageToMessageDecoder<ByteBuf?
                 )
             }
             if (needsCompress) {
-                compress(ctx, transformedBuf)
+                INSTANCE.compress(ctx, transformedBuf)
                 skipDoubleTransform = true
             }
             out!!.add(transformedBuf.retain())
@@ -64,14 +67,17 @@ class DecodeHandler(val info: UserConnection) : MessageToMessageDecoder<ByteBuf?
     }
 
     @Throws(InvocationTargetException::class)
-    private fun handleCompressionOrder(ctx: ChannelHandlerContext, buf: ByteBuf): Boolean {
+    private fun handleCompressionOrder(
+        ctx: ChannelHandlerContext,
+        buf: ByteBuf
+    ): Boolean {
         if (handledCompression) return false
         val decoderIndex: Int = ctx.pipeline().names().indexOf("decompress")
         if (decoderIndex == -1) return false
         handledCompression = true
         if (decoderIndex > ctx.pipeline().names().indexOf("via-decoder")) {
             // Need to decompress this packet due to bad order
-            decompress(ctx, buf)
+            INSTANCE.decompress(ctx, buf)
             val encoder: ChannelHandler = ctx.pipeline().get("via-encoder")
             val decoder: ChannelHandler = ctx.pipeline().get("via-decoder")
             ctx.pipeline().remove(encoder)
@@ -85,7 +91,11 @@ class DecodeHandler(val info: UserConnection) : MessageToMessageDecoder<ByteBuf?
 
     @Throws(Exception::class)
     override fun exceptionCaught(ctx: ChannelHandlerContext?, cause: Throwable?) {
-        if (PipelineUtil.containsCause(cause, CancelCodecException::class.java)) return
+        if (PipelineUtil.containsCause(
+                cause,
+                CancelCodecException::class.java
+            )
+        ) return
         super.exceptionCaught(ctx, cause)
     }
 }

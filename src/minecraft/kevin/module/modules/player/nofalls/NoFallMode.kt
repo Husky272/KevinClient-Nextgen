@@ -18,7 +18,7 @@ import kevin.event.*
 import kevin.main.KevinClient
 import kevin.module.Value
 import kevin.module.modules.player.NoFall
-import kevin.utils.ClassUtils
+import kevin.utils.reflection.ClassUtils
 import kevin.utils.MinecraftInstance
 
 abstract class NoFallMode(val modeName: String) : MinecraftInstance() {

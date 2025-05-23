@@ -3,7 +3,7 @@ package kevin.module.modules.movement.flys.other
 import kevin.event.*
 import kevin.module.FloatValue
 import kevin.module.modules.movement.flys.FlyMode
-import kevin.utils.TickTimer
+import kevin.utils.timer.TickTimer
 import net.minecraft.block.BlockAir
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.util.AxisAlignedBB

@@ -24,8 +24,11 @@ class RewindLoader(file: File) : ViaRewindPlatform {
     override fun getLogger(): Logger {
         return Via.getPlatform().logger
     }
+
     init {
-        val conf = ViaRewindConfigImpl(file.toPath().resolve("ViaRewind").resolve("config.yml").toFile())
+        val conf = ViaRewindConfigImpl(
+            file.toPath().resolve("ViaRewind").resolve("config.yml").toFile()
+        )
         conf.reloadConfig()
         init(conf)
     }

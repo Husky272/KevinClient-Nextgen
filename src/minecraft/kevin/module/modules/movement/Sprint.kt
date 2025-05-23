@@ -25,7 +25,7 @@ import kevin.module.ModuleCategory
 import kevin.module.modules.combat.SuperKnockback
 import kevin.utils.MovementUtils
 import kevin.utils.Rotation
-import kevin.utils.RotationUtils
+import kevin.utils.entity.rotation.RotationUtils
 import net.minecraft.network.play.client.C0BPacketEntityAction
 import net.minecraft.potion.Potion
 import org.lwjgl.input.Keyboard

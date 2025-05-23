@@ -20,7 +20,7 @@ import kevin.event.UpdateEvent
 import kevin.module.*
 import kevin.utils.BlockUtils
 import kevin.utils.render.ColorUtils
-import kevin.utils.MSTimer
+import kevin.utils.timer.MSTimer
 import kevin.utils.RenderUtils
 import net.minecraft.block.BlockLiquid
 import net.minecraft.init.Blocks

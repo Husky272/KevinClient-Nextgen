@@ -10,8 +10,7 @@ import kevin.hud.element.elements.Notification;
 import kevin.main.KevinClient;
 import kevin.module.*;
 import kevin.utils.ChatUtils;
-import kevin.utils.TickTimer;
-import net.minecraft.client.Minecraft;
+import kevin.utils.timer.TickTimer;
 import net.minecraft.network.play.client.C14PacketTabComplete;
 import net.minecraft.network.play.server.S3APacketTabComplete;
 

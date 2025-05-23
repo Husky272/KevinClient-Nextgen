@@ -18,7 +18,7 @@ import kevin.event.*
 import kevin.main.KevinClient
 import kevin.module.*
 import kevin.utils.MovementUtils
-import kevin.utils.RotationUtils
+import kevin.utils.entity.rotation.RotationUtils
 import net.minecraft.entity.EntityLivingBase
 import org.lwjgl.opengl.GL11
 import java.awt.Color

@@ -17,9 +17,9 @@ package kevin.module.modules.movement
 import kevin.event.*
 import kevin.main.KevinClient
 import kevin.module.*
-import kevin.module.modules.movement.flys.verus.VerusAuto
 import kevin.module.modules.world.Scaffold
 import kevin.utils.*
+import kevin.utils.entity.FallingPlayer
 import net.minecraft.block.BlockAir
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.network.Packet
@@ -35,7 +35,6 @@ import net.minecraft.util.BlockPos
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.max

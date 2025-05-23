@@ -14,7 +14,7 @@
  */
 package kevin.hud.element.elements
 
-import blur.GaussianBlur
+import kevin.utils.render.blur.GaussianBlur
 import kevin.persional.milk.utils.StencilUtil
 import kevin.event.*
 import kevin.hud.element.Border
@@ -22,10 +22,10 @@ import kevin.hud.element.Element
 import kevin.hud.element.ElementInfo
 import kevin.hud.element.Side
 import kevin.main.KevinClient
-import kevin.utils.MSTimer
+import kevin.utils.timer.MSTimer
 import kevin.utils.RenderUtils
-import kevin.utils.TimeList
-import kevin.utils.getPing
+import kevin.utils.timer.TimeList
+import kevin.utils.entity.getPing
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.C0APacketAnimation
 import net.minecraft.network.play.server.S02PacketChat

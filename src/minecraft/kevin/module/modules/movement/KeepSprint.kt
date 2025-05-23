@@ -20,8 +20,8 @@ import kevin.event.UpdateEvent
 import kevin.module.IntegerValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
-import kevin.utils.MSTimer
-import kevin.utils.TimeUtils
+import kevin.utils.timer.MSTimer
+import kevin.utils.timer.TimeUtils
 import net.minecraft.entity.EntityLivingBase
 
 class KeepSprint : ClientModule("KeepSprint","Keep sprint when you attack entity.",ModuleCategory.MOVEMENT) {

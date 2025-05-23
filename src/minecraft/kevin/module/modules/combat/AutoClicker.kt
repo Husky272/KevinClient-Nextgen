@@ -25,7 +25,7 @@ import kevin.module.IntegerValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.RandomUtils
-import kevin.utils.TimeUtils
+import kevin.utils.timer.TimeUtils
 import net.minecraft.client.settings.KeyBinding
 import kotlin.random.Random
 

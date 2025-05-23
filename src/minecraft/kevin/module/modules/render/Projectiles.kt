@@ -22,7 +22,7 @@ import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.render.ColorUtils
 import kevin.utils.RenderUtils
-import kevin.utils.RotationUtils
+import kevin.utils.entity.rotation.RotationUtils
 import net.minecraft.block.material.Material
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats

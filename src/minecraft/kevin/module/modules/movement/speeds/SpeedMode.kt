@@ -21,7 +21,7 @@ import kevin.event.UpdateEvent
 import kevin.main.KevinClient
 import kevin.module.Value
 import kevin.module.modules.movement.Speed
-import kevin.utils.ClassUtils
+import kevin.utils.reflection.ClassUtils
 import kevin.utils.MinecraftInstance
 
 abstract class SpeedMode(val modeName: String): MinecraftInstance() {

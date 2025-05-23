@@ -14,9 +14,9 @@
  */
 package kevin.hud.element.elements
 
-import blur.BloomUtil
-import blur.GaussianBlur
-import blur.KawaseBlur.createFrameBuffer
+import kevin.utils.render.blur.BloomUtil
+import kevin.utils.render.blur.GaussianBlur
+import kevin.utils.render.blur.KawaseBlur.createFrameBuffer
 import kevin.font.RainbowFontShader
 import kevin.hud.designer.GuiHudDesigner
 import kevin.hud.element.Border

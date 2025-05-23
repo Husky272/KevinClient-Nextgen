@@ -19,7 +19,7 @@ import kevin.event.UpdateEvent
 import kevin.module.IntegerValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
-import kevin.utils.RotationUtils
+import kevin.utils.entity.rotation.RotationUtils
 import net.minecraft.item.ItemBow
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.client.C07PacketPlayerDigging

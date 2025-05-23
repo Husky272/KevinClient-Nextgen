@@ -22,6 +22,14 @@ import kevin.main.KevinClient
 import kevin.module.*
 import kevin.utils.*
 import kevin.utils.PacketUtils.packetList
+import kevin.utils.entity.combatAndInventory.EntityUtils
+import kevin.utils.entity.distanceTo
+import kevin.utils.entity.eyesLoc
+import kevin.utils.entity.getDistanceToEntityBox
+import kevin.utils.entity.getLookDistanceToEntityBox
+import kevin.utils.entity.getNearestPointBB
+import kevin.utils.entity.getPing
+import kevin.utils.timer.MSTimer
 import net.minecraft.client.entity.EntityOtherPlayerMP
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -295,7 +303,10 @@ class BackTrack: ClientModule("BackTrack", "Lets you attack people in their prev
                     val vec = Vec3(packet.x, packet.y, packet.z)
                     KevinClient.combatManager.target?.let {
                         val loc = Vec3(it.posX, it.posY + it.eyeHeight, it.posZ)
-                        val bp = getNearestPointBB(loc, mc.thePlayer.entityBoundingBox.expand(0.1, 0.1, 0.1))
+                        val bp = getNearestPointBB(
+                            loc,
+                            mc.thePlayer.entityBoundingBox.expand(0.1, 0.1, 0.1)
+                        )
                         val distance = loc.distanceTo(bp)
                         if (reversing) {
                             val lastBB = AxisAlignedBB(

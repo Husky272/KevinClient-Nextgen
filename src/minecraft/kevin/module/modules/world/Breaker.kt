@@ -29,9 +29,9 @@ import kevin.utils.BlockUtils.getBlock
 import kevin.utils.BlockUtils.getBlockName
 import kevin.utils.BlockUtils.getCenterDistance
 import kevin.utils.BlockUtils.isFullBlock
-import kevin.utils.MSTimer
+import kevin.utils.timer.MSTimer
 import kevin.utils.RenderUtils
-import kevin.utils.RotationUtils
+import kevin.utils.entity.rotation.RotationUtils
 import kevin.utils.multiply
 import net.minecraft.block.Block
 import net.minecraft.block.BlockAir
