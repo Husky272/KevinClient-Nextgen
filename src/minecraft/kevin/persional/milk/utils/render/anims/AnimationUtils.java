@@ -1,6 +1,6 @@
 package kevin.persional.milk.utils.render.anims;
 
-import kevin.utils.timer.MSTimer;
+import kevin.utils.system.timer.MSTimer;
 
 public class AnimationUtils {
     private static final float defaultSpeed = 0.125f;

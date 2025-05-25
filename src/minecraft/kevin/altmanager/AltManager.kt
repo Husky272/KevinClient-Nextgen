@@ -24,7 +24,7 @@ import kevin.command.commands.LoginUtils
 import kevin.file.FileManager
 import kevin.main.KevinClient
 import kevin.font.RainbowFontShader
-import kevin.utils.timer.MSTimer
+import kevin.utils.system.timer.MSTimer
 import kevin.utils.RenderUtils
 import kevin.utils.StringUtils
 import kevin.utils.entity.UserUtils

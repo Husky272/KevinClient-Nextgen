@@ -24,9 +24,9 @@ import kevin.utils.BlockUtils.isReplaceable
 import kevin.utils.entity.combatAndInventory.InventoryUtils
 import kevin.utils.entity.rotation.RotationUtils
 import kevin.utils.entity.eyesLoc
-import kevin.utils.timer.MSTimer
-import kevin.utils.timer.TickTimer
-import kevin.utils.timer.TimeUtils
+import kevin.utils.system.timer.MSTimer
+import kevin.utils.system.timer.TickTimer
+import kevin.utils.system.timer.TimeUtils
 import net.minecraft.block.*
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager

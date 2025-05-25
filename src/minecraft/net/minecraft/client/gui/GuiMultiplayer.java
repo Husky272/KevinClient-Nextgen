@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 import kevin.file.ImageManager;
-import kevin.utils.connection.BlackListHook;
+import kevin.utils.system.network.connection.BlackListHook;
 import kevin.via.ViaButton;
 import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.client.multiplayer.ServerData;

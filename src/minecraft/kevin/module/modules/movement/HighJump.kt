@@ -20,7 +20,7 @@ import kevin.event.MoveEvent
 import kevin.event.UpdateEvent
 import kevin.module.*
 import kevin.utils.BlockUtils.getBlock
-import kevin.utils.timer.MSTimer
+import kevin.utils.system.timer.MSTimer
 import kevin.utils.MovementUtils
 import net.minecraft.block.Block
 import net.minecraft.block.BlockPane

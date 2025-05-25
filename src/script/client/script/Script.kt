@@ -1,6 +1,6 @@
 package client.script
 
-import kevin.command.ICommand
+import kevin.command.IClientCommand
 import kevin.main.KevinClient
 import kevin.module.ModuleCategory
 import kevin.utils.MinecraftInstance
@@ -21,7 +21,7 @@ class Script(private val scriptFile: File) : MinecraftInstance() {
     lateinit var scriptAuthors: Set<String>
 
     val registeredModules = mutableListOf<ScriptModule>()
-    val registeredCommands = mutableListOf<ICommand>()
+    val registeredCommands = mutableListOf<IClientCommand>()
 
     private val pythonInterpreter = PythonInterpreter()
     init {

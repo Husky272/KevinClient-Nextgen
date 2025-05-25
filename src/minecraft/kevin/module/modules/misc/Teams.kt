@@ -22,7 +22,7 @@ import kevin.hud.element.elements.Notification
 import kevin.main.KevinClient
 import kevin.module.*
 import kevin.utils.BlockUtils.getBlock
-import kevin.utils.timer.MSTimer
+import kevin.utils.system.timer.MSTimer
 import kevin.utils.RandomUtils
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.init.Blocks

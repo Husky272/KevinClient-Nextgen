@@ -19,7 +19,7 @@ import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.modules.exploit.Phase
 import kevin.utils.BlockUtils.collideBlock
-import kevin.utils.timer.MSTimer
+import kevin.utils.system.timer.MSTimer
 import kevin.utils.MovementUtils
 import net.minecraft.block.Block
 import net.minecraft.block.BlockLiquid

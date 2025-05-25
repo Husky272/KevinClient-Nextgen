@@ -16,7 +16,7 @@ package kevin.utils.entity.combatAndInventory;
 
 import kevin.utils.MinecraftInstance;
 import kevin.utils.RandomUtils;
-import kevin.utils.timer.MSTimer;
+import kevin.utils.system.timer.MSTimer;
 import kotlin.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;

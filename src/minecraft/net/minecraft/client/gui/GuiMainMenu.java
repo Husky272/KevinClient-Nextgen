@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import kevin.altmanager.AltManager;
 import kevin.font.RainbowFontShader;
 import kevin.main.KevinClient;
-import kevin.utils.proxy.GuiProxySelect;
+import kevin.utils.system.network.proxy.GuiProxySelect;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;

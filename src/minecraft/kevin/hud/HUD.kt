@@ -19,13 +19,13 @@ import kevin.hud.element.Element
 import kevin.hud.element.elements.*
 import kevin.main.KevinClient
 import kevin.module.modules.misc.NoScoreboard
-import kevin.utils.*
+import kevin.utils.MinecraftInstance
 import net.minecraft.client.gui.ScaledResolution
 import org.lwjgl.opengl.GL11
 import kotlin.math.max
 import kotlin.math.min
 
-open class HUD : MinecraftInstance()  {
+open class HUD : MinecraftInstance() {
     val elements = mutableListOf<Element>()
     val notifications = mutableListOf<Notification>()
 
@@ -65,11 +65,17 @@ open class HUD : MinecraftInstance()  {
     }
 
     fun disableMinecraftScoreboard() =
-        (elements.filterIsInstance<ScoreboardElement>().isNotEmpty() && (KevinClient.moduleManager.getModule(kevin.module.modules.render.HUD::class.java).state || KevinClient.moduleManager.getModule(kevin.module.modules.render.HUD::class.java).keepScoreboard.get())) || NoScoreboard.state
+        (elements.filterIsInstance<ScoreboardElement>()
+            .isNotEmpty() && (KevinClient.moduleManager.getModule(kevin.module.modules.render.HUD::class.java).state || KevinClient.moduleManager.getModule(
+            kevin.module.modules.render.HUD::class.java
+        ).keepScoreboard.get())) || NoScoreboard.state
 
     fun renderScoreboardOnly() {
         elements.filterIsInstance<ScoreboardElement>()
             .forEach {
+                if(it.border == null || it.drawElement() == null) {
+                    return
+                }
                 GL11.glPushMatrix()
 
                 if (!it.info.disableScale)
@@ -85,7 +91,7 @@ open class HUD : MinecraftInstance()  {
                 }
 
                 GL11.glEnable(GL11.GL_BLEND)
-                GL11.glColor4f(1F,1F,1F,1F)
+                GL11.glColor4f(1F, 1F, 1F, 1F)
                 GL11.glPopMatrix()
             }
     }
@@ -96,30 +102,39 @@ open class HUD : MinecraftInstance()  {
                 it.updateElement()
             }
     }
+
     /**
      * Render all elements
      */
     fun render(designer: Boolean) {
+
+
         elements.sortedBy { -it.info.priority }
             .forEach {
+                if (it.border == null) {
+                    return
+                }
                 GL11.glPushMatrix()
 
-                if (!it.info.disableScale)
+                if (!it.info.disableScale) {
                     GL11.glScalef(it.scale, it.scale, it.scale)
+                }
 
                 GL11.glTranslated(it.renderX, it.renderY, 0.0)
 
                 try {
-                    it.border = it!!.drawElement()
+                    it.border = it.drawElement()
 
-                    if (designer)
-                        it.border!!.draw()
+                    if (designer) {
+                        it.border?.draw()
+                    }
                 } catch (ex: Exception) {
                     println("Something went wrong while drawing ${it.name} element in HUD. $ex")
+                    ex.printStackTrace()
                 }
 
                 GL11.glEnable(GL11.GL_BLEND)
-                GL11.glColor4f(1F,1F,1F,1F)
+                GL11.glColor4f(1F, 1F, 1F, 1F)
                 GL11.glPopMatrix()
             }
     }
@@ -137,13 +152,18 @@ open class HUD : MinecraftInstance()  {
      */
     fun handleMouseClick(mouseX: Int, mouseY: Int, button: Int) {
         for (element in elements)
-            element.handleMouseClick((mouseX / element.scale) - element.renderX, (mouseY / element.scale)
-                    - element.renderY, button)
+            element.handleMouseClick(
+                (mouseX / element.scale) - element.renderX, (mouseY / element.scale)
+                        - element.renderY, button
+            )
 
         if (button == 0) {
             for (element in elements.reversed()) {
-                if (!element.isInBorder((mouseX / element.scale) - element.renderX,
-                        (mouseY / element.scale) - element.renderY))
+                if (!element.isInBorder(
+                        (mouseX / element.scale) - element.renderX,
+                        (mouseY / element.scale) - element.renderY
+                    )
+                )
                     continue
 
                 element.drag = true
@@ -218,12 +238,11 @@ open class HUD : MinecraftInstance()  {
      * Add [element] to HUD
      */
     fun addElement(element: Element): HUD {
-        try{
-        elements.add(element)
-        element.updateElement()
-        }
-        catch(exception: Throwable){
-        net.minecraft.client.Minecraft.logger.warn("[Kevin / HUD] Catch exception $exception")
+        try {
+            elements.add(element)
+            element.updateElement()
+        } catch (exception: Throwable) {
+            net.minecraft.client.Minecraft.logger.warn("[Kevin / HUD] Catch exception $exception")
         }
         return this
     }
@@ -253,8 +272,10 @@ open class HUD : MinecraftInstance()  {
     fun addNotification(notification: Notification): Boolean {
         return elements.any { it is Notifications } && notifications.add(notification)
     }
+
     /**
      * Remove [notification]
      */
-    fun removeNotification(notification: Notification) = notifications.remove(notification)
+    fun removeNotification(notification: Notification) =
+        notifications.remove(notification)
 }

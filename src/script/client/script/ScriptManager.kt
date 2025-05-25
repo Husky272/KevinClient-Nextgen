@@ -14,8 +14,8 @@
  */
 package client.script
 
-import kevin.command.ICommand
-import kevin.command.commands.ClearMainConfigCommand
+import kevin.command.IClientCommand
+import kevin.command.commands.ClearMainConfigClientCommand
 import kevin.depends.LibraryManager
 import kevin.depends.MavenDependency
 import kevin.main.KevinClient
@@ -24,7 +24,7 @@ import kevin.plugin.Plugin
 import net.minecraft.client.Minecraft
 import java.net.URLClassLoader
 
-class ScriptManager : Plugin(), ICommand, ClearMainConfigCommand.IReAddHook {
+class ScriptManager : Plugin(), IClientCommand, ClearMainConfigClientCommand.IReAddHook {
     private val scripts = arrayListOf<Script>()
     override fun run(args: Array<out String>?) {
         load()
@@ -85,7 +85,7 @@ class ScriptManager : Plugin(), ICommand, ClearMainConfigCommand.IReAddHook {
 
     override fun onLoad() {
         KevinClient.commandManager.registerCommand(arrayOf("ReloadScripts","ReloadScript"), this)
-        ClearMainConfigCommand.addHook(this)
+        ClearMainConfigClientCommand.addHook(this)
         load()
     }
 }

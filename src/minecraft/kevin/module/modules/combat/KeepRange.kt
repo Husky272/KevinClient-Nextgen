@@ -19,7 +19,7 @@ import kevin.event.EventTarget
 import kevin.event.StrafeEvent
 import kevin.event.UpdateEvent
 import kevin.module.*
-import kevin.utils.timer.TickTimer
+import kevin.utils.system.timer.TickTimer
 import kevin.utils.entity.getDistanceToEntityBox
 import net.minecraft.client.settings.GameSettings
 import net.minecraft.entity.player.EntityPlayer

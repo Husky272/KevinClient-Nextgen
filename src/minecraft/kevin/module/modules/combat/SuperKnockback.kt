@@ -22,9 +22,9 @@ import kevin.module.*
 import kevin.module.modules.movement.Sprint
 import kevin.module.modules.render.FreeCam
 import kevin.utils.ChatUtils
-import kevin.utils.timer.MSTimer
+import kevin.utils.system.timer.MSTimer
 import kevin.utils.MovementUtils
-import kevin.utils.timer.TimeUtils
+import kevin.utils.system.timer.TimeUtils
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.C0BPacketEntityAction
 

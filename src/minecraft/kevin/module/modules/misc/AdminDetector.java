@@ -1,7 +1,7 @@
 package kevin.module.modules.misc;
 
 import joptsimple.internal.Strings;
-import kevin.command.ICommand;
+import kevin.command.IClientCommand;
 import kevin.event.EventTarget;
 import kevin.event.PacketEvent;
 import kevin.event.UpdateEvent;
@@ -10,7 +10,7 @@ import kevin.hud.element.elements.Notification;
 import kevin.main.KevinClient;
 import kevin.module.*;
 import kevin.utils.ChatUtils;
-import kevin.utils.timer.TickTimer;
+import kevin.utils.system.timer.TickTimer;
 import net.minecraft.network.play.client.C14PacketTabComplete;
 import net.minecraft.network.play.server.S3APacketTabComplete;
 
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class AdminDetector extends ClientModule implements ICommand {
+public class AdminDetector extends ClientModule implements IClientCommand {
 
     public static final AdminDetector INSTANCE = new AdminDetector();
 

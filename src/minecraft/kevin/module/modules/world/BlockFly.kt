@@ -18,11 +18,11 @@ import kevin.utils.entity.rotation.RotationUtils.*
 import kevin.utils.entity.combatAndInventory.InventoryUtils
 import kevin.utils.entity.eyesLoc
 import kevin.utils.entity.interpolatedPosition
-import kevin.utils.timer.DelayTimer
-import kevin.utils.timer.TimeUtils.randomClickDelay
-import kevin.utils.timer.TimeUtils.randomDelay
-import kevin.utils.timer.MSTimer
-import kevin.utils.timer.TickDelayTimer
+import kevin.utils.system.timer.DelayTimer
+import kevin.utils.system.timer.TimeUtils.randomClickDelay
+import kevin.utils.system.timer.TimeUtils.randomDelay
+import kevin.utils.system.timer.MSTimer
+import kevin.utils.system.timer.TickDelayTimer
 import net.minecraft.block.BlockBush
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager.resetColor

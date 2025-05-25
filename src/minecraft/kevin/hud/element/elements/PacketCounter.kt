@@ -24,7 +24,7 @@ import kevin.hud.element.Side
 import kevin.main.KevinClient
 import kevin.module.IntegerValue
 import kevin.module.ListValue
-import kevin.utils.timer.MSTimer
+import kevin.utils.system.timer.MSTimer
 import kevin.utils.RenderUtils
 import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.opengl.GL11

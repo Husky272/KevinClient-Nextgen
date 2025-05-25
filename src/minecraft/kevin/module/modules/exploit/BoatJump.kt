@@ -21,7 +21,7 @@ import kevin.module.*
 import kevin.utils.*
 import kevin.utils.BlockUtils.getBlock
 import kevin.utils.render.ColorUtils
-import kevin.utils.timer.MSTimer
+import kevin.utils.system.timer.MSTimer
 import net.minecraft.block.BlockAir
 import net.minecraft.block.BlockFence
 import net.minecraft.block.BlockSnow

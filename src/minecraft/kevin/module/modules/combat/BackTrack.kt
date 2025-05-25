@@ -29,7 +29,7 @@ import kevin.utils.entity.getDistanceToEntityBox
 import kevin.utils.entity.getLookDistanceToEntityBox
 import kevin.utils.entity.getNearestPointBB
 import kevin.utils.entity.getPing
-import kevin.utils.timer.MSTimer
+import kevin.utils.system.timer.MSTimer
 import net.minecraft.client.entity.EntityOtherPlayerMP
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase

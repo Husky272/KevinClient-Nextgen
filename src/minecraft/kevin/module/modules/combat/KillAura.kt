@@ -37,10 +37,10 @@ import kevin.utils.entity.getPing
 import kevin.utils.entity.isAnimal
 import kevin.utils.entity.isClientFriend
 import kevin.utils.entity.isMob
-import kevin.utils.timer.MSTimer
-import kevin.utils.timer.TickTimer
-import kevin.utils.timer.TimeList
-import kevin.utils.timer.TimeUtils
+import kevin.utils.system.timer.MSTimer
+import kevin.utils.system.timer.TickTimer
+import kevin.utils.system.timer.TimeList
+import kevin.utils.system.timer.TimeUtils
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity

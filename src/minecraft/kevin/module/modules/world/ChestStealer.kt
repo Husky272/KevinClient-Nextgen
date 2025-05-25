@@ -21,8 +21,8 @@ import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.modules.player.InventoryCleaner
 import kevin.utils.ItemUtils
-import kevin.utils.timer.MSTimer
-import kevin.utils.timer.TimeUtils
+import kevin.utils.system.timer.MSTimer
+import kevin.utils.system.timer.TimeUtils
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.Slot
 import net.minecraft.item.Item

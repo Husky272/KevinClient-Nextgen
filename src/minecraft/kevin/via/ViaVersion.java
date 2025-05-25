@@ -13,6 +13,7 @@ import com.viaversion.viaversion.api.platform.ViaPlatformLoader;
 import io.netty.channel.EventLoop;
 import io.netty.channel.local.LocalEventLoopGroup;
 import java.io.File;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.concurrent.*;
@@ -156,7 +157,9 @@ Caused by: java.lang.ClassCastException: class kevin.via.ViaVersion cannot be ca
 
         */
         if ($this$sortBy$iv.length > 1) {
-            ArraysKt.sortWith($this$sortBy$iv, (Comparator)((Object)INSTANCE));
+            Arrays.sort($this$sortBy$iv);
+//            ArraysKt.sortWith(,
+//                    INSTANCE));
         }
         versions = (ProtocolCollection[]) value;
     }

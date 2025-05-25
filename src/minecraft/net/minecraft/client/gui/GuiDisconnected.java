@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import kevin.altmanager.AltManager;
-import kevin.utils.connection.ServerUtils;
-import kevin.utils.proxy.ProxyManager;
+import kevin.utils.system.network.connection.ServerUtils;
+import kevin.utils.system.network.proxy.ProxyManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.IChatComponent;
 

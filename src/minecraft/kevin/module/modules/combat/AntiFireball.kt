@@ -3,7 +3,7 @@ package kevin.module.modules.combat
 import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.module.*
-import kevin.utils.timer.MSTimer
+import kevin.utils.system.timer.MSTimer
 import kevin.utils.entity.rotation.RotationUtils
 import net.minecraft.entity.projectile.EntityFireball
 import net.minecraft.network.play.client.C02PacketUseEntity

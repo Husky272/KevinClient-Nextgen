@@ -25,7 +25,7 @@ import kevin.utils.*;
 import kevin.utils.entity.combatAndInventory.ArmorComparator;
 import kevin.utils.entity.combatAndInventory.ArmorPiece;
 import kevin.utils.entity.combatAndInventory.InventoryUtils;
-import kevin.utils.timer.TimeUtils;
+import kevin.utils.system.timer.TimeUtils;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;

@@ -22,7 +22,7 @@ import kevin.event.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.*
 import kevin.utils.ChatUtils
-import kevin.utils.timer.MSTimer
+import kevin.utils.system.timer.MSTimer
 import net.minecraft.item.ItemBucketMilk
 import net.minecraft.item.ItemFood
 import net.minecraft.item.ItemPotion

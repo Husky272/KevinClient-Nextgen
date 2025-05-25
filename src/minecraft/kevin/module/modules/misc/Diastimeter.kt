@@ -24,7 +24,7 @@ import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.*
 import kevin.utils.render.ColorUtils
-import kevin.utils.timer.MSTimer
+import kevin.utils.system.timer.MSTimer
 import net.minecraft.block.BlockAir
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState

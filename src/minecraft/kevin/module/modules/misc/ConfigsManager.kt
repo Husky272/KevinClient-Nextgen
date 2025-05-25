@@ -19,7 +19,7 @@ import com.google.gson.JsonNull
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kevin.command.bind.BindCommand
-import kevin.command.bind.BindCommandManager
+import kevin.command.bind.BindClientCommandManager
 import kevin.file.ConfigManager
 import kevin.hud.element.elements.Notification
 import kevin.main.KevinClient
@@ -28,8 +28,8 @@ import kevin.module.ListValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.ChatUtils
-import kevin.utils.connection.ServerUtils
-import kevin.utils.proxy.ProxyManager
+import kevin.utils.system.network.connection.ServerUtils
+import kevin.utils.system.network.proxy.ProxyManager
 import net.minecraft.client.Minecraft
 import java.net.Proxy
 
@@ -118,7 +118,7 @@ object ConfigsManager : ClientModule("ConfigsManager", "Manage configs", ModuleC
                     list.sortBy { it.key.toInt() }
                     for (entry in list) {
                         val jsonModule = entry.value as JsonObject
-                        BindCommandManager.bindCommandList.add(BindCommand(jsonModule["key"].asInt, jsonModule["command"].asString))
+                        BindClientCommandManager.bindCommandList.add(BindCommand(jsonModule["key"].asInt, jsonModule["command"].asString))
                     }
                     continue
                 }

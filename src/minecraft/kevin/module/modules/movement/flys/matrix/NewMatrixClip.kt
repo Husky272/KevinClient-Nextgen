@@ -20,7 +20,7 @@ import kevin.module.FloatValue
 import kevin.module.IntegerValue
 import kevin.module.ListValue
 import kevin.module.modules.movement.flys.FlyMode
-import kevin.utils.timer.MSTimer
+import kevin.utils.system.timer.MSTimer
 import net.minecraft.network.Packet
 import net.minecraft.network.play.INetHandlerPlayServer
 import net.minecraft.network.play.client.*

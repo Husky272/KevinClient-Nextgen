@@ -6,7 +6,7 @@ import kevin.hud.element.elements.Notification
 import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.modules.movement.flys.FlyMode
-import kevin.utils.timer.MSTimer
+import kevin.utils.system.timer.MSTimer
 import kevin.utils.MovementUtils
 import kevin.utils.PacketUtils
 import kevin.utils.RandomUtils

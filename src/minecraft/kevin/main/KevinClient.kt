@@ -17,7 +17,7 @@ package kevin.main
 
 import kevin.cape.CapeManager
 import kevin.command.CommandManager
-import kevin.command.bind.BindCommandManager
+import kevin.command.bind.BindClientCommandManager
 import kevin.event.ClientShutdownEvent
 import kevin.event.EventManager
 import kevin.file.ConfigManager
@@ -76,7 +76,7 @@ object KevinClient {
     val pool: ExecutorService = Executors.newCachedThreadPool()
 
     @JvmStatic
-    var cStart = "[Kevin]"
+    public var cStart = "[Kevin]"
 
     fun run() {
 
@@ -101,7 +101,7 @@ object KevinClient {
         fileManager.loadConfig(fileManager.modulesConfig)
         fileManager.loadConfig(fileManager.bindCommandConfig)
 
-        eventManager.registerListener(BindCommandManager)
+        eventManager.registerListener(BindClientCommandManager)
         eventManager.registerListener(RotationUtils())
 //        audioManager = AudioManager()
         hud = createDefault()

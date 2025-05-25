@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.misc
 
-import kevin.command.ICommand
+import kevin.command.IClientCommand
 import kevin.event.EventTarget
 import kevin.event.PacketEvent
 import kevin.event.WorldEvent
@@ -25,11 +25,12 @@ import kevin.module.BooleanValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import kevin.utils.ChatUtils
-import kevin.utils.timer.MSTimer
+import kevin.utils.system.timer.MSTimer
 import net.minecraft.network.play.server.S08PacketPlayerPosLook
 import java.util.*
 
-object AutoDisable : ClientModule("AutoDisable","Auto disable modules.(Use Command .AutoDisableSet <ModuleName> <add/remove> <World/SetBack/All>)", ModuleCategory.MISC),ICommand {
+object AutoDisable : ClientModule("AutoDisable","Auto disable modules.(Use Command .AutoDisableSet <ModuleName> <add/remove> <World/SetBack/All>)", ModuleCategory.MISC),
+    IClientCommand {
     override fun run(args: Array<out String>?) {
         if (args.isNullOrEmpty()||args.size<2) {
             usageMessage()

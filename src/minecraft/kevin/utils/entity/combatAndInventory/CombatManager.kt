@@ -17,7 +17,7 @@ package kevin.utils.entity.combatAndInventory
 import kevin.event.*
 import kevin.main.KevinClient
 import kevin.utils.MinecraftInstance
-import kevin.utils.timer.MSTimer
+import kevin.utils.system.timer.MSTimer
 import net.minecraft.entity.EntityLivingBase
 
 class CombatManager : Listenable, MinecraftInstance() {
