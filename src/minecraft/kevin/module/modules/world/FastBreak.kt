@@ -32,11 +32,11 @@ class FastBreak : ClientModule("FastBreak", "Allows you to break blocks faster."
         if (mc.playerController.curBlockDamageMP > breakDamage.get())
             mc.playerController.curBlockDamageMP = 1F
 
-        val breaker = KevinClient.moduleManager.getModule(Breaker::class.java)
+        val fucker = KevinClient.moduleManager.getModule(Fucker::class.java)
         val nuker = KevinClient.moduleManager.getModule(Nuker::class.java)
 
-        if (breaker.currentDamage > breakDamage.get())
-            breaker.currentDamage = 1F
+        if (fucker.currentDamage > breakDamage.get())
+            fucker.currentDamage = 1F
 
         if (nuker.currentDamage > breakDamage.get())
             nuker.currentDamage = 1F

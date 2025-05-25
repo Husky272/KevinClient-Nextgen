@@ -202,7 +202,7 @@ class ModuleManager : Listenable {
         )
         worldList = arrayListOf(
             BlockFly,
-            Breaker(),
+            Fucker(),
             ChestStealer(),
             FastBreak(),
             FastPlace(),

@@ -3,7 +3,7 @@ package net.minecraft.client.model;
 import kevin.main.KevinClient;
 import kevin.module.modules.combat.KillAura;
 import kevin.module.modules.render.Rotations;
-import kevin.module.modules.world.Breaker;
+import kevin.module.modules.world.Fucker;
 import kevin.module.modules.world.Nuker;
 import kevin.module.modules.world.Scaffold;
 import kevin.utils.entity.rotation.RotationUtils;
@@ -186,7 +186,7 @@ public class ModelBiped extends ModelBase
 
         final KillAura killAura = KevinClient.moduleManager.getModule(KillAura.class);
         final Scaffold scaffold = KevinClient.moduleManager.getModule(Scaffold.class);
-        final Breaker breaker = KevinClient.moduleManager.getModule(Breaker.class);
+        final Fucker fucker = KevinClient.moduleManager.getModule(Fucker.class);
         final Nuker nuker = KevinClient.moduleManager.getModule(Nuker.class);
 //        final boolean needRotate = (killAura.getState() && (killAura.getTarget() != null || killAura.getSTarget() != null)) || scaffold.getState() || (breaker.getState() && breaker.getCurrentDamage() > 0) || (nuker.getState() && nuker.getCurrentDamage() > 0);
 
