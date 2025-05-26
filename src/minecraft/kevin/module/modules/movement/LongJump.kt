@@ -28,13 +28,41 @@ import kotlin.math.floor
 import kotlin.math.max
 
 @Suppress("unused_parameter")
-class LongJump : ClientModule("LongJump", "Allows you to jump further.", ModuleCategory.MOVEMENT) {
-    private val modeValue = ListValue("Mode", arrayOf("NCP", "NCP2", "AACv1", "AACv2", "Buzz", "BuzzBoost", "PikaNew", "AACv3", "Mineplex", "Mineplex2", "Mineplex3", "Redesky", "Vulcan", "VulcanExtreme", "HyCraft", "ExplosionBoost"), "NCP")
+class LongJump : ClientModule(
+    "LongJump",
+    "Allows you to jump further.",
+    ModuleCategory.MOVEMENT
+) {
+    private val modeValue = ListValue(
+        "Mode",
+        arrayOf(
+            "NCP",
+            "NCP2",
+            "AACv1",
+            "AACv2",
+            "Buzz",
+            "BuzzBoost",
+            "PikaNew",
+            "AACv3",
+            "Mineplex",
+            "Mineplex2",
+            "Mineplex3",
+            "Redesky",
+            "Vulcan",
+            "VulcanExtreme",
+            "HyCraft",
+            "ExplosionBoost"
+        ),
+        "NCP"
+    )
     private val ncpBoostValue = FloatValue("NCPBoost", 4.25f, 1f, 10f)
     private val ncp2YAdderValue = FloatValue("NCP2MotionYAdder", 0.1f, -0.5f, 0.5f)
-    private val vulcanExtremeHeight = FloatValue("VulcanExtremeHeight", 0.98f, 0.42f, 3.7f)
-    private val explosionBoostHigh = FloatValue("ExplosionBoostHigh",0.00F,0.01F,1F)
-    private val explosionBoostLong = FloatValue("ExplosionBoostLong",0.25F,0.01F,1F)
+    private val vulcanExtremeHeight =
+        FloatValue("VulcanExtremeHeight", 0.98f, 0.42f, 3.7f)
+    private val explosionBoostHigh =
+        FloatValue("ExplosionBoostHigh", 0.00F, 0.01F, 1F)
+    private val explosionBoostLong =
+        FloatValue("ExplosionBoostLong", 0.25F, 0.01F, 1F)
     private val visualSpoofY = BooleanValue("visualSpoofY", false)
     private val autoJumpValue = BooleanValue("AutoJump", false)
     private val autoDisableValue = BooleanValue("AutoDisable", true)
@@ -50,6 +78,7 @@ class LongJump : ClientModule("LongJump", "Allows you to jump further.", ModuleC
     override fun onEnable() {
         canBoost = false
     }
+
     override fun onDisable() {
         mc.thePlayer?.jumpMovementFactor = 0.02f
     }
@@ -58,7 +87,7 @@ class LongJump : ClientModule("LongJump", "Allows you to jump further.", ModuleC
     fun onUpdate(event: UpdateEvent?) {
         val thePlayer = mc.thePlayer ?: return
 
-        if(modeValue.get() == "Buzz" && thePlayer.onGround && canBoost){
+        if (modeValue.get() == "Buzz" && thePlayer.onGround && canBoost) {
             this.state = false
             canBoost = false
         }
@@ -100,7 +129,8 @@ class LongJump : ClientModule("LongJump", "Allows you to jump further.", ModuleC
                         if (MovementUtils.isMoving) thePlayer.isSprinting = true
                         thePlayer.motionY += ncp2YAdderValue.get() * 0.01 // increase accurate
                         if (mc.thePlayer.motionY < 0.3 && mc.thePlayer.motionY > -0.05) {
-                            mc.timer.timerSpeed = max(0.5f, mc.timer.timerSpeed - 0.05f)
+                            mc.timer.timerSpeed =
+                                max(0.5f, mc.timer.timerSpeed - 0.05f)
                         } else if (mc.thePlayer.motionY < -0.05 && mc.thePlayer.motionY > -0.2) {
                             mc.timer.timerSpeed = 0.5f
                         } else if (mc.thePlayer.motionY < -0.2) {
@@ -113,26 +143,31 @@ class LongJump : ClientModule("LongJump", "Allows you to jump further.", ModuleC
                         }
                         MovementUtils.strafeDouble(boostMotion)
                     }
+
                     "buzz" -> {
                         canBoost = true
                         MovementUtils.strafe(MovementUtils.speed * 1.00f)
                     }
+
                     "buzzboost" -> {
                         if (thePlayer.hurtTime > 8) {
                             MovementUtils.move(0.7578698f)
                             thePlayer.motionY = 0.4679942989799998
                         }
                     }
+
                     "aacv1" -> {
                         thePlayer.motionY += 0.05999
                         MovementUtils.strafe(MovementUtils.speed * 1.08f)
                     }
+
                     "aacv2", "mineplex3" -> {
                         thePlayer.jumpMovementFactor = 0.09f
                         thePlayer.motionY += 0.0132099999999999999999999999999
                         thePlayer.jumpMovementFactor = 0.08f
                         MovementUtils.strafe()
                     }
+
                     "aacv3" -> {
                         if (thePlayer.fallDistance > 0.5f && !teleported) {
                             val value = 3.0
@@ -141,23 +176,29 @@ class LongJump : ClientModule("LongJump", "Allows you to jump further.", ModuleC
                             var z = 0.0
 
                             when {
-                                horizontalFacing==EnumFacing.NORTH -> z = -value
-                                horizontalFacing==EnumFacing.EAST -> x = +value
-                                horizontalFacing==EnumFacing.SOUTH -> z = +value
-                                horizontalFacing==EnumFacing.WEST -> x = -value
+                                horizontalFacing == EnumFacing.NORTH -> z = -value
+                                horizontalFacing == EnumFacing.EAST -> x = +value
+                                horizontalFacing == EnumFacing.SOUTH -> z = +value
+                                horizontalFacing == EnumFacing.WEST -> x = -value
                                 else -> {
                                 }
                             }
 
-                            thePlayer.setPosition(thePlayer.posX + x, thePlayer.posY, thePlayer.posZ + z)
+                            thePlayer.setPosition(
+                                thePlayer.posX + x,
+                                thePlayer.posY,
+                                thePlayer.posZ + z
+                            )
                             teleported = true
                         }
                     }
+
                     "mineplex" -> {
                         thePlayer.motionY += 0.0132099999999999999999999999999
                         thePlayer.jumpMovementFactor = 0.08f
                         MovementUtils.strafe()
                     }
+
                     "mineplex2" -> {
                         if (!canMineplexBoost)
                             return@run
@@ -170,23 +211,27 @@ class LongJump : ClientModule("LongJump", "Allows you to jump further.", ModuleC
 
                         MovementUtils.strafe()
                     }
+
                     "redesky" -> {
                         thePlayer.jumpMovementFactor = 0.15f
                         thePlayer.motionY += 0.05f
                     }
+
                     "vulcanextreme" -> {
                         if (thePlayer.motionY < -0.07) {
-                            thePlayer.motionY = -if(thePlayer.ticksExisted % 2 == 0) {
-                                0.17
-                            } else {
-                                0.10
-                            }
+                            thePlayer.motionY =
+                                -if (thePlayer.ticksExisted % 2 == 0) {
+                                    0.17
+                                } else {
+                                    0.10
+                                }
                         } else if (thePlayer.motionY > 0.2 && jumpedTicks > 6) {
                             thePlayer.motionY *= 0.1
                         }
                     }
+
                     "hycraft" -> {
-                        if(mc.thePlayer.motionY < 0) {
+                        if (mc.thePlayer.motionY < 0) {
                             mc.thePlayer.motionY *= 0.75f
                             mc.thePlayer.jumpMovementFactor = 0.055f
                         } else {
@@ -201,8 +246,8 @@ class LongJump : ClientModule("LongJump", "Allows you to jump further.", ModuleC
             jumped = true
             thePlayer.jump()
         }
-        if (modeValue.get().equals("ExplosionBoost",true)){
-            if (explosion){
+        if (modeValue.get().equals("ExplosionBoost", true)) {
+            if (explosion) {
                 mc.thePlayer.motionX *= 1F + explosionBoostLong.get()
                 mc.thePlayer.motionY *= 1F + explosionBoostHigh.get()
                 mc.thePlayer.motionZ *= 1F + explosionBoostLong.get()
@@ -219,7 +264,11 @@ class LongJump : ClientModule("LongJump", "Allows you to jump further.", ModuleC
         if (mode.equals("mineplex3", ignoreCase = true)) {
             if (thePlayer.fallDistance != 0.0f)
                 thePlayer.motionY += 0.037
-        } else if (mode.equals("ncp", ignoreCase = true) && !MovementUtils.isMoving && jumped) {
+        } else if (mode.equals(
+                "ncp",
+                ignoreCase = true
+            ) && !MovementUtils.isMoving && jumped
+        ) {
             thePlayer.motionX = 0.0
             thePlayer.motionZ = 0.0
             event.zeroXZ()
@@ -230,6 +279,11 @@ class LongJump : ClientModule("LongJump", "Allows you to jump further.", ModuleC
 
     @EventTarget(ignoreCondition = true)
     fun onJump(event: JumpEvent) {
+
+        if (mc.thePlayer == null) {
+            return;
+        }
+
         jumped = true
         canBoost = true
         teleported = false
@@ -247,6 +301,7 @@ class LongJump : ClientModule("LongJump", "Allows you to jump further.", ModuleC
                     }
                     boostMotion = 0.4801
                 }
+
                 "mineplex" -> event.motion = event.motion * 4.08f
                 "mineplex2" -> {
                     if (mc.thePlayer!!.isCollidedHorizontally) {
@@ -255,27 +310,61 @@ class LongJump : ClientModule("LongJump", "Allows you to jump further.", ModuleC
                         mc.thePlayer!!.onGround = false
                     }
                 }
+
                 "buzzboost" -> {
                     // lowVL self damage
-                    mc.netHandler.addToSendQueue(C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY + 3.42, mc.thePlayer.posZ, false))
-                    mc.netHandler.addToSendQueue(C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY + 1E-10, mc.thePlayer.posZ, false))
-                    mc.netHandler.addToSendQueue(C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ, true))
+                    mc.netHandler.addToSendQueue(
+                        C03PacketPlayer.C04PacketPlayerPosition(
+                            mc.thePlayer.posX,
+                            mc.thePlayer.posY + 3.42,
+                            mc.thePlayer.posZ,
+                            false
+                        )
+                    )
+                    mc.netHandler.addToSendQueue(
+                        C03PacketPlayer.C04PacketPlayerPosition(
+                            mc.thePlayer.posX,
+                            mc.thePlayer.posY + 1E-10,
+                            mc.thePlayer.posZ,
+                            false
+                        )
+                    )
+                    mc.netHandler.addToSendQueue(
+                        C03PacketPlayer.C04PacketPlayerPosition(
+                            mc.thePlayer.posX,
+                            mc.thePlayer.posY,
+                            mc.thePlayer.posZ,
+                            true
+                        )
+                    )
                 }
+
                 "pikanew" -> {
-                    mc.netHandler.addToSendQueue(C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY - 0.07 - Math.random(), mc.thePlayer.posZ, true))
+                    mc.netHandler.addToSendQueue(
+                        C03PacketPlayer.C04PacketPlayerPosition(
+                            mc.thePlayer.posX,
+                            mc.thePlayer.posY - 0.07 - Math.random(),
+                            mc.thePlayer.posZ,
+                            true
+                        )
+                    )
                     event.cancelEvent()
                 }
+
                 "buzz" -> {
                     val thePlayer = mc.thePlayer ?: return
-                    mc.netHandler.addToSendQueue(C03PacketPlayer.C04PacketPlayerPosition(
-                        thePlayer.posX,
-                        thePlayer.posY + 0.23F,
-                        thePlayer.posZ,
-                        false
-                    ))
+                    mc.netHandler.addToSendQueue(
+                        C03PacketPlayer.C04PacketPlayerPosition(
+                            thePlayer.posX,
+                            thePlayer.posY + 0.23F,
+                            thePlayer.posZ,
+                            false
+                        )
+                    )
                     thePlayer.handleStatusUpdate(2)
                     event.motion = 0.4955111f
                 }
+
                 "vulcan" -> {}
                 "vulcanextreme" -> {
                     event.motion = vulcanExtremeHeight.get()
@@ -286,33 +375,62 @@ class LongJump : ClientModule("LongJump", "Allows you to jump further.", ModuleC
     }
 
     @EventTarget
-    fun onPacket(event: PacketEvent){
+    fun onPacket(event: PacketEvent) {
         if (event.packet is S27PacketExplosion) {
             if (event.packet.func_149149_c() != 0F ||
                 event.packet.func_149144_d() != 0F ||
                 event.packet.func_149147_e() != 0F
             ) explosion = true
-        }else if (event.packet is S08PacketPlayerPosLook && modeValue equal "pikanew") {
+        } else if (event.packet is S08PacketPlayerPosLook && modeValue equal "pikanew") {
             val packet = event.packet
             if (!mc.netHandler.isDoneLoadingTerrain || !canBoost) return
             canBoost = false
             event.cancelEvent()
-            mc.thePlayer.setPositionAndRotation(packet.x, packet.y, packet.z, packet.yaw, packet.pitch)
-            PacketUtils.sendPacketNoEvent(C03PacketPlayer.C06PacketPlayerPosLook(packet.x, packet.y, packet.z, packet.yaw, packet.pitch, false))
+            mc.thePlayer.setPositionAndRotation(
+                packet.x,
+                packet.y,
+                packet.z,
+                packet.yaw,
+                packet.pitch
+            )
+            PacketUtils.sendPacketNoEvent(
+                C03PacketPlayer.C06PacketPlayerPosLook(
+                    packet.x,
+                    packet.y,
+                    packet.z,
+                    packet.yaw,
+                    packet.pitch,
+                    false
+                )
+            )
             mc.thePlayer.handleStatusUpdate(2)
-            mc.thePlayer.motionY = MovementUtils.getJumpMotion(0.701f + 0.0) + Math.random() / 50.0
-            MovementUtils.strafe(MovementUtils.getBaseMoveSpeed().toFloat() + 0.22f + (Math.random() / 700f).toFloat())
+            mc.thePlayer.motionY =
+                MovementUtils.getJumpMotion(0.701f + 0.0) + Math.random() / 50.0
+            MovementUtils.strafe(
+                MovementUtils.getBaseMoveSpeed()
+                    .toFloat() + 0.22f + (Math.random() / 700f).toFloat()
+            )
         }
     }
 
-    @EventTarget fun onMotion(event: MotionEvent) {
-        if (visualSpoofY.get()) mc.thePlayer.posY = minOf(mc.thePlayer.lastTickPosY, mc.thePlayer.posY)
+    @EventTarget
+    fun onMotion(event: MotionEvent) {
+        if (visualSpoofY.get()) mc.thePlayer.posY =
+            minOf(mc.thePlayer.lastTickPosY, mc.thePlayer.posY)
     }
 
-    @EventTarget fun onBB(event: BlockBBEvent) {
+    @EventTarget
+    fun onBB(event: BlockBBEvent) {
         if (modeValue equal "Vulcan" && canBoost) {
             if (event.block is BlockAir && event.y <= floor(jumpPositionY)) {
-                event.boundingBox = AxisAlignedBB.fromBounds(event.x.toDouble(), event.y.toDouble(), event.z.toDouble(), event.x + 1.0, floor(jumpPositionY), event.z + 1.0)
+                event.boundingBox = AxisAlignedBB.fromBounds(
+                    event.x.toDouble(),
+                    event.y.toDouble(),
+                    event.z.toDouble(),
+                    event.x + 1.0,
+                    floor(jumpPositionY),
+                    event.z + 1.0
+                )
             }
         }
     }

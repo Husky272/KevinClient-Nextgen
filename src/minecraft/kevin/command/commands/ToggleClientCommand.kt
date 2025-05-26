@@ -24,23 +24,23 @@ class ToggleClientCommand : IClientCommand {
             ChatUtils.message("${KevinClient.cStart} §cUsage: §c.t §c<ModuleName> §c<on/off> §cor §c.toggle §c<ModuleName> §c<on/off>")
             return
         }
-        for (module in KevinClient.moduleManager.getModules()){
-            if (module.name.equals(args[0],ignoreCase = true)){
-                if (args.size > 1){
-                    if (args[1].equals("on",ignoreCase = true)){
+        for (module in KevinClient.moduleManager.getModules()) {
+            if (module.name.equals(args[0], ignoreCase = true)) {
+                if (args.size > 1) {
+                    if (args[1].equals("on", ignoreCase = true)) {
                         module.state = true
                         ChatUtils.message("${KevinClient.cStart} §aEnable §e${module.name} §9Module")
                         return
-                    }else if (args[1].equals("off",ignoreCase = true)){
+                    } else if (args[1].equals("off", ignoreCase = true)) {
                         module.state = false
                         ChatUtils.message("${KevinClient.cStart} §cDisable §e${module.name} §9Module")
                         return
-                    }else {
+                    } else {
                         module.toggle()
                         ChatUtils.message("${KevinClient.cStart} ${if (module.state) "Enable" else "Disable"} ${module.name}")
                         return
                     }
-                }else{
+                } else {
                     module.toggle()
                     ChatUtils.message("${KevinClient.cStart} ${if (module.state) "Enable" else "Disable"} ${module.name}")
                     return
