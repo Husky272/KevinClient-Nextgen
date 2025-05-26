@@ -36,7 +36,7 @@ class HUD : ClientModule("HUD","Toggles visibility of the HUD.",ModuleCategory.R
         KevinClient.hud.render(false)
     }
 
-    @EventTarget(true)
+    @EventTarget(ignoreCondition = true)
     fun renderScoreboard(event: Render2DEvent) {
         if (!this.state && keepScoreboard.get() && KevinClient.hud.elements.filterIsInstance<ScoreboardElement>().isNotEmpty()) {
             KevinClient.hud.renderScoreboardOnly()
@@ -51,7 +51,7 @@ class HUD : ClientModule("HUD","Toggles visibility of the HUD.",ModuleCategory.R
         KevinClient.hud.update()
     }
 
-    @EventTarget(true) fun onPacket(event: PacketEvent) {
+    @EventTarget(ignoreCondition = true) fun onPacket(event: PacketEvent) {
         currentPacketSlot =
             when (event.packet) {
                 is C09PacketHeldItemChange -> event.packet.slotId
@@ -60,7 +60,7 @@ class HUD : ClientModule("HUD","Toggles visibility of the HUD.",ModuleCategory.R
             }
     }
 
-    @EventTarget(true)
+    @EventTarget(ignoreCondition = true)
     fun updateScoreboard(event: UpdateEvent) {
         if (!this.state && keepScoreboard.get() && KevinClient.hud.elements.filterIsInstance<ScoreboardElement>().isNotEmpty()) {
             KevinClient.hud.updateScoreboardOnly()

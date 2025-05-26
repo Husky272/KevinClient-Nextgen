@@ -28,7 +28,7 @@ class Targets : ClientModule("Targets","Targets",ModuleCategory.COMBAT) {
     private val animals = BooleanValue("Animals",false)
     private val invisible = BooleanValue("Invisible",true)
     private val death = BooleanValue("Death",false)
-    @EventTarget(true)
+    @EventTarget(ignoreCondition = true)
     fun onUpdate(event: TickEvent){
         EntityUtils.targetPlayer = players.get()
         EntityUtils.targetMobs = mobs.get()

@@ -1,5 +1,6 @@
 package kevin.command
 
+import client.script.ScriptManager
 import kevin.command.bind.BindClientCommandManager
 import kevin.command.commands.*
 import kevin.main.KevinClient

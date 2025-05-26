@@ -23,20 +23,23 @@ import java.lang.reflect.InvocationTargetException
 @Suppress("UNCHECKED_CAST")
 class EventManager {
     private val registry = HashMap<Class<out Event>, MutableList<EventHook>>()
+
     fun registerListener(listener: Listenable) {
-        for (method in listener.javaClass.declaredMethods) {
+        for (method in listener.javaClass.getDeclaredMethods()) {
             if (method.isAnnotationPresent(EventTarget::class.java) && method.parameterTypes.size == 1) {
                 if (!method.isAccessible)
                     method.isAccessible = true
 
                 val eventClass = method.parameterTypes[0] as Class<out Event>
                 val eventTarget = method.getAnnotation(EventTarget::class.java)
-                val invokableEventTargets = registry.getOrDefault(eventClass, ArrayList())
+                val invokableEventTargets =
+                    registry.getOrDefault(eventClass, ArrayList())
                 invokableEventTargets.add(EventHook(listener, method, eventTarget))
                 registry[eventClass] = invokableEventTargets
             }
         }
     }
+
     fun unregisterListener(listenable: Listenable) {
         for ((key, targets) in registry) {
             targets.removeIf { it.eventClass == listenable }
@@ -44,6 +47,7 @@ class EventManager {
             registry[key] = targets
         }
     }
+
     fun callEvent(event: Event) {
         val targets = registry[event.javaClass] ?: return
 
@@ -52,22 +56,27 @@ class EventManager {
                 if (!invokableEventTarget.eventClass.handleEvents() && !invokableEventTarget.isIgnoreCondition)
                     continue
 
-                invokableEventTarget.method.invoke(invokableEventTarget.eventClass, event)
+                invokableEventTarget.method.invoke(
+                    invokableEventTarget.eventClass,
+                    event
+                )
             } catch (throwable: Throwable) {
-                throwable.printStackTrace()
                 if (KevinClient.debug) {
+                    synchronized("Penis Lock") {
+                        throwable.printStackTrace()
+                    }
                     if (throwable is InvocationTargetException) {
                         KevinClient.hud.addNotification(
                             Notification(
-                                "Exception caught when calling ${event.javaClass.simpleName} in ${invokableEventTarget.eventClass.javaClass.simpleName}: ${throwable.targetException.message}",
+                                "Exception caught when calling ${event.javaClass.getSimpleName()} in ${invokableEventTarget.eventClass.javaClass.getSimpleName()}: ${throwable.getTargetException().message}",
                                 "Debug",
                                 ConnectNotificationType.Error
                             )
                         )
                         Minecraft.logger.warn(
                             "Exception caught when calling ${event.javaClass.simpleName} in listener ${invokableEventTarget.eventClass.javaClass.simpleName}:" +
-                            "\n" +
-                            throwable.targetException.stackTraceToString()
+                                    "\n" +
+                                    throwable.targetException.stackTraceToString()
                         )
                     }
                 }

@@ -41,7 +41,7 @@ class ScriptManager : Plugin(), IClientCommand, ClearMainConfigClientCommand.IRe
         LibraryManager.loadDependency(MavenDependency("org.python", "jython-standalone", "2.7.2"), javaClass.classLoader as URLClassLoader)
         Minecraft.logger.info("[ScriptManager] Loading scripts...")
         val time = System.currentTimeMillis()
-        //KevinClient.fileManager.saveConfig(KevinClient.fileManager.modulesConfig)
+        KevinClient.fileManager.saveConfig(KevinClient.fileManager.modulesConfig)
         scripts.forEach { script ->
             script.registeredModules.forEach {
                 if (it in KevinClient.moduleManager.getModules()) KevinClient.moduleManager.unregisterModule(it)
