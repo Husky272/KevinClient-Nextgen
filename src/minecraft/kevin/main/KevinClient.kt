@@ -17,7 +17,7 @@ package kevin.main
 
 import kevin.cape.CapeManager
 import kevin.command.CommandManager
-import kevin.command.bind.BindClientCommandManager
+import kevin.command.bind.BindManager
 import kevin.event.ClientShutdownEvent
 import kevin.event.EventManager
 import kevin.file.ConfigManager
@@ -101,7 +101,7 @@ object KevinClient {
         fileManager.loadConfig(fileManager.modulesConfig)
         fileManager.loadConfig(fileManager.bindCommandConfig)
 
-        eventManager.registerListener(BindClientCommandManager)
+        eventManager.registerListener(BindManager)
         eventManager.registerListener(RotationUtils())
 //        audioManager = AudioManager()
         hud = createDefault()

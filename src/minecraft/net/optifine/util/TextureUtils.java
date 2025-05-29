@@ -244,7 +244,8 @@ public class TextureUtils {
     public static void registerResourceListener() {
         IResourceManager iresourcemanager = Config.getResourceManager();
 
-        if (iresourcemanager instanceof IReloadableResourceManager ireloadableresourcemanager) {
+        if (iresourcemanager instanceof IReloadableResourceManager) {
+            IReloadableResourceManager ireloadableresourcemanager = (IReloadableResourceManager) iresourcemanager;
             ireloadableresourcemanager.registerReloadListener(TextureUtils::resourcesReloaded);
         }
 

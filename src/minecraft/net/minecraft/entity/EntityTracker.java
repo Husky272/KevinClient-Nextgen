@@ -44,9 +44,9 @@ public class EntityTracker
 {
     private static final Logger logger = LogManager.getLogger();
     private final WorldServer theWorld;
-    private final Set<EntityTrackerEntry> trackedEntities = Sets.newHashSet();
-    private final IntHashMap<EntityTrackerEntry> trackedEntityHashTable = new IntHashMap<>();
-    private final int maxTrackingDistanceThreshold;
+    private Set<EntityTrackerEntry> trackedEntities = Sets.newHashSet();
+    private IntHashMap<EntityTrackerEntry> trackedEntityHashTable = new IntHashMap<>();
+    private int maxTrackingDistanceThreshold;
 
     public EntityTracker(WorldServer theWorldIn)
     {
@@ -56,9 +56,10 @@ public class EntityTracker
 
     public void trackEntity(Entity entityIn)
     {
-        if (entityIn instanceof EntityPlayerMP entityplayermp)
+        if (entityIn instanceof EntityPlayerMP)
         {
             this.trackEntity(entityIn, 512, 2);
+            EntityPlayerMP entityplayermp = (EntityPlayerMP)entityIn;
 
             for (EntityTrackerEntry entitytrackerentry : this.trackedEntities)
             {
@@ -226,15 +227,16 @@ public class EntityTracker
             }
             catch (ReportedException reportedexception)
             {
-                logger.error("\"Silently\" catching entity tracking error.", reportedexception);
+                logger.error("\"Silently\" catching entity tracking error.", (Throwable)reportedexception);
             }
         }
     }
 
     public void untrackEntity(Entity entityIn)
     {
-        if (entityIn instanceof EntityPlayerMP entityplayermp)
+        if (entityIn instanceof EntityPlayerMP)
         {
+            EntityPlayerMP entityplayermp = (EntityPlayerMP)entityIn;
 
             for (EntityTrackerEntry entitytrackerentry : this.trackedEntities)
             {

@@ -19,7 +19,7 @@ import com.google.gson.JsonNull
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kevin.command.bind.BindCommand
-import kevin.command.bind.BindClientCommandManager
+import kevin.command.bind.BindManager
 import kevin.main.KevinClient
 import kevin.module.ClientModule
 import kevin.module.Value
@@ -53,7 +53,7 @@ object ConfigManager {
         val modulesConfig = JsonObject()
         //BindCommands
         val bindCommandJsonObject = JsonObject()
-        BindClientCommandManager.bindCommandList.forEachIndexed { index, bindCommand ->
+        BindManager.bindCommandList.forEachIndexed { index, bindCommand ->
             val jsonMod = JsonObject()
             jsonMod.addProperty("key", bindCommand.key)
             jsonMod.addProperty("command", bindCommand.command)
@@ -91,7 +91,7 @@ object ConfigManager {
         val warns = mutableMapOf<String,String>()
         val setClientModules = arrayListOf<ClientModule>()
         var bindCommandEx = false
-        BindClientCommandManager.bindCommandList.clear()
+        BindManager.bindCommandList.clear()
         //LoadModules
         if (configEx){
             val modulesConfig = config[0]
@@ -108,7 +108,7 @@ object ConfigManager {
                         list.sortBy { it.key.toInt() }
                         for (entry in list) {
                             val jsonModule = entry.value as JsonObject
-                            BindClientCommandManager.bindCommandList.add(BindCommand(jsonModule["key"].asInt, jsonModule["command"].asString))
+                            BindManager.bindCommandList.add(BindCommand(jsonModule["key"].asInt, jsonModule["command"].asString))
                         }
                         continue
                     }

@@ -19,34 +19,36 @@ public class ModelAdapterDragon extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelDragon modeldragon)) {
+        if (!(model instanceof ModelDragon)) {
             return null;
         } else {
+            ModelDragon modeldragon = (ModelDragon) model;
 
-            if (modelPart.equals("head")) {
-                return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 0);
-            } else if (modelPart.equals("spine")) {
-                return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 1);
-            } else if (modelPart.equals("jaw")) {
-                return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 2);
-            } else if (modelPart.equals("body")) {
-                return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 3);
-            } else if (modelPart.equals("rear_leg")) {
-                return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 4);
-            } else if (modelPart.equals("front_leg")) {
-                return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 5);
-            } else if (modelPart.equals("rear_leg_tip")) {
-                return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 6);
-            } else if (modelPart.equals("front_leg_tip")) {
-                return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 7);
-            } else if (modelPart.equals("rear_foot")) {
-                return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 8);
-            } else if (modelPart.equals("front_foot")) {
-                return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 9);
-            } else if (modelPart.equals("wing")) {
-                return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 10);
-            } else {
-                return modelPart.equals("wing_tip") ? (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 11) : null;
+            switch (modelPart) {
+                case "head":
+                    return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 0);
+                case "spine":
+                    return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 1);
+                case "jaw":
+                    return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 2);
+                case "body":
+                    return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 3);
+                case "rear_leg":
+                    return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 4);
+                case "front_leg":
+                    return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 5);
+                case "rear_leg_tip":
+                    return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 6);
+                case "front_leg_tip":
+                    return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 7);
+                case "rear_foot":
+                    return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 8);
+                case "front_foot":
+                    return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 9);
+                case "wing":
+                    return (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 10);
+                default:
+                    return modelPart.equals("wing_tip") ? (ModelRenderer) Reflector.getFieldValue(modeldragon, Reflector.ModelDragon_ModelRenderers, 11) : null;
             }
         }
     }

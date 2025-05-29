@@ -50,9 +50,10 @@ public class TooltipProviderOptions implements TooltipProvider {
     }
 
     public String[] getTooltipLines(GuiButton btn, int width) {
-        if (!(btn instanceof IOptionControl ioptioncontrol)) {
+        if (!(btn instanceof IOptionControl)) {
             return null;
         } else {
+            IOptionControl ioptioncontrol = (IOptionControl) btn;
             GameSettings.Options gamesettings$options = ioptioncontrol.getOption();
             String[] astring = getTooltipLines(gamesettings$options.getEnumString());
             return astring;

@@ -142,7 +142,7 @@ public class HttpPipelineReceiver extends Thread {
             i = j;
         }
 
-        String s = bytearrayoutputstream.toString(ASCII);
+        String s = bytearrayoutputstream.toString("UTF-8");
 
         if (flag) {
             s = s.substring(0, s.length() - 2);

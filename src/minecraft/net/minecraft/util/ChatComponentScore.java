@@ -10,7 +10,7 @@ public class ChatComponentScore extends ChatComponentStyle
     private final String name;
     private final String objective;
 
-    /** The value displayed instead of the real score (may be null) */
+    /** The value displayed instead of the real score (maybe null) */
     private String value = "";
 
     public ChatComponentScore(String nameIn, String objectiveIn)
@@ -87,12 +87,13 @@ public class ChatComponentScore extends ChatComponentStyle
         {
             return true;
         }
-        else if (!(p_equals_1_ instanceof ChatComponentScore chatcomponentscore))
+        else if (!(p_equals_1_ instanceof ChatComponentScore))
         {
             return false;
         }
         else
         {
+            ChatComponentScore chatcomponentscore = (ChatComponentScore)p_equals_1_;
             return this.name.equals(chatcomponentscore.name) && this.objective.equals(chatcomponentscore.objective) && super.equals(p_equals_1_);
         }
     }

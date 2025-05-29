@@ -10,7 +10,9 @@ import kevin.module.modules.misc.NoCommand;
 import kevin.module.modules.movement.InvMove;
 import kevin.module.modules.movement.NoSlow;
 import kevin.module.modules.movement.Sprint;
-import kevin.module.modules.render.*;
+import kevin.module.modules.render.FreeCam;
+import kevin.module.modules.render.NoSwing;
+import kevin.module.modules.render.Particles;
 import kevin.module.modules.world.Scaffold;
 import kevin.utils.Rotation;
 import kevin.utils.entity.rotation.RotationUtils;
@@ -40,81 +42,67 @@ import net.minecraft.util.*;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 
-public class EntityPlayerSP extends AbstractClientPlayer
-{
+public class EntityPlayerSP extends AbstractClientPlayer {
     public final NetHandlerPlayClient sendQueue;
     private final StatFileWriter statWriter;
-
-    /**
-     * The last X position which was transmitted to the server, used to determine when the X position changes and needs
-     * to be re-transmitted
-     */
-    private double lastReportedPosX;
-
-    /**
-     * The last Y position which was transmitted to the server, used to determine when the Y position changes and needs
-     * to be re-transmitted
-     */
-    private double lastReportedPosY;
-
-    /**
-     * The last Z position which was transmitted to the server, used to determine when the Z position changes and needs
-     * to be re-transmitted
-     */
-    private double lastReportedPosZ;
-
-    /**
-     * The last yaw value which was transmitted to the server, used to determine when the yaw changes and needs to be
-     * re-transmitted
-     */
-    private float lastReportedYaw;
-
-    /**
-     * The last pitch value which was transmitted to the server, used to determine when the pitch changes and needs to
-     * be re-transmitted
-     */
-    private float lastReportedPitch;
-
-    /** the last sneaking state sent to the server */
-    private boolean serverSneakState;
-
     /** the last sprinting state sent to the server */
     public boolean serverSprintState;
-
     /**
      * Reset to 0 every time position is sent to the server, used to send periodic updates every 20 ticks even when the
      * player is not moving.
      */
     public int positionUpdateTicks;
-    private boolean hasValidHealth;
-    private String clientBrand;
     public MovementInput movementInput;
-    protected Minecraft mc;
-
-    /**
-     * Used to tell if the player pressed forward twice. If this is at 0 and it's pressed (And they are allowed to
-     * sprint, aka enough food on the ground etc) it sets this to 7. If it's pressed and it's greater than 0 enable
-     * sprinting.
-     */
-    protected int sprintToggleTimer;
-
     /** Ticks left before sprinting is disabled. */
     public int sprintingTicksLeft;
     public float renderArmYaw;
     public float renderArmPitch;
     public float prevRenderArmYaw;
     public float prevRenderArmPitch;
+    /** The amount of time an entity has been in a Portal */
+    public float timeInPortal;
+    /** The amount of time an entity has been in a Portal the previous tick */
+    public float prevTimeInPortal;
+    protected Minecraft mc;
+    /**
+     * Used to tell if the player pressed forward twice. If this is at 0 and it's pressed (And they are allowed to
+     * sprint, aka enough food on the ground etc) it sets this to 7. If it's pressed and it's greater than 0 enable
+     * sprinting.
+     */
+    protected int sprintToggleTimer;
+    /**
+     * The last X position which was transmitted to the server, used to determine when the X position changes and needs
+     * to be re-transmitted
+     */
+    private double lastReportedPosX;
+    /**
+     * The last Y position which was transmitted to the server, used to determine when the Y position changes and needs
+     * to be re-transmitted
+     */
+    private double lastReportedPosY;
+    /**
+     * The last Z position which was transmitted to the server, used to determine when the Z position changes and needs
+     * to be re-transmitted
+     */
+    private double lastReportedPosZ;
+    /**
+     * The last yaw value which was transmitted to the server, used to determine when the yaw changes and needs to be
+     * re-transmitted
+     */
+    private float lastReportedYaw;
+    /**
+     * The last pitch value which was transmitted to the server, used to determine when the pitch changes and needs to
+     * be re-transmitted
+     */
+    private float lastReportedPitch;
+    /** the last sneaking state sent to the server */
+    private boolean serverSneakState;
+    private boolean hasValidHealth;
+    private String clientBrand;
     private int horseJumpPowerCounter;
     private float horseJumpPower;
 
-    /** The amount of time an entity has been in a Portal */
-    public float timeInPortal;
-
-    /** The amount of time an entity has been in a Portal the previous tick */
-    public float prevTimeInPortal;
-
-    public EntityPlayerSP(Minecraft mcIn, World worldIn, NetHandlerPlayClient netHandler, StatFileWriter statFile)
-    {
+    public EntityPlayerSP(Minecraft mcIn, World worldIn, NetHandlerPlayClient netHandler, StatFileWriter statFile) {
         super(worldIn, netHandler.getGameProfile());
         this.sendQueue = netHandler;
         this.statWriter = statFile;
@@ -126,8 +114,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Called when the entity is attacked.
      */
     @Override
-    public boolean attackEntityFrom(DamageSource source, float amount)
-    {
+    public boolean attackEntityFrom(DamageSource source, float amount) {
         return false;
     }
 
@@ -135,21 +122,18 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Heal living entity (param: amount of half-hearts)
      */
     @Override
-    public void heal(float healAmount)
-    {
+    public void heal(float healAmount) {
     }
 
     /**
      * Called when a player mounts an entity. e.g. mounts a pig, mounts a boat.
      */
     @Override
-    public void mountEntity(Entity entityIn)
-    {
+    public void mountEntity(Entity entityIn) {
         super.mountEntity(entityIn);
 
-        if (entityIn instanceof EntityMinecart)
-        {
-            this.mc.getSoundHandler().playSound(new MovingSoundMinecartRiding(this, (EntityMinecart)entityIn));
+        if (entityIn instanceof EntityMinecart) {
+            this.mc.getSoundHandler().playSound(new MovingSoundMinecartRiding(this, (EntityMinecart) entityIn));
         }
     }
 
@@ -157,22 +141,17 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Called to update the entity's position/logic.
      */
     @Override
-    public void onUpdate()
-    {
+    public void onUpdate() {
 
         //KevinClient.eventManager.callEvent(new UpdateEvent(UpdateState.OnUpdate));
 
-        if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ)))
-        {
+        if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ))) {
             super.onUpdate();
 
-            if (this.isRiding())
-            {
+            if (this.isRiding()) {
                 this.sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(this.rotationYaw, this.rotationPitch, this.onGround));
                 this.sendQueue.addToSendQueue(new C0CPacketInput(this.moveStrafing, this.moveForward, this.movementInput.jump, this.movementInput.sneak));
-            }
-            else
-            {
+            } else {
                 this.onUpdateWalkingPlayer();
             }
         }
@@ -197,8 +176,8 @@ public class EntityPlayerSP extends AbstractClientPlayer
             final InvMove invMove = KevinClient.moduleManager.getModule(InvMove.class);
             final boolean fakeSprint =
                     invMove.getNeedFakeSprint()
-                    || KevinClient.moduleManager.getModule(AntiHunger.class).getState()
-                    || KevinClient.moduleManager.getModule(FreeCam.class).getState();
+                            || KevinClient.moduleManager.getModule(AntiHunger.class).getState()
+                            || KevinClient.moduleManager.getModule(FreeCam.class).getState();
 
             boolean sprinting = this.isSprinting() && !fakeSprint;
 
@@ -213,22 +192,17 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
             boolean sneaking = this.isSneaking();
 
-            if (sneaking != this.serverSneakState)
-            {
-                if (sneaking)
-                {
+            if (sneaking != this.serverSneakState) {
+                if (sneaking) {
                     this.sendQueue.addToSendQueue(new C0BPacketEntityAction(this, C0BPacketEntityAction.Action.START_SNEAKING));
-                }
-                else
-                {
+                } else {
                     this.sendQueue.addToSendQueue(new C0BPacketEntityAction(this, C0BPacketEntityAction.Action.STOP_SNEAKING));
                 }
 
                 this.serverSneakState = sneaking;
             }
 
-            if (this.isCurrentViewEntity())
-            {
+            if (this.isCurrentViewEntity()) {
                 float yaw = rotationYaw;
                 float pitch = rotationPitch;
                 float lastReportedYaw = RotationUtils.serverRotation.getYaw();
@@ -247,50 +221,38 @@ public class EntityPlayerSP extends AbstractClientPlayer
                 boolean moved = xDiff * xDiff + yDiff * yDiff + zDiff * zDiff > 9.0E-4D || this.positionUpdateTicks >= 20;
                 boolean rotated = yawDiff != 0.0D || pitchDiff != 0.0D;
 
-                if (this.ridingEntity == null)
-                {
-                    if (moved && rotated)
-                    {
+                if (this.ridingEntity == null) {
+                    if (moved && rotated) {
                         this.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(posX, posY, posZ, yaw, pitch, isOnGround));
-                    }
-                    else if (moved)
-                    {
+                    } else if (moved) {
                         this.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(posX, posY, posZ, isOnGround));
-                    }
-                    else if (rotated)
-                    {
+                    } else if (rotated) {
                         this.sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(yaw, pitch, isOnGround));
-                    }
-                    else
-                    {
+                    } else {
                         this.sendQueue.addToSendQueue(new C03PacketPlayer(isOnGround));
                     }
-                }
-                else
-                {
+                } else {
                     this.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(this.motionX, -999.0D, this.motionZ, yaw, pitch, isOnGround));
                     moved = false;
                 }
 
                 ++this.positionUpdateTicks;
 
-                if (moved)
-                {
+                if (moved) {
                     this.lastReportedPosX = posX;
                     this.lastReportedPosY = posY;
                     this.lastReportedPosZ = posZ;
                     this.positionUpdateTicks = 0;
                 }
 
-                if (rotated)
-                {
+                if (rotated) {
                     this.lastReportedYaw = this.rotationYaw;
                     this.lastReportedPitch = this.rotationPitch;
                 }
             }
 
             KevinClient.eventManager.callEvent(new MotionEvent(lastReportedPosX, lastReportedPosY, lastReportedPosZ, isOnGround, EventState.POST));
-        }catch (final Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
     }
@@ -299,8 +261,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Called when player presses the drop item key
      */
     @Override
-    public EntityItem dropOneItem(boolean dropAll)
-    {
+    public EntityItem dropOneItem(boolean dropAll) {
         C07PacketPlayerDigging.Action c07packetplayerdigging$action = dropAll ? C07PacketPlayerDigging.Action.DROP_ALL_ITEMS : C07PacketPlayerDigging.Action.DROP_ITEM;
         this.sendQueue.addToSendQueue(new C07PacketPlayerDigging(c07packetplayerdigging$action, BlockPos.ORIGIN, EnumFacing.DOWN));
         return null;
@@ -310,15 +271,13 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Joins the passed in entity item with the world. Args: entityItem
      */
     @Override
-    protected void joinEntityItemWithWorld(EntityItem itemIn)
-    {
+    protected void joinEntityItemWithWorld(EntityItem itemIn) {
     }
 
     /**
      * Sends a chat message from the player. Args: chatMessage
      */
-    public void sendChatMessage(String message)
-    {
+    public void sendChatMessage(String message) {
         if (KevinClient.moduleManager.getModule(NoCommand.class).getState()) {
             this.sendQueue.addToSendQueue(new C01PacketChatMessage(message));
         } else {
@@ -332,12 +291,12 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Swings the item the player is holding.
      */
     @Override
-    public void swingItem()
-    {
+    public void swingItem() {
         final NoSwing noSwing = KevinClient.moduleManager.getModule(NoSwing.class);
 
         if (noSwing.getState()) {
-            if (!noSwing.getServerSideValue().get()) this.sendQueue.addToSendQueue(new C0APacketAnimation());
+            if (!noSwing.getServerSideValue().get())
+                this.sendQueue.addToSendQueue(new C0APacketAnimation());
             return;
         }
         super.swingItem();
@@ -345,8 +304,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
     }
 
     @Override
-    public void respawnPlayer()
-    {
+    public void respawnPlayer() {
         this.sendQueue.addToSendQueue(new C16PacketClientStatus(C16PacketClientStatus.EnumState.PERFORM_RESPAWN));
     }
 
@@ -355,10 +313,8 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * second with the reduced value. Args: damageAmount
      */
     @Override
-    protected void damageEntity(DamageSource damageSrc, float damageAmount)
-    {
-        if (!this.isEntityInvulnerable(damageSrc))
-        {
+    protected void damageEntity(DamageSource damageSrc, float damageAmount) {
+        if (!this.isEntityInvulnerable(damageSrc)) {
             this.setHealth(this.getHealth() - damageAmount);
         }
     }
@@ -367,14 +323,12 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * set current crafting inventory back to the 2x2 square
      */
     @Override
-    public void closeScreen()
-    {
+    public void closeScreen() {
         this.sendQueue.addToSendQueue(new C0DPacketCloseWindow(this.openContainer.windowId));
         this.closeScreenAndDropStack();
     }
 
-    public void closeScreenAndDropStack()
-    {
+    public void closeScreenAndDropStack() {
         this.inventory.setItemStack(null);
         super.closeScreen();
         this.mc.displayGuiScreen(null);
@@ -383,32 +337,24 @@ public class EntityPlayerSP extends AbstractClientPlayer
     /**
      * Updates health locally.
      */
-    public void setPlayerSPHealth(float health)
-    {
-        if (this.hasValidHealth)
-        {
+    public void setPlayerSPHealth(float health) {
+        if (this.hasValidHealth) {
             float f = this.getHealth() - health;
 
-            if (f <= 0.0F)
-            {
+            if (f <= 0.0F) {
                 this.setHealth(health);
 
-                if (f < 0.0F)
-                {
+                if (f < 0.0F) {
                     this.hurtResistantTime = this.maxHurtResistantTime / 2;
                 }
-            }
-            else
-            {
+            } else {
                 this.lastDamage = f;
                 this.setHealth(this.getHealth());
                 this.hurtResistantTime = this.maxHurtResistantTime;
                 this.damageEntity(DamageSource.generic, f);
                 this.hurtTime = this.maxHurtTime = 10;
             }
-        }
-        else
-        {
+        } else {
             this.setHealth(health);
             this.hasValidHealth = true;
         }
@@ -418,12 +364,9 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Adds a value to a statistic field.
      */
     @Override
-    public void addStat(StatBase stat, int amount)
-    {
-        if (stat != null)
-        {
-            if (stat.isIndependent)
-            {
+    public void addStat(StatBase stat, int amount) {
+        if (stat != null) {
+            if (stat.isIndependent) {
                 super.addStat(stat, amount);
             }
         }
@@ -433,8 +376,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Sends the player's abilities to the server (if there is one).
      */
     @Override
-    public void sendPlayerAbilities()
-    {
+    public void sendPlayerAbilities() {
         this.sendQueue.addToSendQueue(new C13PacketPlayerAbilities(this.capabilities));
     }
 
@@ -442,109 +384,89 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * returns true if this is an EntityPlayerSP, or the logged in player.
      */
     @Override
-    public boolean isUser()
-    {
+    public boolean isUser() {
         return true;
     }
 
-    protected void sendHorseJump()
-    {
-        this.sendQueue.addToSendQueue(new C0BPacketEntityAction(this, C0BPacketEntityAction.Action.RIDING_JUMP, (int)(this.getHorseJumpPower() * 100.0F)));
+    protected void sendHorseJump() {
+        this.sendQueue.addToSendQueue(new C0BPacketEntityAction(this, C0BPacketEntityAction.Action.RIDING_JUMP, (int) (this.getHorseJumpPower() * 100.0F)));
     }
 
-    public void sendHorseInventory()
-    {
+    public void sendHorseInventory() {
         this.sendQueue.addToSendQueue(new C0BPacketEntityAction(this, C0BPacketEntityAction.Action.OPEN_INVENTORY));
     }
 
-    public void setClientBrand(String brand)
-    {
-        this.clientBrand = brand;
-    }
-
-    public String getClientBrand()
-    {
+    public String getClientBrand() {
         return this.clientBrand;
     }
 
-    public StatFileWriter getStatFileWriter()
-    {
+    public void setClientBrand(String brand) {
+        this.clientBrand = brand;
+    }
+
+    public StatFileWriter getStatFileWriter() {
         return this.statWriter;
     }
 
     @Override
-    public void addChatComponentMessage(IChatComponent chatComponent)
-    {
+    public void addChatComponentMessage(IChatComponent chatComponent) {
         this.mc.ingameGUI.getChatGUI().printChatMessage(chatComponent);
     }
 
     @Override
-    protected boolean pushOutOfBlocks(double x, double y, double z)
-    {
+    protected boolean pushOutOfBlocks(double x, double y, double z) {
 
         PushOutEvent event = new PushOutEvent();
         if (this.noClip) event.cancelEvent();
         KevinClient.eventManager.callEvent(event);
         if (event.isCancelled()) return false;
 
-        if (this.noClip)
-        {
+        if (this.noClip) {
             return false;
-        }
-        else
-        {
+        } else {
             BlockPos blockpos = new BlockPos(x, y, z);
-            double d0 = x - (double)blockpos.getX();
-            double d1 = z - (double)blockpos.getZ();
+            double d0 = x - (double) blockpos.getX();
+            double d1 = z - (double) blockpos.getZ();
 
-            if (!this.isOpenBlockSpace(blockpos))
-            {
+            if (!this.isOpenBlockSpace(blockpos)) {
                 int i = -1;
                 double d2 = 9999.0D;
 
-                if (this.isOpenBlockSpace(blockpos.west()) && d0 < d2)
-                {
+                if (this.isOpenBlockSpace(blockpos.west()) && d0 < d2) {
                     d2 = d0;
                     i = 0;
                 }
 
-                if (this.isOpenBlockSpace(blockpos.east()) && 1.0D - d0 < d2)
-                {
+                if (this.isOpenBlockSpace(blockpos.east()) && 1.0D - d0 < d2) {
                     d2 = 1.0D - d0;
                     i = 1;
                 }
 
-                if (this.isOpenBlockSpace(blockpos.north()) && d1 < d2)
-                {
+                if (this.isOpenBlockSpace(blockpos.north()) && d1 < d2) {
                     d2 = d1;
                     i = 4;
                 }
 
-                if (this.isOpenBlockSpace(blockpos.south()) && 1.0D - d1 < d2)
-                {
+                if (this.isOpenBlockSpace(blockpos.south()) && 1.0D - d1 < d2) {
                     d2 = 1.0D - d1;
                     i = 5;
                 }
 
                 float f = 0.1F;
 
-                if (i == 0)
-                {
+                if (i == 0) {
                     this.motionX = -f;
                 }
 
-                if (i == 1)
-                {
+                if (i == 1) {
                     this.motionX = f;
                 }
 
-                if (i == 4)
-                {
+                if (i == 4) {
                     this.motionZ = -f;
                 }
 
-                if (i == 5)
-                {
+                if (i == 5) {
                     this.motionZ = f;
                 }
             }
@@ -556,8 +478,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
     /**
      * Returns true if the block at the given BlockPos and the block above it are NOT full cubes.
      */
-    private boolean isOpenBlockSpace(BlockPos pos)
-    {
+    private boolean isOpenBlockSpace(BlockPos pos) {
         return !this.worldObj.getBlockState(pos).getBlock().isNormalCube() && !this.worldObj.getBlockState(pos.up()).getBlock().isNormalCube();
     }
 
@@ -565,8 +486,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Set sprinting switch for Entity.
      */
     @Override
-    public void setSprinting(boolean sprinting)
-    {
+    public void setSprinting(boolean sprinting) {
         super.setSprinting(sprinting);
         this.sprintingTicksLeft = sprinting ? 600 : 0;
     }
@@ -574,8 +494,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
     /**
      * Sets the current XP, total XP, and level number.
      */
-    public void setXPStats(float currentXP, int maxXP, int level)
-    {
+    public void setXPStats(float currentXP, int maxXP, int level) {
         this.experience = currentXP;
         this.experienceTotal = maxXP;
         this.experienceLevel = level;
@@ -585,8 +504,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Send a chat message to the CommandSender
      */
     @Override
-    public void addChatMessage(IChatComponent component)
-    {
+    public void addChatMessage(IChatComponent component) {
         this.mc.ingameGUI.getChatGUI().printChatMessage(component);
     }
 
@@ -594,8 +512,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Returns {@code true} if the CommandSender is allowed to execute the command, {@code false} if not
      */
     @Override
-    public boolean canCommandSenderUseCommand(int permLevel, String commandName)
-    {
+    public boolean canCommandSenderUseCommand(int permLevel, String commandName) {
         return permLevel <= 0;
     }
 
@@ -604,14 +521,12 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * the coordinates 0, 0, 0
      */
     @Override
-    public BlockPos getPosition()
-    {
+    public BlockPos getPosition() {
         return new BlockPos(this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D);
     }
 
     @Override
-    public void playSound(String name, float volume, float pitch)
-    {
+    public void playSound(String name, float volume, float pitch) {
         this.worldObj.playSound(this.posX, this.posY, this.posZ, name, volume, pitch, false);
     }
 
@@ -619,30 +534,25 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Returns whether the entity is in a server world
      */
     @Override
-    public boolean isServerWorld()
-    {
+    public boolean isServerWorld() {
         return true;
     }
 
-    public boolean isRidingHorse()
-    {
-        return this.ridingEntity != null && this.ridingEntity instanceof EntityHorse && ((EntityHorse)this.ridingEntity).isHorseSaddled();
+    public boolean isRidingHorse() {
+        return this.ridingEntity != null && this.ridingEntity instanceof EntityHorse && ((EntityHorse) this.ridingEntity).isHorseSaddled();
     }
 
-    public float getHorseJumpPower()
-    {
+    public float getHorseJumpPower() {
         return this.horseJumpPower;
     }
 
     @Override
-    public void openEditSign(TileEntitySign signTile)
-    {
+    public void openEditSign(TileEntitySign signTile) {
         this.mc.displayGuiScreen(new GuiEditSign(signTile));
     }
 
     @Override
-    public void openEditCommandBlock(CommandBlockLogic cmdBlockLogic)
-    {
+    public void openEditCommandBlock(CommandBlockLogic cmdBlockLogic) {
         this.mc.displayGuiScreen(new GuiCommandBlock(cmdBlockLogic));
     }
 
@@ -650,12 +560,10 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Displays the GUI for interacting with a book.
      */
     @Override
-    public void displayGUIBook(ItemStack bookStack)
-    {
+    public void displayGUIBook(ItemStack bookStack) {
         Item item = bookStack.getItem();
 
-        if (item == Items.writable_book)
-        {
+        if (item == Items.writable_book) {
             this.mc.displayGuiScreen(new GuiScreenBook(this, bookStack, true));
         }
     }
@@ -664,68 +572,46 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Displays the GUI for interacting with a chest inventory. Args: chestInventory
      */
     @Override
-    public void displayGUIChest(IInventory chestInventory)
-    {
-        String s = chestInventory instanceof IInteractionObject ? ((IInteractionObject)chestInventory).getGuiID() : "minecraft:container";
+    public void displayGUIChest(IInventory chestInventory) {
+        String s = chestInventory instanceof IInteractionObject ? ((IInteractionObject) chestInventory).getGuiID() : "minecraft:container";
 
-        if ("minecraft:chest".equals(s))
-        {
+        if ("minecraft:chest".equals(s)) {
             this.mc.displayGuiScreen(new GuiChest(this.inventory, chestInventory));
-        }
-        else if ("minecraft:hopper".equals(s))
-        {
+        } else if ("minecraft:hopper".equals(s)) {
             this.mc.displayGuiScreen(new GuiHopper(this.inventory, chestInventory));
-        }
-        else if ("minecraft:furnace".equals(s))
-        {
+        } else if ("minecraft:furnace".equals(s)) {
             this.mc.displayGuiScreen(new GuiFurnace(this.inventory, chestInventory));
-        }
-        else if ("minecraft:brewing_stand".equals(s))
-        {
+        } else if ("minecraft:brewing_stand".equals(s)) {
             this.mc.displayGuiScreen(new GuiBrewingStand(this.inventory, chestInventory));
-        }
-        else if ("minecraft:beacon".equals(s))
-        {
+        } else if ("minecraft:beacon".equals(s)) {
             this.mc.displayGuiScreen(new GuiBeacon(this.inventory, chestInventory));
-        }
-        else if (!"minecraft:dispenser".equals(s) && !"minecraft:dropper".equals(s))
-        {
+        } else if (!"minecraft:dispenser".equals(s) && !"minecraft:dropper".equals(s)) {
             this.mc.displayGuiScreen(new GuiChest(this.inventory, chestInventory));
-        }
-        else
-        {
+        } else {
             this.mc.displayGuiScreen(new GuiDispenser(this.inventory, chestInventory));
         }
     }
 
     @Override
-    public void displayGUIHorse(EntityHorse horse, IInventory horseInventory)
-    {
+    public void displayGUIHorse(EntityHorse horse, IInventory horseInventory) {
         this.mc.displayGuiScreen(new GuiScreenHorseInventory(this.inventory, horseInventory, horse));
     }
 
     @Override
-    public void displayGui(IInteractionObject guiOwner)
-    {
+    public void displayGui(IInteractionObject guiOwner) {
         String s = guiOwner.getGuiID();
 
-        if ("minecraft:crafting_table".equals(s))
-        {
+        if ("minecraft:crafting_table".equals(s)) {
             this.mc.displayGuiScreen(new GuiCrafting(this.inventory, this.worldObj));
-        }
-        else if ("minecraft:enchanting_table".equals(s))
-        {
+        } else if ("minecraft:enchanting_table".equals(s)) {
             this.mc.displayGuiScreen(new GuiEnchantment(this.inventory, this.worldObj, guiOwner));
-        }
-        else if ("minecraft:anvil".equals(s))
-        {
+        } else if ("minecraft:anvil".equals(s)) {
             this.mc.displayGuiScreen(new GuiRepair(this.inventory, this.worldObj));
         }
     }
 
     @Override
-    public void displayVillagerTradeGui(IMerchant villager)
-    {
+    public void displayVillagerTradeGui(IMerchant villager) {
         this.mc.displayGuiScreen(new GuiMerchant(this.inventory, villager, this.worldObj));
     }
 
@@ -733,8 +619,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Called when the player performs a critical hit on the Entity. Args: entity that was hit critically
      */
     @Override
-    public void onCriticalHit(Entity entityHit)
-    {
+    public void onCriticalHit(Entity entityHit) {
         if (Particles.INSTANCE.getNoCriticalParticles())
             return;
 
@@ -742,8 +627,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
     }
 
     @Override
-    public void onEnchantmentCritical(Entity entityHit)
-    {
+    public void onEnchantmentCritical(Entity entityHit) {
         if (Particles.INSTANCE.getNoSharpParticles())
             return;
 
@@ -754,8 +638,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Returns if this entity is sneaking.
      */
     @Override
-    public boolean isSneaking()
-    {
+    public boolean isSneaking() {
         boolean flag = this.movementInput != null && this.movementInput.sneak;
         return flag && !this.sleeping;
     }
@@ -773,24 +656,21 @@ public class EntityPlayerSP extends AbstractClientPlayer
     }
 
     @Override
-    public void updateEntityActionState()
-    {
+    public void updateEntityActionState() {
         super.updateEntityActionState();
 
-        if (this.isCurrentViewEntity())
-        {
+        if (this.isCurrentViewEntity()) {
             this.moveStrafing = this.movementInput.moveStrafe;
             this.moveForward = this.movementInput.moveForward;
             this.isJumping = this.movementInput.jump;
             this.prevRenderArmYaw = this.renderArmYaw;
             this.prevRenderArmPitch = this.renderArmPitch;
-            this.renderArmPitch = (float)((double)this.renderArmPitch + (double)(this.rotationPitch - this.renderArmPitch) * 0.5D);
-            this.renderArmYaw = (float)((double)this.renderArmYaw + (double)(this.rotationYaw - this.renderArmYaw) * 0.5D);
+            this.renderArmPitch = (float) ((double) this.renderArmPitch + (double) (this.rotationPitch - this.renderArmPitch) * 0.5D);
+            this.renderArmYaw = (float) ((double) this.renderArmYaw + (double) (this.rotationYaw - this.renderArmYaw) * 0.5D);
         }
     }
 
-    protected boolean isCurrentViewEntity()
-    {
+    protected boolean isCurrentViewEntity() {
         return this.mc.getRenderViewEntity() == this;
     }
 
@@ -799,74 +679,58 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * use this to react to sunlight and start to burn.
      */
     @Override
-    public void onLivingUpdate()
-    {
+    public void onLivingUpdate() {
 
         KevinClient.eventManager.callEvent(new UpdateEvent(/*UpdateState.OnLivingUpdate**/));
 
-        if (this.sprintingTicksLeft > 0)
-        {
+        if (this.sprintingTicksLeft > 0) {
             --this.sprintingTicksLeft;
 
-            if (this.sprintingTicksLeft == 0)
-            {
+            if (this.sprintingTicksLeft == 0) {
                 this.setSprinting(false);
             }
         }
 
-        if (this.sprintToggleTimer > 0)
-        {
+        if (this.sprintToggleTimer > 0) {
             --this.sprintToggleTimer;
         }
 
         this.prevTimeInPortal = this.timeInPortal;
 
-        if (this.inPortal)
-        {
+        if (this.inPortal) {
             if (this.mc.currentScreen != null && !this.mc.currentScreen.doesGuiPauseGame()
-                    && !KevinClient.moduleManager.getModule(PortalMenu.class).getState())
-            {
+                    && !KevinClient.moduleManager.getModule(PortalMenu.class).getState()) {
                 this.mc.displayGuiScreen(null);
             }
 
-            if (this.timeInPortal == 0.0F)
-            {
+            if (this.timeInPortal == 0.0F) {
                 this.mc.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("portal.trigger"), this.rand.nextFloat() * 0.4F + 0.8F));
             }
 
             this.timeInPortal += 0.0125F;
 
-            if (this.timeInPortal >= 1.0F)
-            {
+            if (this.timeInPortal >= 1.0F) {
                 this.timeInPortal = 1.0F;
             }
 
             this.inPortal = false;
-        }
-        else if (this.isPotionActive(Potion.confusion) && this.getActivePotionEffect(Potion.confusion).getDuration() > 60)
-        {
+        } else if (this.isPotionActive(Potion.confusion) && this.getActivePotionEffect(Potion.confusion).getDuration() > 60) {
             this.timeInPortal += 0.006666667F;
 
-            if (this.timeInPortal > 1.0F)
-            {
+            if (this.timeInPortal > 1.0F) {
                 this.timeInPortal = 1.0F;
             }
-        }
-        else
-        {
-            if (this.timeInPortal > 0.0F)
-            {
+        } else {
+            if (this.timeInPortal > 0.0F) {
                 this.timeInPortal -= 0.05F;
             }
 
-            if (this.timeInPortal < 0.0F)
-            {
+            if (this.timeInPortal < 0.0F) {
                 this.timeInPortal = 0.0F;
             }
         }
 
-        if (this.timeUntilPortal > 0)
-        {
+        if (this.timeUntilPortal > 0) {
             --this.timeUntilPortal;
         }
 
@@ -879,8 +743,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
         final NoSlow noSlow = KevinClient.moduleManager.getModule(NoSlow.class);
         final KillAura killAura = KevinClient.moduleManager.getModule(KillAura.class);
 
-        if (getHeldItem() != null && getHeldItem().getItem() != null && (this.isUsingItem() || (getHeldItem().getItem() instanceof ItemSword && killAura.getBlockingStatus())) && !this.isRiding())
-        {
+        if (getHeldItem() != null && getHeldItem().getItem() != null && (this.isUsingItem() || (getHeldItem().getItem() instanceof ItemSword && killAura.getBlockingStatus())) && !this.isRiding()) {
             final SlowDownEvent slowDownEvent = new SlowDownEvent(0.2F, 0.2F);
             KevinClient.eventManager.callEvent(slowDownEvent);
             this.movementInput.moveStrafe *= slowDownEvent.getStrafe();
@@ -888,39 +751,49 @@ public class EntityPlayerSP extends AbstractClientPlayer
             this.sprintToggleTimer = 0;
         }
 
-        this.pushOutOfBlocks(this.posX - (double)this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ + (double)this.width * 0.35D);
-        this.pushOutOfBlocks(this.posX - (double)this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ - (double)this.width * 0.35D);
-        this.pushOutOfBlocks(this.posX + (double)this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ - (double)this.width * 0.35D);
-        this.pushOutOfBlocks(this.posX + (double)this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ + (double)this.width * 0.35D);
+        this.pushOutOfBlocks(this.posX - (double) this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ + (double) this.width * 0.35D);
+        this.pushOutOfBlocks(this.posX - (double) this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ - (double) this.width * 0.35D);
+        this.pushOutOfBlocks(this.posX + (double) this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ - (double) this.width * 0.35D);
+        this.pushOutOfBlocks(this.posX + (double) this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ + (double) this.width * 0.35D);
 
         final Sprint sprint = KevinClient.moduleManager.getModule(Sprint.class);
 
-        boolean flag3 = !sprint.getFoodValue().get() || (float)this.getFoodStats().getFoodLevel() > 6.0F || this.capabilities.allowFlying;
+        boolean flag3 = !sprint.getFoodValue().get() || (float) this.getFoodStats().getFoodLevel() > 6.0F || this.capabilities.allowFlying;
 
-        if (this.onGround && !flag1 && !flag2 && this.movementInput.moveForward >= f && !this.isSprinting() && flag3 && !this.isUsingItem() && !this.isPotionActive(Potion.blindness))
-        {
-            if (this.sprintToggleTimer <= 0 && !this.mc.gameSettings.keyBindSprint.isKeyDown())
-            {
+        if (this.onGround && !flag1 && !flag2 && this.movementInput.moveForward >= f && !this.isSprinting() && flag3 && !this.isUsingItem() && !this.isPotionActive(Potion.blindness)) {
+            if (this.sprintToggleTimer <= 0 && !this.mc.gameSettings.keyBindSprint.isKeyDown()) {
                 this.sprintToggleTimer = 7;
-            }
-            else
-            {
+            } else {
                 this.setSprinting(true);
             }
         }
 
-        if (!this.isSprinting() && this.movementInput.moveForward >= f && flag3 && (noSlow.getState() || !this.isUsingItem()) && !this.isPotionActive(Potion.blindness) && this.mc.gameSettings.keyBindSprint.isKeyDown())
-        {
+        if (!this.isSprinting() && this.movementInput.moveForward >= f && flag3 && (noSlow.getState() || !this.isUsingItem()) && !this.isPotionActive(Potion.blindness) && this.mc.gameSettings.keyBindSprint.isKeyDown()) {
             this.setSprinting(true);
         }
 
         final Scaffold scaffold = KevinClient.moduleManager.getModule(Scaffold.class);
 
-        if (KevinClient.moduleManager.getModule(InvMove.class).getNeedStopSprint() || (scaffold.getState() && !scaffold.getCanSprint()) || (sprint.getState() && sprint.getCheckServerSide().get() && (onGround || !sprint.getCheckServerSideGround().get()) && !sprint.getAllDirectionsValue().get() && RotationUtils.targetRotation != null && RotationUtils.getRotationDifference(new Rotation(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch)) > 30))
+        // What the actual fuck
+        if (
+                KevinClient.moduleManager.getModule(InvMove.class).getNeedStopSprint()
+                        ||
+                        (scaffold.getState() && !scaffold.getCanSprint())
+                        ||
+                        (sprint.getState() && sprint.getCheckServerSide().get()
+                                &&
+                                (
+                                        onGround || !sprint.getCheckServerSideGround().get()
+                                )
+                                && !sprint.getAllDirectionsValue().get()
+                                && RotationUtils.targetRotation != null
+                                && RotationUtils.getRotationDifference(
+                                new Rotation(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch)) > 30
+                        )
+        )
             this.setSprinting(false);
 
-        if (this.isSprinting() && ((!(sprint.getState() && sprint.getAllDirectionsValue().get()) && this.movementInput.moveForward < f) || this.isCollidedHorizontally || !flag3))
-        {
+        if (this.isSprinting() && ((!(sprint.getState() && sprint.getAllDirectionsValue().get()) && this.movementInput.moveForward < f) || this.isCollidedHorizontally || !flag3)) {
             this.setSprinting(false);
         }
 
@@ -929,24 +802,16 @@ public class EntityPlayerSP extends AbstractClientPlayer
             this.setSprinting(false);
         }
 
-        if (this.capabilities.allowFlying)
-        {
-            if (this.mc.playerController.isSpectatorMode())
-            {
-                if (!this.capabilities.isFlying)
-                {
+        if (this.capabilities.allowFlying) {
+            if (this.mc.playerController.isSpectatorMode()) {
+                if (!this.capabilities.isFlying) {
                     this.capabilities.isFlying = true;
                     this.sendPlayerAbilities();
                 }
-            }
-            else if (!flag && this.movementInput.jump)
-            {
-                if (this.flyToggleTimer == 0)
-                {
+            } else if (!flag && this.movementInput.jump) {
+                if (this.flyToggleTimer == 0) {
                     this.flyToggleTimer = 7;
-                }
-                else
-                {
+                } else {
                     this.capabilities.isFlying = !this.capabilities.isFlying;
                     this.sendPlayerAbilities();
                     this.flyToggleTimer = 0;
@@ -954,64 +819,47 @@ public class EntityPlayerSP extends AbstractClientPlayer
             }
         }
 
-        if (this.capabilities.isFlying && this.isCurrentViewEntity())
-        {
-            if (this.movementInput.sneak)
-            {
+        if (this.capabilities.isFlying && this.isCurrentViewEntity()) {
+            if (this.movementInput.sneak) {
                 this.motionY -= this.capabilities.getFlySpeed() * 3.0F;
             }
 
-            if (this.movementInput.jump)
-            {
+            if (this.movementInput.jump) {
                 this.motionY += this.capabilities.getFlySpeed() * 3.0F;
             }
         }
 
-        if (this.isRidingHorse())
-        {
-            if (this.horseJumpPowerCounter < 0)
-            {
+        if (this.isRidingHorse()) {
+            if (this.horseJumpPowerCounter < 0) {
                 ++this.horseJumpPowerCounter;
 
-                if (this.horseJumpPowerCounter == 0)
-                {
+                if (this.horseJumpPowerCounter == 0) {
                     this.horseJumpPower = 0.0F;
                 }
             }
 
-            if (flag && !this.movementInput.jump)
-            {
+            if (flag && !this.movementInput.jump) {
                 this.horseJumpPowerCounter = -10;
                 this.sendHorseJump();
-            }
-            else if (!flag && this.movementInput.jump)
-            {
+            } else if (!flag && this.movementInput.jump) {
                 this.horseJumpPowerCounter = 0;
                 this.horseJumpPower = 0.0F;
-            }
-            else if (flag)
-            {
+            } else if (flag) {
                 ++this.horseJumpPowerCounter;
 
-                if (this.horseJumpPowerCounter < 10)
-                {
-                    this.horseJumpPower = (float)this.horseJumpPowerCounter * 0.1F;
-                }
-                else
-                {
-                    this.horseJumpPower = 0.8F + 2.0F / (float)(this.horseJumpPowerCounter - 9) * 0.1F;
+                if (this.horseJumpPowerCounter < 10) {
+                    this.horseJumpPower = (float) this.horseJumpPowerCounter * 0.1F;
+                } else {
+                    this.horseJumpPower = 0.8F + 2.0F / (float) (this.horseJumpPowerCounter - 9) * 0.1F;
                 }
             }
-        }
-        else
-        {
+        } else {
             this.horseJumpPower = 0.0F;
         }
 
         super.onLivingUpdate();
 
-        if (this.onGround && this.capabilities.isFlying && !this.mc.playerController.isSpectatorMode())
-        {
+        if (this.onGround && this.capabilities.isFlying && !this.mc.playerController.isSpectatorMode()) {
             this.capabilities.isFlying = false;
             this.sendPlayerAbilities();
         }

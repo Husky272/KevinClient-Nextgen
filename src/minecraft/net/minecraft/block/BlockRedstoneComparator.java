@@ -158,7 +158,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 
     private EntityItemFrame findItemFrame(World worldIn, final EnumFacing facing, BlockPos pos)
     {
-        List<EntityItemFrame> list = worldIn.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1), new Predicate<Entity>()
+        List<EntityItemFrame> list = worldIn.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), (double)(pos.getX() + 1), (double)(pos.getY() + 1), (double)(pos.getZ() + 1)), new Predicate<Entity>()
         {
             public boolean apply(Entity p_apply_1_)
             {
@@ -212,8 +212,9 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         TileEntity tileentity = worldIn.getTileEntity(pos);
         int j = 0;
 
-        if (tileentity instanceof TileEntityComparator tileentitycomparator)
+        if (tileentity instanceof TileEntityComparator)
         {
+            TileEntityComparator tileentitycomparator = (TileEntityComparator)tileentity;
             j = tileentitycomparator.getOutputSignal();
             tileentitycomparator.setOutputSignal(i);
         }
@@ -266,7 +267,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
     {
         super.onBlockEventReceived(worldIn, pos, state, eventID, eventParam);
         TileEntity tileentity = worldIn.getTileEntity(pos);
-        return tileentity != null && tileentity.receiveClientEvent(eventID, eventParam);
+        return tileentity == null ? false : tileentity.receiveClientEvent(eventID, eventParam);
     }
 
     /**
@@ -320,14 +321,14 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(POWERED, false).withProperty(MODE, BlockRedstoneComparator.Mode.COMPARE);
     }
 
-    public enum Mode implements IStringSerializable
+    public static enum Mode implements IStringSerializable
     {
         COMPARE("compare"),
         SUBTRACT("subtract");
 
         private final String name;
 
-        Mode(String name)
+        private Mode(String name)
         {
             this.name = name;
         }

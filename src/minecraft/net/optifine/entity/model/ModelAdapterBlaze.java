@@ -20,9 +20,10 @@ public class ModelAdapterBlaze extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelBlaze modelblaze)) {
+        if (!(model instanceof ModelBlaze)) {
             return null;
         } else {
+            ModelBlaze modelblaze = (ModelBlaze) model;
 
             if (modelPart.equals("head")) {
                 return (ModelRenderer) Reflector.getFieldValue(modelblaze, Reflector.ModelBlaze_blazeHead);

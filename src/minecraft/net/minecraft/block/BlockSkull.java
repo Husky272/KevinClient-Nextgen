@@ -76,7 +76,7 @@ public class BlockSkull extends BlockContainer
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
     {
-        switch (worldIn.getBlockState(pos).getValue(FACING))
+        switch ((EnumFacing)worldIn.getBlockState(pos).getValue(FACING))
         {
             case UP:
             default:
@@ -163,8 +163,9 @@ public class BlockSkull extends BlockContainer
             {
                 TileEntity tileentity = worldIn.getTileEntity(pos);
 
-                if (tileentity instanceof TileEntitySkull tileentityskull)
+                if (tileentity instanceof TileEntitySkull)
                 {
+                    TileEntitySkull tileentityskull = (TileEntitySkull)tileentity;
                     ItemStack itemstack = new ItemStack(Items.skull, 1, this.getDamageValue(worldIn, pos));
 
                     if (tileentityskull.getSkullType() == 3 && tileentityskull.getPlayerProfile() != null)

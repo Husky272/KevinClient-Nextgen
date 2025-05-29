@@ -186,9 +186,9 @@ public class ModelBiped extends ModelBase
 
         final KillAura killAura = KevinClient.moduleManager.getModule(KillAura.class);
         final Scaffold scaffold = KevinClient.moduleManager.getModule(Scaffold.class);
-        final Fucker fucker = KevinClient.moduleManager.getModule(Fucker.class);
+        final Fucker Fucker = KevinClient.moduleManager.getModule(Fucker.class);
         final Nuker nuker = KevinClient.moduleManager.getModule(Nuker.class);
-//        final boolean needRotate = (killAura.getState() && (killAura.getTarget() != null || killAura.getSTarget() != null)) || scaffold.getState() || (breaker.getState() && breaker.getCurrentDamage() > 0) || (nuker.getState() && nuker.getCurrentDamage() > 0);
+//        final boolean needRotate = (killAura.getState() && (killAura.getTarget() != null || killAura.getSTarget() != null)) || scaffold.getState() || (Fucker.getState() && Fucker.getCurrentDamage() > 0) || (nuker.getState() && nuker.getCurrentDamage() > 0);
 
         if (Rotations.INSTANCE.getState() && RotationUtils.serverRotation != null && entityIn instanceof EntityPlayer
                 && entityIn.equals(Minecraft.getMinecraft().thePlayer)/* && needRotate*/) {
@@ -268,8 +268,9 @@ public class ModelBiped extends ModelBase
     {
         super.setModelAttributes(model);
 
-        if (model instanceof ModelBiped modelbiped)
+        if (model instanceof ModelBiped)
         {
+            ModelBiped modelbiped = (ModelBiped)model;
             this.heldItemLeft = modelbiped.heldItemLeft;
             this.heldItemRight = modelbiped.heldItemRight;
             this.isSneak = modelbiped.isSneak;
@@ -293,3 +294,4 @@ public class ModelBiped extends ModelBase
         this.bipedRightArm.postRender(scale);
     }
 }
+

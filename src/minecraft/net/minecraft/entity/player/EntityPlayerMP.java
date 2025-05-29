@@ -173,7 +173,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
         if (!worldIn.provider.getHasNoSky() && worldIn.getWorldInfo().getGameType() != WorldSettings.GameType.ADVENTURE)
         {
             int i = Math.max(5, server.getSpawnProtectionSize() - 6);
-            int j = MathHelper.floor_double(worldIn.getWorldBorder().getClosestDistance(blockpos.getX(), blockpos.getZ()));
+            int j = MathHelper.floor_double(worldIn.getWorldBorder().getClosestDistance((double)blockpos.getX(), (double)blockpos.getZ()));
 
             if (j < i)
             {
@@ -412,7 +412,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
 
                 for (ScoreObjective scoreobjective : this.getWorldScoreboard().getObjectivesFromCriteria(IScoreObjectiveCriteria.health))
                 {
-                    this.getWorldScoreboard().getValueFromObjective(this.getName(), scoreobjective).func_96651_a(List.of(this));
+                    this.getWorldScoreboard().getValueFromObjective(this.getName(), scoreobjective).func_96651_a(Arrays.asList(this));
                 }
             }
 
@@ -567,8 +567,9 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
                         return false;
                     }
 
-                    if (entity instanceof EntityArrow entityarrow)
+                    if (entity instanceof EntityArrow)
                     {
+                        EntityArrow entityarrow = (EntityArrow)entity;
 
                         if (entityarrow.shootingEntity instanceof EntityPlayer && !this.canAttackPlayer((EntityPlayer)entityarrow.shootingEntity))
                         {
@@ -584,7 +585,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
 
     public boolean canAttackPlayer(EntityPlayer other)
     {
-        return this.canPlayersAttack() && super.canAttackPlayer(other);
+        return !this.canPlayersAttack() ? false : super.canAttackPlayer(other);
     }
 
     /**
@@ -616,7 +617,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
 
                 if (blockpos != null)
                 {
-                    this.playerNetServerHandler.setPlayerLocation(blockpos.getX(), blockpos.getY(), blockpos.getZ(), 0.0F, 0.0F);
+                    this.playerNetServerHandler.setPlayerLocation((double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ(), 0.0F, 0.0F);
                 }
 
                 dimensionId = 1;
@@ -641,7 +642,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
         }
         else
         {
-            return !this.isSpectator() && super.isSpectatedByPlayer(player);
+            return this.isSpectator() ? false : super.isSpectatedByPlayer(player);
         }
     }
 
@@ -777,8 +778,9 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
             this.closeScreen();
         }
 
-        if (chestInventory instanceof ILockableContainer ilockablecontainer)
+        if (chestInventory instanceof ILockableContainer)
         {
+            ILockableContainer ilockablecontainer = (ILockableContainer)chestInventory;
 
             if (ilockablecontainer.isLocked() && !this.canOpen(ilockablecontainer.getLockCode()) && !this.isSpectator())
             {
@@ -1114,7 +1116,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
 
         if (gameType == WorldSettings.GameType.SPECTATOR)
         {
-            this.mountEntity(null);
+            this.mountEntity((Entity)null);
         }
         else
         {
@@ -1263,13 +1265,13 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
 
     public Entity getSpectatingEntity()
     {
-        return this.spectatingEntity == null ? this : this.spectatingEntity;
+        return (Entity)(this.spectatingEntity == null ? this : this.spectatingEntity);
     }
 
     public void setSpectatingEntity(Entity entityToSpectate)
     {
         Entity entity = this.getSpectatingEntity();
-        this.spectatingEntity = entityToSpectate == null ? this : entityToSpectate;
+        this.spectatingEntity = (Entity)(entityToSpectate == null ? this : entityToSpectate);
 
         if (entity != this.spectatingEntity)
         {

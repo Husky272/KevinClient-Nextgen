@@ -2,13 +2,12 @@ package kevin.module.modules.combat;
 
 import kevin.event.*;
 import kevin.main.KevinClient;
-import kevin.module.ClientModule;
 import kevin.module.*;
-import kevin.module.ModuleCategory;
-import kevin.utils.*;
+import kevin.utils.MovementUtils;
+import kevin.utils.OtherExtensionsKt;
+import kevin.utils.PacketUtils;
 import kevin.utils.entity.rotation.RaycastUtils;
 import kevin.utils.system.timer.MSTimer;
-import kotlin.jvm.internal.Intrinsics;
 import net.minecraft.block.BlockAir;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -25,7 +24,7 @@ import net.minecraft.util.EnumFacing;
 
 import java.util.Locale;
 
-public class AntiKnockback extends ClientModule {
+public final class AntiKnockback extends ClientModule {
 
     private final Minecraft mc = Minecraft.getMinecraft();
 
@@ -71,29 +70,24 @@ public class AntiKnockback extends ClientModule {
     // GrimAC
     private final IntegerValue grimACTicks = new IntegerValue("OldGrimTicks", 0, 0, 10);
     private final MSTimer velocityTimer = new MSTimer();
+    private final float intavex = 0f;
+    private final float intavey = 0f;
+    private final float intavez = 0f;
     private boolean velocityInput = false;
     private int grimTicks = 0;
     private int grimDisable = 0;
     private boolean explosion = false;
-
     // SmoothReverse
     private boolean reverseHurt = false;
-
     // Legit Smart
     private int jumped = 0;
-
     // AACPush
     private boolean jump = false;
     private int transactionCancelCount = 0;
-
     // MMC
     private int mmcTicks = 0;
     private boolean mmcLastCancel = false;
     private boolean mmcCanCancel = false;
-
-    private final float intavex = 0f;
-    private final float intavey = 0f;
-    private final float intavez = 0f;
 
     public AntiKnockback() {
         super("AntiKnockback", "Allows you to modify the amount of knockback you take.", ModuleCategory.COMBAT);
@@ -102,7 +96,7 @@ public class AntiKnockback extends ClientModule {
     @Override
     public String getTag() {
         if ("Simple".equalsIgnoreCase(modeValue.get())) {
-            return "H:" + (int)(horizontalValue.get() * 100) + "% V:" + (int)(verticalValue.get() * 100) + "%";
+            return "H:" + (int) (horizontalValue.get() * 100) + "% V:" + (int) (verticalValue.get() * 100) + "%";
         } else {
             return modeValue.get();
         }
@@ -205,7 +199,8 @@ public class AntiKnockback extends ClientModule {
                 break;
             case "aaczero":
                 if (thePlayer.hurtTime > 0) {
-                    if (!velocityInput || thePlayer.onGround || thePlayer.fallDistance > 2F) return;
+                    if (!velocityInput || thePlayer.onGround || thePlayer.fallDistance > 2F)
+                        return;
                     thePlayer.motionY -= 1.0;
                     thePlayer.isAirBorne = true;
                     thePlayer.onGround = true;
@@ -313,7 +308,8 @@ public class AntiKnockback extends ClientModule {
 
         Object packet = event.getPacket();
 
-        if (packet instanceof S12PacketEntityVelocity velPacket) {
+        if (packet instanceof S12PacketEntityVelocity) {
+            S12PacketEntityVelocity velPacket = (S12PacketEntityVelocity) packet;
             Entity entity = mc.theWorld.getEntityByID(velPacket.getEntityID());
             if (entity != thePlayer) return;
 
@@ -340,7 +336,14 @@ public class AntiKnockback extends ClientModule {
                 case "cancel":
                     event.cancelEvent();
                     break;
-                case "aac", "reverse", "smoothreverse", "aaczero", "allowfirst", "down", "intavejump", "blockcollection":
+                case "aac":
+                case "reverse":
+                case "smoothreverse":
+                case "aaczero":
+                case "allowfirst":
+                case "down":
+                case "intavejump":
+                case "blockcollection":
                     velocityInput = true;
                     break;
                 case "hypixelreverse":
@@ -352,11 +355,12 @@ public class AntiKnockback extends ClientModule {
                     }
                     break;
                 case "legitsmart":
-                    if (velPacket.motionX * velPacket.motionX + velPacket.motionZ * velPacket.motionZ + velPacket.motionY * velPacket.motionY > 640000)
+                    if (velPacket.motionX * velPacket.motionX + velPacket.motionZ * velPacket.motionZ + velPacket.motionY * velPacket.motionY > 640000) {
                         velocityInput = true;
+                    }
                     break;
                 case "aac5packet":
-                    // AAC5 Velocity will crash the server lol
+                    // What the actual fuck
                     if (mc.isIntegratedServerRunning()) return;
                     if (thePlayer.isBurning() && fireCheck.get()) return;
                     PacketUtils.sendPacketNoEvent(new C03PacketPlayer.C04PacketPlayerPosition(
@@ -408,7 +412,8 @@ public class AntiKnockback extends ClientModule {
                     break;
             }
 
-        } else if (packet instanceof S27PacketExplosion expPacket) {
+        } else if (packet instanceof S27PacketExplosion) {
+            S27PacketExplosion expPacket = (S27PacketExplosion) packet;
             if (expPacket.func_149149_c() != 0F || expPacket.func_149144_d() != 0F || expPacket.func_149147_e() != 0F) {
                 explosion = true;
             }
@@ -424,7 +429,8 @@ public class AntiKnockback extends ClientModule {
     @EventTarget
     public void onJump(JumpEvent event) {
         EntityPlayer thePlayer = mc.thePlayer;
-        if (thePlayer == null || thePlayer.isInWater() || thePlayer.isInLava() || thePlayer.isInWeb) return;
+        if (thePlayer == null || thePlayer.isInWater() || thePlayer.isInLava() || thePlayer.isInWeb)
+            return;
 
         String mode = modeValue.get().toLowerCase(Locale.ENGLISH);
 
@@ -454,7 +460,7 @@ public class AntiKnockback extends ClientModule {
         if (ClientModule.mc.thePlayer == null) {
             return false;
         } else if (!this.clickOnlyNoBlocking.get() || !ClientModule.mc.thePlayer.isBlocking() && !ClientModule.mc.thePlayer.isUsingItem() && !KevinClient.INSTANCE.getModuleManager().get(KillAura.class).getBlockingStatus()) {
-            Entity raycastedEntity = RaycastUtils.raycastEntity(range + (double)1, new RaycastUtils.EntityFilter() {
+            Entity raycastedEntity = RaycastUtils.raycastEntity(range + (double) 1, new RaycastUtils.EntityFilter() {
                 public boolean canRaycast(Entity entity) {
                     return entity != null && entity instanceof EntityLivingBase;
                 }
@@ -463,23 +469,21 @@ public class AntiKnockback extends ClientModule {
                 return false;
             } else {
                 Entity it = raycastedEntity;
-                int var8 = 0;
                 if (!(raycastedEntity instanceof EntityPlayer)) {
                     return true;
                 } else {
                     AxisAlignedBB var9 = raycastedEntity.getEntityBoundingBox();
-                    Intrinsics.checkNotNullExpressionValue(var9, "getEntityBoundingBox(...)");
+
                     AxisAlignedBB var10000 = OtherExtensionsKt.expands(var9, raycastedEntity.getCollisionBorderSize(), false, false);
                     EntityPlayerSP var12 = ClientModule.mc.thePlayer;
-                    Intrinsics.checkNotNullExpressionValue(var12, "thePlayer");
+
                     if (OtherExtensionsKt.getLookingTargetRange(var10000, var12, null, 0.0F) > range) {
                         return false;
                     } else {
                         if (doAttack) {
                             KevinClient.INSTANCE.getEventManager().callEvent(new AttackEvent(raycastedEntity));
 
-                            for(int var13 = 0; var13 < attack; ++var13) {
-                                int var11 = 0;
+                            for (int var13 = 0; var13 < attack; ++var13) {
                                 if (this.clickSwing.get()) {
                                     ClientModule.mc.thePlayer.swingItem();
                                 } else {

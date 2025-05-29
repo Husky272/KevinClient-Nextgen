@@ -21,9 +21,10 @@ public class ModelAdapterChestLarge extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelChest modelchest)) {
+        if (!(model instanceof ModelChest)) {
             return null;
         } else {
+            ModelChest modelchest = (ModelChest) model;
 
             if (modelPart.equals("lid")) {
                 return modelchest.chestLid;

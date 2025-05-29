@@ -216,7 +216,7 @@ public class GuiStreamUnavailable extends GuiScreen
         }
         else if (istream.func_152912_E() != null)
         {
-            List<ChatComponentTranslation> list1 = List.of(new ChatComponentTranslation("stream.unavailable.initialization_failure.extra", ErrorCode.getString(istream.func_152912_E())));
+            List<ChatComponentTranslation> list1 = Arrays.asList(new ChatComponentTranslation("stream.unavailable.initialization_failure.extra", ErrorCode.getString(istream.func_152912_E())));
             minecraft.displayGuiScreen(new GuiStreamUnavailable(p_152321_0_, GuiStreamUnavailable.Reason.INITIALIZATION_FAILURE, list1));
         }
         else

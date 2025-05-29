@@ -88,7 +88,7 @@ public class EntityWolf extends EntityTameable
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.3F);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)0.3F);
 
         if (this.isTamed())
         {
@@ -129,8 +129,8 @@ public class EntityWolf extends EntityTameable
     {
         super.entityInit();
         this.dataWatcher.addObject(18, new Float(this.getHealth()));
-        this.dataWatcher.addObject(19, Byte.valueOf((byte) 0));
-        this.dataWatcher.addObject(20, Byte.valueOf((byte) EnumDyeColor.RED.getMetadata()));
+        this.dataWatcher.addObject(19, new Byte((byte)0));
+        this.dataWatcher.addObject(20, new Byte((byte)EnumDyeColor.RED.getMetadata()));
     }
 
     protected void playStepSound(BlockPos pos, Block blockIn)
@@ -283,7 +283,7 @@ public class EntityWolf extends EntityTameable
                 {
                     float f1 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
                     float f2 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
-                    this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX + (double)f1, f + 0.8F, this.posZ + (double)f2, this.motionX, this.motionY, this.motionZ);
+                    this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX + (double)f1, (double)(f + 0.8F), this.posZ + (double)f2, this.motionX, this.motionY, this.motionZ);
                 }
             }
         }
@@ -402,8 +402,9 @@ public class EntityWolf extends EntityTameable
         {
             if (itemstack != null)
             {
-                if (itemstack.getItem() instanceof ItemFood itemfood)
+                if (itemstack.getItem() instanceof ItemFood)
                 {
+                    ItemFood itemfood = (ItemFood)itemstack.getItem();
 
                     if (itemfood.isWolfsFavoriteMeat() && this.dataWatcher.getWatchableObjectFloat(18) < 20.0F)
                     {
@@ -416,7 +417,7 @@ public class EntityWolf extends EntityTameable
 
                         if (itemstack.stackSize <= 0)
                         {
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
                         }
 
                         return true;
@@ -432,7 +433,7 @@ public class EntityWolf extends EntityTameable
 
                         if (!player.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
                         {
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
                         }
 
                         return true;
@@ -445,7 +446,7 @@ public class EntityWolf extends EntityTameable
                 this.aiSit.setSitting(!this.isSitting());
                 this.isJumping = false;
                 this.navigator.clearPathEntity();
-                this.setAttackTarget(null);
+                this.setAttackTarget((EntityLivingBase)null);
             }
         }
         else if (itemstack != null && itemstack.getItem() == Items.bone && !this.isAngry())
@@ -457,7 +458,7 @@ public class EntityWolf extends EntityTameable
 
             if (itemstack.stackSize <= 0)
             {
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
             }
 
             if (!this.worldObj.isRemote)
@@ -466,7 +467,7 @@ public class EntityWolf extends EntityTameable
                 {
                     this.setTamed(true);
                     this.navigator.clearPathEntity();
-                    this.setAttackTarget(null);
+                    this.setAttackTarget((EntityLivingBase)null);
                     this.aiSit.setSitting(true);
                     this.setHealth(20.0F);
                     this.setOwnerId(player.getUniqueID().toString());
@@ -524,7 +525,7 @@ public class EntityWolf extends EntityTameable
         }
         else
         {
-            return stack.getItem() instanceof ItemFood && ((ItemFood) stack.getItem()).isWolfsFavoriteMeat();
+            return !(stack.getItem() instanceof ItemFood) ? false : ((ItemFood)stack.getItem()).isWolfsFavoriteMeat();
         }
     }
 
@@ -610,12 +611,13 @@ public class EntityWolf extends EntityTameable
         {
             return false;
         }
-        else if (!(otherAnimal instanceof EntityWolf entitywolf))
+        else if (!(otherAnimal instanceof EntityWolf))
         {
             return false;
         }
         else
         {
+            EntityWolf entitywolf = (EntityWolf)otherAnimal;
 
             if (!entitywolf.isTamed())
             {
@@ -649,8 +651,9 @@ public class EntityWolf extends EntityTameable
     {
         if (!(p_142018_1_ instanceof EntityCreeper) && !(p_142018_1_ instanceof EntityGhast))
         {
-            if (p_142018_1_ instanceof EntityWolf entitywolf)
+            if (p_142018_1_ instanceof EntityWolf)
             {
+                EntityWolf entitywolf = (EntityWolf)p_142018_1_;
 
                 if (entitywolf.isTamed() && entitywolf.getOwner() == p_142018_2_)
                 {

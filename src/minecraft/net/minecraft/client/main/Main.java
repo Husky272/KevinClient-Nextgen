@@ -17,7 +17,7 @@ import joptsimple.OptionSpec;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
 
-public class Main
+public final class Main
 {
     public static void main(String[] p_main_0_)
     {

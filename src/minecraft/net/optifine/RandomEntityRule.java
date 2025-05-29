@@ -26,7 +26,7 @@ public class RandomEntityRule
 {
     private String pathProps = null;
     private ResourceLocation baseResLoc = null;
-    private final int index;
+    private int index;
     private int[] textures = null;
     private ResourceLocation[] resourceLocations = null;
     private int[] weights = null;
@@ -74,7 +74,7 @@ public class RandomEntityRule
         this.baby = cp.parseBooleanObject(props.getProperty("baby." + index));
         this.moonPhases = cp.parseRangeListInt(props.getProperty("moonPhase." + index));
         this.dayTimes = cp.parseRangeListInt(props.getProperty("dayTime." + index));
-        this.weatherList = cp.parseWeather(props.getProperty("weather." + index), "weather." + index, null);
+        this.weatherList = cp.parseWeather(props.getProperty("weather." + index), "weather." + index, (Weather[])null);
     }
 
     private RangeListInt parseMinMaxHeight(Properties props, int index)
@@ -298,12 +298,14 @@ public class RandomEntityRule
                 }
             }
 
-            if (this.professions != null && randomEntity instanceof RandomEntity randomentity)
+            if (this.professions != null && randomEntity instanceof RandomEntity)
             {
+                RandomEntity randomentity = (RandomEntity)randomEntity;
                 Entity entity = randomentity.getEntity();
 
-                if (entity instanceof EntityVillager entityvillager)
+                if (entity instanceof EntityVillager)
                 {
+                    EntityVillager entityvillager = (EntityVillager)entity;
                     int j = entityvillager.getProfession();
                     int k = Reflector.getFieldValueInt(entityvillager, Reflector.EntityVillager_careerId, -1);
 
@@ -332,12 +334,14 @@ public class RandomEntityRule
                 }
             }
 
-            if (this.collarColors != null && randomEntity instanceof RandomEntity randomentity1)
+            if (this.collarColors != null && randomEntity instanceof RandomEntity)
             {
+                RandomEntity randomentity1 = (RandomEntity)randomEntity;
                 Entity entity1 = randomentity1.getEntity();
 
-                if (entity1 instanceof EntityWolf entitywolf)
+                if (entity1 instanceof EntityWolf)
                 {
+                    EntityWolf entitywolf = (EntityWolf)entity1;
 
                     if (!entitywolf.isTamed())
                     {
@@ -353,12 +357,14 @@ public class RandomEntityRule
                 }
             }
 
-            if (this.baby != null && randomEntity instanceof RandomEntity randomentity2)
+            if (this.baby != null && randomEntity instanceof RandomEntity)
             {
+                RandomEntity randomentity2 = (RandomEntity)randomEntity;
                 Entity entity2 = randomentity2.getEntity();
 
-                if (entity2 instanceof EntityLiving entityliving)
+                if (entity2 instanceof EntityLiving)
                 {
+                    EntityLiving entityliving = (EntityLiving)entity2;
 
                     if (entityliving.isChild() != this.baby)
                     {
@@ -405,7 +411,10 @@ public class RandomEntityRule
                 {
                     Weather weather = Weather.getWeather(world2, 0.0F);
 
-                    return ArrayUtils.contains(this.weatherList, weather);
+                    if (!ArrayUtils.contains(this.weatherList, weather))
+                    {
+                        return false;
+                    }
                 }
             }
 

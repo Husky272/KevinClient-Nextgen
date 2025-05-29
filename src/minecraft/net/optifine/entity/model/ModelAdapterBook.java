@@ -10,58 +10,88 @@ import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntityEnchantmentTable;
 import net.optifine.reflect.Reflector;
 
-public class ModelAdapterBook extends ModelAdapter {
-    public ModelAdapterBook() {
+public class ModelAdapterBook extends ModelAdapter
+{
+    public ModelAdapterBook()
+    {
         super(TileEntityEnchantmentTable.class, "book", 0.0F);
     }
 
-    public ModelBase makeModel() {
+    public ModelBase makeModel()
+    {
         return new ModelBook();
     }
 
-    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelBook modelbook)) {
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart)
+    {
+        if (!(model instanceof ModelBook))
+        {
             return null;
-        } else {
+        }
+        else
+        {
+            ModelBook modelbook = (ModelBook)model;
 
-            if (modelPart.equals("cover_right")) {
+            if (modelPart.equals("cover_right"))
+            {
                 return modelbook.coverRight;
-            } else if (modelPart.equals("cover_left")) {
+            }
+            else if (modelPart.equals("cover_left"))
+            {
                 return modelbook.coverLeft;
-            } else if (modelPart.equals("pages_right")) {
+            }
+            else if (modelPart.equals("pages_right"))
+            {
                 return modelbook.pagesRight;
-            } else if (modelPart.equals("pages_left")) {
+            }
+            else if (modelPart.equals("pages_left"))
+            {
                 return modelbook.pagesLeft;
-            } else if (modelPart.equals("flipping_page_right")) {
+            }
+            else if (modelPart.equals("flipping_page_right"))
+            {
                 return modelbook.flippingPageRight;
-            } else if (modelPart.equals("flipping_page_left")) {
+            }
+            else if (modelPart.equals("flipping_page_left"))
+            {
                 return modelbook.flippingPageLeft;
-            } else {
+            }
+            else
+            {
                 return modelPart.equals("book_spine") ? modelbook.bookSpine : null;
             }
         }
     }
 
-    public String[] getModelRendererNames() {
-        return new String[]{"cover_right", "cover_left", "pages_right", "pages_left", "flipping_page_right", "flipping_page_left", "book_spine"};
+    public String[] getModelRendererNames()
+    {
+        return new String[] {"cover_right", "cover_left", "pages_right", "pages_left", "flipping_page_right", "flipping_page_left", "book_spine"};
     }
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize)
+    {
         TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.instance;
         TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityEnchantmentTable.class);
 
-        if (!(tileentityspecialrenderer instanceof TileEntityEnchantmentTableRenderer)) {
+        if (!(tileentityspecialrenderer instanceof TileEntityEnchantmentTableRenderer))
+        {
             return null;
-        } else {
-            if (tileentityspecialrenderer.getEntityClass() == null) {
+        }
+        else
+        {
+            if (tileentityspecialrenderer.getEntityClass() == null)
+            {
                 tileentityspecialrenderer = new TileEntityEnchantmentTableRenderer();
                 tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
             }
 
-            if (!Reflector.TileEntityEnchantmentTableRenderer_modelBook.exists()) {
+            if (!Reflector.TileEntityEnchantmentTableRenderer_modelBook.exists())
+            {
                 Config.warn("Field not found: TileEntityEnchantmentTableRenderer.modelBook");
                 return null;
-            } else {
+            }
+            else
+            {
                 Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntityEnchantmentTableRenderer_modelBook, modelBase);
                 return tileentityspecialrenderer;
             }

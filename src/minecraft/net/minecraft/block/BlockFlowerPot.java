@@ -124,7 +124,7 @@ public class BlockFlowerPot extends BlockContainer
 
                     if (!playerIn.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
                     {
-                        playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, null);
+                        playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, (ItemStack)null);
                     }
 
                     return true;
@@ -211,7 +211,7 @@ public class BlockFlowerPot extends BlockContainer
 
             if (tileentityflowerpot != null)
             {
-                tileentityflowerpot.setFlowerPotData(null, 0);
+                tileentityflowerpot.setFlowerPotData((Item)null, 0);
             }
         }
     }
@@ -325,8 +325,9 @@ public class BlockFlowerPot extends BlockContainer
         BlockFlowerPot.EnumFlowerType blockflowerpot$enumflowertype = BlockFlowerPot.EnumFlowerType.EMPTY;
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (tileentity instanceof TileEntityFlowerPot tileentityflowerpot)
+        if (tileentity instanceof TileEntityFlowerPot)
         {
+            TileEntityFlowerPot tileentityflowerpot = (TileEntityFlowerPot)tileentity;
             Item item = tileentityflowerpot.getFlowerPotItem();
 
             if (item instanceof ItemBlock)
@@ -457,7 +458,7 @@ public class BlockFlowerPot extends BlockContainer
         return EnumWorldBlockLayer.CUTOUT;
     }
 
-    public enum EnumFlowerType implements IStringSerializable
+    public static enum EnumFlowerType implements IStringSerializable
     {
         EMPTY("empty"),
         POPPY("rose"),
@@ -484,7 +485,7 @@ public class BlockFlowerPot extends BlockContainer
 
         private final String name;
 
-        EnumFlowerType(String name)
+        private EnumFlowerType(String name)
         {
             this.name = name;
         }

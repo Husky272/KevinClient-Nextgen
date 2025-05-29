@@ -95,7 +95,7 @@ public class RenderItem implements IResourceManagerReloadListener
 
     /**
      * False when the renderer is rendering the item's effects into a GUI
-     *  
+     *
      * @param isNot If the renderer is not rendering the effects in a GUI
      */
     public void isNotRenderingEffectsInGUI(boolean isNot)
@@ -135,7 +135,7 @@ public class RenderItem implements IResourceManagerReloadListener
 
     public void renderModel(IBakedModel model, int color)
     {
-        this.renderModel(model, color, null);
+        this.renderModel(model, color, (ItemStack)null);
     }
 
     private void renderModel(IBakedModel model, int color, ItemStack stack)
@@ -162,7 +162,7 @@ public class RenderItem implements IResourceManagerReloadListener
 
         if (flag1)
         {
-            worldrenderer.setBlockLayer(null);
+            worldrenderer.setBlockLayer((EnumWorldBlockLayer)null);
             GlStateManager.bindCurrentTexture();
         }
     }
@@ -188,7 +188,7 @@ public class RenderItem implements IResourceManagerReloadListener
 
                 if (Config.isCustomItems())
                 {
-                    model = CustomItems.getCustomItemModel(stack, model, null, false);
+                    model = CustomItems.getCustomItemModel(stack, model, (ResourceLocation)null, false);
                 }
 
                 this.renderModelHasEmissive = false;
@@ -334,7 +334,7 @@ public class RenderItem implements IResourceManagerReloadListener
     public boolean shouldRenderItemIn3D(ItemStack stack)
     {
         IBakedModel ibakedmodel = this.itemModelMesher.getItemModel(stack);
-        return ibakedmodel != null && ibakedmodel.isGui3d();
+        return ibakedmodel == null ? false : ibakedmodel.isGui3d();
     }
 
     private void preTransform(ItemStack stack)
@@ -370,8 +370,9 @@ public class RenderItem implements IResourceManagerReloadListener
         {
             IBakedModel ibakedmodel = this.itemModelMesher.getItemModel(stack);
 
-            if (entityToRenderFor instanceof EntityPlayer entityplayer)
+            if (entityToRenderFor instanceof EntityPlayer)
             {
+                EntityPlayer entityplayer = (EntityPlayer)entityToRenderFor;
                 Item item = stack.getItem();
                 ModelResourceLocation modelresourcelocation = null;
 
@@ -442,7 +443,7 @@ public class RenderItem implements IResourceManagerReloadListener
 
     /**
      * Return true if only one scale is negative
-     *  
+     *
      * @param itemTranformVec The ItemTransformVec3f instance
      */
     private boolean isThereOneNegativeScale(ItemTransformVec3f itemTranformVec)
@@ -517,7 +518,7 @@ public class RenderItem implements IResourceManagerReloadListener
                 {
                     public String call() throws Exception
                     {
-                        return String.valueOf(stack.getItem());
+                        return String.valueOf((Object)stack.getItem());
                     }
                 });
                 crashreportcategory.addCrashSectionCallable("Item Aux", new Callable<String>()
@@ -531,7 +532,7 @@ public class RenderItem implements IResourceManagerReloadListener
                 {
                     public String call() throws Exception
                     {
-                        return String.valueOf(stack.getTagCompound());
+                        return String.valueOf((Object)stack.getTagCompound());
                     }
                 });
                 crashreportcategory.addCrashSectionCallable("Item Foil", new Callable<String>()
@@ -550,7 +551,7 @@ public class RenderItem implements IResourceManagerReloadListener
 
     public void renderItemOverlays(FontRenderer fr, ItemStack stack, int xPosition, int yPosition)
     {
-        this.renderItemOverlayIntoGUI(fr, stack, xPosition, yPosition, null);
+        this.renderItemOverlayIntoGUI(fr, stack, xPosition, yPosition, (String)null);
     }
 
     /**
@@ -620,7 +621,7 @@ public class RenderItem implements IResourceManagerReloadListener
 
     /**
      * Draw with the WorldRenderer
-     *  
+     *
      * @param renderer The WorldRenderer's instance
      * @param x X position where the render begin
      * @param y Y position where the render begin
@@ -634,10 +635,10 @@ public class RenderItem implements IResourceManagerReloadListener
     private void draw(WorldRenderer renderer, int x, int y, int width, int height, int red, int green, int blue, int alpha)
     {
         renderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        renderer.pos(x, y, 0.0D).color(red, green, blue, alpha).endVertex();
-        renderer.pos(x, y + height, 0.0D).color(red, green, blue, alpha).endVertex();
-        renderer.pos(x + width, y + height, 0.0D).color(red, green, blue, alpha).endVertex();
-        renderer.pos(x + width, y, 0.0D).color(red, green, blue, alpha).endVertex();
+        renderer.pos((double)(x + 0), (double)(y + 0), 0.0D).color(red, green, blue, alpha).endVertex();
+        renderer.pos((double)(x + 0), (double)(y + height), 0.0D).color(red, green, blue, alpha).endVertex();
+        renderer.pos((double)(x + width), (double)(y + height), 0.0D).color(red, green, blue, alpha).endVertex();
+        renderer.pos((double)(x + width), (double)(y + 0), 0.0D).color(red, green, blue, alpha).endVertex();
         Tessellator.getInstance().draw();
     }
 

@@ -379,10 +379,11 @@ public class GuiIngame extends Gui
         render2DEvent.setPartialTicks(partialTicks);
         KevinClient.eventManager.callEvent(render2DEvent);
         this.mc.checkGLError("KEVIN 2D RENDERER");
-        if (this.mc.getRenderViewEntity() instanceof EntityPlayer entityplayer)
+        if (this.mc.getRenderViewEntity() instanceof EntityPlayer)
         {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             this.mc.getTextureManager().bindTexture(widgetsTexPath);
+            EntityPlayer entityplayer = (EntityPlayer)this.mc.getRenderViewEntity();
             int i = sr.getScaledWidth() / 2;
             float f = this.zLevel;
             this.zLevel = -90.0F;
@@ -551,7 +552,10 @@ public class GuiIngame extends Gui
                 {
                     BlockPos blockpos = this.mc.objectMouseOver.getBlockPos();
 
-                    return this.mc.theWorld.getTileEntity(blockpos) instanceof IInventory;
+                    if (this.mc.theWorld.getTileEntity(blockpos) instanceof IInventory)
+                    {
+                        return true;
+                    }
                 }
 
                 return false;
@@ -633,20 +637,21 @@ public class GuiIngame extends Gui
 
     private void renderPlayerStats(ScaledResolution scaledRes)
     {
-        if (this.mc.getRenderViewEntity() instanceof EntityPlayer entityplayer)
+        if (this.mc.getRenderViewEntity() instanceof EntityPlayer)
         {
+            EntityPlayer entityplayer = (EntityPlayer)this.mc.getRenderViewEntity();
             int i = MathHelper.ceiling_float_int(entityplayer.getHealth());
             boolean flag = this.healthUpdateCounter > (long)this.updateCounter && (this.healthUpdateCounter - (long)this.updateCounter) / 3L % 2L == 1L;
 
             if (i < this.playerHealth && entityplayer.hurtResistantTime > 0)
             {
                 this.lastSystemTime = Minecraft.getSystemTime();
-                this.healthUpdateCounter = this.updateCounter + 20;
+                this.healthUpdateCounter = (long)(this.updateCounter + 20);
             }
             else if (i > this.playerHealth && entityplayer.hurtResistantTime > 0)
             {
                 this.lastSystemTime = Minecraft.getSystemTime();
-                this.healthUpdateCounter = this.updateCounter + 10;
+                this.healthUpdateCounter = (long)(this.updateCounter + 10);
             }
 
             if (Minecraft.getSystemTime() - this.lastSystemTime > 1000L)
@@ -658,7 +663,7 @@ public class GuiIngame extends Gui
 
             this.playerHealth = i;
             int j = this.lastPlayerHealth;
-            this.rand.setSeed(this.updateCounter * 312871L);
+            this.rand.setSeed((long)(this.updateCounter * 312871));
             boolean flag1 = false;
             FoodStats foodstats = entityplayer.getFoodStats();
             int k = foodstats.getFoodLevel();
@@ -846,10 +851,11 @@ public class GuiIngame extends Gui
                     }
                 }
             }
-            else if (entity instanceof EntityLivingBase entitylivingbase)
+            else if (entity instanceof EntityLivingBase)
             {
                 this.mc.mcProfiler.endStartSection("mountHealth");
-                int i7 = (int)Math.ceil(entitylivingbase.getHealth());
+                EntityLivingBase entitylivingbase = (EntityLivingBase)entity;
+                int i7 = (int)Math.ceil((double)entitylivingbase.getHealth());
                 float f3 = entitylivingbase.getMaxHealth();
                 int j8 = (int)(f3 + 0.5F) / 2;
 
@@ -964,9 +970,9 @@ public class GuiIngame extends Gui
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldrenderer.pos(0.0D, scaledRes.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
-        worldrenderer.pos(scaledRes.getScaledWidth(), scaledRes.getScaledHeight(), -90.0D).tex(1.0D, 1.0D).endVertex();
-        worldrenderer.pos(scaledRes.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
+        worldrenderer.pos(0.0D, (double)scaledRes.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
+        worldrenderer.pos((double)scaledRes.getScaledWidth(), (double)scaledRes.getScaledHeight(), -90.0D).tex(1.0D, 1.0D).endVertex();
+        worldrenderer.pos((double)scaledRes.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
         worldrenderer.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
         tessellator.draw();
         GlStateManager.depthMask(true);
@@ -977,7 +983,7 @@ public class GuiIngame extends Gui
 
     /**
      * Renders a Vignette arount the entire screen that changes with light level.
-     *  
+     *
      * @param lightLevel The current brightness
      * @param scaledRes The current resolution of the game
      */
@@ -995,7 +1001,7 @@ public class GuiIngame extends Gui
             WorldBorder worldborder = this.mc.theWorld.getWorldBorder();
             float f = (float)worldborder.getClosestDistance(this.mc.thePlayer);
             double d0 = Math.min(worldborder.getResizeSpeed() * (double)worldborder.getWarningTime() * 1000.0D, Math.abs(worldborder.getTargetSize() - worldborder.getDiameter()));
-            double d1 = Math.max(worldborder.getWarningDistance(), d0);
+            double d1 = Math.max((double)worldborder.getWarningDistance(), d0);
 
             if ((double)f < d1)
             {
@@ -1024,9 +1030,9 @@ public class GuiIngame extends Gui
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-            worldrenderer.pos(0.0D, scaledRes.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
-            worldrenderer.pos(scaledRes.getScaledWidth(), scaledRes.getScaledHeight(), -90.0D).tex(1.0D, 1.0D).endVertex();
-            worldrenderer.pos(scaledRes.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
+            worldrenderer.pos(0.0D, (double)scaledRes.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
+            worldrenderer.pos((double)scaledRes.getScaledWidth(), (double)scaledRes.getScaledHeight(), -90.0D).tex(1.0D, 1.0D).endVertex();
+            worldrenderer.pos((double)scaledRes.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
             worldrenderer.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
             tessellator.draw();
             GlStateManager.depthMask(true);
@@ -1059,10 +1065,10 @@ public class GuiIngame extends Gui
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldrenderer.pos(0.0D, scaledRes.getScaledHeight(), -90.0D).tex(f, f3).endVertex();
-        worldrenderer.pos(scaledRes.getScaledWidth(), scaledRes.getScaledHeight(), -90.0D).tex(f2, f3).endVertex();
-        worldrenderer.pos(scaledRes.getScaledWidth(), 0.0D, -90.0D).tex(f2, f1).endVertex();
-        worldrenderer.pos(0.0D, 0.0D, -90.0D).tex(f, f1).endVertex();
+        worldrenderer.pos(0.0D, (double)scaledRes.getScaledHeight(), -90.0D).tex((double)f, (double)f3).endVertex();
+        worldrenderer.pos((double)scaledRes.getScaledWidth(), (double)scaledRes.getScaledHeight(), -90.0D).tex((double)f2, (double)f3).endVertex();
+        worldrenderer.pos((double)scaledRes.getScaledWidth(), 0.0D, -90.0D).tex((double)f2, (double)f1).endVertex();
+        worldrenderer.pos(0.0D, 0.0D, -90.0D).tex((double)f, (double)f1).endVertex();
         tessellator.draw();
         GlStateManager.depthMask(true);
         GlStateManager.enableDepth();

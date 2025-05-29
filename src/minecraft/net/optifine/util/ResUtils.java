@@ -44,10 +44,11 @@ public class ResUtils {
     public static String[] collectFiles(IResourcePack rp, String[] prefixes, String[] suffixes, String[] defaultPaths) {
         if (rp instanceof DefaultResourcePack) {
             return collectFilesFixed(rp, defaultPaths);
-        } else if (!(rp instanceof AbstractResourcePack abstractresourcepack)) {
+        } else if (!(rp instanceof AbstractResourcePack)) {
             Config.warn("Unknown resource pack type: " + rp);
             return new String[0];
         } else {
+            AbstractResourcePack abstractresourcepack = (AbstractResourcePack) rp;
             File file1 = abstractresourcepack.resourcePackFile;
 
             if (file1 == null) {
@@ -183,8 +184,6 @@ public class ResUtils {
                 properties.load(in);
                 in.close();
                 return properties;
-            } catch (FileNotFoundException var3) {
-                return null;
             } catch (IOException var4) {
                 return null;
             }

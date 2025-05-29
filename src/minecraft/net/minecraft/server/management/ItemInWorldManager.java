@@ -154,7 +154,7 @@ public class ItemInWorldManager
     {
         if (this.isCreative())
         {
-            if (!this.theWorld.extinguishFire(null, pos, side))
+            if (!this.theWorld.extinguishFire((EntityPlayer)null, pos, side))
             {
                 this.tryHarvestBlock(pos);
             }
@@ -186,7 +186,7 @@ public class ItemInWorldManager
                 }
             }
 
-            this.theWorld.extinguishFire(null, pos, side);
+            this.theWorld.extinguishFire((EntityPlayer)null, pos, side);
             this.initialDamage = this.curblockDamage;
             float f = 1.0F;
 
@@ -397,9 +397,10 @@ public class ItemInWorldManager
         {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof ILockableContainer ilockablecontainer)
+            if (tileentity instanceof ILockableContainer)
             {
                 Block block = worldIn.getBlockState(pos).getBlock();
+                ILockableContainer ilockablecontainer = (ILockableContainer)tileentity;
 
                 if (ilockablecontainer instanceof TileEntityChest && block instanceof BlockChest)
                 {

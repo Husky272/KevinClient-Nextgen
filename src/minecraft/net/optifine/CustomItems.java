@@ -43,12 +43,12 @@ import net.optifine.util.StrUtils;
 
 public class CustomItems
 {
-    private static CustomItemProperties[][] itemProperties = null;
-    private static CustomItemProperties[][] enchantmentProperties = null;
+    private static CustomItemProperties[][] itemProperties = (CustomItemProperties[][])null;
+    private static CustomItemProperties[][] enchantmentProperties = (CustomItemProperties[][])null;
     private static Map mapPotionIds = null;
-    private static final ItemModelGenerator itemModelGenerator = new ItemModelGenerator();
+    private static ItemModelGenerator itemModelGenerator = new ItemModelGenerator();
     private static boolean useGlint = true;
-    private static final boolean renderOffHand = false;
+    private static boolean renderOffHand = false;
     public static final int MASK_POTION_SPLASH = 16384;
     public static final int MASK_POTION_NAME = 63;
     public static final int MASK_POTION_EXTENDED = 64;
@@ -65,8 +65,8 @@ public class CustomItems
 
     public static void update()
     {
-        itemProperties = null;
-        enchantmentProperties = null;
+        itemProperties = (CustomItemProperties[][])null;
+        enchantmentProperties = (CustomItemProperties[][])null;
         useGlint = true;
 
         if (Config.isCustomItems())
@@ -84,12 +84,12 @@ public class CustomItems
 
             if (itemProperties.length <= 0)
             {
-                itemProperties = null;
+                itemProperties = (CustomItemProperties[][])null;
             }
 
             if (enchantmentProperties.length <= 0)
             {
-                enchantmentProperties = null;
+                enchantmentProperties = (CustomItemProperties[][])null;
             }
         }
     }
@@ -114,6 +114,7 @@ public class CustomItems
         }
         catch (FileNotFoundException var4)
         {
+            return;
         }
         catch (IOException ioexception)
         {
@@ -123,7 +124,7 @@ public class CustomItems
 
     private static void update(IResourcePack rp)
     {
-        String[] astring = ResUtils.collectFiles(rp, "mcpatcher/cit/", ".properties", null);
+        String[] astring = ResUtils.collectFiles(rp, "mcpatcher/cit/", ".properties", (String[])null);
         Map map = makeAutoImageProperties(rp);
 
         if (map.size() > 0)
@@ -133,7 +134,7 @@ public class CustomItems
             astring = (String[])Config.addObjectsToArray(astring, astring1);
         }
 
-        Arrays.sort(astring);
+        Arrays.sort((Object[])astring);
         List list = makePropertyList(itemProperties);
         List list1 = makePropertyList(enchantmentProperties);
 
@@ -383,7 +384,7 @@ public class CustomItems
                 Properties properties1 = new PropertiesOrdered();
                 properties1.put("type", "item");
                 properties1.put("items", "" + itemId);
-                properties1.put("damage", String.valueOf(stringbuffer));
+                properties1.put("damage", "" + stringbuffer.toString());
                 properties1.put("damageMask", "" + k);
 
                 if (type.equals("splash"))
@@ -560,7 +561,7 @@ public class CustomItems
     {
         while (id >= list.size())
         {
-            list.add(null);
+            list.add((Object)null);
         }
 
         List l = (List)list.get(id);
@@ -638,12 +639,13 @@ public class CustomItems
         {
             Item item = itemStack.getItem();
 
-            if (!(item instanceof ItemArmor itemarmor))
+            if (!(item instanceof ItemArmor))
             {
                 return null;
             }
             else
             {
+                ItemArmor itemarmor = (ItemArmor)item;
                 String s = itemarmor.getArmorMaterial().getName();
                 StringBuffer stringbuffer = new StringBuffer();
                 stringbuffer.append("texture.");
@@ -689,7 +691,7 @@ public class CustomItems
                     {
                         CustomItemProperties customitemproperties = acustomitemproperties[j];
 
-                        if (customitemproperties.type == type && matchesProperties(customitemproperties, itemStack, null))
+                        if (customitemproperties.type == type && matchesProperties(customitemproperties, itemStack, (int[][])null))
                         {
                             return customitemproperties;
                         }
@@ -808,7 +810,10 @@ public class CustomItems
                     return false;
                 }
 
-                return cip.hand != 2 || renderOffHand;
+                if (cip.hand == 2 && !renderOffHand)
+                {
+                    return false;
+                }
             }
 
             return true;

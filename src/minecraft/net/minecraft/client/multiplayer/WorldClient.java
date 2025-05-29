@@ -46,7 +46,7 @@ import net.optifine.reflect.Reflector;
 public class WorldClient extends World
 {
     /** The packets that need to be sent to the server. */
-    private final NetHandlerPlayClient sendQueue;
+    private NetHandlerPlayClient sendQueue;
 
     /** The ChunkProviderClient instance */
     private ChunkProviderClient clientChunkProvider;
@@ -111,7 +111,7 @@ public class WorldClient extends World
     /**
      * Invalidates an AABB region of blocks from the receive queue, in the event that the block has been modified
      * client-side in the intervening 80 receive ticks.
-     *  
+     *
      * @param x1 X position of the block where the region begin
      * @param y1 Y position of the block where the region begin
      * @param z1 Z position of the block where the region begin
@@ -215,6 +215,10 @@ public class WorldClient extends World
     {
         super.onEntityAdded(entityIn);
 
+        if (this.entitySpawnQueue.contains(entityIn))
+        {
+            this.entitySpawnQueue.remove(entityIn);
+        }
         this.entitySpawnQueue.remove(entityIn);
     }
 
@@ -239,7 +243,7 @@ public class WorldClient extends World
 
     /**
      * Add an ID to Entity mapping to entityHashSet
-     *  
+     *
      * @param entityID The ID to give to the entity to spawn
      * @param entityToSpawn The Entity to spawn in the World
      */
@@ -268,7 +272,7 @@ public class WorldClient extends World
      */
     public Entity getEntityByID(int id)
     {
-        return id == this.mc.thePlayer.getEntityId() ? this.mc.thePlayer : super.getEntityByID(id);
+        return (Entity)(id == this.mc.thePlayer.getEntityId() ? this.mc.thePlayer : super.getEntityByID(id));
     }
 
     public Entity removeEntityFromWorld(int entityID)
@@ -333,7 +337,7 @@ public class WorldClient extends World
             if (trueSight.getState() && trueSight.getBarriersValue().get()) flag = true;
             if (flag && iblockstate.getBlock() == Blocks.barrier)
             {
-                this.spawnParticle(EnumParticleTypes.BARRIER, (float)k + 0.5F, (float)l + 0.5F, (float)i1 + 0.5F, 0.0D, 0.0D, 0.0D);
+                this.spawnParticle(EnumParticleTypes.BARRIER, (double)((float)k + 0.5F), (double)((float)l + 0.5F), (double)((float)i1 + 0.5F), 0.0D, 0.0D, 0.0D, new int[0]);
             }
         }
     }
@@ -397,8 +401,8 @@ public class WorldClient extends World
     public CrashReportCategory addWorldInfoToCrashReport(CrashReport report)
     {
         CrashReportCategory crashreportcategory = super.addWorldInfoToCrashReport(report);
-        crashreportcategory.addCrashSectionCallable("Forced entities", () -> WorldClient.this.entityList.size() + " total; " + WorldClient.this.entityList);
-        crashreportcategory.addCrashSectionCallable("Retry entities", () -> WorldClient.this.entitySpawnQueue.size() + " total; " + WorldClient.this.entitySpawnQueue);
+        crashreportcategory.addCrashSectionCallable("Forced entities", () -> WorldClient.this.entityList.size() + " total; " + WorldClient.this.entityList.toString());
+        crashreportcategory.addCrashSectionCallable("Retry entities", () -> WorldClient.this.entitySpawnQueue.size() + " total; " + WorldClient.this.entitySpawnQueue.toString());
         crashreportcategory.addCrashSectionCallable("Server brand", () -> WorldClient.this.mc.thePlayer.getClientBrand());
         crashreportcategory.addCrashSectionCallable("Server type", () -> WorldClient.this.mc.getIntegratedServer() == null ? "Non-integrated multiplayer server" : "Integrated singleplayer server");
         return crashreportcategory;
@@ -406,7 +410,7 @@ public class WorldClient extends World
 
     /**
      * Plays a sound at the specified position.
-     *  
+     *
      * @param pos The position where to play the sound
      * @param soundName The name of the sound to play
      * @param volume The volume of the sound
@@ -492,8 +496,9 @@ public class WorldClient extends World
 
     private boolean isPlayerActing()
     {
-        if (this.mc.playerController instanceof PlayerControllerOF playercontrollerof)
+        if (this.mc.playerController instanceof PlayerControllerOF)
         {
+            PlayerControllerOF playercontrollerof = (PlayerControllerOF)this.mc.playerController;
             return playercontrollerof.isActing();
         }
         else
@@ -519,3 +524,4 @@ public class WorldClient extends World
         entitiesById.clearMap();
     }
 }
+

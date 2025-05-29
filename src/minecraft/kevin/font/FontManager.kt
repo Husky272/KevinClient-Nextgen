@@ -24,6 +24,7 @@ import java.io.*
 import java.nio.file.Files
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.streams.toList
 
 class FontManager : MinecraftInstance(){
     private val CUSTOM_FONT_RENDERERS: HashMap<FontInfo, GameFontRenderer> = HashMap()

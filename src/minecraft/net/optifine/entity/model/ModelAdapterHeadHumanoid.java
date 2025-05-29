@@ -10,50 +10,72 @@ import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.optifine.reflect.Reflector;
 
-public class ModelAdapterHeadHumanoid extends ModelAdapter {
-    public ModelAdapterHeadHumanoid() {
+public class ModelAdapterHeadHumanoid extends ModelAdapter
+{
+    public ModelAdapterHeadHumanoid()
+    {
         super(TileEntitySkull.class, "head_humanoid", 0.0F);
     }
 
-    public ModelBase makeModel() {
+    public ModelBase makeModel()
+    {
         return new ModelHumanoidHead();
     }
 
-    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelHumanoidHead modelhumanoidhead)) {
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart)
+    {
+        if (!(model instanceof ModelHumanoidHead))
+        {
             return null;
-        } else {
+        }
+        else
+        {
+            ModelHumanoidHead modelhumanoidhead = (ModelHumanoidHead)model;
 
-            if (modelPart.equals("head")) {
+            if (modelPart.equals("head"))
+            {
                 return modelhumanoidhead.skeletonHead;
-            } else if (modelPart.equals("head2")) {
-                return !Reflector.ModelHumanoidHead_head.exists() ? null : (ModelRenderer) Reflector.getFieldValue(modelhumanoidhead, Reflector.ModelHumanoidHead_head);
-            } else {
+            }
+            else if (modelPart.equals("head2"))
+            {
+                return !Reflector.ModelHumanoidHead_head.exists() ? null : (ModelRenderer)Reflector.getFieldValue(modelhumanoidhead, Reflector.ModelHumanoidHead_head);
+            }
+            else
+            {
                 return null;
             }
         }
     }
 
-    public String[] getModelRendererNames() {
-        return new String[]{"head"};
+    public String[] getModelRendererNames()
+    {
+        return new String[] {"head"};
     }
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize)
+    {
         TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.instance;
         TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntitySkull.class);
 
-        if (!(tileentityspecialrenderer instanceof TileEntitySkullRenderer)) {
+        if (!(tileentityspecialrenderer instanceof TileEntitySkullRenderer))
+        {
             return null;
-        } else {
-            if (tileentityspecialrenderer.getEntityClass() == null) {
+        }
+        else
+        {
+            if (tileentityspecialrenderer.getEntityClass() == null)
+            {
                 tileentityspecialrenderer = new TileEntitySkullRenderer();
                 tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
             }
 
-            if (!Reflector.TileEntitySkullRenderer_humanoidHead.exists()) {
+            if (!Reflector.TileEntitySkullRenderer_humanoidHead.exists())
+            {
                 Config.warn("Field not found: TileEntitySkullRenderer.humanoidHead");
                 return null;
-            } else {
+            }
+            else
+            {
                 Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntitySkullRenderer_humanoidHead, modelBase);
                 return tileentityspecialrenderer;
             }

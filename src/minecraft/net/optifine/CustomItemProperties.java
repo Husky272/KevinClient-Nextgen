@@ -196,7 +196,7 @@ public class CustomItemProperties
 
                 if (j >= 0)
                 {
-                    set.add(Integer.valueOf(j));
+                    set.add(new Integer(j));
                 }
                 else
                 {
@@ -222,7 +222,7 @@ public class CustomItemProperties
                                         continue label57;
                                     }
 
-                                    set.add(Integer.valueOf(k1));
+                                    set.add(new Integer(k1));
                                     ++k1;
                                 }
                             }
@@ -245,7 +245,7 @@ public class CustomItemProperties
                         }
                         else
                         {
-                            set.add(Integer.valueOf(i2));
+                            set.add(new Integer(i2));
                         }
                     }
                 }
@@ -346,7 +346,7 @@ public class CustomItemProperties
 
             for (Object o : set)
             {
-            	String s1 = (String)o;
+                String s1 = (String)o;
                 String s2 = (String)map.get(s1);
                 s2 = fixTextureName(s2, basePath);
                 map1.put(s1, s2);
@@ -428,7 +428,7 @@ public class CustomItemProperties
 
             for (Object o : set)
             {
-            	String s1 = (String)o;
+                String s1 = (String)o;
                 String s2 = (String)map.get(s1);
                 s2 = fixModelName(s2, basePath);
                 map1.put(s1, s2);
@@ -511,7 +511,7 @@ public class CustomItemProperties
 
     private RangeListInt parseRangeListInt(String str)
     {
-        return this.parseRangeListInt(str, null);
+        return this.parseRangeListInt(str, (IParserInt)null);
     }
 
     private RangeListInt parseRangeListInt(String str, IParserInt parser)
@@ -633,7 +633,7 @@ public class CustomItemProperties
 
             for (Object o : map.keySet())
             {
-            	String s1 = (String)o;
+                String s1 = (String)o;
                 String s2 = (String)map.get(s1);
                 String s3 = s1.substring(s.length());
                 NbtTagValue nbttagvalue = new NbtTagValue(s3, s2);
@@ -651,7 +651,7 @@ public class CustomItemProperties
 
         for (Object o : props.keySet())
         {
-        	String s = (String)o;
+            String s = (String)o;
             String s1 = props.getProperty(s);
 
             if (s.startsWith(keyPrefix))
@@ -914,8 +914,9 @@ public class CustomItemProperties
                 return new String[] {s5, s6};
             }
 
-            if (item instanceof ItemArmor itemarmor)
+            if (item instanceof ItemArmor)
             {
+                ItemArmor itemarmor = (ItemArmor)item;
 
                 if (itemarmor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER)
                 {
@@ -1034,7 +1035,7 @@ public class CustomItemProperties
 
     public String toString()
     {
-        return this.basePath + "/" + this.name + ", type: " + this.type + ", items: [" + Config.arrayToString(this.items) + "], textture: " + this.texture;
+        return "" + this.basePath + "/" + this.name + ", type: " + this.type + ", items: [" + Config.arrayToString(this.items) + "], textture: " + this.texture;
     }
 
     public float getTextureWidth(TextureManager textureManager)

@@ -145,7 +145,7 @@ public class BlockCauldron extends Block
 
                             if (itemstack.stackSize <= 0)
                             {
-                                playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, null);
+                                playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, (ItemStack)null);
                             }
                         }
 
@@ -156,8 +156,9 @@ public class BlockCauldron extends Block
                 }
                 else
                 {
-                    if (i > 0 && item instanceof ItemArmor itemarmor)
+                    if (i > 0 && item instanceof ItemArmor)
                     {
+                        ItemArmor itemarmor = (ItemArmor)item;
 
                         if (itemarmor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER && itemarmor.hasColor(itemstack))
                         {

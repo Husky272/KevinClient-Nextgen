@@ -36,7 +36,7 @@ public class ModelResourceLocation extends ResourceLocation
 
         if (i >= 0)
         {
-            astring[2] = p_177517_0_.substring(i + 1);
+            astring[2] = p_177517_0_.substring(i + 1, p_177517_0_.length());
 
             if (i > 1)
             {
@@ -59,8 +59,9 @@ public class ModelResourceLocation extends ResourceLocation
         {
             return true;
         }
-        else if (p_equals_1_ instanceof ModelResourceLocation modelresourcelocation && super.equals(p_equals_1_))
+        else if (p_equals_1_ instanceof ModelResourceLocation && super.equals(p_equals_1_))
         {
+            ModelResourceLocation modelresourcelocation = (ModelResourceLocation)p_equals_1_;
             return this.variant.equals(modelresourcelocation.variant);
         }
         else

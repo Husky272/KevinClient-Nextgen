@@ -38,7 +38,7 @@ public class EntityOcelot extends EntityTameable
     /**
      * The tempt AI task for this mob, used to prevent taming while it is fleeing.
      */
-    private final EntityAITempt aiTempt;
+    private EntityAITempt aiTempt;
 
     public EntityOcelot(World worldIn)
     {
@@ -55,7 +55,7 @@ public class EntityOcelot extends EntityTameable
         this.tasks.addTask(9, new EntityAIMate(this, 0.8D));
         this.tasks.addTask(10, new EntityAIWander(this, 0.8D));
         this.tasks.addTask(11, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
-        this.targetTasks.addTask(1, new EntityAITargetNonTamed<>(this, EntityChicken.class, false, null));
+        this.targetTasks.addTask(1, new EntityAITargetNonTamed<>(this, EntityChicken.class, false, (Predicate<EntityChicken>)null));
     }
 
     protected void entityInit()
@@ -105,7 +105,7 @@ public class EntityOcelot extends EntityTameable
     {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.3F);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)0.3F);
     }
 
     public void fall(float distance, float damageMultiplier)
@@ -204,7 +204,7 @@ public class EntityOcelot extends EntityTameable
 
     /**
      * Drop 0-2 items of this living's type
-     *  
+     *
      * @param wasRecentlyHit true if this this entity was recently hit by appropriate entity (generally only if player
      * or tameable)
      * @param lootingModifier level of enchanment to be applied to this drop
@@ -236,7 +236,7 @@ public class EntityOcelot extends EntityTameable
 
             if (itemstack.stackSize <= 0)
             {
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
             }
 
             if (!this.worldObj.isRemote)
@@ -299,12 +299,13 @@ public class EntityOcelot extends EntityTameable
         {
             return false;
         }
-        else if (!(otherAnimal instanceof EntityOcelot entityocelot))
+        else if (!(otherAnimal instanceof EntityOcelot))
         {
             return false;
         }
         else
         {
+            EntityOcelot entityocelot = (EntityOcelot)otherAnimal;
 
             if (!entityocelot.isTamed())
             {
@@ -351,7 +352,10 @@ public class EntityOcelot extends EntityTameable
 
             Block block = this.worldObj.getBlockState(blockpos.down()).getBlock();
 
-            return block == Blocks.grass || block.getMaterial() == Material.leaves;
+            if (block == Blocks.grass || block.getMaterial() == Material.leaves)
+            {
+                return true;
+            }
         }
 
         return false;

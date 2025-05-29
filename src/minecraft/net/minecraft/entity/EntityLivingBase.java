@@ -772,7 +772,10 @@ public abstract class EntityLivingBase extends Entity
         {
             int i = potioneffectIn.getPotionID();
 
-            return i != Potion.regeneration.id && i != Potion.poison.id;
+            if (i == Potion.regeneration.id || i == Potion.poison.id)
+            {
+                return false;
+            }
         }
 
         return true;
@@ -931,8 +934,9 @@ public abstract class EntityLivingBase extends Entity
                         this.recentlyHit = 100;
                         this.attackingPlayer = (EntityPlayer)entity;
                     }
-                    else if (entity instanceof EntityWolf entitywolf)
+                    else if (entity instanceof EntityWolf)
                     {
+                        EntityWolf entitywolf = (EntityWolf)entity;
 
                         if (entitywolf.isTamed())
                         {
@@ -1064,7 +1068,7 @@ public abstract class EntityLivingBase extends Entity
 
     /**
      * Drop the equipment for this entity.
-     *  
+     *
      * @param wasRecentlyHit true if this this entity was recently hit by appropriate entity (generally only if player
      * or tameable)
      * @param lootingModifier level of enchanment to be applied to this drop
@@ -1122,7 +1126,7 @@ public abstract class EntityLivingBase extends Entity
 
     /**
      * Drop 0-2 items of this living's type
-     *  
+     *
      * @param wasRecentlyHit true if this this entity was recently hit by appropriate entity (generally only if player
      * or tameable)
      * @param lootingModifier level of enchanment to be applied to this drop
@@ -1351,7 +1355,7 @@ public abstract class EntityLivingBase extends Entity
             return animations.getAnimationSpeed().get();
         } else if (this.isPotionActive(Potion.digSpeed))
         {
-            return 6 - (1 + this.getActivePotionEffect(Potion.digSpeed).getAmplifier());
+            return 6 - (1 + this.getActivePotionEffect(Potion.digSpeed).getAmplifier()) * 1;
         }
         else
         {
@@ -1750,7 +1754,7 @@ public abstract class EntityLivingBase extends Entity
                 if (f3 > 0.0F)
                 {
                     f1 += (0.54600006F - f1) * f3 / 3.0F;
-                    f2 += (this.getAIMoveSpeed() - f2) * f3 / 3.0F;
+                    f2 += (this.getAIMoveSpeed() * 1.0F - f2) * f3 / 3.0F;
                 }
 
                 this.moveFlying(strafe, forward, f2);
@@ -2282,7 +2286,7 @@ public abstract class EntityLivingBase extends Entity
 
     /**
      * Set the render yaw offset
-     *  
+     *
      * @param offset The render yaw offset
      */
     public void setRenderYawOffset(float offset)
@@ -2320,7 +2324,7 @@ public abstract class EntityLivingBase extends Entity
      */
     public boolean isOnTeam(Team teamIn)
     {
-        return this.getTeam() != null && this.getTeam().isSameTeam(teamIn);
+        return this.getTeam() != null ? this.getTeam().isSameTeam(teamIn) : false;
     }
 
     /**

@@ -17,10 +17,10 @@ import net.minecraft.world.WorldSavedData;
 
 public class MapStorage
 {
-    private final ISaveHandler saveHandler;
+    private ISaveHandler saveHandler;
     protected Map<String, WorldSavedData> loadedDataMap = Maps.newHashMap();
-    private final List<WorldSavedData> loadedDataList = Lists.newArrayList();
-    private final Map<String, Short> idCounts = Maps.newHashMap();
+    private List<WorldSavedData> loadedDataList = Lists.newArrayList();
+    private Map<String, Short> idCounts = Maps.newHashMap();
 
     public MapStorage(ISaveHandler saveHandlerIn)
     {
@@ -167,8 +167,9 @@ public class MapStorage
                 {
                     NBTBase nbtbase = nbttagcompound.getTag(s);
 
-                    if (nbtbase instanceof NBTTagShort nbttagshort)
+                    if (nbtbase instanceof NBTTagShort)
                     {
+                        NBTTagShort nbttagshort = (NBTTagShort)nbtbase;
                         short short1 = nbttagshort.getShort();
                         this.idCounts.put(s, short1);
                     }

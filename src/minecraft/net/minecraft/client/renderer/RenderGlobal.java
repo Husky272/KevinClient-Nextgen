@@ -832,8 +832,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             label255:
 
             for (ContainerLocalRenderInformation ff_Object : this.renderInfosTileEntities) {
-            	RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation1 = ff_Object;
-                
+                RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation1 = ff_Object;
+
                 List<TileEntity> list1 = renderglobal$containerlocalrenderinformation1.renderChunk.getCompiledChunk().getTileEntities();
 
                 if (!list1.isEmpty()) {
@@ -883,8 +883,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 BlockPos blockpos = destroyblockprogress.getPosition();
                 TileEntity tileentity2 = this.theWorld.getTileEntity(blockpos);
 
-                if (tileentity2 instanceof TileEntityChest tileentitychest)
+                if (tileentity2 instanceof TileEntityChest)
                 {
+                    TileEntityChest tileentitychest = (TileEntityChest)tileentity2;
 
                     if (tileentitychest.adjacentChestXNeg != null)
                     {
@@ -1156,7 +1157,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
             while (!deque.isEmpty())
             {
-                RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation5 = deque.poll();
+                RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation5 = (RenderGlobal.ContainerLocalRenderInformation)deque.poll();
                 RenderChunk renderchunk6 = renderglobal$containerlocalrenderinformation5.renderChunk;
                 EnumFacing enumfacing1 = renderglobal$containerlocalrenderinformation5.facing;
                 CompiledChunk compiledchunk = renderchunk6.compiledChunk;
@@ -2471,7 +2472,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
     /**
      * Draws the selection box for the player. Args: entityPlayer, rayTraceHit, i, itemStack, partialTickTime
-     *  
+     *
      * @param execute If equals to 0 the method is executed
      */
     public void drawSelectionBox(EntityPlayer player, MovingObjectPosition movingObjectPositionIn, int execute, float partialTicks)

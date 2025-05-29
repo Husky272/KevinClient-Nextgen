@@ -10,9 +10,10 @@ public abstract class ModelAdapterBiped extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelBiped modelbiped)) {
+        if (!(model instanceof ModelBiped)) {
             return null;
         } else {
+            ModelBiped modelbiped = (ModelBiped) model;
 
             if (modelPart.equals("head")) {
                 return modelbiped.bipedHead;

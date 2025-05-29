@@ -1014,7 +1014,7 @@ class Scaffold : ClientModule("Scaffold", "Automatically places blocks beneath y
             val lookVec = RotationUtils.bestServerRotation().toDirection().multiply(5.0).add(eyesVec)
             val movingObjectPosition = mc.theWorld.rayTraceBlocks(eyesVec, lookVec, false, true, false)
             if (movingObjectPosition.blockPos != targetPlace!!.blockPos || (hitableCheck equal "Strict" && movingObjectPosition.sideHit != targetPlace!!.enumFacing)) {
-                targetPlace!!.vec3 = movingObjectPosition.hitVec
+                targetPlace!!.setVec3(movingObjectPosition.hitVec)
                 if (eagleValue equal "Smart") {
                     mc.gameSettings.keyBindSneak.pressed = true
                 }

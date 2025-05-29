@@ -29,13 +29,16 @@ public final class CommonTransformer {
      */
     public void decompress(@NotNull ChannelHandlerContext ctx, @NotNull ByteBuf buf) throws InvocationTargetException {
         ByteBuf byteBuf;
+        // noinspection UnnecessaryLocalVariable
         ChannelHandler channelHandler = ctx.pipeline().get("decompress");
+        // noinspection UnnecessaryLocalVariable
         ChannelHandler handler = channelHandler;
         Object e;
         if (handler instanceof MessageToMessageDecoder) {
-            e = PipelineUtil.callDecode((MessageToMessageDecoder) handler, ctx, buf).getFirst();
+            // noinspection rawtypes
+            e = PipelineUtil.callDecode((MessageToMessageDecoder) handler, ctx, buf).get(0);
         } else {
-            e = PipelineUtil.callDecode((ByteToMessageDecoder) handler, ctx, buf).getFirst();
+            e = PipelineUtil.callDecode((ByteToMessageDecoder) handler, ctx, buf).get(0);
         }
         byteBuf = (ByteBuf) e;
         ByteBuf decompressed = byteBuf;

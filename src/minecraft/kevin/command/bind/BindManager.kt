@@ -23,7 +23,7 @@ import kevin.utils.ChatUtils
 import kevin.utils.MinecraftInstance
 import org.lwjgl.input.Keyboard
 
-object BindClientCommandManager : MinecraftInstance(),Listenable, IClientCommand {
+object BindManager : MinecraftInstance(),Listenable, IClientCommand {
     val bindCommandList = arrayListOf<BindCommand>()
     @EventTarget
     fun onKey(event: KeyEvent) {

@@ -33,12 +33,14 @@ public class PacketThreadUtil
             Config.getRenderGlobal().onPlayerPositionSet();
         }
 
-        if (p_clientPreProcessPacket_0_ instanceof S07PacketRespawn s07packetrespawn)
+        if (p_clientPreProcessPacket_0_ instanceof S07PacketRespawn)
         {
+            S07PacketRespawn s07packetrespawn = (S07PacketRespawn)p_clientPreProcessPacket_0_;
             lastDimensionId = s07packetrespawn.getDimensionID();
         }
-        else if (p_clientPreProcessPacket_0_ instanceof S01PacketJoinGame s01packetjoingame)
+        else if (p_clientPreProcessPacket_0_ instanceof S01PacketJoinGame)
         {
+            S01PacketJoinGame s01packetjoingame = (S01PacketJoinGame)p_clientPreProcessPacket_0_;
             lastDimensionId = s01packetjoingame.getDimension();
         }
         else

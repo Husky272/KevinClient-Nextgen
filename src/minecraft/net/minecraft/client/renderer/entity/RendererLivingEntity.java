@@ -12,8 +12,8 @@ import kevin.module.modules.render.ESP;
 import kevin.module.modules.render.NameTags;
 import kevin.module.modules.render.TrueSight;
 import kevin.utils.ChatUtils;
-import kevin.utils.entity.combatAndInventory.EntityUtils;
 import kevin.utils.RenderUtils;
+import kevin.utils.entity.combatAndInventory.EntityUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
@@ -38,6 +38,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.optifine.EmissiveTextures;
 import net.optifine.entity.model.CustomEntityModels;
+import net.optifine.reflect.Reflector;
 import net.optifine.shaders.Shaders;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -78,7 +79,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     }
 
     @SuppressWarnings("unchecked")
-	public <V extends EntityLivingBase, U extends LayerRenderer<V>> boolean addLayer(U layer)
+    public <V extends EntityLivingBase, U extends LayerRenderer<V>> boolean addLayer(U layer)
     {
         return this.layerRenderers.add((LayerRenderer<T>) layer);
     }
@@ -104,6 +105,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
         for (f = par2 - par1; f < -180.0F; f += 360.0F)
         {
+            ;
         }
 
         while (f >= 180.0F)
@@ -148,8 +150,9 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             float f1 = this.interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, partialTicks);
             float f2 = f1 - f;
 
-            if (this.mainModel.isRiding && entity.ridingEntity instanceof EntityLivingBase entitylivingbase)
+            if (this.mainModel.isRiding && entity.ridingEntity instanceof EntityLivingBase)
             {
+                EntityLivingBase entitylivingbase = (EntityLivingBase)entity.ridingEntity;
                 f = this.interpolateRotation(entitylivingbase.prevRenderYawOffset, entitylivingbase.renderYawOffset, partialTicks);
                 f2 = f1 - f;
                 float f3 = MathHelper.wrapAngleTo180_float(f2);
@@ -280,7 +283,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
         }
         catch (Exception exception1)
         {
-            logger.error("Couldn't render entity", exception1);
+            logger.error("Couldn't render entity", (Throwable)exception1);
         }
 
         GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
@@ -398,7 +401,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                         break;
                     case "outline":
                         if (mc.gameSettings.ofFastRender) {
-                            ChatUtils.messageWithStart("§cPlease Turn OFF Fast Render!");
+                            ChatUtils.INSTANCE.messageWithStart("§cPlease Turn OFF Fast Render!");
                             esp.setState(false);
                             return;
                         }
@@ -787,10 +790,10 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                     Tessellator tessellator = Tessellator.getInstance();
                     WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                     worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-                    worldrenderer.pos(-i - 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos(-i - 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos(i + 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos(i + 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos((double)(-i - 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos((double)(-i - 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos((double)(i + 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos((double)(i + 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
                     tessellator.draw();
                     GlStateManager.enableTexture2D();
                     GlStateManager.depthMask(true);

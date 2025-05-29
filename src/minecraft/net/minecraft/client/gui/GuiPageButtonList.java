@@ -15,7 +15,7 @@ public class GuiPageButtonList extends GuiListExtended
     private final List<GuiTextField> field_178072_w = Lists.newArrayList();
     private final GuiPageButtonList.GuiListEntry[][] field_178078_x;
     private int field_178077_y;
-    private final GuiPageButtonList.GuiResponder field_178076_z;
+    private GuiPageButtonList.GuiResponder field_178076_z;
     private Gui field_178075_A;
 
     public GuiPageButtonList(Minecraft mcIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn, GuiPageButtonList.GuiResponder p_i45536_7_, GuiPageButtonList.GuiListEntry[]... p_i45536_8_)
@@ -263,8 +263,9 @@ public class GuiPageButtonList extends GuiListExtended
 
     public void func_178062_a(char p_178062_1_, int p_178062_2_)
     {
-        if (this.field_178075_A instanceof GuiTextField guitextfield)
+        if (this.field_178075_A instanceof GuiTextField)
         {
+            GuiTextField guitextfield = (GuiTextField)this.field_178075_A;
 
             if (!GuiScreen.isKeyComboCtrlV(p_178062_2_))
             {

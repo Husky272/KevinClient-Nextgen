@@ -8,8 +8,8 @@ import net.optifine.expr.IExpressionCached;
 
 public class CustomUniforms
 {
-    private final CustomUniform[] uniforms;
-    private final IExpressionCached[] expressionsCached;
+    private CustomUniform[] uniforms;
+    private IExpressionCached[] expressionsCached;
 
     public CustomUniforms(CustomUniform[] uniforms, Map<String, IExpression> mapExpressions)
     {
@@ -20,8 +20,9 @@ public class CustomUniforms
         {
             IExpression iexpression = mapExpressions.get(s);
 
-            if (iexpression instanceof IExpressionCached iexpressioncached)
+            if (iexpression instanceof IExpressionCached)
             {
+                IExpressionCached iexpressioncached = (IExpressionCached)iexpression;
                 list.add(iexpressioncached);
             }
         }

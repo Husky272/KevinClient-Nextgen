@@ -126,7 +126,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
     {
         try
         {
-            Transferable transferable = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
+            Transferable transferable = Toolkit.getDefaultToolkit().getSystemClipboard().getContents((Object)null);
 
             if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.stringFlavor))
             {
@@ -135,6 +135,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
         }
         catch (Exception var1)
         {
+            ;
         }
 
         return "";
@@ -150,10 +151,11 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
             try
             {
                 StringSelection stringselection = new StringSelection(copyText);
-                Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringselection, null);
+                Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringselection, (ClipboardOwner)null);
             }
             catch (Exception var2)
             {
+                ;
             }
         }
     }
@@ -166,11 +168,11 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
         {
             if (i == 0)
             {
-                list.set(i, stack.getRarity().rarityColor + list.get(i));
+                list.set(i, stack.getRarity().rarityColor + (String)list.get(i));
             }
             else
             {
-                list.set(i, EnumChatFormatting.GRAY + list.get(i));
+                list.set(i, EnumChatFormatting.GRAY + (String)list.get(i));
             }
         }
 
@@ -183,7 +185,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
      */
     protected void drawCreativeTabHoveringText(String tabName, int mouseX, int mouseY)
     {
-        this.drawHoveringText(Collections.singletonList(tabName), mouseX, mouseY);
+        this.drawHoveringText(Arrays.asList(tabName), mouseX, mouseY);
     }
 
     /**
@@ -267,7 +269,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
 
     /**
      * Draws the hover event specified by the given chat component
-     *  
+     *
      * @param component The IChatComponent to render
      * @param x The x position where to render
      * @param y The y position where to render
@@ -300,6 +302,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
                 }
                 catch (NBTException var11)
                 {
+                    ;
                 }
 
                 if (itemstack != null)
@@ -319,9 +322,10 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
                     {
                         NBTBase nbtbase1 = JsonToNBT.getTagFromJson(hoverevent.getValue().getUnformattedText());
 
-                        if (nbtbase1 instanceof NBTTagCompound nbttagcompound)
+                        if (nbtbase1 instanceof NBTTagCompound)
                         {
                             List<String> list1 = Lists.newArrayList();
+                            NBTTagCompound nbttagcompound = (NBTTagCompound)nbtbase1;
                             list1.add(nbttagcompound.getString("name"));
 
                             if (nbttagcompound.hasKey("type", 8))
@@ -386,7 +390,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
 
     /**
      * Executes the click event specified by the given chat component
-     *  
+     *
      * @param component The ChatComponent to check for click
      */
     protected boolean handleComponentClick(IChatComponent component)
@@ -442,7 +446,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
                     }
                     catch (URISyntaxException urisyntaxexception)
                     {
-                        LOGGER.error("Can't open url for " + clickevent, urisyntaxexception);
+                        LOGGER.error("Can't open url for " + clickevent, (Throwable)urisyntaxexception);
                     }
                 }
                 else if (clickevent.getAction() == ClickEvent.Action.OPEN_FILE)
@@ -566,7 +570,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
 
     /**
      * Set the gui to the specified width and height
-     *  
+     *
      * @param w The width of the screen
      * @param h The height of the screen
      */
@@ -701,10 +705,10 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         float f = 32.0F;
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(0.0D, this.height, 0.0D).tex(0.0D, (float)this.height / 32.0F + (float)tint).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos(this.width, this.height, 0.0D).tex((float)this.width / 32.0F, (float)this.height / 32.0F + (float)tint).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos(this.width, 0.0D, 0.0D).tex((float)this.width / 32.0F, tint).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, tint).color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos(0.0D, (double)this.height, 0.0D).tex(0.0D, (double)((float)this.height / 32.0F + (float)tint)).color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos((double)this.width, (double)this.height, 0.0D).tex((double)((float)this.width / 32.0F), (double)((float)this.height / 32.0F + (float)tint)).color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos((double)this.width, 0.0D, 0.0D).tex((double)((float)this.width / 32.0F), (double)tint).color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, (double)tint).color(64, 64, 64, 255).endVertex();
         tessellator.draw();
     }
 
@@ -735,7 +739,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
         try
         {
             Class<?> oclass = Class.forName("java.awt.Desktop");
-            Object object = oclass.getMethod("getDesktop").invoke(null);
+            Object object = oclass.getMethod("getDesktop").invoke((Object)null);
             oclass.getMethod("browse", URI.class).invoke(object, url);
         }
         catch (Throwable throwable)
@@ -797,7 +801,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
 
     /**
      * Called when the GUI is resized in order to update the world and the resolution
-     *  
+     *
      * @param w The width of the screen
      * @param h The height of the screen
      */

@@ -20,9 +20,10 @@ public class ModelAdapterBanner extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelBanner modelbanner)) {
+        if (!(model instanceof ModelBanner)) {
             return null;
         } else {
+            ModelBanner modelbanner = (ModelBanner) model;
 
             if (modelPart.equals("slate")) {
                 return modelbanner.bannerSlate;

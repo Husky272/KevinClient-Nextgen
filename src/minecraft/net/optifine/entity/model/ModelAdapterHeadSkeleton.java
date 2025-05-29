@@ -20,9 +20,10 @@ public class ModelAdapterHeadSkeleton extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelSkeletonHead modelskeletonhead)) {
+        if (!(model instanceof ModelSkeletonHead)) {
             return null;
         } else {
+            ModelSkeletonHead modelskeletonhead = (ModelSkeletonHead) model;
             return modelPart.equals("head") ? modelskeletonhead.skeletonHead : null;
         }
     }

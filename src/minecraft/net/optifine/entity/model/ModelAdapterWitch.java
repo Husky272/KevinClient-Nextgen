@@ -19,26 +19,28 @@ public class ModelAdapterWitch extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelWitch modelwitch)) {
+        if (!(model instanceof ModelWitch)) {
             return null;
         } else {
+            ModelWitch modelwitch = (ModelWitch) model;
 
-            if (modelPart.equals("mole")) {
-                return (ModelRenderer) Reflector.getFieldValue(modelwitch, Reflector.ModelWitch_mole);
-            } else if (modelPart.equals("hat")) {
-                return (ModelRenderer) Reflector.getFieldValue(modelwitch, Reflector.ModelWitch_hat);
-            } else if (modelPart.equals("head")) {
-                return modelwitch.villagerHead;
-            } else if (modelPart.equals("body")) {
-                return modelwitch.villagerBody;
-            } else if (modelPart.equals("arms")) {
-                return modelwitch.villagerArms;
-            } else if (modelPart.equals("left_leg")) {
-                return modelwitch.leftVillagerLeg;
-            } else if (modelPart.equals("right_leg")) {
-                return modelwitch.rightVillagerLeg;
-            } else {
-                return modelPart.equals("nose") ? modelwitch.villagerNose : null;
+            switch (modelPart) {
+                case "mole":
+                    return (ModelRenderer) Reflector.getFieldValue(modelwitch, Reflector.ModelWitch_mole);
+                case "hat":
+                    return (ModelRenderer) Reflector.getFieldValue(modelwitch, Reflector.ModelWitch_hat);
+                case "head":
+                    return modelwitch.villagerHead;
+                case "body":
+                    return modelwitch.villagerBody;
+                case "arms":
+                    return modelwitch.villagerArms;
+                case "left_leg":
+                    return modelwitch.leftVillagerLeg;
+                case "right_leg":
+                    return modelwitch.rightVillagerLeg;
+                default:
+                    return modelPart.equals("nose") ? modelwitch.villagerNose : null;
             }
         }
     }

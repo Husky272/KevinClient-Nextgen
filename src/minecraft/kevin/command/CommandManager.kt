@@ -1,13 +1,18 @@
 package kevin.command
 
-import client.script.ScriptManager
-import kevin.command.bind.BindClientCommandManager
+import kevin.command.bind.BindManager
 import kevin.command.commands.*
 import kevin.main.KevinClient
 import kevin.module.modules.misc.AdminDetector
 import kevin.module.modules.misc.AutoDisable
 import kevin.utils.ChatUtils
 
+// Kotlin我操你妈
+// C style注释
+// Scala style函数定义
+// dick style语法糖精
+// 还会给class拉annotation
+// 我日你妈
 class CommandManager {
     val commands = HashMap<Array<String>, IClientCommand>()
 
@@ -46,7 +51,7 @@ class CommandManager {
 
         commands[arrayOf("Admin")] = AdminDetector.INSTANCE
 
-        commands[arrayOf("ClientTitle")] = ClientTitleClientCommand
+        commands[arrayOf("ClientTitle")] = ClientTitleClientCommand.INSTANCE
 
         commands[arrayOf("DisableAllModule")] = DisableAllClientCommand.INSTANCE
 
@@ -54,7 +59,7 @@ class CommandManager {
 
         commands[arrayOf("font", "fonts")] = FontClientCommand()
 
-        commands[arrayOf("bindCommand")] = BindClientCommandManager
+        commands[arrayOf("bindCommand")] = BindManager
 
         commands[arrayOf("panic")] = PanicClientCommand()
 
@@ -94,3 +99,5 @@ class CommandManager {
         commands[arr] = commandObject
     }
 }
+
+

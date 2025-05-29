@@ -39,12 +39,13 @@ public class Rotations
 
     public boolean equals(Object p_equals_1_)
     {
-        if (!(p_equals_1_ instanceof Rotations rotations))
+        if (!(p_equals_1_ instanceof Rotations))
         {
             return false;
         }
         else
         {
+            Rotations rotations = (Rotations)p_equals_1_;
             return this.x == rotations.x && this.y == rotations.y && this.z == rotations.z;
         }
     }

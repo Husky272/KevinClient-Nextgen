@@ -55,7 +55,7 @@ public class EntityItemFrame extends EntityHanging
             if (!this.worldObj.isRemote)
             {
                 this.dropItemOrSelf(source.getEntity(), false);
-                this.setDisplayedItem(null);
+                this.setDisplayedItem((ItemStack)null);
             }
 
             return true;
@@ -101,8 +101,9 @@ public class EntityItemFrame extends EntityHanging
         {
             ItemStack itemstack = this.getDisplayedItem();
 
-            if (p_146065_1_ instanceof EntityPlayer entityplayer)
+            if (p_146065_1_ instanceof EntityPlayer)
             {
+                EntityPlayer entityplayer = (EntityPlayer)p_146065_1_;
 
                 if (entityplayer.capabilities.isCreativeMode)
                 {
@@ -138,7 +139,7 @@ public class EntityItemFrame extends EntityHanging
                 mapdata.mapDecorations.remove("frame-" + this.getEntityId());
             }
 
-            p_110131_1_.setItemFrame(null);
+            p_110131_1_.setItemFrame((EntityItemFrame)null);
         }
     }
 
@@ -249,7 +250,7 @@ public class EntityItemFrame extends EntityHanging
 
                 if (!playerIn.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
                 {
-                    playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, null);
+                    playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, (ItemStack)null);
                 }
             }
         }

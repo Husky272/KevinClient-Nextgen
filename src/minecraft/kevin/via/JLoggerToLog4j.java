@@ -19,7 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-public class JLoggerToLog4j extends Logger {
+public final class JLoggerToLog4j extends Logger {
     private final org.apache.logging.log4j.Logger base;
 
     public JLoggerToLog4j(org.apache.logging.log4j.Logger logger) {

@@ -24,22 +24,24 @@ public class ModelAdapterMinecart extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelMinecart modelminecart)) {
+        if (!(model instanceof ModelMinecart)) {
             return null;
         } else {
+            ModelMinecart modelminecart = (ModelMinecart) model;
 
-            if (modelPart.equals("bottom")) {
-                return modelminecart.sideModels[0];
-            } else if (modelPart.equals("back")) {
-                return modelminecart.sideModels[1];
-            } else if (modelPart.equals("front")) {
-                return modelminecart.sideModels[2];
-            } else if (modelPart.equals("right")) {
-                return modelminecart.sideModels[3];
-            } else if (modelPart.equals("left")) {
-                return modelminecart.sideModels[4];
-            } else {
-                return modelPart.equals("dirt") ? modelminecart.sideModels[5] : null;
+            switch (modelPart) {
+                case "bottom":
+                    return modelminecart.sideModels[0];
+                case "back":
+                    return modelminecart.sideModels[1];
+                case "front":
+                    return modelminecart.sideModels[2];
+                case "right":
+                    return modelminecart.sideModels[3];
+                case "left":
+                    return modelminecart.sideModels[4];
+                default:
+                    return modelPart.equals("dirt") ? modelminecart.sideModels[5] : null;
             }
         }
     }

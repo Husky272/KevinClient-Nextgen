@@ -18,24 +18,26 @@ public class ModelAdapterCreeper extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelCreeper modelcreeper)) {
+        if (!(model instanceof ModelCreeper)) {
             return null;
         } else {
+            ModelCreeper modelcreeper = (ModelCreeper) model;
 
-            if (modelPart.equals("head")) {
-                return modelcreeper.head;
-            } else if (modelPart.equals("armor")) {
-                return modelcreeper.creeperArmor;
-            } else if (modelPart.equals("body")) {
-                return modelcreeper.body;
-            } else if (modelPart.equals("leg1")) {
-                return modelcreeper.leg1;
-            } else if (modelPart.equals("leg2")) {
-                return modelcreeper.leg2;
-            } else if (modelPart.equals("leg3")) {
-                return modelcreeper.leg3;
-            } else {
-                return modelPart.equals("leg4") ? modelcreeper.leg4 : null;
+            switch (modelPart) {
+                case "head":
+                    return modelcreeper.head;
+                case "armor":
+                    return modelcreeper.creeperArmor;
+                case "body":
+                    return modelcreeper.body;
+                case "leg1":
+                    return modelcreeper.leg1;
+                case "leg2":
+                    return modelcreeper.leg2;
+                case "leg3":
+                    return modelcreeper.leg3;
+                default:
+                    return modelPart.equals("leg4") ? modelcreeper.leg4 : null;
             }
         }
     }

@@ -27,13 +27,15 @@ public class CapeUtils {
             TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
             ITextureObject itextureobject = texturemanager.getTexture(resourcelocation);
 
-            if (itextureobject != null && itextureobject instanceof ThreadDownloadImageData threaddownloadimagedata) {
+            if (itextureobject != null && itextureobject instanceof ThreadDownloadImageData) {
+                ThreadDownloadImageData threaddownloadimagedata = (ThreadDownloadImageData) itextureobject;
 
                 if (threaddownloadimagedata.imageFound != null) {
                     if (threaddownloadimagedata.imageFound) {
                         player.setLocationOfCape(resourcelocation);
 
-                        if (threaddownloadimagedata.getImageBuffer() instanceof CapeImageBuffer capeimagebuffer1) {
+                        if (threaddownloadimagedata.getImageBuffer() instanceof CapeImageBuffer) {
+                            CapeImageBuffer capeimagebuffer1 = (CapeImageBuffer) threaddownloadimagedata.getImageBuffer();
                             player.setElytraOfCape(capeimagebuffer1.isElytraOfCape());
                         }
                     }
@@ -75,7 +77,8 @@ public class CapeUtils {
         TextureManager texturemanager = Config.getTextureManager();
         ITextureObject itextureobject = texturemanager.getTexture(resourcelocation);
 
-        if (itextureobject instanceof SimpleTexture simpletexture) {
+        if (itextureobject instanceof SimpleTexture) {
+            SimpleTexture simpletexture = (SimpleTexture) itextureobject;
             simpletexture.deleteGlTexture();
             texturemanager.deleteTexture(resourcelocation);
         }

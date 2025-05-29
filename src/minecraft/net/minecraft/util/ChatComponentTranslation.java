@@ -241,12 +241,13 @@ public class ChatComponentTranslation extends ChatComponentStyle
         {
             return true;
         }
-        else if (!(p_equals_1_ instanceof ChatComponentTranslation chatcomponenttranslation))
+        else if (!(p_equals_1_ instanceof ChatComponentTranslation))
         {
             return false;
         }
         else
         {
+            ChatComponentTranslation chatcomponenttranslation = (ChatComponentTranslation)p_equals_1_;
             return Arrays.equals(this.formatArgs, chatcomponenttranslation.formatArgs) && this.key.equals(chatcomponenttranslation.key) && super.equals(p_equals_1_);
         }
     }

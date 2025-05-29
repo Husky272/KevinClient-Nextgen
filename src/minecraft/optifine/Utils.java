@@ -365,8 +365,9 @@ public class Utils
                 {
                     stringbuffer.append("[");
 
-                    if (object instanceof Object[] aobject)
+                    if (object instanceof Object[])
                     {
+                        Object[] aobject = (Object[]) object;
                         stringbuffer.append(arrayToCommaSeparatedString(aobject));
                     }
                     else

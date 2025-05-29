@@ -112,7 +112,7 @@ public class ThreadDownloadImageData extends SimpleTexture
                 }
                 catch (IOException ioexception)
                 {
-                    logger.error("Couldn't load skin " + this.cacheFile, ioexception);
+                    logger.error("Couldn't load skin " + this.cacheFile, (Throwable)ioexception);
                     this.loadTextureFromServer();
                 }
             }
@@ -177,6 +177,7 @@ public class ThreadDownloadImageData extends SimpleTexture
                     catch (Exception exception1)
                     {
                         ThreadDownloadImageData.logger.error("Couldn't download http texture: " + exception1.getClass().getName() + ": " + exception1.getMessage());
+                        return;
                     }
                     finally
                     {
@@ -251,6 +252,7 @@ public class ThreadDownloadImageData extends SimpleTexture
         catch (Exception exception)
         {
             logger.error("Couldn't download http texture: " + exception.getClass().getName() + ": " + exception.getMessage());
+            return;
         }
         finally
         {
@@ -262,8 +264,9 @@ public class ThreadDownloadImageData extends SimpleTexture
     {
         this.imageFound = this.bufferedImage != null;
 
-        if (this.imageBuffer instanceof CapeImageBuffer capeimagebuffer)
+        if (this.imageBuffer instanceof CapeImageBuffer)
         {
+            CapeImageBuffer capeimagebuffer = (CapeImageBuffer)this.imageBuffer;
             capeimagebuffer.cleanup();
         }
     }

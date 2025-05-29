@@ -30,12 +30,12 @@ import net.optifine.util.StrUtils;
 
 public class RandomEntities
 {
-    private static final Map<String, RandomEntityProperties> mapProperties = new HashMap<>();
+    private static Map<String, RandomEntityProperties> mapProperties = new HashMap<>();
     private static boolean active = false;
     private static RenderGlobal renderGlobal;
-    private static final RandomEntity randomEntity = new RandomEntity();
+    private static RandomEntity randomEntity = new RandomEntity();
     private static TileEntityRendererDispatcher tileEntityRendererDispatcher;
-    private static final RandomTileEntity randomTileEntity = new RandomTileEntity();
+    private static RandomTileEntity randomTileEntity = new RandomTileEntity();
     private static boolean working = false;
     public static final String SUFFIX_PNG = ".png";
     public static final String SUFFIX_PROPERTIES = ".properties";
@@ -46,8 +46,8 @@ public class RandomEntities
     public static final String PREFIX_MCPATCHER_MOB = "mcpatcher/mob/";
     private static final String[] DEPENDANT_SUFFIXES = new String[] {"_armor", "_eyes", "_exploding", "_shooting", "_fur", "_eyes", "_invulnerable", "_angry", "_tame", "_collar"};
     private static final String PREFIX_DYNAMIC_TEXTURE_HORSE = "horse/";
-    private static final String[] HORSE_TEXTURES = (String[])ReflectorRaw.getFieldValue(null, EntityHorse.class, String[].class, 0);
-    private static final String[] HORSE_TEXTURES_ABBR = (String[])ReflectorRaw.getFieldValue(null, EntityHorse.class, String[].class, 1);
+    private static final String[] HORSE_TEXTURES = (String[])ReflectorRaw.getFieldValue((Object)null, EntityHorse.class, String[].class, 0);
+    private static final String[] HORSE_TEXTURES_ABBR = (String[])ReflectorRaw.getFieldValue((Object)null, EntityHorse.class, String[].class, 1);
 
     public static void entityLoaded(Entity entity, World world)
     {
@@ -73,8 +73,9 @@ public class RandomEntities
     {
         Entity entity = IntegratedServerUtils.getEntity(uuid);
 
-        if (entity instanceof EntityVillager entityvillager)
+        if (entity instanceof EntityVillager)
         {
+            EntityVillager entityvillager = (EntityVillager)entity;
             int i = entityvillager.getProfession();
             ev.setProfession(i);
             int j = Reflector.getFieldValueInt(entityvillager, Reflector.EntityVillager_careerId, 0);
@@ -97,8 +98,8 @@ public class RandomEntities
             }
         }
 
-        randomEntity.setEntity(null);
-        randomTileEntity.setTileEntity(null);
+        randomEntity.setEntity((Entity)null);
+        randomTileEntity.setTileEntity((TileEntity)null);
     }
 
     public static ResourceLocation getTextureLocation(ResourceLocation loc)

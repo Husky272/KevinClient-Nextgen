@@ -51,8 +51,8 @@ public class EntityBoat extends Entity
 
     protected void entityInit()
     {
-        this.dataWatcher.addObject(17, Integer.valueOf(0));
-        this.dataWatcher.addObject(18, Integer.valueOf(1));
+        this.dataWatcher.addObject(17, new Integer(0));
+        this.dataWatcher.addObject(18, new Integer(1));
         this.dataWatcher.addObject(19, new Float(0.0F));
     }
 
@@ -205,8 +205,8 @@ public class EntityBoat extends Entity
             this.boatX = x;
             this.boatY = y;
             this.boatZ = z;
-            this.boatYaw = yaw;
-            this.boatPitch = pitch;
+            this.boatYaw = (double)yaw;
+            this.boatPitch = (double)pitch;
             this.motionX = this.velocityX;
             this.motionY = this.velocityY;
             this.motionZ = this.velocityZ;
@@ -248,7 +248,7 @@ public class EntityBoat extends Entity
 
         for (int j = 0; j < i; ++j)
         {
-            double d1 = this.getEntityBoundingBox().minY + (this.getEntityBoundingBox().maxY - this.getEntityBoundingBox().minY) * (double)(j) / (double)i - 0.125D;
+            double d1 = this.getEntityBoundingBox().minY + (this.getEntityBoundingBox().maxY - this.getEntityBoundingBox().minY) * (double)(j + 0) / (double)i - 0.125D;
             double d3 = this.getEntityBoundingBox().minY + (this.getEntityBoundingBox().maxY - this.getEntityBoundingBox().minY) * (double)(j + 1) / (double)i - 0.125D;
             AxisAlignedBB axisalignedbb = new AxisAlignedBB(this.getEntityBoundingBox().minX, d1, this.getEntityBoundingBox().minZ, this.getEntityBoundingBox().maxX, d3, this.getEntityBoundingBox().maxZ);
 
@@ -267,7 +267,7 @@ public class EntityBoat extends Entity
 
             for (int k = 0; (double)k < 1.0D + d9 * 60.0D; ++k)
             {
-                double d5 = this.rand.nextFloat() * 2.0F - 1.0F;
+                double d5 = (double)(this.rand.nextFloat() * 2.0F - 1.0F);
                 double d6 = (double)(this.rand.nextInt(2) * 2 - 1) * 0.7D;
 
                 if (this.rand.nextBoolean())
@@ -313,9 +313,9 @@ public class EntityBoat extends Entity
                     this.motionZ *= 0.5D;
                 }
 
-                this.motionX *= 0.99F;
-                this.motionY *= 0.95F;
-                this.motionZ *= 0.99F;
+                this.motionX *= (double)0.99F;
+                this.motionY *= (double)0.95F;
+                this.motionZ *= (double)0.99F;
             }
         }
         else
@@ -332,14 +332,15 @@ public class EntityBoat extends Entity
                     this.motionY /= 2.0D;
                 }
 
-                this.motionY += 0.007F;
+                this.motionY += (double)0.007F;
             }
 
-            if (this.riddenByEntity instanceof EntityLivingBase entitylivingbase)
+            if (this.riddenByEntity instanceof EntityLivingBase)
             {
+                EntityLivingBase entitylivingbase = (EntityLivingBase)this.riddenByEntity;
                 float f = this.riddenByEntity.rotationYaw + -entitylivingbase.moveStrafing * 90.0F;
-                this.motionX += -Math.sin(f * (float)Math.PI / 180.0F) * this.speedMultiplier * (double)entitylivingbase.moveForward * (double)0.05F;
-                this.motionZ += Math.cos(f * (float)Math.PI / 180.0F) * this.speedMultiplier * (double)entitylivingbase.moveForward * (double)0.05F;
+                this.motionX += -Math.sin((double)(f * (float)Math.PI / 180.0F)) * this.speedMultiplier * (double)entitylivingbase.moveForward * (double)0.05F;
+                this.motionZ += Math.cos((double)(f * (float)Math.PI / 180.0F)) * this.speedMultiplier * (double)entitylivingbase.moveForward * (double)0.05F;
             }
 
             double d11 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
@@ -426,19 +427,19 @@ public class EntityBoat extends Entity
             }
             else
             {
-                this.motionX *= 0.99F;
-                this.motionY *= 0.95F;
-                this.motionZ *= 0.99F;
+                this.motionX *= (double)0.99F;
+                this.motionY *= (double)0.95F;
+                this.motionZ *= (double)0.99F;
             }
 
             this.rotationPitch = 0.0F;
-            double d15 = this.rotationYaw;
+            double d15 = (double)this.rotationYaw;
             double d18 = this.prevPosX - this.posX;
             double d21 = this.prevPosZ - this.posZ;
 
             if (d18 * d18 + d21 * d21 > 0.001D)
             {
-                d15 = (float)(MathHelper.atan2(d21, d18) * 180.0D / Math.PI);
+                d15 = (double)((float)(MathHelper.atan2(d21, d18) * 180.0D / Math.PI));
             }
 
             double d23 = MathHelper.wrapAngleTo180_double(d15 - (double)this.rotationYaw);
@@ -458,7 +459,7 @@ public class EntityBoat extends Entity
 
             if (!this.worldObj.isRemote)
             {
-                List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(0.2F, 0.0D, 0.2F));
+                List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand((double)0.2F, 0.0D, (double)0.2F));
 
                 if (list != null && !list.isEmpty())
                 {

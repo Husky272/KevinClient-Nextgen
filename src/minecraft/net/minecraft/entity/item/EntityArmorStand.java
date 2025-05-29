@@ -373,8 +373,9 @@ public class EntityArmorStand extends EntityLivingBase
             ItemStack itemstack = player.getCurrentEquippedItem();
             boolean flag = itemstack != null;
 
-            if (flag && itemstack.getItem() instanceof ItemArmor itemarmor)
+            if (flag && itemstack.getItem() instanceof ItemArmor)
             {
+                ItemArmor itemarmor = (ItemArmor)itemstack.getItem();
 
                 if (itemarmor.armorType == 3)
                 {
@@ -614,7 +615,7 @@ public class EntityArmorStand extends EntityLivingBase
     {
         if (this.worldObj instanceof WorldServer)
         {
-            ((WorldServer)this.worldObj).spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY + (double)this.height / 1.5D, this.posZ, 10, this.width / 4.0F, this.height / 4.0F, this.width / 4.0F, 0.05D, Block.getStateId(Blocks.planks.getDefaultState()));
+            ((WorldServer)this.worldObj).spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY + (double)this.height / 1.5D, this.posZ, 10, (double)(this.width / 4.0F), (double)(this.height / 4.0F), (double)(this.width / 4.0F), 0.05D, Block.getStateId(Blocks.planks.getDefaultState()));
         }
     }
 

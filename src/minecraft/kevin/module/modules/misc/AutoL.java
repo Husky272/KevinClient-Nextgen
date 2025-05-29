@@ -69,7 +69,7 @@ public class AutoL extends ClientModule {
             "Did I really just forget that melody? Si sig sig sig Sigma"
     };
 
-    // Thanks “吾乃玄喵咪”
+    // Thanks “吾乃玄喵喵”
     private final String[] cumMSG = {
             "呐呐~杂鱼哥哥不会这样就被捉弄的不会说话了吧 真是弱哎~",
             "嘻嘻~杂鱼哥哥不会以为竖个大拇哥就能欺负我了吧~不会吧~不会吧~杂鱼哥哥怎么可能欺负",
@@ -119,7 +119,8 @@ public class AutoL extends ClientModule {
 
     @EventTarget
     public void onAttack(AttackEvent event) {
-        if (event.getTargetEntity() instanceof EntityPlayer target) {
+        if (event.getTargetEntity() instanceof EntityPlayer) {
+            EntityPlayer target = (EntityPlayer) event.getTargetEntity();
             if (!entityList.contains(target)) {
                 entityList.add(target);
             }
@@ -143,7 +144,6 @@ public class AutoL extends ClientModule {
     }
 
     private String getMessageBasedOnMode() {
-        //noinspection EnhancedSwitchMigration
         switch (modeValue.get()) {
             case "Single":
                 return singleMessage.get();
@@ -167,7 +167,6 @@ public class AutoL extends ClientModule {
     }
 
     private String addPrefix(String message) {
-        //noinspection EnhancedSwitchMigration
         switch (prefix.get()) {
             case "/shout":
                 return "/shout " + message;

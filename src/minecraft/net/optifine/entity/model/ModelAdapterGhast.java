@@ -20,9 +20,11 @@ public class ModelAdapterGhast extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelGhast modelghast)) {
+        if (!(model instanceof ModelGhast)) {
             return null;
         } else {
+
+            ModelGhast modelghast = (ModelGhast) model;
 
             if (modelPart.equals("body")) {
                 return (ModelRenderer) Reflector.getFieldValue(modelghast, Reflector.ModelGhast_body);

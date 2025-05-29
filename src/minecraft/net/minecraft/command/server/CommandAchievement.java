@@ -76,7 +76,7 @@ public class CommandAchievement extends CommandBase
                                 entityplayermp.triggerAchievement(achievement4);
                             }
 
-                            notifyOperators(sender, this, "commands.achievement.give.success.all", entityplayermp.getName());
+                            notifyOperators(sender, this, "commands.achievement.give.success.all", new Object[] {entityplayermp.getName()});
                         }
                         else if (flag1)
                         {
@@ -85,13 +85,14 @@ public class CommandAchievement extends CommandBase
                                 entityplayermp.func_175145_a(achievement5);
                             }
 
-                            notifyOperators(sender, this, "commands.achievement.take.success.all", entityplayermp.getName());
+                            notifyOperators(sender, this, "commands.achievement.take.success.all", new Object[] {entityplayermp.getName()});
                         }
                     }
                     else
                     {
-                        if (statbase instanceof Achievement achievement)
+                        if (statbase instanceof Achievement)
                         {
+                            Achievement achievement = (Achievement)statbase;
 
                             if (flag)
                             {
@@ -160,12 +161,12 @@ public class CommandAchievement extends CommandBase
                         if (flag)
                         {
                             entityplayermp.triggerAchievement(statbase);
-                            notifyOperators(sender, this, "commands.achievement.give.success.one", entityplayermp.getName(), statbase.createChatComponent());
+                            notifyOperators(sender, this, "commands.achievement.give.success.one", new Object[] {entityplayermp.getName(), statbase.createChatComponent()});
                         }
                         else if (flag1)
                         {
                             entityplayermp.func_175145_a(statbase);
-                            notifyOperators(sender, this, "commands.achievement.take.success.one", statbase.createChatComponent(), entityplayermp.getName());
+                            notifyOperators(sender, this, "commands.achievement.take.success.one", new Object[] {statbase.createChatComponent(), entityplayermp.getName()});
                         }
                     }
                 }
@@ -177,7 +178,7 @@ public class CommandAchievement extends CommandBase
     {
         if (args.length == 1)
         {
-            return getListOfStringsMatchingLastWord(args, "give", "take");
+            return getListOfStringsMatchingLastWord(args, new String[] {"give", "take"});
         }
         else if (args.length != 2)
         {

@@ -94,7 +94,7 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
                 {
                     try
                     {
-                        URL url = new URL("https://api.twitch.tv/kraken?oauth_token=" + URLEncoder.encode(streamProperty.getValue(), StandardCharsets.UTF_8));
+                        URL url = new URL("https://api.twitch.tv/kraken?oauth_token=" + URLEncoder.encode(streamProperty.getValue(), "UTF-8"));
                         String s = HttpUtil.get(url);
                         JsonObject jsonobject = JsonUtils.getJsonObject((new JsonParser()).parse(s), "Response");
                         JsonObject jsonobject1 = JsonUtils.getJsonObject(jsonobject, "token");

@@ -28,6 +28,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Nullable;
 
 public class HttpUtil
 {
@@ -40,8 +41,7 @@ public class HttpUtil
     /**
      * Builds an encoded HTTP POST content string from a string map
      */
-    public static String buildPostString(Map<String, Object> data)
-    {
+    public static String buildPostString(Map<String, Object> data) throws UnsupportedEncodingException {
         StringBuilder stringbuilder = new StringBuilder();
 
         for (Entry<String, Object> entry : data.entrySet())
@@ -51,13 +51,13 @@ public class HttpUtil
                 stringbuilder.append('&');
             }
 
-            stringbuilder.append(URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8));
+            stringbuilder.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
 
             if (entry.getValue() != null)
             {
                 stringbuilder.append('=');
 
-                stringbuilder.append(URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8));
+                stringbuilder.append(URLEncoder.encode(entry.getValue().toString(), "UTF-8"));
             }
         }
 
@@ -67,9 +67,14 @@ public class HttpUtil
     /**
      * Sends a POST to the given URL using the map as the POST args
      */
+    @Nullable
     public static String postMap(URL url, Map<String, Object> data, boolean skipLoggingErrors)
     {
-        return post(url, buildPostString(data), skipLoggingErrors);
+        try {
+            return post(url, buildPostString(data), skipLoggingErrors);
+        } catch (UnsupportedEncodingException e) {
+            return null;
+        }
     }
 
     /**

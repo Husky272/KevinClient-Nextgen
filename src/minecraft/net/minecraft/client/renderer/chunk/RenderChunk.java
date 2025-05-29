@@ -64,8 +64,8 @@ public class RenderChunk
     public AxisAlignedBB boundingBox;
     private int frameIndex = -1;
     private boolean needsUpdate = true;
-    private final EnumMap<EnumFacing, BlockPos> mapEnumFacing = null;
-    private final BlockPos[] positionOffsets16 = new BlockPos[EnumFacing.VALUES.length];
+    private EnumMap<EnumFacing, BlockPos> mapEnumFacing = null;
+    private BlockPos[] positionOffsets16 = new BlockPos[EnumFacing.VALUES.length];
     public static final EnumWorldBlockLayer[] ENUM_WORLD_BLOCK_LAYERS = EnumWorldBlockLayer.values();
     //private final EnumWorldBlockLayer[] blockLayersSingle = new EnumWorldBlockLayer[1];
     private final boolean isMipmaps = Config.isMipmaps();
@@ -76,10 +76,10 @@ public class RenderChunk
     private final RenderChunk[] renderChunksOfset16 = new RenderChunk[6];
     private boolean renderChunksOffset16Updated = false;
     private Chunk chunk;
-    private final RenderChunk[] renderChunkNeighbours = new RenderChunk[EnumFacing.VALUES.length];
-    private final RenderChunk[] renderChunkNeighboursValid = new RenderChunk[EnumFacing.VALUES.length];
+    private RenderChunk[] renderChunkNeighbours = new RenderChunk[EnumFacing.VALUES.length];
+    private RenderChunk[] renderChunkNeighboursValid = new RenderChunk[EnumFacing.VALUES.length];
     private boolean renderChunkNeighboursUpated = false;
-    private final RenderGlobal.ContainerLocalRenderInformation renderInfo = new RenderGlobal.ContainerLocalRenderInformation(this, null, 0);
+    private RenderGlobal.ContainerLocalRenderInformation renderInfo = new RenderGlobal.ContainerLocalRenderInformation(this, (EnumFacing)null, 0);
     public AabbFrame boundingBoxParent;
 
     public RenderChunk(World worldIn, RenderGlobal renderGlobalIn, BlockPos blockPosIn, int indexIn)
@@ -196,9 +196,9 @@ public class RenderChunk
             chunkcacheof.renderStart();
             boolean[] aboolean = new boolean[ENUM_WORLD_BLOCK_LAYERS.length];
             BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
-            
+
             for (Object ff_Object : BlockPosM.getAllInBoxMutable(blockpos, blockpos1)) {
-            	BlockPosM blockposm = (BlockPosM)ff_Object;
+                BlockPosM blockposm = (BlockPosM)ff_Object;
                 IBlockState iblockstate = chunkcacheof.getBlockState(blockposm);
                 Block block = iblockstate.getBlock();
 
@@ -303,7 +303,7 @@ public class RenderChunk
                 }
                 else
                 {
-                    compiledchunk.setAnimatedSprites(enumworldblocklayer1, null);
+                    compiledchunk.setAnimatedSprites(enumworldblocklayer1, (BitSet)null);
                 }
             }
 
@@ -415,11 +415,11 @@ public class RenderChunk
             int l = pos.getZ() >> i << i;
             j = this.regionX;
             l = this.regionZ;
-            worldRendererIn.setTranslation(-j, -k, -l);
+            worldRendererIn.setTranslation((double)(-j), (double)(-k), (double)(-l));
         }
         else
         {
-            worldRendererIn.setTranslation(-pos.getX(), -pos.getY(), -pos.getZ());
+            worldRendererIn.setTranslation((double)(-pos.getX()), (double)(-pos.getY()), (double)(-pos.getZ()));
         }
     }
 
@@ -537,8 +537,9 @@ public class RenderChunk
 
     private boolean isWorldPlayerUpdate()
     {
-        if (this.world instanceof WorldClient worldclient)
+        if (this.world instanceof WorldClient)
         {
+            WorldClient worldclient = (WorldClient)this.world;
             return worldclient.isPlayerUpdate();
         }
         else
@@ -719,7 +720,7 @@ public class RenderChunk
 
     public boolean isBoundingBoxInFrustum(ICamera p_isBoundingBoxInFrustum_1_, int p_isBoundingBoxInFrustum_2_)
     {
-        return this.getBoundingBoxParent().isBoundingBoxInFrustumFully(p_isBoundingBoxInFrustum_1_, p_isBoundingBoxInFrustum_2_) || p_isBoundingBoxInFrustum_1_.isBoundingBoxInFrustum(this.boundingBox);
+        return this.getBoundingBoxParent().isBoundingBoxInFrustumFully(p_isBoundingBoxInFrustum_1_, p_isBoundingBoxInFrustum_2_) ? true : p_isBoundingBoxInFrustum_1_.isBoundingBoxInFrustum(this.boundingBox);
     }
 
     public AabbFrame getBoundingBoxParent()
@@ -748,7 +749,7 @@ public class RenderChunk
             if (this.boundingBoxParent == null)
             {
                 int l1 = 1 << l;
-                this.boundingBoxParent = new AabbFrame(i1, j1, k1, i1 + l1, j1 + l1, k1 + l1);
+                this.boundingBoxParent = new AabbFrame((double)i1, (double)j1, (double)k1, (double)(i1 + l1), (double)(j1 + l1), (double)(k1 + l1));
             }
         }
 

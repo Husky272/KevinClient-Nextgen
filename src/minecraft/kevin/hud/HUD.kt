@@ -111,9 +111,9 @@ open class HUD : MinecraftInstance() {
 
         elements.sortedBy { -it.info.priority }
             .forEach {
-                if (it.border == null) {
-                    return
-                }
+//                if (it.border == null) {
+//                    return
+//                }
                 GL11.glPushMatrix()
 
                 if (!it.info.disableScale) {

@@ -9,39 +9,50 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.src.Config;
 
-public class ModelAdapterArmorStand extends ModelAdapterBiped {
-    public ModelAdapterArmorStand() {
+public class ModelAdapterArmorStand extends ModelAdapterBiped
+{
+    public ModelAdapterArmorStand()
+    {
         super(EntityArmorStand.class, "armor_stand", 0.0F);
     }
 
-    public ModelBase makeModel() {
+    public ModelBase makeModel()
+    {
         return new ModelArmorStand();
     }
 
-    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelArmorStand modelarmorstand)) {
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart)
+    {
+        if (!(model instanceof ModelArmorStand))
+        {
             return null;
-        } else {
+        }
+        else
+        {
+            ModelArmorStand modelarmorstand = (ModelArmorStand)model;
 
-            if (modelPart.equals("right")) {
-                return modelarmorstand.standRightSide;
-            } else if (modelPart.equals("left")) {
-                return modelarmorstand.standLeftSide;
-            } else if (modelPart.equals("waist")) {
-                return modelarmorstand.standWaist;
-            } else {
-                return modelPart.equals("base") ? modelarmorstand.standBase : super.getModelRenderer(modelarmorstand, modelPart);
+            switch (modelPart) {
+                case "right":
+                    return modelarmorstand.standRightSide;
+                case "left":
+                    return modelarmorstand.standLeftSide;
+                case "waist":
+                    return modelarmorstand.standWaist;
+                default:
+                    return modelPart.equals("base") ? modelarmorstand.standBase : super.getModelRenderer(modelarmorstand, modelPart);
             }
         }
     }
 
-    public String[] getModelRendererNames() {
+    public String[] getModelRendererNames()
+    {
         String[] astring = super.getModelRendererNames();
-        astring = (String[]) Config.addObjectsToArray(astring, new String[]{"right", "left", "waist", "base"});
+        astring = (String[])Config.addObjectsToArray(astring, new String[] {"right", "left", "waist", "base"});
         return astring;
     }
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize)
+    {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
         ArmorStandRenderer armorstandrenderer = new ArmorStandRenderer(rendermanager);
         armorstandrenderer.mainModel = modelBase;

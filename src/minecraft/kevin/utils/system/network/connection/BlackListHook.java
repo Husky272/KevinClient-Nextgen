@@ -8,7 +8,6 @@ import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.Set;
 
-@SuppressWarnings("unchecked")
 public class BlackListHook {
     public static boolean working = false;
     static Set<String> CACHES = Sets.newHashSet(), BLOCKING_SERVER = Sets.newHashSet();
@@ -32,6 +31,7 @@ public class BlackListHook {
                 Class.forName("com.mojang.patchy.BlockedServers");
                 Field field = BlockedServers.class.getDeclaredField("BLOCKED_SERVERS");
                 field.setAccessible(true);
+                // noinspection unchecked
                 CACHES = new HashSet<>(BLOCKING_SERVER = (Set<String>) field.get(null));
             } catch (ReflectiveOperationException ignored) {}
         });

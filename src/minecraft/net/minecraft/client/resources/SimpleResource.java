@@ -52,7 +52,7 @@ public class SimpleResource implements IResource
     {
         if (!this.hasMetadata())
         {
-            return null;
+            return (T)null;
         }
         else
         {
@@ -68,7 +68,7 @@ public class SimpleResource implements IResource
                 }
                 finally
                 {
-                    IOUtils.closeQuietly(bufferedreader);
+                    IOUtils.closeQuietly((Reader)bufferedreader);
                 }
             }
 
@@ -94,12 +94,13 @@ public class SimpleResource implements IResource
         {
             return true;
         }
-        else if (!(p_equals_1_ instanceof SimpleResource simpleresource))
+        else if (!(p_equals_1_ instanceof SimpleResource))
         {
             return false;
         }
         else
         {
+            SimpleResource simpleresource = (SimpleResource)p_equals_1_;
 
             if (this.srResourceLocation != null)
             {
@@ -115,9 +116,17 @@ public class SimpleResource implements IResource
 
             if (this.resourcePackName != null)
             {
-                return this.resourcePackName.equals(simpleresource.resourcePackName);
+                if (!this.resourcePackName.equals(simpleresource.resourcePackName))
+                {
+                    return false;
+                }
             }
-            else return simpleresource.resourcePackName == null;
+            else if (simpleresource.resourcePackName != null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 

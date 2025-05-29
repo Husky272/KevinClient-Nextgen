@@ -89,7 +89,7 @@ public class PlayerControllerMP
 
     /**
      * Sets player capabilities depending on current gametype. params: player
-     *  
+     *
      * @param player The player's instance
      */
     public void setPlayerCapabilities(EntityPlayer player)
@@ -107,7 +107,7 @@ public class PlayerControllerMP
 
     /**
      * Sets the game type for the player.
-     *  
+     *
      * @param type The GameType to set
      */
     public void setGameType(WorldSettings.GameType type)
@@ -430,8 +430,9 @@ public class PlayerControllerMP
                     flag = true;
                 }
 
-                if (!flag && heldStack != null && heldStack.getItem() instanceof ItemBlock itemblock)
+                if (!flag && heldStack != null && heldStack.getItem() instanceof ItemBlock)
                 {
+                    ItemBlock itemblock = (ItemBlock)heldStack.getItem();
 
                     if (!itemblock.canPlaceBlockOnSide(worldIn, hitPos, side, player, heldStack))
                     {
@@ -536,7 +537,7 @@ public class PlayerControllerMP
 
     /**
      * Return true when the player rightclick on an entity
-     *  
+     *
      * @param player The player's instance
      * @param entityIn The entity clicked
      * @param movingObject The object clicked
@@ -566,7 +567,7 @@ public class PlayerControllerMP
     /**
      * GuiEnchantment uses this during multiplayer to tell PlayerControllerMP to send a packet indicating the
      * enchantment action the player has taken.
-     *  
+     *
      * @param windowID The ID of the current window
      * @param button The button id (enchantment selected)
      */

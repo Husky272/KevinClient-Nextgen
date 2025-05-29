@@ -1,6 +1,10 @@
 # 默认忽略的文件
 /shelf/
 workspace.xml
-/out/production/
-/out/
+
+# CGI Shits
 /run/Game/*
+
+# Binary Shits
+out/*
+target/*

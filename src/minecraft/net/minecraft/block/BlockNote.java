@@ -32,8 +32,9 @@ public class BlockNote extends BlockContainer
         boolean flag = worldIn.isBlockPowered(pos);
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (tileentity instanceof TileEntityNote tileentitynote)
+        if (tileentity instanceof TileEntityNote)
         {
+            TileEntityNote tileentitynote = (TileEntityNote)tileentity;
 
             if (tileentitynote.previousRedstoneState != flag)
             {
@@ -57,8 +58,9 @@ public class BlockNote extends BlockContainer
         {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityNote tileentitynote)
+            if (tileentity instanceof TileEntityNote)
             {
+                TileEntityNote tileentitynote = (TileEntityNote)tileentity;
                 tileentitynote.changePitch();
                 tileentitynote.triggerNote(worldIn, pos);
                 playerIn.triggerAchievement(StatList.field_181735_S);

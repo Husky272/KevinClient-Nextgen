@@ -86,7 +86,8 @@ public class HackDetector extends ClientModule {
         if (event.getPacket() instanceof S14PacketEntity || event.getPacket() instanceof S18PacketEntityTeleport) {
             singleThreadExecutor.execute(() -> {
                 int x, y, z, id;
-                if (event.getPacket() instanceof S14PacketEntity packet) {
+                if (event.getPacket() instanceof S14PacketEntity) {
+                    S14PacketEntity packet = (S14PacketEntity) event.getPacket();
                     x = packet.func_149062_c();
                     y = packet.func_149061_d();
                     z = packet.func_149064_e();

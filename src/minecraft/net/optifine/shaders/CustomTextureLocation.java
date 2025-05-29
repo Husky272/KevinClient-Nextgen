@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 public class CustomTextureLocation implements ICustomTexture
 {
     private int textureUnit = -1;
-    private final ResourceLocation location;
+    private ResourceLocation location;
     private int variant = 0;
     private ITextureObject texture;
     public static final int VARIANT_BASE = 0;
@@ -46,8 +46,9 @@ public class CustomTextureLocation implements ICustomTexture
     {
         ITextureObject itextureobject = this.getTexture();
 
-        if (this.variant != 0 && itextureobject instanceof AbstractTexture abstracttexture)
+        if (this.variant != 0 && itextureobject instanceof AbstractTexture)
         {
+            AbstractTexture abstracttexture = (AbstractTexture)itextureobject;
             MultiTexID multitexid = abstracttexture.multiTex;
 
             if (multitexid != null)

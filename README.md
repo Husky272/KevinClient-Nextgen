@@ -21,4 +21,4 @@ this project entirely or partially for free and even commercially. However, plea
 
 Do the above and share your source code with everyone.
 
-##### The client was out of date, we are preparing a recode task and a kotlin removal task.
+##### We are preparing a kotlin removal task.

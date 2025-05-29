@@ -14,7 +14,7 @@ import net.minecraft.world.NextTickListEntry;
 
 public class NextTickHashSet extends TreeSet
 {
-    private final LongHashMap longHashMap = new LongHashMap();
+    private LongHashMap longHashMap = new LongHashMap();
     private int minX = Integer.MIN_VALUE;
     private int minZ = Integer.MIN_VALUE;
     private int maxX = Integer.MIN_VALUE;
@@ -31,25 +31,27 @@ public class NextTickHashSet extends TreeSet
 
     public boolean contains(Object obj)
     {
-        if (!(obj instanceof NextTickListEntry nextticklistentry))
+        if (!(obj instanceof NextTickListEntry))
         {
             return false;
         }
         else
         {
+            NextTickListEntry nextticklistentry = (NextTickListEntry)obj;
             Set set = this.getSubSet(nextticklistentry, false);
-            return set != null && set.contains(nextticklistentry);
+            return set == null ? false : set.contains(nextticklistentry);
         }
     }
 
     public boolean add(Object obj)
     {
-        if (!(obj instanceof NextTickListEntry nextticklistentry))
+        if (!(obj instanceof NextTickListEntry))
         {
             return false;
         }
         else
         {
+            NextTickListEntry nextticklistentry = (NextTickListEntry)obj;
 
             if (nextticklistentry == null)
             {
@@ -75,12 +77,13 @@ public class NextTickHashSet extends TreeSet
 
     public boolean remove(Object obj)
     {
-        if (!(obj instanceof NextTickListEntry nextticklistentry))
+        if (!(obj instanceof NextTickListEntry))
         {
             return false;
         }
         else
         {
+            NextTickListEntry nextticklistentry = (NextTickListEntry)obj;
             Set set = this.getSubSet(nextticklistentry, false);
 
             if (set == null)
