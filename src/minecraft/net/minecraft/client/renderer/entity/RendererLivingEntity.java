@@ -401,7 +401,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                         break;
                     case "outline":
                         if (mc.gameSettings.ofFastRender) {
-                            ChatUtils.INSTANCE.messageWithStart("§cPlease Turn OFF Fast Render!");
+                            ChatUtils.messageWithStart("§cPlease Turn OFF Fast Render!");
                             esp.setState(false);
                             return;
                         }

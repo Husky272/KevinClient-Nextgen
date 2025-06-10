@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class AutoL extends ClientModule {
+public final class AutoL extends ClientModule {
 
     private static final AutoL INSTANCE = new AutoL();
     private final List<String> modeList = new ArrayList<>();
@@ -69,7 +69,7 @@ public class AutoL extends ClientModule {
             "Did I really just forget that melody? Si sig sig sig Sigma"
     };
 
-    // Thanks “吾乃玄喵喵”
+    // 感谢陈欣蘅
     private final String[] cumMSG = {
             "呐呐~杂鱼哥哥不会这样就被捉弄的不会说话了吧 真是弱哎~",
             "嘻嘻~杂鱼哥哥不会以为竖个大拇哥就能欺负我了吧~不会吧~不会吧~杂鱼哥哥怎么可能欺负",
@@ -119,8 +119,7 @@ public class AutoL extends ClientModule {
 
     @EventTarget
     public void onAttack(AttackEvent event) {
-        if (event.getTargetEntity() instanceof EntityPlayer) {
-            EntityPlayer target = (EntityPlayer) event.getTargetEntity();
+        if (event.getTargetEntity() instanceof EntityPlayer target) {
             if (!entityList.contains(target)) {
                 entityList.add(target);
             }
@@ -144,26 +143,24 @@ public class AutoL extends ClientModule {
     }
 
     private String getMessageBasedOnMode() {
-        switch (modeValue.get()) {
-            case "Single":
-                return singleMessage.get();
-            case "SkidMa":
-                return skidMaMSG[random.nextInt(skidMaMSG.length)];
-            case "Cum":
-                return cumMSG[random.nextInt(cumMSG.length)];
-            default:
+        return switch (modeValue.get()) {
+            case "Single" -> singleMessage.get();
+            case "SkidMa" -> skidMaMSG[random.nextInt(skidMaMSG.length)];
+            case "Cum" -> cumMSG[random.nextInt(cumMSG.length)];
+            default -> {
                 for (File file : messageFiles) {
                     if (file.getName().replace(fileSuffix, "").equals(modeValue.get())) {
                         try {
                             List<String> lines = Files.readAllLines(file.toPath());
-                            return lines.get(random.nextInt(lines.size()));
+                            yield lines.get(random.nextInt(lines.size()));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
                 }
-                return "";
-        }
+                yield "";
+            }
+        };
     }
 
     private String addPrefix(String message) {
@@ -184,10 +181,6 @@ public class AutoL extends ClientModule {
     }
 
     private String repeatString(String str, int count) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < count; i++) {
-            sb.append(str);
-        }
-        return sb.toString();
+        return String.valueOf(str).repeat(Math.max(0, count));
     }
 }

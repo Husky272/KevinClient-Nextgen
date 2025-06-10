@@ -56,14 +56,16 @@ object ImageManager {
                 if (!f.name.endsWith(".png")) continue
                 val image = ImageIO.read(f)
                 var same = true
-                lx@ for (x in 0..63){
-                    for (y in 0..63){
-                        if (image.getRGB(x,y)!=icon.getRGB(x,y)) {
+                // Kotlin label I hate you
+                lx@ for (x in 0..63) {
+                    for (y in 0..63) {
+                        if (image.getRGB(x, y) != icon.getRGB(x, y)) {
                             same = false
                             break@lx
                         }
                     }
                 }
+
                 if (same) {
                     save = false
                     break

@@ -21,29 +21,12 @@ import java.util.stream.StreamSupport;
 
 public class ClientModule extends MinecraftInstance implements Listenable {
 
+    @NotNull
+    private final MSTimer enabledTimer;
+    @NotNull
+    private final MSTimer disabledTimer;
+    private final float hue;
     public String tag;
-
-
-
-    public static String[] arrayOf(String... args){
-        StringBuilder temp = new StringBuilder();
-        String toSplit = "😂";
-        for(String s : args){
-            temp.append(s);
-            temp.append(toSplit);
-        }
-        return temp.toString().split(toSplit);
-    }
-
-    @Nullable
-    public String getTag() {
-
-        // Null Check
-        // noinspection ConstantValue
-        return tag.isEmpty() || tag == null ? "" : tag;
-    }
-
-
     @NotNull
     private String name;
     @NotNull
@@ -51,19 +34,12 @@ public class ClientModule extends MinecraftInstance implements Listenable {
     @NotNull
     private ModuleCategory category;
     private int keyBind;
-    @NotNull
-    private final MSTimer enabledTimer;
-    @NotNull
-    private final MSTimer disabledTimer;
     private boolean state;
-    private final float hue;
     private float slide;
     private float slideStep;
     private boolean array;
     @NotNull
     private Pair<Boolean, String> autoDisable;
-
-
     // Full constructor with Supplier
     public ClientModule(@NotNull String name,
                         @NotNull String description,
@@ -81,8 +57,6 @@ public class ClientModule extends MinecraftInstance implements Listenable {
         this.array = true;
         this.autoDisable = TuplesKt.to(false, "");
     }
-
-
     public ClientModule(@NotNull String name, @NotNull String description, @NotNull ModuleCategory category) {
         this.name = name;
         this.description = description;
@@ -91,18 +65,34 @@ public class ClientModule extends MinecraftInstance implements Listenable {
         this.disabledTimer = new MSTimer();
         this.hue = (float) Math.random();
         this.array = true;
+        // What?
         this.autoDisable = TuplesKt.to(false, "");
     }
 
+    @SuppressWarnings("unchecked")
+    public static <T> T[] arrayOf(T... args) {
+        // Convert T array to T[]
+        //noinspection unchecked
+        T[] array = (T[]) new Object[args.length];
+        System.arraycopy(args, 0, array, 0, args.length);
+        // Return the array
+        return array;
+    }
+
+    @Nullable
+    public String getTag() {
+        // Null Check
+        return tag == null ? "" : tag;
+    }
 
     @NotNull
     public final String getName() {
         return this.name;
     }
 
-    public final void setName(@NotNull String var1) {
+    public final void setName(@NotNull String newName) {
 
-        this.name = var1;
+        this.name = newName;
     }
 
     @NotNull
@@ -131,6 +121,7 @@ public class ClientModule extends MinecraftInstance implements Listenable {
 
     public final void setKeyBind(int keyBind) {
         this.keyBind = keyBind;
+
         if (!KevinClient.INSTANCE.isStarting()) {
             KevinClient.INSTANCE.getFileManager().saveConfig(KevinClient.INSTANCE.getFileManager().modulesConfig);
         }
@@ -185,8 +176,8 @@ public class ClientModule extends MinecraftInstance implements Listenable {
     }
 
     @NotNull
-    public final String getTagName(@NotNull String tagleft, @NotNull String tagright) {
-        return this.name + (this.getTag() == null ? "" : " §7" + tagleft + this.getTag() + tagright);
+    public final String getTagName(@NotNull String tagLeft, @NotNull String tagRight) {
+        return this.name + (this.getTag() == null ? "" : " §7" + tagLeft + this.getTag() + tagRight);
     }
 
     @NotNull
@@ -198,16 +189,16 @@ public class ClientModule extends MinecraftInstance implements Listenable {
         return this.slideStep;
     }
 
-    public final void setSlideStep(float var1) {
-        this.slideStep = var1;
+    public final void setSlideStep(float slideStepVar) {
+        this.slideStep = slideStepVar;
     }
 
     public final boolean getArray() {
         return this.array;
     }
 
-    public final void setArray(boolean array) {
-        this.array = array;
+    public final void setArray(boolean arrayVar) {
+        this.array = arrayVar;
         if (!KevinClient.INSTANCE.isStarting()) {
             KevinClient.INSTANCE.getFileManager().saveConfig(KevinClient.INSTANCE.getFileManager().modulesConfig);
         }
@@ -248,7 +239,7 @@ public class ClientModule extends MinecraftInstance implements Listenable {
      * @return 匹配的对象，如果没有找到则返回 null
      */
     @Nullable
-    public Value getValue(@NotNull String valueName) {
+    public Value<?> getValue(@NotNull String valueName) {
         return StreamSupport.stream(getValues().spliterator(), false)
                 .filter(value -> value.getName().equalsIgnoreCase(valueName))
                 .findFirst()

@@ -21,12 +21,6 @@ import net.minecraft.util.ChatComponentText;
 
 public class ChatUtils {
 
-    public static ChatUtils INSTANCE;
-
-    public static void init() {
-        INSTANCE = new ChatUtils();
-    }
-
     public static void message(String message) {
         Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(message));
     }

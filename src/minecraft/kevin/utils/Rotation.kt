@@ -265,9 +265,10 @@ data class Rotation(var yaw: Float, var pitch: Float) : MinecraftInstance() {
 /**
  * Rotation with vector
  */
-data class VecRotation(val vec: Vec3, val rotation: Rotation)
+public data class VecRotation(val vec: Vec3, val rotation: Rotation)
 
 /**
  * Rotation with place info
  */
-data class PlaceRotation(val placeInfo: PlaceInfo, val rotation: Rotation)
+
+public data class PlaceRotation(val placeInfo: PlaceInfo, val rotation: Rotation)

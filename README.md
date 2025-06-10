@@ -3,6 +3,9 @@ A Minecraft hacked client.
 
 [KevinClient-Reborn's discord: Discord](https://discord.gg/PSP3CZAuag)
 
+# Nice Hmxix pit client, but hmxix server just dead for a long time
+
+[//]: # (Please god, bring me back to Feb 5 2024 )
 
 ## License
 This project is subject to the [GNU General Public License v3.0](LICENSE). This does only apply for source code located directly in this clean repository. During the development and compilation process, additional source code may be used to which we have obtained no rights. Such code is not covered by the GPL license.

@@ -37,7 +37,7 @@ import java.awt.Color
 import kotlin.math.ceil
 import kotlin.math.sin
 
-
+// TODO: fix this element doesn't render
 @ElementInfo(name = "Arraylist", single = true)
 class Arraylist(
     x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,

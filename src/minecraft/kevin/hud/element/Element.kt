@@ -44,7 +44,8 @@ abstract class Element(var x: Double = 2.0, var y: Double = 2.0, scale: Float = 
     }
 
     val name: String
-        get() = info.name
+        get() = // null check
+            info.name ?: ""
 
     var renderX: Double
         get() = when (side.horizontal) {

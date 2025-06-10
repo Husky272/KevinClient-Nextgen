@@ -308,8 +308,7 @@ public final class AntiKnockback extends ClientModule {
 
         Object packet = event.getPacket();
 
-        if (packet instanceof S12PacketEntityVelocity) {
-            S12PacketEntityVelocity velPacket = (S12PacketEntityVelocity) packet;
+        if (packet instanceof S12PacketEntityVelocity velPacket) {
             Entity entity = mc.theWorld.getEntityByID(velPacket.getEntityID());
             if (entity != thePlayer) return;
 
@@ -412,8 +411,7 @@ public final class AntiKnockback extends ClientModule {
                     break;
             }
 
-        } else if (packet instanceof S27PacketExplosion) {
-            S27PacketExplosion expPacket = (S27PacketExplosion) packet;
+        } else if (packet instanceof S27PacketExplosion expPacket) {
             if (expPacket.func_149149_c() != 0F || expPacket.func_149144_d() != 0F || expPacket.func_149147_e() != 0F) {
                 explosion = true;
             }

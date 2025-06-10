@@ -49,7 +49,7 @@ import java.util.concurrent.Executors
 
 object KevinClient {
     var name = "Kevin"
-    var version = "u-FINAL" // GG
+    var version = "NG-0.0.1" // NG next generation
 
     var isStarting = true
 
@@ -128,7 +128,7 @@ object KevinClient {
         ViaVersion.INSTANCE.start()
         PluginManager.initialize()
 
-        Display.setTitle("Minecraft 1.8.9 | " + name + ' ' + version + " | LWJGL Version " + lwjglversion)
+        Display.setTitle("Minecraft 1.8.9 | " + name + ' ' + version + " | LWJGL Version " + lwjglversion + "Java version "+ System.getProperty("java.version"))
 
         isStarting = false
         // ?!
@@ -154,6 +154,8 @@ object KevinClient {
                     }
                 }
             }
-        } catch (_: Exception) {}
+        } catch (e: Exception) {
+            e.printStackTrace();
+        }
     }
 }

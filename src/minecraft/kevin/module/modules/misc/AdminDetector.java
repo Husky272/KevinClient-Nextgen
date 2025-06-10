@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class AdminDetector extends ClientModule implements IClientCommand {
+public final class AdminDetector extends ClientModule implements IClientCommand {
 
     public static final AdminDetector INSTANCE = new AdminDetector();
 

@@ -2,8 +2,6 @@ package kevin.via;
 
 import com.viaversion.viaversion.api.platform.PlatformTask;
 import java.util.concurrent.Future;
-import kotlin.Metadata;
-import kotlin.jvm.internal.Intrinsics;
 import org.jetbrains.annotations.NotNull;
 
 // Kotlin 2.1.0 wcnmd

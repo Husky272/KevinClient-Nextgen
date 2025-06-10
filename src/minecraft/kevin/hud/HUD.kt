@@ -25,6 +25,7 @@ import org.lwjgl.opengl.GL11
 import kotlin.math.max
 import kotlin.math.min
 
+// Rollback
 open class HUD : MinecraftInstance() {
     val elements = mutableListOf<Element>()
     val notifications = mutableListOf<Notification>()
@@ -73,9 +74,6 @@ open class HUD : MinecraftInstance() {
     fun renderScoreboardOnly() {
         elements.filterIsInstance<ScoreboardElement>()
             .forEach {
-                if(it.border == null || it.drawElement() == null) {
-                    return
-                }
                 GL11.glPushMatrix()
 
                 if (!it.info.disableScale)
@@ -87,7 +85,6 @@ open class HUD : MinecraftInstance() {
                     it.border = it.drawElement()
                 } catch (ex: Exception) {
                     println("Something went wrong while drawing ${it.name} element in HUD. $ex")
-                    ex.printStackTrace()
                 }
 
                 GL11.glEnable(GL11.GL_BLEND)
@@ -107,13 +104,10 @@ open class HUD : MinecraftInstance() {
      * Render all elements
      */
     fun render(designer: Boolean) {
-
-
         elements.sortedBy { -it.info.priority }
             .forEach {
-//                if (it.border == null) {
-//                    return
-//                }
+                @Suppress("SENSELESS_COMPARISON")
+                assert(it != null)
                 GL11.glPushMatrix()
 
                 if (!it.info.disableScale) {
@@ -122,15 +116,15 @@ open class HUD : MinecraftInstance() {
 
                 GL11.glTranslated(it.renderX, it.renderY, 0.0)
 
+
                 try {
                     it.border = it.drawElement()
 
                     if (designer) {
-                        it.border?.draw()
+                        it.border!!.draw()
                     }
                 } catch (ex: Exception) {
                     println("Something went wrong while drawing ${it.name} element in HUD. $ex")
-                    ex.printStackTrace()
                 }
 
                 GL11.glEnable(GL11.GL_BLEND)
@@ -276,6 +270,7 @@ open class HUD : MinecraftInstance() {
     /**
      * Remove [notification]
      */
-    fun removeNotification(notification: Notification) =
-        notifications.remove(notification)
+    fun removeNotification(notification: Notification): Boolean {
+        return notifications.remove(notification)
+    }
 }

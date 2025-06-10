@@ -34,7 +34,6 @@ class Speed : ClientModule("Speed","Allows you to move faster.", ModuleCategory.
         LegacyNCP, // from Rise
         NCPStable, // from FDP
         Hypixel, // from IDK where
-        AutoJump,
         VerusYPort,
         VerusHop,
         CollisionLowHop,

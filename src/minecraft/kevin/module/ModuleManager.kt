@@ -12,7 +12,6 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-@file:Suppress("UNCHECKED_CAST")
 
 package kevin.module
 
@@ -20,6 +19,7 @@ import kevin.event.EventTarget
 import kevin.event.KeyEvent
 import kevin.event.Listenable
 import kevin.main.KevinClient
+
 import kevin.module.modules.Targets
 import kevin.module.modules.combat.*
 import kevin.module.modules.exploit.*
@@ -67,7 +67,7 @@ class ModuleManager : Listenable {
         exploitList = arrayListOf(
             AbortBreaking(),
             AntiHunger(),
-            ClientSpoof,
+            ClientSpoof.INSTANCE,
             Clip(),
             Disabler,
             ForceUnicodeChat(),
@@ -127,6 +127,7 @@ class ModuleManager : Listenable {
             AirLadder(),
             AntiVoid(),
             //BadSprint(),
+            CoordinateStrafe(),
             Fly(),
             Freeze(),
             HighJump(),
@@ -144,7 +145,7 @@ class ModuleManager : Listenable {
             Sprint(),
             Step(),
             Strafe(),
-            TargetStrafe,
+            TargetStrafe(),
             VehicleJump(),
             WallClimb(),
             WaterSpeed()
@@ -241,6 +242,7 @@ class ModuleManager : Listenable {
         return null
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun <T: ClientModule> getModule(module: Class<T>) = clientModules.first { it.javaClass == module } as T
 
     operator fun <T: ClientModule> get(module: Class<T>) = getModule(module)

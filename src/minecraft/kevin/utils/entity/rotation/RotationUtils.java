@@ -26,7 +26,6 @@ import kevin.utils.RandomUtils;
 import kevin.utils.Rotation;
 import kevin.utils.VecRotation;
 import kevin.utils.entity.PlayerExtensionKt;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -53,8 +52,20 @@ public final class RotationUtils extends MinecraftInstance implements Listenable
 
     private static boolean lastHitable = false;
 
-    public static Rotation getRotationsEntity(EntityLivingBase entity) {
+    /**
+     * Use annotation to prevent NPE during <pre><code>entity.posX</code></pre>
+     */
+    public static Rotation getRotationsEntity(@NotNull EntityLivingBase entity) {
         return getRotations(entity.posX, entity.posY + entity.getEyeHeight() - 0.4, entity.posZ);
+    }
+
+
+    public static Rotation getRotationsBlock(@NotNull BlockPos blockPos) {
+        return getRotations(blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5);
+    }
+
+    public static Rotation getRotationsBlock(int x, int y, int z) {
+        return getRotations(x + 0.5, y + 0.5, z + 0.5);
     }
 
     /**
@@ -155,6 +166,7 @@ public final class RotationUtils extends MinecraftInstance implements Listenable
                     final Vec3 posVec = new Vec3(blockPos).addVector(xSearch, ySearch, zSearch);
                     final double dist = eyesPos.distanceTo(posVec);
 
+                    // noinspection ExtractMethodRecommender
                     final double diffX = posVec.xCoord - eyesPos.xCoord;
                     final double diffY = posVec.yCoord - eyesPos.yCoord;
                     final double diffZ = posVec.zCoord - eyesPos.zCoord;

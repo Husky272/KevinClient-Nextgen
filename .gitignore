@@ -4,6 +4,7 @@ workspace.xml
 
 # CGI Shits
 /run/Game/*
+/run/assets/skins/
 
 # Binary Shits
 out/*
