@@ -52,16 +52,18 @@ open class HUD : MinecraftInstance() {
          * Create default HUD
          */
         @JvmStatic
-        fun createDefault() = HUD()
-            .addElement(Text.defaultClient())
-            .addElement(Text.defaultClientVersion())
-            /**.addElement(TabGUI())**/
-            .addElement(ScoreboardElement())
-            .addElement(Notifications())
-            .addElement(Armor())
-            .addElement(Arraylist())
-            .addElement(Effects())
-            .addElement(PacketCounter())
+        fun createDefault(): HUD {
+            return HUD()
+                .addElement(Text.defaultClient())
+                .addElement(Text.defaultClientVersion())
+                /**.addElement(TabGUI())**/
+                .addElement(ScoreboardElement())
+                .addElement(Notifications())
+                .addElement(Armor())
+                .addElement(Arraylist())
+                .addElement(Effects())
+                .addElement(PacketCounter())
+        }
 
     }
 

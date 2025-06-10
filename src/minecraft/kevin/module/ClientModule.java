@@ -69,14 +69,15 @@ public class ClientModule extends MinecraftInstance implements Listenable {
         this.autoDisable = TuplesKt.to(false, "");
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> T[] arrayOf(T... args) {
-        // Convert T array to T[]
-        //noinspection unchecked
-        T[] array = (T[]) new Object[args.length];
-        System.arraycopy(args, 0, array, 0, args.length);
-        // Return the array
-        return array;
+
+    public static String[] arrayOf(String... args){
+        StringBuilder temp = new StringBuilder();
+        String toSplit = "😂";
+        for(String s : args){
+            temp.append(s);
+            temp.append(toSplit);
+        }
+        return temp.toString().split(toSplit);
     }
 
     @Nullable

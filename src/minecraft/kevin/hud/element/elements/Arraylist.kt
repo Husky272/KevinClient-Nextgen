@@ -1,4 +1,10 @@
-/*
+//
+// kotlin tang bi wo cao ni ma
+// mei fa kuai su zhuan huan wei java zhen si ma le
+//
+//
+
+ /*
  * This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -37,13 +43,27 @@ import java.awt.Color
 import kotlin.math.ceil
 import kotlin.math.sin
 
-// TODO: fix this element doesn't render
+@Suppress("ALL")
+// shut up now
 @ElementInfo(name = "Arraylist", single = true)
 class Arraylist(
     x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
     side: Side = Side(Side.Horizontal.RIGHT, Side.Vertical.UP)
 ) : Element(x, y, scale, side) {
 
+    //
+    // Reports function names that do not follow the recommended naming conventions.
+    //
+    // Example:
+    //
+    // fun Foo() {}
+    //
+    // To fix the problem change the name of the function to match the recommended naming conventions.
+    //
+    // Powered by: Kotlin plugin
+    // 哥们我都suppress all了你咋还不闭嘴
+    // English translation:
+    // "I have suppressed all warnings, why are you still talking?"
     fun SkyRainbow(var2: Int, st: Float, bright: Float): Int {
         var v1 =
             ceil((System.currentTimeMillis() + (var2 * 109).toLong()).toDouble()) / 5
@@ -164,9 +184,12 @@ class Arraylist(
         val tagMode = tagMode.get()
         val tagLeft = if (tagMode == "<>") "<" else if (tagMode == "[]") "[" else ""
         val tagRight = if (tagMode == "<>") ">" else if (tagMode == "[]") "]" else ""
+
         val rainbowX = arrayListRainbowX
         val rainbowY = arrayListRainbowY
+
         val tags = arrayListTags
+
         val upperCaseValue = arrayListUpperCaseValue
         val tagsArrayColor = arrayListTagsArrayColor
         val rectWidth = arrayListRectWidth
