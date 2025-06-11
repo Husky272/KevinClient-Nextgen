@@ -3,6 +3,8 @@ package net.minecraft.client.gui;
 import com.google.common.collect.Lists;
 import java.io.IOException;
 import java.util.List;
+
+import kevin.command.CommandManager;
 import net.minecraft.network.play.client.C14PacketTabComplete;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
@@ -86,6 +88,7 @@ public class GuiChat extends GuiScreen
      */
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
+
         this.waitingOnAutocomplete = false;
 
         if (keyCode == 15)
@@ -134,6 +137,16 @@ public class GuiChat extends GuiScreen
             }
 
             this.mc.displayGuiScreen(null);
+        }
+        if (!inputField.getText().startsWith(String.valueOf(CommandManager.prefix))) return;
+
+        CommandManager.autoComplete(inputField.getText());
+
+        if (!inputField.getText().startsWith(CommandManager.prefix + "lc")) {
+            inputField.setMaxStringLength(10000);
+        }
+        else {
+            inputField.setMaxStringLength(100);
         }
     }
 
