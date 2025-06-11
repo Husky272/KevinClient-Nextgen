@@ -128,7 +128,7 @@ object KevinClient {
         ViaVersion.INSTANCE.start()
         PluginManager.initialize()
 
-        Display.setTitle("Minecraft 1.8.9 | " + name + ' ' + version + " | LWJGL Version " + lwjglversion + "Java version "+ System.getProperty("java.version"))
+        Display.setTitle("Minecraft 1.8.9 | " + name + ' ' + version + " | LWJGL Version " + lwjglversion + " | Java version "+ System.getProperty("java.version"))
 
         isStarting = false
         // ?!

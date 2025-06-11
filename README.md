@@ -5,6 +5,8 @@ A Minecraft hacked client.
 
 # Nice Hmxix pit client, but hmxix server just dead for a long time
 
+# Google gemini不给写外挂，我服了
+
 [//]: # (Please god, bring me back to Feb 5 2024 )
 
 ## License

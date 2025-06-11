@@ -1,8 +1,6 @@
 package kevin.module.modules.movement;
 
-import kevin.event.EventState;
-import kevin.event.EventTarget;
-import kevin.event.MotionEvent;
+import kevin.event.*;
 import kevin.main.KevinClient;
 import kevin.module.*;
 import kevin.module.modules.combat.KillAura;
@@ -10,36 +8,45 @@ import net.minecraft.item.*;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.network.play.client.C09PacketHeldItemChange;
+import net.minecraft.network.play.client.C16PacketClientStatus;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("unused")
 public final class NoSlow extends ClientModule {
+
+    private static final String[] eventStates = new String[]{"PRE", "POST", "NONE"};
 
     public final BooleanValue soulsand = new BooleanValue("Soulsand", true);
     public final BooleanValue liquidPush = new BooleanValue("LiquidPush", true);
+
     private final BooleanValue sword = new BooleanValue("Sword", false);
+    private final FloatValue blockForwardMultiplier = new FloatValue("SwordForwardMultiplier", 1F, 0.2F, 1.0F, sword::get);
+    private final FloatValue blockStrafeMultiplier = new FloatValue("SwordStrafeMultiplier", 1F, 0.2F, 1.0F, sword::get);
+
+
     private final BooleanValue consume = new BooleanValue("Consume", false);
+    private final FloatValue consumeForwardMultiplier = new FloatValue("ConsumeForwardMultiplier", 1.0F, 0.2F, 1.0F, consume::get);
+    private final FloatValue consumeStrafeMultiplier = new FloatValue("ConsumeStrafeMultiplier", 1.0F, 0.2F, 1.0F, consume::get);
+
     private final BooleanValue bow = new BooleanValue("Bow", false);
-    private final FloatValue blockForwardMultiplier = new FloatValue("BlockForwardMultiplier", 1F, 0.2F, 1.0F, () -> sword.get());
-    private final FloatValue blockStrafeMultiplier = new FloatValue("BlockStrafeMultiplier", 1F, 0.2F, 1.0F, () -> sword.get());
-    private final FloatValue consumeForwardMultiplier = new FloatValue("ConsumeForwardMultiplier", 1.0F, 0.2F, 1.0F, () -> consume.get());
-    private final FloatValue consumeStrafeMultiplier = new FloatValue("ConsumeStrafeMultiplier", 1.0F, 0.2F, 1.0F, () -> consume.get());
-    private final FloatValue bowForwardMultiplier = new FloatValue("BowForwardMultiplier", 1.0F, 0.2F, 1.0F, () -> bow.get());
-    private final FloatValue bowStrafeMultiplier = new FloatValue("BowStrafeMultiplier", 1.0F, 0.2F, 1.0F, () -> bow.get());
-    private final BooleanValue swordPlace = new BooleanValue("Sword-Place", true, () -> sword.get());
-    private final ListValue swordPlaceTiming = new ListValue("Sword-Place-Timing", new String[]{"PRE", "POST", "NONE"}, "NONE", () -> sword.get() && swordPlace.get());
-    private final BooleanValue swordSwitch = new BooleanValue("Sword-Switch", false, () -> sword.get());
-    private final ListValue swordSwitchTiming = new ListValue("Sword-Switch-Timing", new String[]{"PRE", "POST", "NONE"}, "NONE", () -> sword.get() && swordSwitch.get());
-    private final BooleanValue consumeSwitch = new BooleanValue("Consume-Switch", false, () -> consume.get());
-    private final ListValue consumeSwitchTiming = new ListValue("Consume-Switch-Timing", new String[]{"PRE", "POST", "NONE"}, "NONE", () -> consume.get() && consumeSwitch.get());
-    private final BooleanValue consumeGay = new BooleanValue("Consume-Gay", true, () -> consume.get());
-    private final BooleanValue consumeBug = new BooleanValue("Consume-Bug", false, () -> consume.get());
+    private final FloatValue bowForwardMultiplier = new FloatValue("BowForwardMultiplier", 1.0F, 0.2F, 1.0F, bow::get);
+    private final FloatValue bowStrafeMultiplier = new FloatValue("BowStrafeMultiplier", 1.0F, 0.2F, 1.0F, bow::get);
+
+    private final BooleanValue swordPlace = new BooleanValue("Sword-Place", true, sword::get);
+    private final ListValue swordPlaceTiming = new ListValue("Sword-Place-Timing", eventStates, "NONE", () -> sword.get() && swordPlace.get());
+    private final BooleanValue swordSwitch = new BooleanValue("Sword-Switch", false, sword::get);
+    private final ListValue swordSwitchTiming = new ListValue("Sword-Switch-Timing", eventStates, "NONE", () -> sword.get() && swordSwitch.get());
+
+    private final BooleanValue consumeSwitch = new BooleanValue("Consume-Switch", false, consume::get);
+    private final ListValue consumeSwitchTiming = new ListValue("Consume-Switch-Timing", eventStates, "NONE", () -> consume.get() && consumeSwitch.get());
+    private final BooleanValue consumeGay = new BooleanValue("Consume-Gay", true, consume::get);
+    private final BooleanValue consumeBug = new BooleanValue("Consume-Bug", false, consume::get);
     private final BooleanValue consumeBugStopUsingItem = new BooleanValue("Consume-Bug-StopUsingItem", true, () -> consume.get() && consumeBug.get());
-    private final BooleanValue consumeIntave = new BooleanValue("Consume-Intave", false, () -> consume.get());
-    private final String stringTest = "helicopter helicopter";
-    private final BooleanValue bowSwitch = new BooleanValue("Bow-Switch", false, () -> bow.get());
-    private final ListValue bowSwitchTiming = new ListValue("Bow-Switch-Timing", new String[]{"PRE", "POST", "NONE"}, "NONE", () -> bow.get() && bowSwitch.get());
+    private final BooleanValue consumeIntave = new BooleanValue("Consume-Intave", false, consume::get);
+
+    private final BooleanValue bowSwitch = new BooleanValue("Bow-Switch", false, bow::get);
+    private final ListValue bowSwitchTiming = new ListValue("Bow-Switch-Timing", eventStates, "NONE", () -> bow.get() && bowSwitch.get());
 
     public NoSlow() {
         super("NoSlow", "Modify slowness caused by using items.", ModuleCategory.MOVEMENT);
@@ -48,6 +55,95 @@ public final class NoSlow extends ClientModule {
     @Override
     public String getTag() {
         return "Sword: " + sword.get() + ", Consume: " + consume.get() + ", Bow: " + bow.get();
+    }
+
+
+    @EventTarget
+    public void onClick(ClickUpdateEvent event) {
+        try {
+            ItemStack currentEquippedItemStack = mc.thePlayer.getCurrentEquippedItem();
+            Item currentEquippedItemStackItem = currentEquippedItemStack.getItem();
+            // If the player is holding something wrong, or something other went wrong, it will return
+            if (!(isHoldingConsumable(currentEquippedItemStackItem)) || (mc.thePlayer == null || mc.theWorld == null)) {
+                return;
+            }
+            //Try to fix crash client bug
+            if ((consume.get() && consumeBug.get()) && mc.thePlayer.isUsingItem() && isHoldingConsumable(
+                    currentEquippedItemStackItem
+            )
+            ) {
+                event.cancelEvent();
+                mc.getNetHandler().getNetworkManager().sendPacketNoEvent(
+                        new C16PacketClientStatus(
+                                C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT
+                        )
+                );
+                if (consumeBugStopUsingItem.get()) {
+                    mc.thePlayer.stopUsingItem();
+                }
+                mc.thePlayer.closeScreen();
+            }
+            if (event.isCancelled()) {
+                mc.sendClickBlockToController(
+                        mc.currentScreen == null && mc.gameSettings.keyBindAttack.isKeyDown() && mc.inGameHasFocus
+                );
+            }
+        } catch (Throwable e) {
+
+        }
+    }
+
+    @EventTarget
+    private void onSlowDown(SlowDownEvent event) {
+        Item heldItem = mc.thePlayer.getHeldItem().getItem();
+        event.setForward(getMultiplier(heldItem, true));
+        event.setStrafe(getMultiplier(heldItem, false));
+    }
+
+    private float getMultiplier(@Nullable Item item, boolean isForward) {
+
+
+        if ((isHoldingConsumable(item)) && consume.get()) {
+            return (isForward) ? this.consumeForwardMultiplier.get() : this.consumeStrafeMultiplier.get();
+        }
+
+        if ((isHoldingSword(item) && sword.get())) {
+            return (isForward) ? this.blockForwardMultiplier.get() : this.blockStrafeMultiplier.get();
+        }
+
+        if ((isHoldingBow(item) && bow.get())) {
+            return (isForward) ? this.bowForwardMultiplier.get() : this.bowStrafeMultiplier.get();
+        }
+
+        return 0.2F;
+
+
+    }
+
+
+    @EventTarget
+    public void onTick(TickEvent tickEvent, @Nullable Item item) {
+        if (mc.thePlayer == null || mc.theWorld == null) return;
+        if (mc.thePlayer.isUsingItem() && (isHoldingConsumable(item))) { //Is consuming
+            if (consumeGay.get()) {
+                if (mc.thePlayer.ticksExisted % 5 == 0) {
+                    mc.getNetHandler().addToSendQueue(
+                            new C07PacketPlayerDigging(
+                                    C07PacketPlayerDigging.Action.RELEASE_USE_ITEM,
+                                    BlockPos.ORIGIN,
+                                    EnumFacing.DOWN
+                            )
+                    );
+                }
+                if (mc.thePlayer.ticksExisted % 5 == 1) {
+                    mc.getNetHandler().addToSendQueue(
+                            new C08PacketPlayerBlockPlacement(
+                                    mc.thePlayer.getCurrentEquippedItem()
+                            )
+                    );
+                }
+            }
+        }
     }
 
     private boolean amIBlocking() {
@@ -79,9 +175,8 @@ public final class NoSlow extends ClientModule {
     }
 
     /*
-
-
-    */
+        Motion event
+     */
     @EventTarget
     public void onMotion(MotionEvent event) {
         if (amIBlocking()) {

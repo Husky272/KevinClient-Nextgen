@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    Do Not Fucking edit with hands, use Intellij Idea Community edition LMAO
--->
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -9,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/minecraft" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/script" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

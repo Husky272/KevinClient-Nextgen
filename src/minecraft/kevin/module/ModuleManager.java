@@ -141,7 +141,7 @@ public final class ModuleManager implements Listenable {
                 /*EL:141*/new NoWeb(),
                 /*EL:142*/new Parkour(),
                 /*EL:143*/new SafeWalk(),
-                /*EL:144*/new Speed(),
+                /*EL:144*/Speed.INSTANCE,
                 /*EL:145*/new Sprint(),
                 /*EL:146*/new Step(),
                 /*EL:147*/new Strafe(),
