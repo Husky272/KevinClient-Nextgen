@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+@SuppressWarnings("unchecked")
 public final class ModuleManager implements Listenable {
     @NotNull private final ArrayList<ClientModule> clientModules;
     @NotNull private final Lazy<XRay> xRay$delegate = LazyKt.lazy(() -> ModuleManager.xRay_delegate$lambda$0(this));
@@ -260,12 +261,9 @@ public final class ModuleManager implements Listenable {
         clientModules7.addAll(worldList);
 
         final Iterable<ClientModule> $this$forEach$iv = /*EL:230*/this.clientModules;
-        final int $i$f$forEach = 0;
         /*SL:272*/
         for (final ClientModule element$iv : $this$forEach$iv) {
-            final ClientModule it = element$iv;
-            final int n = 0;
-            KevinClient.INSTANCE.getEventManager().registerListener(it);
+            KevinClient.INSTANCE.getEventManager().registerListener(element$iv);
         }
         KevinClient.INSTANCE.getEventManager().registerListener(this);
     }
@@ -278,17 +276,11 @@ public final class ModuleManager implements Listenable {
 
     @Nullable
     public ClientModule getModuleByName(@NotNull final String name) {
-        Intrinsics.checkNotNullParameter(name, "name");
-        final Iterator<ClientModule> iterator = /*EL:239*/this.clientModules.iterator();
-        Intrinsics.checkNotNullExpressionValue(iterator, "iterator(...)");
-        final Iterator<ClientModule> iterator2 = iterator;
-        while (iterator2.hasNext()) {
-            final ClientModule next = iterator2.next();
-            Intrinsics.checkNotNullExpressionValue(next, "next(...)");
-            final ClientModule module = next;
+        /*EL:239*/
+        for (ClientModule next : this.clientModules) {
             /*SL:240*/
-            if (StringsKt.equals(module.getName(), name, true)) {
-                return module;
+            if (StringsKt.equals(next.getName(), name, true)) {
+                return next;
             }
         }
         /*SL:242*/
@@ -298,16 +290,12 @@ public final class ModuleManager implements Listenable {
     @NotNull
     public <T extends ClientModule> T getModule(@NotNull final Class<T> module) {
         Intrinsics.checkNotNullParameter(module, "module");
-        final Iterable $this$first$iv = /*EL:246*/this.clientModules;
-        final int $i$f$first = 0;
+        /*EL:246*/
         /*SL:274*/
-        for (final Object element$iv : $this$first$iv) {
-            final ClientModule it = (ClientModule) element$iv;
-            final int n = 0;
-            if (Intrinsics.areEqual(it.getClass(), module)) {
-                final Object o = element$iv;
-                Intrinsics.checkNotNull(o, "null cannot be cast to non-null type T of kevin.module.ModuleManager.getModule");
-                return (T) o;
+        for (final ClientModule element$iv : this.clientModules) {
+            if (Intrinsics.areEqual(element$iv.getClass(), module)) {
+                Intrinsics.checkNotNull(element$iv, "null cannot be cast to non-null type T of kevin.module.ModuleManager.getModule");
+                return (T) element$iv;
             }
         }
         /*SL:275*/
@@ -317,16 +305,13 @@ public final class ModuleManager implements Listenable {
     @SuppressWarnings("unchecked")
     @NotNull
     public <T extends ClientModule> T get(@NotNull final Class<T> module) {
-        Intrinsics.checkNotNullParameter(module, "module");
         /*SL:248*/
         return (T) this.getModule((Class<ClientModule>) module);
     }
 
     @EventTarget
     public void onKey(@NotNull final KeyEvent key) {
-        Intrinsics.checkNotNullParameter(key, "key");
         final Iterator<ClientModule> iterator = /*EL:252*/this.clientModules.iterator();
-        Intrinsics.checkNotNullExpressionValue(iterator, "iterator(...)");
         while (iterator.hasNext()) {
             final ClientModule next = iterator.next();
             Intrinsics.checkNotNullExpressionValue(next, "next(...)");
@@ -343,14 +328,12 @@ public final class ModuleManager implements Listenable {
     }
 
     public void registerModule(@NotNull final ClientModule clientModule) {
-        Intrinsics.checkNotNullParameter(clientModule, "clientModule");
         /*SL:262*/
         this.clientModules.add(clientModule);
         KevinClient.INSTANCE.getEventManager().registerListener(/*EL:263*/clientModule);
     }
 
     public void unregisterModule(@NotNull final ClientModule clientModule) {
-        Intrinsics.checkNotNullParameter(clientModule, "clientModule");
         /*SL:267*/
         this.clientModules.remove(clientModule);
         KevinClient.INSTANCE.getEventManager().unregisterListener(/*EL:268*/clientModule);

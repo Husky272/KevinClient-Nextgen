@@ -6,6 +6,7 @@ import kevin.module.*;
 import kevin.utils.MovementUtils;
 import kevin.utils.entity.rotation.RotationUtils;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.BlockPos;
 import org.jetbrains.annotations.*;
 import org.lwjgl.opengl.GL11;
 
@@ -64,7 +65,7 @@ public final class CoordinateStrafe extends ClientModule {
                     // Get rotation to target block position(x, y, z)
                     RotationUtils.getRotationsBlock(posX.get(), posY.get(), posZ.get()).getYaw(),
                     direction,
-                    1.0
+                    mc.thePlayer.getDistanceSqToCenter(new BlockPos(posX.get(), posY.get(),posZ.get())) <= radius.get() ? 0.0 : 1.0
             );
     }
 

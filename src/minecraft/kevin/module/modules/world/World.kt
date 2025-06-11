@@ -36,29 +36,29 @@ object World : ClientModule("World","Change the world!",ModuleCategory.WORLD) {
 
     @EventTarget
     fun onUpdate(event : UpdateEvent) {
-        when (timeModeValue.get()) {
-            "Custom" -> {
+        when (timeModeValue.get().toLowerCase()) {
+            "custom" -> {
                 if (i < 24000)
                     i += changeWorldTimeSpeedValue.get()
                 else
                     i = 0
                 mc.theWorld.worldTime = i
             }
-            "Set" -> {
+            "set" -> {
                 mc.theWorld.worldTime = customWorldTimeValue.get().toLong()
             }
         }
 
         when (weatherModeValue.get()){
-            "Sun" -> {
+            "sun" -> {
                 mc.theWorld.setRainStrength(0f)
                 mc.theWorld.setThunderStrength(0f)
             }
-            "Rain" -> {
+            "rain" -> {
                 mc.theWorld.setRainStrength(weatherStrengthValue.get())
                 mc.theWorld.setThunderStrength(0f)
             }
-            "Thunder" -> {
+            "thunder" -> {
                 mc.theWorld.setRainStrength(weatherStrengthValue.get())
                 mc.theWorld.setThunderStrength(weatherStrengthValue.get())
             }

@@ -36,6 +36,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
+// TODO: fix
 class StorageESP : ClientModule("StorageESP", "Allows you to see chests, dispensers, etc. through walls.", ModuleCategory.RENDER) {
     val modeValue = ListValue("Mode", arrayOf("Box", "OtherBox", "Outline", "ShaderOutline", "ShaderGlow", "2D", "WireFrame"), "Outline")
     private val chestValue = BooleanValue("Chest", true)
