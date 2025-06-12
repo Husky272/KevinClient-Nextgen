@@ -14,7 +14,7 @@ public final class RenderSettings extends ClientModule {
     @NotNull
     private static final ListValue fontRendererValue = new ListValue("FontRenderer", ClientModule.arrayOf("Glyph", "Vector"), "Glyph");
     @NotNull
-    private static final FloatValue fontEpsilonValue = new FloatValue("FontVectorEpsilon", 0.5F, 0.0F, 1.5F);
+    public static final FloatValue fontEpsilonValue = new FloatValue("FontVectorEpsilon", 0.5F, 0.0F, 1.5F);
 
     private RenderSettings() {
         super("RenderSettings", "Some render settings.", ModuleCategory.RENDER);

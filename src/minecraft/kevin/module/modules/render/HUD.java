@@ -18,7 +18,7 @@ public final class HUD extends ClientModule {
 
     private static int currentPacketSlot = -1;
 
-    private final BooleanValue keepScoreboard = new BooleanValue("KeepScoreboard", true);
+    public final BooleanValue keepScoreboard = new BooleanValue("KeepScoreboard", true);
     private final BooleanValue hotBarShowCurrentSlot = new BooleanValue("HotBarShowCurrentSlot", true);
 
     public HUD() {

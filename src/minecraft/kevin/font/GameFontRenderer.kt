@@ -47,13 +47,13 @@ class GameFontRenderer(font: Font): FontRenderer(
     private val boldItalicFontVector = AbstractAwtFontRender.buildVectorFontRenderer(font.deriveFont(Font.BOLD or Font.ITALIC))
 
     private val defaultFont
-        get() = if (RenderSettings.useGlyphFontRenderer) defaultFontGlyph else defaultFontVector
+        get() = if (RenderSettings.INSTANCE.useGlyphFontRenderer) defaultFontGlyph else defaultFontVector
     private val boldFont
-        get() = if (RenderSettings.useGlyphFontRenderer) boldFontGlyph else boldFontVector
+        get() = if (RenderSettings.INSTANCE.useGlyphFontRenderer) boldFontGlyph else boldFontVector
     private val italicFont
-        get() = if (RenderSettings.useGlyphFontRenderer) italicFontGlyph else italicFontVector
+        get() = if (RenderSettings.INSTANCE.useGlyphFontRenderer) italicFontGlyph else italicFontVector
     private val boldItalicFont
-        get() = if (RenderSettings.useGlyphFontRenderer) boldItalicFontGlyph else boldItalicFontVector
+        get() = if (RenderSettings.INSTANCE.useGlyphFontRenderer) boldItalicFontGlyph else boldItalicFontVector
 
     val height: Int
         get() = defaultFont.height / 2
