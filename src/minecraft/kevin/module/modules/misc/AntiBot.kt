@@ -64,9 +64,9 @@ object AntiBot : ClientModule(
     private val pingValue = BooleanValue("Ping", false)
     private val needHitValue = BooleanValue("NeedHit", false)
     private val noClipValue = BooleanValue("NoClip", false)
-    private val czechHekValue = BooleanValue("CzechMatrix", false)
-    private val czechHekPingCheckValue = BooleanValue("PingCheck", true)
-    private val czechHekGMCheckValue = BooleanValue("GamemodeCheck", true)
+    private val matrixCheck = BooleanValue("CzechMatrix", false)
+    private val pingCheck = BooleanValue("PingCheck", true)
+    private val gameModeCheck = BooleanValue("GamemodeCheck", true)
     private val reusedEntityIdValue = BooleanValue("ReusedEntityId", false)
     private val spawnInCombatValue = BooleanValue("SpawnInCombat", false)
     private val skinValue = BooleanValue("SkinCheck", false)
@@ -133,7 +133,9 @@ object AntiBot : ClientModule(
     private val duplicate = mutableListOf<UUID>()
     private val noClip = mutableListOf<Int>()
     private val hasRemovedEntities = mutableListOf<Int>()
+
     private val regex = Regex("\\w{3,16}")
+
     private var wasAdded = mc.thePlayer != null
 
     override fun getTag() = modeValue.get()
@@ -465,7 +467,7 @@ object AntiBot : ClientModule(
     @EventTarget
     fun onPacket(event: PacketEvent) {
         if (mc.thePlayer == null || mc.theWorld == null) return
-        if (czechHekValue.get()) {
+        if (matrixCheck.get()) {
 
             val packet = event.packet
 
@@ -475,7 +477,7 @@ object AntiBot : ClientModule(
                 val data = packetListItem.entries[0]
                 if (data.profile != null && data.profile.name != null) {
                     if (!wasAdded) wasAdded =
-                        data.profile.name == mc.thePlayer.name else if (!mc.thePlayer.isSpectator && !mc.thePlayer.capabilities.allowFlying && (!czechHekPingCheckValue.get() || data.ping != 0) && (!czechHekGMCheckValue.get() || data.gameMode != WorldSettings.GameType.NOT_SET)) {
+                        data.profile.name == mc.thePlayer.name else if (!mc.thePlayer.isSpectator && !mc.thePlayer.capabilities.allowFlying && (!pingCheck.get() || data.ping != 0) && (!gameModeCheck.get() || data.gameMode != WorldSettings.GameType.NOT_SET)) {
                         event.cancelEvent()
                         if (debugValue.get()) ChatUtils.messageWithStart("§7[§a§lAnti Bot/§6Matrix§7] §fPrevented §r" + data.profile.name + " §ffrom spawning.")
                     }

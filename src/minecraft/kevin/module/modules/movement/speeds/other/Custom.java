@@ -90,13 +90,11 @@ public final class Custom extends SpeedMode {
                         else MovementUtils.strafe(0.0F);
                         break;
                     case "non-strafe":
+                    case "boost":
                         MovementUtils.strafe(0.0F);
                         break;
                     case "plus":
                         applyPlusMode(player);
-                        break;
-                    case "boost":
-                        MovementUtils.strafe(0.0F);
                         break;
                     case "plusonlyup":
                         if (player.motionY > 0.0) applyPlusMode(player);
