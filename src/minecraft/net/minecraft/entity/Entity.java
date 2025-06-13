@@ -424,11 +424,23 @@ public abstract class Entity implements ICommandSender
         this.prevRotationYaw += this.rotationYaw - f1;
     }
 
+    // Moonlight client
+    public int offGroundTicks, onGroundTicks;
+
     /**
      * Called to update the entity's position/logic.
      */
     public void onUpdate()
     {
+
+        if (this.onGround) {
+            offGroundTicks = 0;
+            onGroundTicks++;
+        } else {
+            onGroundTicks = 0;
+            offGroundTicks++;
+        }
+
         this.onEntityUpdate();
     }
 

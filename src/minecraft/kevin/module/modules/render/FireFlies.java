@@ -70,7 +70,7 @@ public class FireFlies extends ClientModule {
         GL11.glPushMatrix();
         GlStateManager.tryBlendFuncSeparate(770, 1, 1, 0);
         Minecraft.getMinecraft().entityRenderer.disableLightmap();
-        GL11.glEnable(3042);
+        GL11.glEnable(3042);// Enable blending
         GL11.glLineWidth(1.0f);
         GL11.glEnable(3553);
         GL11.glDisable(2896);
@@ -86,7 +86,7 @@ public class FireFlies extends ClientModule {
         GL11.glEnable(3008);
         GL11.glLineWidth(1.0f);
         GL11.glShadeModel(7424);
-        GL11.glEnable(3553);
+        GL11.glEnable(3553);// Enable textures
         GlStateManager.resetColor();
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         GL11.glPopMatrix();

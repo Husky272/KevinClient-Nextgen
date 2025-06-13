@@ -78,7 +78,8 @@ open class BooleanValue @JvmOverloads constructor(name: String, value: Boolean, 
 /**
  * Integer value represents a value with a integer
  */
-open class IntegerValue(name: String, value: Int, val minimum: Int = 0, val maximum: Int = Integer.MAX_VALUE, isSupported: (() -> Boolean)? = null)
+open class IntegerValue
+    (name: String, value: Int, val minimum: Int = 0, val maximum: Int = Integer.MAX_VALUE, isSupported: (() -> Boolean)? = null)
     : Value<Int>(name, value, isSupported) {
 
     fun set(newValue: Number) {
@@ -139,6 +140,13 @@ class BlockValue @JvmOverloads constructor(name: String, value: Int, isSupported
  * List value represents a selectable list of values
  */
 open class ListValue @JvmOverloads constructor(name: String, val values: Array<String>, value: String, isSupported: (() -> Boolean)? = null) : Value<String>(name, value, isSupported) {
+
+
+    // is
+
+    fun `is`(toCompare : String) : Boolean {
+        return get() == toCompare;
+    }
 
     @JvmField
     var openList = false

@@ -73,7 +73,7 @@ class SuperKnockback : ClientModule("SuperKnockback", "Increases knockback dealt
             val player = mc.thePlayer ?: return
             if (event.targetEntity.hurtTime > hurtTimeValue.get()
                 || !timer.hasTimePassed(delayValue.get().toLong())
-                || (!MovementUtils.isMoving && onlyMoveValue.get())
+                || (!MovementUtils.isMoving() && onlyMoveValue.get())
                 || (!mc.thePlayer.onGround && onlyGroundValue.get())
                 || KevinClient.moduleManager.getModule(FreeCam::class.java).state)
                 return

@@ -145,8 +145,8 @@ public final class AdminDetector extends ClientModule implements IClientCommand 
     public void onPacket(PacketEvent event) {
         Object packet = event.getPacket();
 
-        switch (modeValue.get()) {
-            case "Tab":
+        switch (modeValue.get().toLowerCase()) {
+            case "tab":
                 if (!waiting) return;
                 if (packet instanceof S3APacketTabComplete) {
                     pool.execute(() -> {

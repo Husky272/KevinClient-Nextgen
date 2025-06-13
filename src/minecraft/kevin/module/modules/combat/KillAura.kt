@@ -977,7 +977,7 @@ class KillAura : ClientModule("KillAura","Automatically attacks targets around y
             "Always" -> RotationUtils.setTargetRotation(limitedRotation, if (aacValue.get() || keepRotationTickValue.get() > 0) keepRotationTickValue.get() + (if (aacValue.get()) 15 else 0) else 0)
             "Off" -> limitedRotation.toPlayer(mc.thePlayer!!)
             else -> {
-                if (MovementUtils.isMoving) limitedRotation.toPlayer(mc.thePlayer!!)
+                if (MovementUtils.isMoving()) limitedRotation.toPlayer(mc.thePlayer!!)
                 else RotationUtils.setTargetRotation(limitedRotation, if (aacValue.get() || keepRotationTickValue.get() > 0) keepRotationTickValue.get() + (if (aacValue.get()) 15 else 0) else 0)
             }
         }
