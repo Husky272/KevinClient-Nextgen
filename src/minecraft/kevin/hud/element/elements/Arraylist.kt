@@ -33,7 +33,7 @@ import kevin.main.KevinClient
 import kevin.module.*
 import kevin.persional.milk.guis.font.FontLoaders
 import kevin.persional.milk.utils.StencilUtil
-import kevin.utils.AnimationUtils
+import kevin.utils.anination.AnimationUtils
 import kevin.utils.MilkUtils
 import kevin.utils.RenderUtils
 import kevin.utils.render.shader.shaders.RainbowShader

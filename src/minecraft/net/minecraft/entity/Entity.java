@@ -2874,4 +2874,17 @@ public abstract class Entity implements ICommandSender
 
         EnchantmentHelper.applyArthropodEnchantments(entityLivingBaseIn, entityIn);
     }
+
+    // Moonlight
+    public float getSmoothDistanceToCoord(float x, float y, float z) {
+        float pTicks = Minecraft.getMinecraft().getTimer().renderPartialTicks;
+        double xposme = this.lastTickPosX + (this.posX - this.lastTickPosX) * (double)pTicks;
+        double yposme = this.lastTickPosY + (this.posY - this.lastTickPosY) * (double)pTicks;
+        double zposme = this.lastTickPosZ + (this.posZ - this.lastTickPosZ) * (double)pTicks;
+        float f = (float)(xposme - (double)x);
+        float f1 = (float)(yposme - (double)y);
+        float f2 = (float)(zposme - (double)z);
+        return MathHelper.sqrt_double(f * f + f1 * f1 + f2 * f2);
+    }
+
 }

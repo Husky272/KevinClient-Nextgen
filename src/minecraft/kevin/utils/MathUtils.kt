@@ -42,7 +42,31 @@ object MathUtils {
             calcCurvePoint(cpoints.toTypedArray(), t)
         }
     }
-    fun lerp(a: Array<Double>, b: Array<Double>, t: Double) = arrayOf(a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)
+    fun lerp(a: Array<Double>, b: Array<Double>, t: Double): Array<Double> {
+        return arrayOf(a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)
+    }
+
+    /*
+    public static double lerp(double pct, double start, double end) {
+        return start + pct * (end - start);
+    }
+    */
+    @JvmStatic
+    fun lerp(pct: Double, start: Double, end: Double): Double {
+        return start + pct * (end - start)
+    }
+
+    /*
+        public static double randomizeDouble(double min, double max) {
+        return Math.random() * (max - min) + min;
+    }
+    */
+
+    @JvmStatic
+    fun randomizeDouble(min: Double, max: Double): Double {
+        return Math.random() * (max - min) + min
+    }
+
     fun distanceSq(a: Array<Double>, b: Array<Double>): Double = (a[0] - b[0]).pow(2) + (a[1] - b[1]).pow(2)
     fun distanceToSegmentSq(p: Array<Double>, v: Array<Double>, w: Array<Double>): Double {
         val l2 = distanceSq(v, w)

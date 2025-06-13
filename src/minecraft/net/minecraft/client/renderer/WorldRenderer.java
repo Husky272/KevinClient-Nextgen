@@ -1,6 +1,8 @@
 package net.minecraft.client.renderer;
 
 import com.google.common.primitives.Floats;
+
+import java.awt.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -12,6 +14,7 @@ import java.util.Comparator;
 
 import kevin.main.KevinClient;
 import kevin.module.modules.render.XRay;
+import kevin.utils.render.RenderUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
@@ -20,6 +23,7 @@ import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
 import net.optifine.SmartAnimations;
 import net.optifine.render.RenderEnv;
 import net.optifine.shaders.SVertexBuilder;
@@ -1059,6 +1063,30 @@ public class WorldRenderer
         return this.noColor;
     }
 
+
+    //     public WorldRenderer color(float red, float green, float blue, float alpha)
+    //    {
+    //        return this.color((int)(red * 255.0F), (int)(green * 255.0F), (int)(blue * 255.0F), (int)(alpha * 255.0F));
+    //    }
+    // 国产自研代码
+    public WorldRenderer color(Color color) {
+        return this.color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+    }
+
+    // Moonlight moment
+
+    public WorldRenderer pos(Vec3 vec) {
+        return this.pos(vec.xCoord, vec.yCoord, vec.zCoord);
+    }
+    public WorldRenderer color(int color) {
+        return this.color(RenderUtils.getRedFromColor(color), RenderUtils.getGreenFromColor(color), RenderUtils.getBlueFromColor(color), RenderUtils.getAlphaFromColor(color));
+    }
+
+    public WorldRenderer pos(double x, double y) {
+        return this.pos(x, y, 0.0);
+    }
+
+    // END
     public class State
     {
         private final int[] stateRawBuffer;

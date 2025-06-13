@@ -5,6 +5,16 @@ import org.jetbrains.annotations.NotNull;
 
 public class Vec3i implements Comparable<Vec3i>
 {
+
+    // Moonlight client
+    public double distanceTo(Vec3 vec) {
+        double dx = (double)this.getX() - vec.xCoord;
+        double dy = (double)this.getY() - vec.yCoord;
+        double dz = (double)this.getZ() - vec.zCoord;
+        return Math.sqrt(dx * dx + dy * dy + dz * dz);
+    }
+
+
     /** The Null vector constant (0, 0, 0) */
     public static final Vec3i NULL_VECTOR = new Vec3i(0, 0, 0);
 

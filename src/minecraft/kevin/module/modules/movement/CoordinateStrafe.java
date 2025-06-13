@@ -5,12 +5,13 @@ import kevin.main.KevinClient;
 import kevin.module.*;
 import kevin.utils.MovementUtils;
 import kevin.utils.entity.rotation.RotationUtils;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.BlockPos;
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
+
+import static org.lwjgl.opengl.GL11.*;
 
 // TODO: fix
 public final class CoordinateStrafe extends ClientModule {
@@ -23,7 +24,7 @@ public final class CoordinateStrafe extends ClientModule {
     private final BooleanValue onlySpeed = new BooleanValue("OnlySpeed", false);
 
     private final IntegerValue posX = new IntegerValue("PosX", 0, -1000, 1000);
-    private final IntegerValue posY = new IntegerValue("PosY", 0, 0, 0xff);
+    private final IntegerValue posY = new IntegerValue("PosY", 64, 0, 0xff);
     private final IntegerValue posZ = new IntegerValue("PosZ", 0, -1000, 1000);
     @NotNull
     private int direction = -1;
@@ -56,8 +57,6 @@ public final class CoordinateStrafe extends ClientModule {
         if (safewalk.get() && mc.thePlayer.onGround && canStrafe()) {
             event.setSafeWalk(true);
         }
-
-
         if (canStrafe())
             setSpeed(
                     event,
@@ -65,7 +64,10 @@ public final class CoordinateStrafe extends ClientModule {
                     // Get rotation to target block position(x, y, z)
                     RotationUtils.getRotationsBlock(posX.get(), posY.get(), posZ.get()).getYaw(),
                     direction,
-                    mc.thePlayer.getDistanceSqToCenter(new BlockPos(posX.get(), posY.get(),posZ.get())) <= radius.get() ? 0.0 : 1.0
+                    // Radius check
+                    mc.thePlayer.getDistanceSqToCenter(
+                            new BlockPos(posX.get(), posY.get(),posZ.get())
+                    ) < radius.get() ? -1.0 : 1.0
             );
     }
 
@@ -105,27 +107,26 @@ public final class CoordinateStrafe extends ClientModule {
 
     @EventTarget
     public void onRender3D(Render3DEvent event) {
-        EntityLivingBase target = KevinClient.combatManager.getTarget();
+        // Render a circle around the target block position
         if (render.get()) {
-            if(target == null) return;
             GL11.glPushMatrix();
-            GL11.glDisable(3553);
-            GL11.glEnable(2848);
-            GL11.glEnable(2881);
-            GL11.glEnable(2832);
-            GL11.glEnable(3042);
-            GL11.glBlendFunc(770, 771);
-            GL11.glHint(3154, 4354);
-            GL11.glHint(3155, 4354);
-            GL11.glHint(3153, 4354);
-            GL11.glDisable(2929);
+            GL11.glDisable(GL_TEXTURE_2D);// Disable texture rendering
+            GL11.glEnable(GL_LINE_SMOOTH);// Enable line smoothing
+            GL11.glEnable(GL_POLYGON_SMOOTH);// Enable depth testing
+            GL11.glEnable(GL11.GL_POINT_SMOOTH);// Enable point smoothing
+            GL11.glEnable(GL_BLEND);// Enable blending
+            GL11.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);// Set blending function
+            GL11.glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);// Set hint for line smoothing
+            GL11.glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);// Set hint for point smoothing
+            GL11.glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);// Set hint for polygon smoothing
+            GL11.glDisable(GL_DEPTH_TEST);// Disable depth buffer
             GL11.glDepthMask(false);
             GL11.glLineWidth(1.0f);
 
             GL11.glBegin(3);
-            double x = target.lastTickPosX + (target.posX - target.lastTickPosX) * event.getPartialTicks() - mc.getRenderManager().viewerPosX;
-            double y = target.lastTickPosY + (target.posY - target.lastTickPosY) * event.getPartialTicks() - mc.getRenderManager().viewerPosY;
-            double z = target.lastTickPosZ + (target.posZ - target.lastTickPosZ) * event.getPartialTicks() - mc.getRenderManager().viewerPosZ;
+            double x = posX.get() + (0) * event.getPartialTicks() - mc.getRenderManager().viewerPosX;
+            double y = posY.get() + (0) * event.getPartialTicks() - mc.getRenderManager().viewerPosY;
+            double z = posZ.get() + (0) * event.getPartialTicks() - mc.getRenderManager().viewerPosZ;
 
             for (int i = 0; i <= 360; i++) {
                 Color rainbow = new Color(Color.HSBtoRGB((float) ((mc.thePlayer.ticksExisted / 70.0 + Math.sin(i / 50.0 * 1.75)) % 1.0f), 0.7f, 1.0f));
@@ -135,12 +136,13 @@ public final class CoordinateStrafe extends ClientModule {
             GL11.glEnd();
 
             GL11.glDepthMask(true);
-            GL11.glEnable(2929);
-            GL11.glDisable(2848);
-            GL11.glDisable(2881);
-            GL11.glEnable(2832);
-            GL11.glEnable(3553);
+            GL11.glEnable(GL_DEPTH_TEST);
+            GL11.glDisable(GL_LINE_SMOOTH);
+            GL11.glDisable(GL_POLYGON_SMOOTH);
+            GL11.glEnable(GL_POINT_SMOOTH);
+            GL11.glEnable(GL_TEXTURE_2D);
             GL11.glPopMatrix();
+            // Reset OpenGL state
         }
     }
 

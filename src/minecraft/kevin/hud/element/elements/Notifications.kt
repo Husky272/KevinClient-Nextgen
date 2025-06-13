@@ -22,7 +22,7 @@ import kevin.hud.element.elements.ConnectNotificationType.*
 import kevin.hud.element.elements.Notification.FadeState.*
 import kevin.main.KevinClient
 import kevin.module.ListValue
-import kevin.utils.AnimationUtils
+import kevin.utils.anination.AnimationUtils
 import kevin.utils.system.timer.MSTimer
 import kevin.utils.RenderUtils
 import org.lwjgl.opengl.GL11

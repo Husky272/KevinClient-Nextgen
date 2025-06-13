@@ -1,5 +1,7 @@
 package net.minecraft.util;
 
+import net.minecraft.entity.Entity;
+
 public class Vec3
 {
     /** X coordinate of Vec3D */
@@ -209,4 +211,22 @@ public class Vec3
         double d2 = this.zCoord * (double)f - this.xCoord * (double)f1;
         return new Vec3(d0, d1, d2);
     }
+
+    // From moonlight
+    public double getDistanceAtEyeByVec(Entity self, double x, double y, double z) {
+        double d0 = this.xCoord - x;
+        double d1 = this.yCoord + (double)(self == null ? 0.0f : self.getEyeHeight()) - y;
+        double d2 = this.zCoord - z;
+        return MathHelper.sqrt_double(d0 * d0 + d1 * d1 + d2 * d2);
+    }
+
+    public double getDistanceAtEyeByVec(Entity self) {
+        double d0 = this.xCoord - self.posX;
+        double d1 = this.yCoord - (self.getEyeHeight() + self.posY);
+        double d2 = this.zCoord - self.posZ;
+        return MathHelper.sqrt_double(d0 * d0 + d1 * d1 + d2 * d2);
+    }
+
+    // END
+
 }

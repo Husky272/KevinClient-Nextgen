@@ -70,6 +70,7 @@ public final class CommandManager {
         registerCommand(new String[]{"font", "fonts"}, new FontClientCommand());
         registerCommand(new String[]{"bindCommand"}, BindManager.INSTANCE);
         registerCommand(new String[]{"panic"}, new PanicClientCommand());
+        registerCommand(new String[]{"reload"}, new ReloadClientCommand());
     }
 
     /**
