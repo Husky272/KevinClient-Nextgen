@@ -952,7 +952,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
      */
     public void displayGuiScreen(GuiScreen guiScreenIn)
     {
-        if (KevinClient.eventManager != null) KevinClient.eventManager.callEvent(new ScreenEvent(currentScreen));
+        if (KevinClient.eventManager != null) {
+            KevinClient.eventManager.callEvent(new ScreenEvent(currentScreen));
+        }
 
         if (this.currentScreen != null)
         {

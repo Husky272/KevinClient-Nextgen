@@ -1252,11 +1252,11 @@ class Scaffold : ClientModule("Scaffold", "Automatically places blocks beneath y
     private fun calculateRotation(rotation: Rotation): Rotation {
         return if (towerState) when(towerRotationsValue.get()) {
             "Custom" -> Rotation(mc.thePlayer.rotationYaw + customTowerYawValue.get(), customTowerPitchValue.get())
-            "MoveDirection" -> Rotation(MovementUtils.movingYaw - 180, rotation.pitch)
+            "MoveDirection" -> Rotation(MovementUtils.movingYaw - 180, rotation.pitch.toDouble())
             else -> rotation
         } else when(rotationsValue.get()) {
             "AAC" -> Rotation(mc.thePlayer.rotationYaw + (((if (mc.thePlayer.movementInput.moveForward < 0) 0 else 180) - aacYawOffsetValue.get()) * if (aacRotationPositive) 1 else -1), rotation.pitch)
-            "MoveDirection" -> Rotation(MovementUtils.movingYaw - 180, customPitchValue.get())
+            "MoveDirection" -> Rotation(MovementUtils.movingYaw - 180, customPitchValue.get().toDouble())
             "Custom" -> Rotation(mc.thePlayer.rotationYaw + customYawValue.get(), customPitchValue.get())
             else -> rotation
         }

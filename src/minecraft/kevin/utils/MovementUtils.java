@@ -112,6 +112,18 @@ public final class MovementUtils extends MinecraftInstance {
         var3 = false;
         return var3;
     }
+    public static void strafe(double speed) {
+        MovementUtils var10000 = INSTANCE;
+        if (isMoving()) {
+            var10000 = INSTANCE;
+            double yaw = getDirection();
+            EntityPlayerSP var5 = MinecraftInstance.mc.thePlayer;
+            Intrinsics.checkNotNull(var5);
+            EntityPlayerSP thePlayer = var5;
+            thePlayer.motionX = -Math.sin(yaw) * (double)speed;
+            thePlayer.motionZ = Math.cos(yaw) * (double)speed;
+        }
+    }
 
 
     public static void strafe(float speed) {

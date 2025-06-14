@@ -341,7 +341,7 @@ class ExperimentalBlockFly :
     }
 
     private fun search2(itemBlock: ItemBlock, itemStack: ItemStack): Pair<Rotation, BlockData> {
-        val rotation = Rotation(movingYaw, 76.0f)
+        val rotation = Rotation(movingYaw, 76.0)
         val data = LinkedList<Pair<Rotation, BlockData>>()
         var p = 69.423f
         while (p <= 90.0f) {

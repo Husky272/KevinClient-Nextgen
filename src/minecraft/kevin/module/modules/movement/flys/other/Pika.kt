@@ -11,6 +11,7 @@ import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.server.S08PacketPlayerPosLook
 import kotlin.math.max
 
+@Suppress("ReplaceJavaStaticMethodWithKotlinAnalog")
 object Pika : FlyMode("PikaSW") {
     private val boostY = BooleanValue("${valuePrefix}BoostY", true)
     private var flag = false
@@ -47,7 +48,7 @@ object Pika : FlyMode("PikaSW") {
             }
             else -> {
                 if (boostTick > 5) mc.thePlayer.motionY = 0.0
-                MovementUtils.setMotion(max(1.0f, MovementUtils.speed).toDouble())
+                MovementUtils.setMotion(Math.max(1.0, MovementUtils.speed))
             }
         }
     }
