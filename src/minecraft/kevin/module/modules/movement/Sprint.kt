@@ -15,7 +15,7 @@
 package kevin.module.modules.movement
 
 import kevin.event.EventTarget
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.main.KevinClient
 import kevin.module.BooleanValue
@@ -64,7 +64,7 @@ class Sprint : ClientModule("Sprint","Automatically sprints all the time.", Keyb
 
     @EventTarget fun onPacket(event: PacketEvent) {
         if (packetMode equal "Normal") return
-        val packet = if (event.packet is C0BPacketEntityAction) event.packet else return
+        val packet = event.packet as? C0BPacketEntityAction ?: return
         when (packet.action) {
             C0BPacketEntityAction.Action.START_SPRINTING -> {
                 if (!(packetMode equal "NoStop")) event.cancelEvent()

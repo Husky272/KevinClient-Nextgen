@@ -1,6 +1,9 @@
 package kevin.module.modules.movement;
 
 import kevin.event.*;
+import kevin.event.impl.MotionEvent;
+import kevin.event.impl.MoveEvent;
+import kevin.event.struct.EventState;
 import kevin.main.KevinClient;
 import kevin.module.*;
 import kevin.utils.MovementUtils;

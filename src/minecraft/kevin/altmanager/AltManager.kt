@@ -112,7 +112,7 @@ object AltManager : GuiScreen() {
         }
         drawDefaultBackground()
         RenderUtils.drawRect(0F,37.5F,this.width.toFloat(),this.height-37.5F,Color(0,0,0,125).rgb)
-        RainbowFontShader.begin(true,-0.00314514F,0.00314514F,System.currentTimeMillis() % 10000 / 10000F).use {
+        RainbowFontShader().begin(true,-0.00314514F,0.00314514F,System.currentTimeMillis() % 10000 / 10000F).use {
             KevinClient.fontManager.font40.drawString("AltManager",this.width/2F- KevinClient.fontManager.font40.getStringWidth("AltManager")/2F,5F,0)
         }
         var stateX = this.width/2F- KevinClient.fontManager.font35.getStringWidth(stateMessage)/2F
@@ -318,7 +318,7 @@ object AltManager : GuiScreen() {
         }
         override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
             drawDefaultBackground()
-            RainbowFontShader.begin(true,-0.001F,-0.001F,System.currentTimeMillis() % 10000 / 10000F).use {
+            RainbowFontShader().begin(true,-0.001F,-0.001F,System.currentTimeMillis() % 10000 / 10000F).use {
                 KevinClient.fontManager.font40.drawString(title,this.width/2- KevinClient.fontManager.font40.getStringWidth(title)/2F,8F,0)
             }
             nameText.drawTextBox()

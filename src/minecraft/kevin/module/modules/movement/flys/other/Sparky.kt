@@ -1,6 +1,6 @@
 package kevin.module.modules.movement.flys.other
 
-import kevin.event.MoveEvent
+import kevin.event.impl.MoveEvent
 import kevin.event.UpdateEvent
 import kevin.module.*
 import kevin.module.modules.movement.flys.FlyMode

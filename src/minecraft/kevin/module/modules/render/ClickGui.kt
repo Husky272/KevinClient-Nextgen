@@ -15,7 +15,7 @@
 package kevin.module.modules.render
 
 import kevin.event.EventTarget
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.TickEvent
 import kevin.main.KevinClient
 import kevin.module.*
@@ -178,7 +178,7 @@ class ClickGui : ClientModule("ClickGui","Opens the ClickGUI.", Keyboard.KEY_RSH
                     glDisable(GL_BLEND)
                     glDisable(GL_LINE_SMOOTH)
                 }
-                RainbowFontShader.begin(fontRainbow,-0.001F,-0.001F,System.currentTimeMillis() % 10000 / 10000F).use {
+                RainbowFontShader().begin(fontRainbow,-0.001F,-0.001F,System.currentTimeMillis() % 10000 / 10000F).use {
                     KevinClient.fontManager.font35.drawString(c,mc.currentScreen.width/4F+(mc.currentScreen.width/8F*3-mc.currentScreen.width/4F)/2 - KevinClient.fontManager.font35.getStringWidth(c)/2,y+high/2- KevinClient.fontManager.font35.fontHeight/3,Color(0,111,255).rgb)
                 }
 
@@ -339,7 +339,7 @@ class ClickGui : ClientModule("ClickGui","Opens the ClickGUI.", Keyboard.KEY_RSH
                     ModuleCategory.RENDER -> {moduleOpen!!["Render"]!!}
                     ModuleCategory.WORLD -> {moduleOpen!!["World"]!!}
                 }
-                RainbowFontShader.begin(fontRainbow,-0.001F,-0.001F,System.currentTimeMillis() % 10000 / 10000F).use {
+                RainbowFontShader().begin(fontRainbow,-0.001F,-0.001F,System.currentTimeMillis() % 10000 / 10000F).use {
                     KevinClient.fontManager.font35.drawString(
                         m.name,
                         mc.currentScreen.width / 8F * 3 + 5,
@@ -750,7 +750,7 @@ class ClickGui : ClientModule("ClickGui","Opens the ClickGUI.", Keyboard.KEY_RSH
             if (lineAnim["Line1"]!!>18.75F) animLine("Line2",1.5F,false)
             if (lineAnim["Line1"]!!>18.75F&&clickButton==Target) animLine("LineTarget",1.5F,false) else if (lineAnim["LineTarget"]!!>80) lineAnim["LineTarget"] = 80F else animLine("LineTarget",1.5F,true)
             //DrawTitle
-            RainbowFontShader.begin(true,-0.00314514F,0.00314514F,System.currentTimeMillis() % 10000 / 10000F).use {
+            RainbowFontShader().begin(true,-0.00314514F,0.00314514F,System.currentTimeMillis() % 10000 / 10000F).use {
                 KevinClient.fontManager.font35.drawString("Kevin",x1+10F,y1+6.5F,0)
             }
             //DrawModeButton

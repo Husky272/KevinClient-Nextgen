@@ -15,7 +15,7 @@
 package kevin.module.modules.world
 
 import kevin.event.EventTarget
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.hud.element.elements.Notification
 import kevin.main.KevinClient
 import kevin.module.ListValue
@@ -29,7 +29,7 @@ object LightningDetector : ClientModule("LightningDetector","Detect lightning.",
     @EventTarget
     fun onPacket(event: PacketEvent) {
         if (event.packet is S2CPacketSpawnGlobalEntity) {
-            val packet = event.packet
+            val packet = event.packet as S2CPacketSpawnGlobalEntity
             if(packet.func_149053_g() != 1) return
             when(mode.get()){
                 "Chat" -> ChatUtils.messageWithStart("§eLightning §9at §cX:${packet.func_149051_d()/32} §cY:${packet.func_149050_e()/32} §cZ:${packet.func_149049_f()/32}")

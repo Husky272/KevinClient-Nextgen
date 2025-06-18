@@ -15,7 +15,7 @@
 package kevin.module.modules.movement
 
 import kevin.event.EventTarget
-import kevin.event.MoveEvent
+import kevin.event.impl.MoveEvent
 import kevin.module.BooleanValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory

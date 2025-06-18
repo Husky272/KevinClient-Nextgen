@@ -6,7 +6,7 @@ import com.google.common.collect.Maps;
 
 import java.util.*;
 
-import kevin.event.JumpEvent;
+import kevin.event.impl.JumpEvent;
 import kevin.main.KevinClient;
 import kevin.module.modules.movement.AirJump;
 import kevin.module.modules.movement.NoJumpDelay;

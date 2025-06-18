@@ -1,7 +1,7 @@
 package kevin.module.modules.movement.flys.other
 
-import kevin.event.MotionEvent
-import kevin.event.PacketEvent
+import kevin.event.impl.MotionEvent
+import kevin.event.impl.PacketEvent
 import kevin.module.modules.movement.flys.FlyMode
 import net.minecraft.network.play.server.S27PacketExplosion
 

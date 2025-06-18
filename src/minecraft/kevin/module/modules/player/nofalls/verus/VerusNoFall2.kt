@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.player.nofalls.verus
 
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.modules.player.nofalls.NoFallMode
 import net.minecraft.network.play.client.C03PacketPlayer
@@ -30,7 +30,7 @@ object VerusNoFall2 : NoFallMode("Verus2") {
     }
     override fun onPacket(event: PacketEvent) {
         if(event.packet is C03PacketPlayer && needSpoof) {
-            event.packet.onGround = true
+            (event.packet as C03PacketPlayer).onGround = true
             needSpoof = false
         }
     }

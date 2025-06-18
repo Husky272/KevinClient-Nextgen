@@ -14,9 +14,9 @@
  */
 package kevin.module.modules.player.nofalls.aac
 
-import kevin.event.EventState
-import kevin.event.MotionEvent
-import kevin.event.PacketEvent
+import kevin.event.struct.EventState
+import kevin.event.impl.MotionEvent
+import kevin.event.impl.PacketEvent
 import kevin.module.modules.player.nofalls.NoFallMode
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.util.AxisAlignedBB
@@ -35,10 +35,10 @@ object AACV4NoFall : NoFallMode("AACv4") {
         if(event.packet is C03PacketPlayer && aac4Fakelag) {
             event.cancelEvent()
             if (packetModify) {
-                event.packet.onGround = true
+                (event.packet as C03PacketPlayer).onGround = true
                 packetModify = false
             }
-            aac4Packets.add(event.packet)
+            aac4Packets.add(event.packet as C03PacketPlayer)
         }
     }
 

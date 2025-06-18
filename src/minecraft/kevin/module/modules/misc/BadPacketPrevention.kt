@@ -2,6 +2,7 @@ package kevin.module.modules.misc
 
 import kevin.module.*
 import kevin.event.*
+import kevin.event.impl.PacketEvent
 import kevin.main.KevinClient
 import kevin.module.modules.player.Blink
 import kevin.module.modules.render.FreeCam

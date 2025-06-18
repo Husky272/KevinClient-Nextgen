@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.movement.flys.ncp
 
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.FloatValue
 import kevin.module.modules.movement.flys.FlyMode

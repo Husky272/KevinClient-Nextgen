@@ -14,9 +14,9 @@
  */
 package kevin.module.modules.combat
 
-import kevin.event.AttackEvent
+import kevin.event.impl.AttackEvent
 import kevin.event.EventTarget
-import kevin.event.StrafeEvent
+import kevin.event.impl.StrafeEvent
 import kevin.event.UpdateEvent
 import kevin.module.*
 import kevin.utils.system.timer.TickTimer
@@ -44,7 +44,7 @@ class KeepRange: ClientModule("KeepDistance", "Keep yourself out of a range with
     )
 
     @EventTarget fun onAttack(event: AttackEvent) {
-        target = if (event.targetEntity is EntityPlayer) event.targetEntity else return
+        target = (if (event.targetEntity is EntityPlayer) event.targetEntity else return) as EntityPlayer?
     }
     @EventTarget fun onStrafe(event: StrafeEvent) {
         if (mode equal "CancelMove") {

@@ -15,6 +15,10 @@
 package kevin.module.modules.movement
 
 import kevin.event.*
+import kevin.event.impl.MoveEvent
+import kevin.event.impl.PacketEvent
+import kevin.event.impl.JumpEvent
+import kevin.event.impl.StepEvent
 import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.modules.exploit.Phase

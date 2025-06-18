@@ -15,7 +15,7 @@
 package kevin.module.modules.misc
 
 import kevin.event.EventTarget
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.module.BooleanValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory

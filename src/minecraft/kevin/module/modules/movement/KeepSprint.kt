@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.movement
 
-import kevin.event.AttackEvent
+import kevin.event.impl.AttackEvent
 import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.module.IntegerValue

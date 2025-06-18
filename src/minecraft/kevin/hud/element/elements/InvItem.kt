@@ -173,7 +173,7 @@ class InvItem(x: Double = 10.0, y: Double = 10.0, scale: Float = 1F) : Element(x
         ) "Chest"
         else "Inventory"
         if (titleRainbow.get()) {
-            RainbowFontShader.begin(true, 1.0F / 1000, 1.0F / 1000, System.currentTimeMillis() % 10000 / 10000F).use {
+            RainbowFontShader().begin(true, 1.0F / 1000, 1.0F / 1000, System.currentTimeMillis() % 10000 / 10000F).use {
                 KevinClient.fontManager.font35!!.drawString(
                     name,
                     (174F / 2F) - (KevinClient.fontManager.font35!!.getStringWidth(name) * 0.5F),
@@ -201,7 +201,7 @@ class InvItem(x: Double = 10.0, y: Double = 10.0, scale: Float = 1F) : Element(x
         val chestStealer = KevinClient.moduleManager.getModule(ChestStealer::class.java)
         if (chestStealer.overrideShowInvValue.get() && (mc.currentScreen) is GuiChest && chestStealer.state) return
         if (invEmptyStringRainbow.get()) {
-            RainbowFontShader.begin(true, 1.0F / 1000, 1.0F / 1000, System.currentTimeMillis() % 10000 / 10000F).use {
+            RainbowFontShader().begin(true, 1.0F / 1000, 1.0F / 1000, System.currentTimeMillis() % 10000 / 10000F).use {
                 KevinClient.fontManager.font35!!.drawString(
                     "Your inventory is empty...",
                     (174F / 2F) - (KevinClient.fontManager.font35!!.getStringWidth("Your inventory is empty...") * 0.5F),

@@ -14,9 +14,9 @@
  */
 package kevin.module.modules.player
 
-import kevin.event.ClickBlockEvent
+import kevin.event.impl.ClickBlockEvent
 import kevin.event.EventTarget
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.BooleanValue
 import kevin.module.ClientModule
@@ -56,7 +56,7 @@ class AutoTool : ClientModule(
     @EventTarget
     fun onPacket(event: PacketEvent) {
         if (event.packet is C09PacketHeldItemChange) {
-            nowSlot = event.packet.slotId
+            nowSlot = (event.packet as C09PacketHeldItemChange).slotId
         }
     }
 

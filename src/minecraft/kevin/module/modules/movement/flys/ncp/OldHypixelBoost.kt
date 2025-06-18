@@ -1,6 +1,11 @@
 package kevin.module.modules.movement.flys.ncp
 
 import kevin.event.*
+import kevin.event.impl.BlockBBEvent
+import kevin.event.impl.MoveEvent
+import kevin.event.impl.PacketEvent
+import kevin.event.impl.MotionEvent
+import kevin.event.struct.EventState
 import kevin.module.BooleanValue
 import kevin.module.FloatValue
 import kevin.module.ListValue
@@ -124,7 +129,7 @@ object OldHypixelBoost : FlyMode("OldHypixelBoost") {
     }
 
     override fun onPacket(event: PacketEvent) {
-        if (event.packet is C03PacketPlayer && state != 1) event.packet.onGround = false
+        if (event.packet is C03PacketPlayer && state != 1) (event.packet as C03PacketPlayer).onGround = false
         else if (event.packet is S08PacketPlayerPosLook) failed = true
     }
 

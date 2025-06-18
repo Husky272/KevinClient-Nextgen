@@ -1,9 +1,8 @@
 // Rotation.java
 package kevin.utils;
 
-import kevin.event.StrafeEvent;
+import kevin.event.impl.StrafeEvent;
 import kevin.utils.entity.rotation.RotationUtils;
-import kotlin.Metadata;
 import kotlin.jvm.JvmOverloads;
 import kotlin.jvm.internal.Intrinsics;
 import net.minecraft.client.entity.EntityPlayerSP;

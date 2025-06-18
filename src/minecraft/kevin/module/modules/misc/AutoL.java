@@ -1,6 +1,6 @@
 package kevin.module.modules.misc;
 
-import kevin.event.AttackEvent;
+import kevin.event.impl.AttackEvent;
 import kevin.event.EventTarget;
 import kevin.event.UpdateEvent;
 import kevin.event.WorldEvent;
@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Automatically say something when you killed a player.
+ */
 public final class AutoL extends ClientModule {
 
     private static final AutoL INSTANCE = new AutoL();
@@ -69,7 +72,7 @@ public final class AutoL extends ClientModule {
             "Did I really just forget that melody? Si sig sig sig Sigma"
     };
 
-    // 感谢陈欣蘅
+    // 感谢陈欣蘅提供的cumMSG
     private final String[] cumMSG = {
             "呐呐~杂鱼哥哥不会这样就被捉弄的不会说话了吧 真是弱哎~",
             "嘻嘻~杂鱼哥哥不会以为竖个大拇哥就能欺负我了吧~不会吧~不会吧~杂鱼哥哥怎么可能欺负",
@@ -86,6 +89,9 @@ public final class AutoL extends ClientModule {
 
     private File[] messageFiles;
 
+    /**
+     * Constructor for AutoL module.
+     */
     public AutoL() {
         super("AutoL",
                 "Send messages automatically when you kill a player.",
@@ -108,15 +114,27 @@ public final class AutoL extends ClientModule {
 
     }
 
+    /**
+     * Get the instance
+     * @return the singleton instance of AutoL
+     */
     public static AutoL getInstance() {
         return INSTANCE;
     }
 
+    /**
+     * Clear the entity list when the world changes.
+     * @param event
+     */
     @EventTarget
     public void onWorld(WorldEvent event) {
         entityList.clear();
     }
 
+    /**
+     * Add to list when a player got attacked.
+     * @param event
+     */
     @EventTarget
     public void onAttack(AttackEvent event) {
         if (event.getTargetEntity() instanceof EntityPlayer target) {
@@ -143,27 +161,32 @@ public final class AutoL extends ClientModule {
     }
 
     private String getMessageBasedOnMode() {
-        return switch (modeValue.get()) {
-            case "Single" -> singleMessage.get();
-            case "SkidMa" -> skidMaMSG[random.nextInt(skidMaMSG.length)];
-            case "Cum" -> cumMSG[random.nextInt(cumMSG.length)];
-            default -> {
+        // Old java compatible old switch statement
+        //noinspection EnhancedSwitchMigration
+        switch (modeValue.get().toLowerCase()) {
+            case "single":
+                return singleMessage.get();
+            case "skidma":
+                return skidMaMSG[random.nextInt(skidMaMSG.length)];
+            case "cum":
+                return cumMSG[random.nextInt(cumMSG.length)];
+            default:
                 for (File file : messageFiles) {
                     if (file.getName().replace(fileSuffix, "").equals(modeValue.get())) {
                         try {
                             List<String> lines = Files.readAllLines(file.toPath());
-                            yield lines.get(random.nextInt(lines.size()));
+                            return lines.get(random.nextInt(lines.size()));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
                 }
-                yield "";
-            }
-        };
+                return "";
+        }
     }
 
     private String addPrefix(String message) {
+        //noinspection EnhancedSwitchMigration
         switch (prefix.get()) {
             case "/shout":
                 return "/shout " + message;

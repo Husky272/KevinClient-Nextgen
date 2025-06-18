@@ -14,9 +14,9 @@
  */
 package kevin.module.modules.player.nofalls.packet
 
-import kevin.event.EventState
-import kevin.event.MotionEvent
-import kevin.event.PacketEvent
+import kevin.event.struct.EventState
+import kevin.event.impl.MotionEvent
+import kevin.event.impl.PacketEvent
 import kevin.module.modules.player.nofalls.NoFallMode
 import kevin.utils.PacketUtils
 import net.minecraft.client.Minecraft

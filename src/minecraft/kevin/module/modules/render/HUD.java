@@ -1,6 +1,8 @@
 package kevin.module.modules.render;
 
 import kevin.event.*;
+import kevin.event.impl.KeyEvent;
+import kevin.event.impl.PacketEvent;
 import kevin.hud.element.elements.ScoreboardElement;
 import kevin.hud.designer.GuiHudDesigner;
 import kevin.main.KevinClient;
@@ -11,7 +13,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C09PacketHeldItemChange;
 import net.minecraft.network.play.server.S09PacketHeldItemChange;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public final class HUD extends ClientModule {

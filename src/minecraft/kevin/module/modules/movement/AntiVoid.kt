@@ -15,6 +15,8 @@
 package kevin.module.modules.movement
 
 import kevin.event.*
+import kevin.event.impl.BlockBBEvent
+import kevin.event.impl.PacketEvent
 import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.modules.world.Scaffold

@@ -15,8 +15,8 @@
 package kevin.module.modules.movement
 
 import kevin.event.EventTarget
-import kevin.event.JumpEvent
-import kevin.event.MoveEvent
+import kevin.event.impl.JumpEvent
+import kevin.event.impl.MoveEvent
 import kevin.event.UpdateEvent
 import kevin.module.*
 import kevin.utils.BlockUtils.getBlock

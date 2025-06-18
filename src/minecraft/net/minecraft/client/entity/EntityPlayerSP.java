@@ -1,6 +1,10 @@
 package net.minecraft.client.entity;
 
 import kevin.event.*;
+import kevin.event.impl.MotionEvent;
+import kevin.event.impl.PushOutEvent;
+import kevin.event.impl.SlowDownEvent;
+import kevin.event.struct.EventState;
 import kevin.main.KevinClient;
 import kevin.module.modules.combat.KillAura;
 import kevin.module.modules.combat.SuperKnockback;
@@ -416,7 +420,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     @Override
     protected boolean pushOutOfBlocks(double x, double y, double z) {
 
-        PushOutEvent event = new PushOutEvent();
+        kevin.event.impl.PushOutEvent event = new PushOutEvent();
         if (this.noClip) event.cancelEvent();
         KevinClient.eventManager.callEvent(event);
         if (event.isCancelled()) return false;

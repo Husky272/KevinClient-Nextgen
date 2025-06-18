@@ -3,7 +3,7 @@ package kevin.module.modules.misc;
 import joptsimple.internal.Strings;
 import kevin.command.IClientCommand;
 import kevin.event.EventTarget;
-import kevin.event.PacketEvent;
+import kevin.event.impl.PacketEvent;
 import kevin.event.UpdateEvent;
 import kevin.hud.element.elements.ConnectNotificationType;
 import kevin.hud.element.elements.Notification;

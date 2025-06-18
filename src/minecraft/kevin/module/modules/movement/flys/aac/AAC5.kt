@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.movement.flys.aac
 
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.Render3DEvent
 import kevin.event.UpdateEvent
 import kevin.event.WorldEvent

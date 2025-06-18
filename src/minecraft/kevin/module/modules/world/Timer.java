@@ -1,7 +1,7 @@
 package kevin.module.modules.world;
 
 import kevin.event.EventTarget;
-import kevin.event.PacketEvent;
+import kevin.event.impl.PacketEvent;
 import kevin.event.UpdateEvent;
 import kevin.module.BooleanValue;
 import kevin.module.ClientModule;
@@ -9,7 +9,6 @@ import kevin.module.FloatValue;
 import kevin.module.ModuleCategory;
 import kevin.utils.MovementUtils;
 import kotlin.jvm.internal.Intrinsics;
-import kotlin.jvm.internal.PropertyReference1;
 import kotlin.jvm.internal.PropertyReference1Impl;
 import kotlin.jvm.internal.Reflection;
 import kotlin.reflect.KProperty;

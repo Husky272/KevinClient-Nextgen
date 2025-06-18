@@ -15,6 +15,12 @@
 package kevin.module.modules.movement.flys
 
 import kevin.event.*
+import kevin.event.impl.BlockBBEvent
+import kevin.event.impl.MoveEvent
+import kevin.event.impl.PacketEvent
+import kevin.event.impl.JumpEvent
+import kevin.event.impl.MotionEvent
+import kevin.event.impl.StepEvent
 import kevin.main.KevinClient
 import kevin.module.Value
 import kevin.module.modules.movement.Fly

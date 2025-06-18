@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.player.nofalls.verus
 
-import kevin.event.BlockBBEvent
+import kevin.event.impl.BlockBBEvent
 import kevin.main.KevinClient
 import kevin.module.modules.movement.Fly
 import kevin.module.modules.player.nofalls.NoFallMode

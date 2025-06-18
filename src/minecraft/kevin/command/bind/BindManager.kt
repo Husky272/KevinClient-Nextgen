@@ -16,7 +16,7 @@ package kevin.command.bind
 
 import kevin.command.IClientCommand
 import kevin.event.EventTarget
-import kevin.event.KeyEvent
+import kevin.event.impl.KeyEvent
 import kevin.event.Listenable
 import kevin.main.KevinClient
 import kevin.utils.ChatUtils

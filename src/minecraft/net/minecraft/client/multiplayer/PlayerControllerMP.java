@@ -1,6 +1,6 @@
 package net.minecraft.client.multiplayer;
 
-import kevin.event.AttackEvent;
+import kevin.event.impl.AttackEvent;
 import kevin.event.ClickWindowEvent;
 import kevin.main.KevinClient;
 import kevin.module.modules.player.AutoTool;

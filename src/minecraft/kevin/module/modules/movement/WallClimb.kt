@@ -15,6 +15,11 @@
 package kevin.module.modules.movement
 
 import kevin.event.*
+import kevin.event.impl.BlockBBEvent
+import kevin.event.impl.MoveEvent
+import kevin.event.impl.PacketEvent
+import kevin.event.impl.MotionEvent
+import kevin.event.struct.EventState
 import kevin.module.FloatValue
 import kevin.module.ListValue
 import kevin.module.ClientModule
@@ -104,7 +109,7 @@ class WallClimb : ClientModule("WallClimb", "Allows you to climb up walls like a
     @EventTarget
     fun onPacket(event: PacketEvent) {
         if ((event.packet)is C03PacketPlayer) {
-            val packetPlayer = event.packet
+            val packetPlayer = event.packet as C03PacketPlayer
 
             if (glitch) {
                 val yaw = MovementUtils.direction.toFloat()

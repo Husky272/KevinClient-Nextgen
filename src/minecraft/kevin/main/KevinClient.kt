@@ -18,7 +18,7 @@ package kevin.main
 import kevin.cape.CapeManager
 import kevin.command.CommandManager
 import kevin.command.bind.BindManager
-import kevin.event.ClientShutdownEvent
+import kevin.event.impl.ClientShutdownEvent
 import kevin.event.EventManager
 import kevin.file.ConfigManager
 import kevin.file.FileManager

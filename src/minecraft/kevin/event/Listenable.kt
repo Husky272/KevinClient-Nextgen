@@ -20,12 +20,3 @@ import kotlin.jvm.Throws
 interface Listenable {
     fun handleEvents(): Boolean
 }
-internal open class EventHook(val eventClass: Listenable, val method: Method, eventTarget: EventTarget) {
-    @JvmField
-    val isIgnoreCondition = eventTarget.ignoreCondition
-
-    @Throws(Throwable::class)
-    open fun call(event: Event) {
-        method.invoke(eventClass, event)
-    }
-}

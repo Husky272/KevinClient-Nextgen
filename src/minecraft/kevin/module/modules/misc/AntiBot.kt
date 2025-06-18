@@ -15,6 +15,8 @@
 package kevin.module.modules.misc
 
 import kevin.event.*
+import kevin.event.impl.AttackEvent
+import kevin.event.impl.PacketEvent
 import kevin.hud.element.elements.ConnectNotificationType
 import kevin.hud.element.elements.Notification
 import kevin.main.KevinClient

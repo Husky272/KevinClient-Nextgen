@@ -16,7 +16,7 @@ package kevin.utils.entity.rotation;
 
 import kevin.event.EventTarget;
 import kevin.event.Listenable;
-import kevin.event.PacketEvent;
+import kevin.event.impl.PacketEvent;
 import kevin.event.TickEvent;
 import kevin.main.KevinClient;
 import kevin.module.modules.combat.FastBow;

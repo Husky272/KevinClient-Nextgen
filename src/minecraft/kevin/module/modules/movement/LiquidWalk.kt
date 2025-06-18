@@ -15,6 +15,10 @@
 package kevin.module.modules.movement
 
 import kevin.event.*
+import kevin.event.impl.BlockBBEvent
+import kevin.event.impl.MoveEvent
+import kevin.event.impl.PacketEvent
+import kevin.event.impl.JumpEvent
 import kevin.module.*
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
@@ -131,7 +135,7 @@ class LiquidWalk : ClientModule("LiquidWalk",  "Allows you to walk on water.", M
             return
 
         if (event.packet is C03PacketPlayer) {
-            val packetPlayer = event.packet
+            val packetPlayer:C03PacketPlayer = event.packet as C03PacketPlayer
             if (collideBlock(AxisAlignedBB(thePlayer.entityBoundingBox.maxX, thePlayer.entityBoundingBox.maxY, thePlayer.entityBoundingBox.maxZ, thePlayer.entityBoundingBox.minX, thePlayer.entityBoundingBox.minY - 0.01, thePlayer.entityBoundingBox.minZ)) { it is BlockLiquid }) {
                 nextTick = !nextTick
                 if (nextTick) packetPlayer.y -= 0.001

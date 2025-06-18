@@ -1,6 +1,10 @@
 package kevin.module.modules.movement.flys.other
 
 import kevin.event.*
+import kevin.event.impl.BlockBBEvent
+import kevin.event.impl.PacketEvent
+import kevin.event.impl.JumpEvent
+import kevin.event.impl.StepEvent
 import kevin.module.FloatValue
 import kevin.module.modules.movement.flys.FlyMode
 import kevin.utils.system.timer.TickTimer

@@ -1,6 +1,6 @@
 package kevin.module.modules.movement.flys.other
 
-import kevin.event.BlockBBEvent
+import kevin.event.impl.BlockBBEvent
 import kevin.event.UpdateEvent
 import kevin.module.modules.movement.flys.FlyMode
 import net.minecraft.block.BlockAir

@@ -17,6 +17,8 @@ package kevin.hud.element.elements
 import kevin.utils.render.blur.GaussianBlur
 import kevin.persional.milk.utils.StencilUtil
 import kevin.event.*
+import kevin.event.impl.AttackEvent
+import kevin.event.impl.PacketEvent
 import kevin.hud.element.Border
 import kevin.hud.element.Element
 import kevin.hud.element.ElementInfo

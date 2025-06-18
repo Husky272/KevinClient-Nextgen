@@ -1,6 +1,6 @@
 package net.minecraft.util;
 
-import kevin.event.MovementInputUpdateEvent;
+import kevin.event.impl.MovementInputUpdateEvent;
 import kevin.main.KevinClient;
 import net.minecraft.client.settings.GameSettings;
 

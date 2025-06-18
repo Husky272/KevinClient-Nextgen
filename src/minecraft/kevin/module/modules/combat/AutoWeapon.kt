@@ -14,9 +14,9 @@
  */
 package kevin.module.modules.combat
 
-import kevin.event.AttackEvent
+import kevin.event.impl.AttackEvent
 import kevin.event.EventTarget
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.*
 import kevin.utils.ItemUtils
@@ -51,7 +51,7 @@ class AutoWeapon : ClientModule("AutoWeapon", "Automatically selects the best we
 
         val thePlayer = mc.thePlayer ?: return
 
-        val packet = event.packet
+        val packet = event.packet as C02PacketUseEntity
 
         if (packet.action == C02PacketUseEntity.Action.ATTACK && attackEnemy) {
             attackEnemy = false

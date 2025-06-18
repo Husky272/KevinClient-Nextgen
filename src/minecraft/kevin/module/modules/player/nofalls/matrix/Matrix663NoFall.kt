@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.player.nofalls.matrix
 
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.modules.player.nofalls.NoFallMode
 import kevin.utils.PacketUtils
@@ -38,8 +38,22 @@ object Matrix663NoFall : NoFallMode("Matrix6.6.3") {
         if (event.packet is C03PacketPlayer && matrixSend) {
             matrixSend = false
             event.cancelEvent()
-            PacketUtils.sendPacketNoEvent(C03PacketPlayer.C04PacketPlayerPosition(event.packet.x, event.packet.y, event.packet.z, true))
-            PacketUtils.sendPacketNoEvent(C03PacketPlayer.C04PacketPlayerPosition(event.packet.x, event.packet.y, event.packet.z, false))
+            PacketUtils.sendPacketNoEvent(
+                C03PacketPlayer.C04PacketPlayerPosition(
+                    (event.packet as C03PacketPlayer).x,
+                    (event.packet as C03PacketPlayer).y,
+                    (event.packet as C03PacketPlayer).z,
+                    true
+                )
+            )
+            PacketUtils.sendPacketNoEvent(
+                C03PacketPlayer.C04PacketPlayerPosition(
+                    (event.packet as C03PacketPlayer).x,
+                    (event.packet as C03PacketPlayer).y,
+                    (event.packet as C03PacketPlayer).z,
+                    false
+                )
+            )
         }
     }
 }

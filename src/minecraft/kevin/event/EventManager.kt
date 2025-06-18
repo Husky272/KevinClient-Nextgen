@@ -14,6 +14,8 @@
  */
 package kevin.event
 
+import kevin.event.struct.Event
+import kevin.event.struct.EventHook
 import kevin.hud.element.elements.ConnectNotificationType
 import kevin.hud.element.elements.Notification
 import kevin.main.KevinClient

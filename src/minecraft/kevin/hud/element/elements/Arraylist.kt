@@ -367,7 +367,7 @@ class Arraylist(
                 tmp.red
             ).rgb
 //            GlStateManager.resetColor()
-            RainbowFontShader.begin(
+            RainbowFontShader().begin(
                 textColorCode == 1,
                 if (rainbowX.get() == 0.0F) 0.0F else 1.0F / rainbowX.get(),
                 if (rainbowY.get() == 0.0F) 0.0F else 1.0F / rainbowY.get(),

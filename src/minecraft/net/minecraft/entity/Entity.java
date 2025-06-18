@@ -5,10 +5,10 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
-import kevin.event.MoveEvent;
+import kevin.event.impl.MoveEvent;
 import kevin.event.StepConfirmEvent;
-import kevin.event.StepEvent;
-import kevin.event.StrafeEvent;
+import kevin.event.impl.StepEvent;
+import kevin.event.impl.StrafeEvent;
 import kevin.main.KevinClient;
 import kevin.module.modules.combat.HitBox;
 import kevin.module.modules.exploit.NoPitchLimit;

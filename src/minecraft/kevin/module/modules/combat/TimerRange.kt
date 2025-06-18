@@ -14,9 +14,9 @@
  */
 package kevin.module.modules.combat
 
-import kevin.event.EventState
+import kevin.event.struct.EventState
 import kevin.event.EventTarget
-import kevin.event.MotionEvent
+import kevin.event.impl.MotionEvent
 import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.ClientModule

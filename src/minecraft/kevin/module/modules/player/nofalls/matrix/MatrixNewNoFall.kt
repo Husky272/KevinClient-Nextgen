@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.player.nofalls.matrix
 
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.module.modules.player.nofalls.NoFallMode
 import net.minecraft.network.play.client.C03PacketPlayer
 
@@ -24,7 +24,7 @@ object MatrixNewNoFall : NoFallMode("MatrixNew") {
             if(!mc.thePlayer.onGround) {
                 if(mc.thePlayer.fallDistance > 2.69f){
                     mc.timer.timerSpeed = 0.3f
-                    event.packet.onGround = true
+                    (event.packet as C03PacketPlayer).onGround = true
                     mc.thePlayer.fallDistance = 0f
                 }
                 if(mc.thePlayer.fallDistance > 3.5){
@@ -35,8 +35,8 @@ object MatrixNewNoFall : NoFallMode("MatrixNew") {
             }
             if (mc.theWorld.getCollidingBoundingBoxes(mc.thePlayer, mc.thePlayer.entityBoundingBox.offset(0.0, mc.thePlayer.motionY, 0.0))
                     .isNotEmpty()) {
-                if(!event.packet.isOnGround && mc.thePlayer.motionY < -0.6) {
-                    event.packet.onGround = true
+                if(!(event.packet as C03PacketPlayer).isOnGround && mc.thePlayer.motionY < -0.6) {
+                    (event.packet as C03PacketPlayer).onGround = true
                 }
             }
 

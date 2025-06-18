@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.movement.flys.other
 
-import kevin.event.MotionEvent
+import kevin.event.impl.MotionEvent
 import kevin.module.BooleanValue
 import kevin.module.FloatValue
 import kevin.module.modules.movement.flys.FlyMode

@@ -7,6 +7,14 @@
       <sourceFolder url="file://$MODULE_DIR$/src/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/script" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/run/Game/Kevin" />
+      <excludeFolder url="file://$MODULE_DIR$/run/Game/crash-reports" />
+      <excludeFolder url="file://$MODULE_DIR$/run/Game/logs" />
+      <excludeFolder url="file://$MODULE_DIR$/run/Game/resourcepacks" />
+      <excludeFolder url="file://$MODULE_DIR$/run/Game/saves" />
+      <excludeFolder url="file://$MODULE_DIR$/run/Game/screenshots" />
+      <excludeFolder url="file://$MODULE_DIR$/run/Game/shaderpacks" />
+      <excludeFolder url="file://$MODULE_DIR$/run/assets/skins" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

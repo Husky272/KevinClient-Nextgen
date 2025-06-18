@@ -2,6 +2,8 @@
 package kevin.module.modules.world
 
 import kevin.event.*
+import kevin.event.impl.ClickUpdateEvent
+import kevin.event.impl.PacketEvent
 import kevin.module.*
 import kevin.utils.*
 import kevin.utils.MovementUtils.movingYaw

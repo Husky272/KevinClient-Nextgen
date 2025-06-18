@@ -667,7 +667,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         {
             this.modUpdateNotification.drawScreen(mouseX, mouseY, partialTicks);
         }
-        RainbowFontShader rainbowFontShader = RainbowFontShader.begin(true,-0.00314514F,0.00314514F,System.currentTimeMillis() % 10000 / 10000F);
+        RainbowFontShader rainbowFontShader = new RainbowFontShader().begin(true,-0.00314514F,0.00314514F,System.currentTimeMillis() % 10000 / 10000F);
         KevinClient.fontManager.getFont40().drawString(KevinClient.INSTANCE.getName()+" "+ KevinClient.INSTANCE.getVersion(),this.width/2F- KevinClient.fontManager.getFont40().getStringWidth(KevinClient.INSTANCE.getName()+" "+ KevinClient.INSTANCE.getVersion())/2F,this.height/3F,0);
         rainbowFontShader.close();
     }

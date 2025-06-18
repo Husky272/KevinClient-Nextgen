@@ -2,6 +2,8 @@
 /shelf/
 workspace.xml
 
+Desktop.ini
+
 # CGI Shits
 /run/Game/*
 /run/assets/skins/

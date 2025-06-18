@@ -16,7 +16,7 @@ package kevin.hud.element.elements
 
 import kevin.event.EventTarget
 import kevin.event.Listenable
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.hud.element.Border
 import kevin.hud.element.Element
 import kevin.hud.element.ElementInfo

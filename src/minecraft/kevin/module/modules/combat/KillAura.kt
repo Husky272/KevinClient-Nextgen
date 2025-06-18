@@ -15,6 +15,14 @@
 package kevin.module.modules.combat
 
 import kevin.event.*
+import kevin.event.impl.AttackEvent
+import kevin.event.impl.ClickUpdateEvent
+import kevin.event.impl.EntityMovementEvent
+import kevin.event.impl.PacketEvent
+import kevin.event.impl.JumpEvent
+import kevin.event.impl.MotionEvent
+import kevin.event.impl.StrafeEvent
+import kevin.event.struct.EventState
 import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.modules.exploit.TP

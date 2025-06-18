@@ -1,6 +1,9 @@
 package kevin.module.modules.movement;
 
 import kevin.event.*;
+import kevin.event.impl.JumpEvent;
+import kevin.event.impl.MovementInputUpdateEvent;
+import kevin.event.impl.StrafeEvent;
 import kevin.main.KevinClient;
 import kevin.module.BooleanValue;
 import kevin.module.ClientModule;

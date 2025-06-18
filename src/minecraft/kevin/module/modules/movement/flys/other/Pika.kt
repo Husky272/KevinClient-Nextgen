@@ -1,7 +1,7 @@
 package kevin.module.modules.movement.flys.other
 
-import kevin.event.MoveEvent
-import kevin.event.PacketEvent
+import kevin.event.impl.MoveEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.BooleanValue
 import kevin.module.modules.movement.flys.FlyMode
@@ -9,7 +9,6 @@ import kevin.utils.MovementUtils
 import kevin.utils.PacketUtils
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.server.S08PacketPlayerPosLook
-import kotlin.math.max
 
 @Suppress("ReplaceJavaStaticMethodWithKotlinAnalog")
 object Pika : FlyMode("PikaSW") {

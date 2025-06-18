@@ -1,13 +1,12 @@
 package kevin.module.modules.movement.flys.vulcan
 
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.BooleanValue
 import kevin.module.FloatValue
 import kevin.module.modules.movement.flys.FlyMode
 import kevin.utils.MovementUtils
 import kevin.utils.PacketUtils
-import net.minecraft.client.settings.GameSettings
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 import net.minecraft.network.play.client.C03PacketPlayer.C06PacketPlayerPosLook

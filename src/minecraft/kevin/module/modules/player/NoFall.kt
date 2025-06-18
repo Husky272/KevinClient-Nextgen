@@ -15,6 +15,12 @@
 package kevin.module.modules.player
 
 import kevin.event.*
+import kevin.event.impl.BlockBBEvent
+import kevin.event.impl.MoveEvent
+import kevin.event.impl.PacketEvent
+import kevin.event.impl.JumpEvent
+import kevin.event.impl.MotionEvent
+import kevin.event.impl.StepEvent
 import kevin.main.KevinClient
 import kevin.module.ClientModule
 import kevin.module.ListValue
@@ -64,7 +70,7 @@ class NoFall : ClientModule(
         AACV4NoFall,
         AAC44XFlagNoFall,
         AAC5014NoFall,
-        AAC504NoFall,
+        AAC504NoFall.INSTANCE,
         OldMatrixNoFall,
         MatrixCollideNoFall,
         MatrixNewNoFall,

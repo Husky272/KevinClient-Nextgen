@@ -1,6 +1,10 @@
 package kevin.module.modules.combat;
 
 import kevin.event.*;
+import kevin.event.impl.AttackEvent;
+import kevin.event.impl.BlockBBEvent;
+import kevin.event.impl.JumpEvent;
+import kevin.event.impl.PacketEvent;
 import kevin.main.KevinClient;
 import kevin.module.*;
 import kevin.utils.MovementUtils;

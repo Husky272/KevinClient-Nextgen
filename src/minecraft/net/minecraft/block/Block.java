@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-import kevin.event.BlockBBEvent;
+import kevin.event.impl.BlockBBEvent;
 import kevin.main.KevinClient;
 import kevin.module.modules.combat.Criticals;
 import kevin.module.modules.exploit.GhostHand;

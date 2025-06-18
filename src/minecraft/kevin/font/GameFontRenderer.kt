@@ -79,7 +79,7 @@ class GameFontRenderer(font: Font): FontRenderer(
 
         val currY = y - 3F
 
-        val rainbow = RainbowFontShader.isInUse
+        val rainbow = RainbowFontShader.INSTANCE.isInUse
 
         if (shadow) {
             GL20.glUseProgram(0)
@@ -101,7 +101,7 @@ class GameFontRenderer(font: Font): FontRenderer(
         if (text.isEmpty())
             return x.toInt()
 
-        val rainbowShaderId = RainbowFontShader.programId
+        val rainbowShaderId = RainbowFontShader.INSTANCE.programId
 
         if (rainbow)
             GL20.glUseProgram(rainbowShaderId)

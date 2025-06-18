@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.player.nofalls.other
 
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.module.modules.player.nofalls.NoFallMode
 import net.minecraft.network.play.client.C03PacketPlayer
 

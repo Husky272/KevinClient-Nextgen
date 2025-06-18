@@ -15,7 +15,7 @@
 package kevin.module.modules.misc
 
 import kevin.event.EventTarget
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
 import net.minecraft.network.play.client.C19PacketResourcePackStatus
@@ -27,7 +27,7 @@ class ResourcePackSpoof : ClientModule("ResourcePackSpoof", "Prevents servers fr
     @EventTarget
     fun onPacket(event: PacketEvent) {
         if ((event.packet)is S48PacketResourcePackSend) {
-            val packet = event.packet
+            val packet:S48PacketResourcePackSend = event.packet as S48PacketResourcePackSend
 
             val url = packet.url
             val hash = packet.hash

@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.render
 
-import kevin.event.ClientShutdownEvent
+import kevin.event.impl.ClientShutdownEvent
 import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.module.ListValue

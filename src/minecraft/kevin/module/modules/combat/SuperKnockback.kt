@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.combat
 
-import kevin.event.AttackEvent
+import kevin.event.impl.AttackEvent
 import kevin.event.EventTarget
 import kevin.event.UpdateEvent
 import kevin.main.KevinClient
@@ -71,7 +71,7 @@ class SuperKnockback : ClientModule("SuperKnockback", "Increases knockback dealt
     fun onAttack(event: AttackEvent) {
         if (event.targetEntity is EntityLivingBase) {
             val player = mc.thePlayer ?: return
-            if (event.targetEntity.hurtTime > hurtTimeValue.get()
+            if ((event.targetEntity as EntityLivingBase).hurtTime > hurtTimeValue.get()
                 || !timer.hasTimePassed(delayValue.get().toLong())
                 || (!MovementUtils.isMoving() && onlyMoveValue.get())
                 || (!mc.thePlayer.onGround && onlyGroundValue.get())

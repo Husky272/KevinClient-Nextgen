@@ -119,7 +119,7 @@ class Armor(x: Double = -8.0, y: Double = 57.0, scale: Float = 1F,
                 }
             }
 
-            RainbowFontShader.begin(showDamageRainbow,if (rainbowX.get() == 0.0F) 0.0F else 1.0F / rainbowX.get(), if (rainbowY.get() == 0.0F) 0.0F else 1.0F / rainbowY.get(),System.currentTimeMillis() % 10000 / 10000F).use {
+            RainbowFontShader().begin(showDamageRainbow,if (rainbowX.get() == 0.0F) 0.0F else 1.0F / rainbowX.get(), if (rainbowY.get() == 0.0F) 0.0F else 1.0F / rainbowY.get(),System.currentTimeMillis() % 10000 / 10000F).use {
                 KevinClient.fontManager.font35!!.drawStringWithShadow(damageText,x+20F,y+6F,color)
             }
 

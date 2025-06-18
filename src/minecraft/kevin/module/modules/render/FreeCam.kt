@@ -15,7 +15,7 @@
 package kevin.module.modules.render
 
 import kevin.event.EventTarget
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.BooleanValue
 import kevin.module.FloatValue
@@ -27,7 +27,6 @@ import kevin.utils.PacketUtils
 import net.minecraft.client.entity.EntityOtherPlayerMP
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
-import net.minecraft.network.play.client.C03PacketPlayer.C06PacketPlayerPosLook
 import net.minecraft.network.play.client.C0BPacketEntityAction
 
 class FreeCam : ClientModule("FreeCam", "Allows you to move out of your body.", ModuleCategory.RENDER) {

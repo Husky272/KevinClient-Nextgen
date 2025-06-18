@@ -15,6 +15,7 @@
 package kevin.module.modules.player
 
 import kevin.event.*
+import kevin.event.impl.PacketEvent
 import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.modules.combat.AutoArmor

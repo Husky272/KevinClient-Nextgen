@@ -15,7 +15,7 @@
 package kevin.module.modules.misc
 
 import kevin.event.EventTarget
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.WorldEvent
 import kevin.hud.element.elements.ConnectNotificationType
 import kevin.hud.element.elements.Notification
@@ -50,7 +50,7 @@ class LagBackDetector : ClientModule("LagBackDetector", "Detect lag back from se
     @EventTarget fun onPacket(event: PacketEvent) {
         mc.thePlayer ?: return
         mc.theWorld  ?: return
-        val packet = if (event.packet is S08PacketPlayerPosLook) event.packet else return
+        val packet = event.packet as? S08PacketPlayerPosLook ?: return
         if (distanceCheckValue.get()) {
             if (sqrt((packet.x - mc.thePlayer.posX).pow(2) + (packet.z - mc.thePlayer.posZ).pow(2)) > 10) return
         }

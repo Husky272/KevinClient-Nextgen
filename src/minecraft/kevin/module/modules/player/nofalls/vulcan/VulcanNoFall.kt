@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.player.nofalls.vulcan
 
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.modules.player.nofalls.NoFallMode
 import kevin.utils.MovementUtils
@@ -54,10 +54,11 @@ object VulcanNoFall : NoFallMode("Vulcan") {
     }
     override fun onPacket(event: PacketEvent) {
         if(event.packet is C03PacketPlayer && doSpoof) {
-            event.packet.onGround = true
+
+            (event.packet as C03PacketPlayer).onGround = true
             doSpoof = false
-            event.packet.y = (mc.thePlayer.posY * 2).roundToInt().toDouble() / 2
-            mc.thePlayer.setPosition(mc.thePlayer.posX, event.packet.y, mc.thePlayer.posZ)
+            (event.packet as C03PacketPlayer).y = (mc.thePlayer.posY * 2).roundToInt().toDouble() / 2
+            mc.thePlayer.setPosition(mc.thePlayer.posX, (event.packet as C03PacketPlayer).y, mc.thePlayer.posZ)
         }
     }
 }

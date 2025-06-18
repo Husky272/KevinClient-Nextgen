@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.player.nofalls.matrix
 
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.modules.player.nofalls.NoFallMode
 import net.minecraft.network.play.client.C03PacketPlayer
@@ -41,13 +41,13 @@ object OldMatrixNoFall : NoFallMode("OldMatrix") {
             event.cancelEvent()
         }
         if(event.packet is C03PacketPlayer && isDmgFalling) {
-            if (event.packet.onGround && mc.thePlayer.onGround) {
+            if ((event.packet as C03PacketPlayer).onGround && mc.thePlayer.onGround) {
                 matrixFlagWait = 2
                 isDmgFalling = false
                 event.cancelEvent()
                 mc.thePlayer.onGround = false
-                mc.netHandler.addToSendQueue(C03PacketPlayer.C04PacketPlayerPosition(event.packet.x, event.packet.y - 256, event.packet.z, false))
-                mc.netHandler.addToSendQueue(C03PacketPlayer.C04PacketPlayerPosition(event.packet.x, (-10).toDouble() , event.packet.z, true))
+                mc.netHandler.addToSendQueue(C03PacketPlayer.C04PacketPlayerPosition((event.packet as C03PacketPlayer).x, (event.packet as C03PacketPlayer).y - 256, (event.packet as C03PacketPlayer).z, false))
+                mc.netHandler.addToSendQueue(C03PacketPlayer.C04PacketPlayerPosition((event.packet as C03PacketPlayer).x, (-10).toDouble() , (event.packet as C03PacketPlayer).z, true))
                 mc.timer.timerSpeed = 0.18f
             }
         }

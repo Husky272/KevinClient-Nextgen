@@ -16,7 +16,7 @@ package kevin.module.modules.misc
 
 import com.google.gson.JsonParser
 import kevin.event.EventTarget
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.module.ListValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
@@ -35,7 +35,7 @@ object Translator : ClientModule("Translator","Translate chat messages from serv
     @EventTarget
     fun onPacket(event: PacketEvent){
         if(event.packet is S02PacketChat){
-            doTranslate(event.packet.chatComponent)
+            doTranslate((event.packet as S02PacketChat).chatComponent)
             event.cancelEvent()
         }
     }

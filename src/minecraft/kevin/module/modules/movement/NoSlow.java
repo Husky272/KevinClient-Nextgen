@@ -1,6 +1,10 @@
 package kevin.module.modules.movement;
 
 import kevin.event.*;
+import kevin.event.impl.ClickUpdateEvent;
+import kevin.event.impl.MotionEvent;
+import kevin.event.impl.SlowDownEvent;
+import kevin.event.struct.EventState;
 import kevin.main.KevinClient;
 import kevin.module.*;
 import kevin.module.modules.combat.KillAura;

@@ -14,7 +14,7 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.Map.Entry;
 
-import kevin.event.EntityMovementEvent;
+import kevin.event.impl.EntityMovementEvent;
 import kevin.main.KevinClient;
 import kevin.module.modules.misc.NoRotateSet;
 import kevin.module.modules.render.Particles;

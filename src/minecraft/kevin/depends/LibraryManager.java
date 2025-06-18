@@ -5,14 +5,24 @@ import net.minecraft.client.Minecraft;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
 
-import java.io.*;
-import java.net.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
-// this is a tool help us load libraries only when need
+/**
+ * LibraryManager is a utility class that manages the loading of external libraries
+ * </br>
+ * It downloads and load libraries from Maven repositories when they are needed.
+ */
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class LibraryManager {
     private static final HashMap<URLClassLoader, URLClassLoaderAccess> URL_INJECTORS = new HashMap<>();
     public static void loadDependency(MavenDependency dependency, URLClassLoader classLoader) {

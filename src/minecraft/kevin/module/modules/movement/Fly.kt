@@ -15,6 +15,12 @@
 package kevin.module.modules.movement
 
 import kevin.event.*
+import kevin.event.impl.BlockBBEvent
+import kevin.event.impl.MoveEvent
+import kevin.event.impl.PacketEvent
+import kevin.event.impl.JumpEvent
+import kevin.event.impl.MotionEvent
+import kevin.event.impl.StepEvent
 import kevin.module.*
 import kevin.module.modules.movement.flys.FlyMode
 import kevin.module.modules.movement.flys.aac.*
@@ -34,7 +40,7 @@ class Fly : ClientModule("Fly","Allow you fly", Keyboard.KEY_F,ModuleCategory.MO
         Vanilla,
         Creative,
         AAC5,
-//        ACD,
+        ACD,
         FunCraft,
         Teleport,
         FlagFly,

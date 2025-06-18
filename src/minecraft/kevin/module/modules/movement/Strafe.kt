@@ -15,8 +15,8 @@
 package kevin.module.modules.movement
 
 import kevin.event.EventTarget
-import kevin.event.JumpEvent
-import kevin.event.StrafeEvent
+import kevin.event.impl.JumpEvent
+import kevin.event.impl.StrafeEvent
 import kevin.event.UpdateEvent
 import kevin.module.BooleanValue
 import kevin.module.FloatValue

@@ -141,7 +141,7 @@ class ScoreboardElement(x: Double = 5.0, y: Double = 0.0, scale: Float = 1F,
             if(name != "§3§l§nKevin§6§l§nClient"){
                 drawString(name, l1.toFloat(), height, textColor, shadowValue.get())
             }else{
-                RainbowFontShader.begin(true,1.0F / 1000,1.0F / 1000,System.currentTimeMillis() % 10000 / 10000F).use {
+                RainbowFontShader().begin(true,1.0F / 1000,1.0F / 1000,System.currentTimeMillis() % 10000 / 10000F).use {
                     drawString("§lKevin§lClient", l1.toFloat(), height, 0, shadowValue.get())
                 }
             }

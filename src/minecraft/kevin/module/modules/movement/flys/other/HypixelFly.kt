@@ -1,11 +1,10 @@
 package kevin.module.modules.movement.flys.other
 
-import kevin.event.EventState
-import kevin.event.MotionEvent
-import kevin.event.MoveEvent
-import kevin.event.PacketEvent
+import kevin.event.struct.EventState
+import kevin.event.impl.MotionEvent
+import kevin.event.impl.MoveEvent
+import kevin.event.impl.PacketEvent
 import kevin.module.modules.movement.flys.FlyMode
-import kevin.utils.RandomUtils
 import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 import net.minecraft.network.play.server.S08PacketPlayerPosLook
 

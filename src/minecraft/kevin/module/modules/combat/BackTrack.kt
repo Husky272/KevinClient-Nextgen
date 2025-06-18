@@ -17,6 +17,10 @@
 package kevin.module.modules.combat
 
 import kevin.event.*
+import kevin.event.impl.EntityMovementEvent
+import kevin.event.impl.PacketEvent
+import kevin.event.impl.MotionEvent
+import kevin.event.struct.EventState
 import kevin.hud.element.elements.Notification
 import kevin.main.KevinClient
 import kevin.module.*

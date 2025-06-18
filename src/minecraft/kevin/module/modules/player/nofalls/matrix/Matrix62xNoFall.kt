@@ -14,7 +14,7 @@
  */
 package kevin.module.modules.player.nofalls.matrix
 
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.modules.player.nofalls.NoFallMode
 import net.minecraft.network.play.client.C03PacketPlayer
@@ -58,7 +58,7 @@ object Matrix62xNoFall : NoFallMode("Matrix6.2.X") {
 
     override fun onPacket(event: PacketEvent) {
         if(event.packet is C03PacketPlayer && matrixCanSpoof) {
-            event.packet.onGround = true
+            (event.packet as C03PacketPlayer).onGround = true
             matrixCanSpoof = false
         }
     }

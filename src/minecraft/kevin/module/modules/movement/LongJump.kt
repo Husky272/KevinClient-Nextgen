@@ -15,6 +15,11 @@
 package kevin.module.modules.movement
 
 import kevin.event.*
+import kevin.event.impl.BlockBBEvent
+import kevin.event.impl.MoveEvent
+import kevin.event.impl.PacketEvent
+import kevin.event.impl.JumpEvent
+import kevin.event.impl.MotionEvent
 import kevin.module.*
 import kevin.utils.MovementUtils
 import kevin.utils.PacketUtils
@@ -377,12 +382,13 @@ class LongJump : ClientModule(
     @EventTarget
     fun onPacket(event: PacketEvent) {
         if (event.packet is S27PacketExplosion) {
-            if (event.packet.func_149149_c() != 0F ||
-                event.packet.func_149144_d() != 0F ||
-                event.packet.func_149147_e() != 0F
+
+            if ((event.packet as S27PacketExplosion).func_149149_c() != 0F ||
+                (event.packet as S27PacketExplosion).func_149144_d() != 0F ||
+                (event.packet as S27PacketExplosion).func_149147_e() != 0F
             ) explosion = true
         } else if (event.packet is S08PacketPlayerPosLook && modeValue equal "pikanew") {
-            val packet = event.packet
+            val packet = event.packet as S08PacketPlayerPosLook
             if (!mc.netHandler.isDoneLoadingTerrain || !canBoost) return
             canBoost = false
             event.cancelEvent()

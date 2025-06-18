@@ -15,6 +15,7 @@
 package kevin.module.modules.movement
 
 import kevin.event.*
+import kevin.event.impl.PacketEvent
 import kevin.module.BooleanValue
 import kevin.module.ListValue
 import kevin.module.ClientModule
@@ -51,7 +52,7 @@ class InvMove : ClientModule("InvMove","Allows you to walk while an inventory is
     @EventTarget
     fun onPacket(event: PacketEvent){
         if(bypass.get() && event.packet is C16PacketClientStatus
-            && event.packet.status == C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT){
+            && (event.packet as C16PacketClientStatus).status == C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT){
             event.cancelEvent()
         }
     }

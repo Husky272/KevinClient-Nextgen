@@ -15,6 +15,8 @@
 package kevin.utils.entity.combatAndInventory
 
 import kevin.event.*
+import kevin.event.impl.AttackEvent
+import kevin.event.impl.EntityKilledEvent
 import kevin.main.KevinClient
 import kevin.utils.MinecraftInstance
 import kevin.utils.system.timer.MSTimer

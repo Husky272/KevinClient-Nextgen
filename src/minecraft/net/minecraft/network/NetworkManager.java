@@ -37,7 +37,7 @@ import java.util.Queue;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import javax.crypto.SecretKey;
 
-import kevin.event.PacketEvent;
+import kevin.event.impl.PacketEvent;
 
 //import kevin.event.PacketMode;
 

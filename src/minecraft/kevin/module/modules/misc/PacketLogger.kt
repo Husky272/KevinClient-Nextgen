@@ -1,7 +1,7 @@
 package kevin.module.modules.misc
 
 import kevin.event.EventTarget
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.module.*
 import kevin.utils.ChatUtils
 import net.minecraft.network.EnumPacketDirection

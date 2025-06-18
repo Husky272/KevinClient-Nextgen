@@ -1,7 +1,7 @@
 package kevin.module.modules.movement.flys.other
 
-import kevin.event.BlockBBEvent
-import kevin.event.PacketEvent
+import kevin.event.impl.BlockBBEvent
+import kevin.event.impl.PacketEvent
 import kevin.module.BooleanValue
 import kevin.module.modules.movement.flys.FlyMode
 import net.minecraft.block.BlockAir
@@ -20,7 +20,7 @@ object FakeGround : FlyMode("FakeGround") {
 
     override fun onPacket(event: PacketEvent) {
         if (noGround.get() && event.packet is C03PacketPlayer) {
-            event.packet.onGround = false
+            (event.packet as C03PacketPlayer).onGround = false
         }
     }
 }

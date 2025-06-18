@@ -15,7 +15,7 @@
 package kevin.module.modules.world
 
 import kevin.event.EventTarget
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.*
 import net.minecraft.network.play.server.S03PacketTimeUpdate

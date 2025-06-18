@@ -17,8 +17,8 @@ package kevin.module.modules.player
 //import kevin.event.UpdateState
 
 import kevin.event.EventTarget
-import kevin.event.MoveEvent
-import kevin.event.PacketEvent
+import kevin.event.impl.MoveEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.UpdateEvent
 import kevin.module.*
 import kevin.utils.ChatUtils

@@ -15,7 +15,7 @@
 package kevin.module.modules.player
 
 import kevin.event.EventTarget
-import kevin.event.PacketEvent
+import kevin.event.impl.PacketEvent
 import kevin.event.Render3DEvent
 import kevin.event.UpdateEvent
 import kevin.module.*

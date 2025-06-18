@@ -14,14 +14,7 @@
  */
 package kevin.utils
 
-import kevin.event.StrafeEvent
-import kevin.utils.entity.rotation.RotationUtils
-import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.util.MathHelper
 import net.minecraft.util.Vec3
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
 
 /**
  * Rotation with vector
