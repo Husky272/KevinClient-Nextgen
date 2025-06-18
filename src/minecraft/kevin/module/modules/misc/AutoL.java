@@ -137,7 +137,8 @@ public final class AutoL extends ClientModule {
      */
     @EventTarget
     public void onAttack(AttackEvent event) {
-        if (event.getTargetEntity() instanceof EntityPlayer target) {
+        if (event.getTargetEntity() instanceof EntityPlayer) {
+            EntityPlayer target = (EntityPlayer) event.getTargetEntity();
             if (!entityList.contains(target)) {
                 entityList.add(target);
             }
@@ -204,6 +205,20 @@ public final class AutoL extends ClientModule {
     }
 
     private String repeatString(String str, int count) {
-        return String.valueOf(str).repeat(Math.max(0, count));
+        // String repeat is not available in Java 8
+        if (str == null || count <= 0) {
+            return "";
+        }
+        if (count == 1) {
+            return str;
+        }
+        // Use String's repeat method if available, otherwise use a loop
+        // Since Java 11, String has a repeat method, but we need to support Java 8
+        // So we use a simple loop to repeat the string
+        StringBuilder sb = new StringBuilder(str.length() * count);
+        for (int i = 0; i < count; i++) {
+            sb.append(str);
+        }
+        return sb.toString();
     }
 }
