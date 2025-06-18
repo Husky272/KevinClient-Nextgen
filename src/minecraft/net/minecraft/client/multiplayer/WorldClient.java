@@ -3,7 +3,6 @@ package net.minecraft.client.multiplayer;
 import com.google.common.collect.Sets;
 import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.Callable;
 
 import kevin.main.KevinClient;
 import kevin.module.modules.render.TrueSight;
@@ -41,7 +40,6 @@ import net.minecraft.world.storage.WorldInfo;
 import net.optifine.CustomGuis;
 import net.optifine.DynamicLights;
 import net.optifine.override.PlayerControllerOF;
-import net.optifine.reflect.Reflector;
 
 public class WorldClient extends World
 {

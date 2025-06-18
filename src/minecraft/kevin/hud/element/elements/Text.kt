@@ -27,7 +27,7 @@ import kevin.module.IntegerValue
 import kevin.module.TextValue
 import kevin.utils.*
 import kevin.utils.system.network.connection.ServerUtils
-import kevin.utils.entity.getPing
+import kevin.utils.entity.player.getPing
 import kevin.utils.render.ColorUtils
 import net.minecraft.client.Minecraft
 import org.lwjgl.input.Keyboard

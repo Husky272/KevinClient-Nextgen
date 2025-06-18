@@ -7,9 +7,9 @@ import kevin.event.impl.PacketEvent
 import kevin.module.*
 import kevin.utils.*
 import kevin.utils.MovementUtils.movingYaw
-import kevin.utils.entity.combatAndInventory.InventoryUtils
+import kevin.utils.entity.ci.InventoryUtils
 import kevin.utils.entity.rotation.RotationUtils
-import kevin.utils.entity.getNearestPointBB
+import kevin.utils.entity.player.getNearestPointBB
 import net.minecraft.block.*
 import net.minecraft.block.material.Material
 import net.minecraft.item.ItemBlock

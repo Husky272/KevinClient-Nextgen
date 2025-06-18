@@ -25,7 +25,7 @@ import kevin.utils.MinecraftInstance;
 import kevin.utils.RandomUtils;
 import kevin.utils.Rotation;
 import kevin.utils.VecRotation;
-import kevin.utils.entity.PlayerExtensionKt;
+import kevin.utils.entity.player.PlayerExtensionKt;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

@@ -20,7 +20,7 @@ import kevin.event.impl.StrafeEvent
 import kevin.event.UpdateEvent
 import kevin.module.*
 import kevin.utils.system.timer.TickTimer
-import kevin.utils.entity.getDistanceToEntityBox
+import kevin.utils.entity.player.getDistanceToEntityBox
 import net.minecraft.client.settings.GameSettings
 import net.minecraft.entity.player.EntityPlayer
 

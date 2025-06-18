@@ -36,7 +36,7 @@ import kevin.persional.milk.guis.clickgui.MilkClickGui
 import kevin.plugin.PluginManager
 import kevin.script.ScriptLoader
 import kevin.skin.SkinManager
-import kevin.utils.entity.combatAndInventory.CombatManager
+import kevin.utils.entity.ci.CombatManager
 import kevin.utils.entity.rotation.RotationUtils
 import kevin.via.ViaVersion
 import net.minecraft.client.Minecraft.logger
@@ -109,6 +109,7 @@ object KevinClient {
         fileManager.loadConfig(fileManager.hudConfig)
 
         commandManager.load()
+
         clickGUI = ClickGUI()
         newClickGui = NewClickGui()
         milkClickGui = MilkClickGui()

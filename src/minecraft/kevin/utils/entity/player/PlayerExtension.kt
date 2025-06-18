@@ -12,7 +12,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package kevin.utils.entity
+package kevin.utils.entity.player
 
 import kevin.module.modules.misc.ClientFriend
 import kevin.utils.render.ColorUtils.COLOR_PATTERN

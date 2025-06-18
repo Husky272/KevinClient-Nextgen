@@ -19,9 +19,9 @@ import kevin.event.Render3DEvent
 import kevin.module.*
 import kevin.module.modules.misc.AntiBot
 import kevin.utils.render.ColorUtils
-import kevin.utils.entity.combatAndInventory.EntityUtils
+import kevin.utils.entity.ci.EntityUtils
 import kevin.utils.RenderUtils
-import kevin.utils.entity.isClientFriend
+import kevin.utils.entity.player.isClientFriend
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer

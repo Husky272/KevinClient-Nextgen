@@ -32,7 +32,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class LineGlyphs extends ClientModule {
     public final BooleanValue slowSpeed = new BooleanValue("Slow Speed", false);
@@ -47,7 +47,7 @@ public class LineGlyphs extends ClientModule {
 
 
 
-    private final Random RAND = new Random(93882L);
+    private final ThreadLocalRandom RAND = ThreadLocalRandom.current();
 
     private final List<Vec3> temp3dVecs = new ArrayList<>();
     private static final Tessellator tessellator = Tessellator.getInstance();
@@ -235,7 +235,7 @@ public class LineGlyphs extends ClientModule {
         }
     }
 
-    private class GliphVecRenderer {
+    private static class GliphVecRenderer {
 
         private static void set3DRendering(Runnable render) {
             double glX = mc.getRenderManager().viewerPosX;

@@ -5,11 +5,7 @@ import kevin.event.TickEvent;
 import kevin.module.BooleanValue;
 import kevin.module.ClientModule;
 import kevin.module.ModuleCategory;
-import kevin.utils.entity.combatAndInventory.EntityUtils;
-import kotlin.Metadata;
-import kotlin.jvm.functions.Function0;
-import kotlin.jvm.internal.DefaultConstructorMarker;
-import kotlin.jvm.internal.Intrinsics;
+import kevin.utils.entity.ci.EntityUtils;
 import org.jetbrains.annotations.NotNull;
 
 public final class Targets extends ClientModule {

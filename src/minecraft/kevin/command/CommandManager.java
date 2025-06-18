@@ -22,6 +22,10 @@ public final class CommandManager {
     @NotNull
     public static final String prefix = ".";
 
+    public CommandManager() {
+        // Default constructor🤣
+    }
+
     @NotNull
     public final Map<String, IClientCommand> getCommands() {
         return this.commands;
@@ -45,11 +49,6 @@ public final class CommandManager {
 
         ModuleManager moduleManager = KevinClient.INSTANCE.getModuleManager();
 
-        // Register ValueClientCommand for each module
-        for (ClientModule module : moduleManager.getModules()) {
-            commands.put(module.getName().toLowerCase(), new ValueClientCommand());
-        }
-
         // Register static commands
         registerCommand(new String[]{"t", "toggle"}, new ToggleClientCommand());
         registerCommand(new String[]{"h", "help"}, new HelpClientCommand());
@@ -71,6 +70,24 @@ public final class CommandManager {
         registerCommand(new String[]{"bindCommand"}, BindManager.INSTANCE);
         registerCommand(new String[]{"panic"}, new PanicClientCommand());
         registerCommand(new String[]{"reload"}, new ReloadClientCommand());
+        // Register ValueClientCommand for each module
+        /*
+         ---- Minecraft Crash Report ----
+        Description: Initializing game
+
+        java.lang.NullPointerException: Initializing game
+            at kevin.command.CommandManager.load(CommandManager.java:71)
+            at kevin.main.KevinClient.run(KevinClient.kt:111)
+            at net.minecraft.client.Minecraft.startGame(Minecraft.java:562)
+            at net.minecraft.client.Minecraft.run(Minecraft.java:347)
+            at net.minecraft.client.main.Main.main(Main.java:112)
+            at Start.main(Start.java:9)
+         */
+        for (ClientModule module : moduleManager.getModules()) {
+            if(module == null) continue;
+            commands.put(module.getName().toLowerCase(), new ValueClientCommand());
+        }
+
     }
 
     /**

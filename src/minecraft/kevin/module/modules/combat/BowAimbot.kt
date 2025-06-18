@@ -18,7 +18,7 @@ import kevin.event.EventTarget
 import kevin.event.Render3DEvent
 import kevin.event.UpdateEvent
 import kevin.module.*
-import kevin.utils.entity.combatAndInventory.EntityUtils
+import kevin.utils.entity.ci.EntityUtils
 import kevin.utils.RenderUtils
 import kevin.utils.entity.rotation.RotationUtils
 import net.minecraft.entity.Entity

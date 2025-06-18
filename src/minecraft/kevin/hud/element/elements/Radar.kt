@@ -24,7 +24,7 @@ import kevin.module.IntegerValue
 import kevin.module.ListValue
 import kevin.module.modules.render.ESP
 import kevin.utils.*
-import kevin.utils.entity.combatAndInventory.EntityUtils
+import kevin.utils.entity.ci.EntityUtils
 import kevin.utils.render.shader.shaders.RainbowShader
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator

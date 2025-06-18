@@ -35,16 +35,16 @@ import kevin.module.modules.player.Blink
 import kevin.module.modules.render.FreeCam
 import kevin.module.modules.world.Scaffold
 import kevin.utils.*
-import kevin.utils.entity.combatAndInventory.EntityUtils
+import kevin.utils.entity.ci.EntityUtils
 import kevin.utils.entity.rotation.RaycastUtils
 import kevin.utils.entity.rotation.RotationUtils
-import kevin.utils.entity.getDistanceToEntityBox
-import kevin.utils.entity.getLookDistanceToEntityBox
-import kevin.utils.entity.getNearestPointBB
-import kevin.utils.entity.getPing
-import kevin.utils.entity.isAnimal
-import kevin.utils.entity.isClientFriend
-import kevin.utils.entity.isMob
+import kevin.utils.entity.player.getDistanceToEntityBox
+import kevin.utils.entity.player.getLookDistanceToEntityBox
+import kevin.utils.entity.player.getNearestPointBB
+import kevin.utils.entity.player.getPing
+import kevin.utils.entity.player.isAnimal
+import kevin.utils.entity.player.isClientFriend
+import kevin.utils.entity.player.isMob
 import kevin.utils.system.timer.MSTimer
 import kevin.utils.system.timer.TickTimer
 import kevin.utils.system.timer.TimeList
@@ -985,7 +985,7 @@ class KillAura : ClientModule("KillAura","Automatically attacks targets around y
             "Always" -> RotationUtils.setTargetRotation(limitedRotation, if (aacValue.get() || keepRotationTickValue.get() > 0) keepRotationTickValue.get() + (if (aacValue.get()) 15 else 0) else 0)
             "Off" -> limitedRotation.toPlayer(mc.thePlayer!!)
             else -> {
-                if (MovementUtils.isMoving()) limitedRotation.toPlayer(mc.thePlayer!!)
+                if (MovementUtils.isPlayerMoving()) limitedRotation.toPlayer(mc.thePlayer!!)
                 else RotationUtils.setTargetRotation(limitedRotation, if (aacValue.get() || keepRotationTickValue.get() > 0) keepRotationTickValue.get() + (if (aacValue.get()) 15 else 0) else 0)
             }
         }

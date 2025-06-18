@@ -15,7 +15,7 @@
 package kevin.utils
 
 import kevin.utils.entity.rotation.RotationUtils
-import kevin.utils.entity.eyesLoc
+import kevin.utils.entity.player.eyesLoc
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.EntityPlayerSP

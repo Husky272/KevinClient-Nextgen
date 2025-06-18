@@ -22,9 +22,9 @@ import kevin.module.IntegerValue;
 import kevin.module.ClientModule;
 import kevin.module.ModuleCategory;
 import kevin.utils.*;
-import kevin.utils.entity.combatAndInventory.ArmorComparator;
-import kevin.utils.entity.combatAndInventory.ArmorPiece;
-import kevin.utils.entity.combatAndInventory.InventoryUtils;
+import kevin.utils.entity.ci.ArmorComparator;
+import kevin.utils.entity.ci.ArmorPiece;
+import kevin.utils.entity.ci.InventoryUtils;
 import kevin.utils.system.timer.TimeUtils;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.item.ItemArmor;
@@ -152,7 +152,7 @@ public class AutoArmor extends ClientModule {
             delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get());
 
             return true;
-        } else if (!(noMoveValue.get() && MovementUtils.isMoving()) && (!invOpenValue.get() || mc.currentScreen instanceof GuiInventory) && item != -1) {
+        } else if (!(noMoveValue.get() && MovementUtils.isPlayerMoving()) && (!invOpenValue.get() || mc.currentScreen instanceof GuiInventory) && item != -1) {
             final boolean openInventory = simulateInventory.get() && !(mc.currentScreen instanceof GuiInventory);
 
             if (openInventory)

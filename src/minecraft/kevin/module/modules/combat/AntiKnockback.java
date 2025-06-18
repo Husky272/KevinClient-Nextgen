@@ -138,7 +138,7 @@ public final class AntiKnockback extends ClientModule {
             case "reverse":
                 if (!velocityInput) return;
                 if (!thePlayer.onGround) {
-                    MovementUtils.strafe(MovementUtils.getSpeed() * reverseStrengthValue.get());
+                    MovementUtils.strafe(MovementUtils.getPlayerXZ_sqrtSpeed() * reverseStrengthValue.get());
                 } else if (velocityTimer.hasTimePassed(80L)) {
                     velocityInput = false;
                 }
@@ -146,7 +146,7 @@ public final class AntiKnockback extends ClientModule {
             case "hypixelreverse":
                 if (!velocityInput) return;
                 if (!thePlayer.onGround) {
-                    MovementUtils.strafe(MovementUtils.getSpeed() * reverseStrengthValue.get());
+                    MovementUtils.strafe(MovementUtils.getPlayerXZ_sqrtSpeed() * reverseStrengthValue.get());
                 } else if (velocityTimer.hasTimePassed(120L)) {
                     velocityInput = false;
                 }
@@ -351,7 +351,7 @@ public final class AntiKnockback extends ClientModule {
                     velocityInput = true;
                     break;
                 case "hypixelreverse":
-                    if (MovementUtils.isMoving()) {
+                    if (MovementUtils.isPlayerMoving()) {
                         velocityInput = true;
                     } else {
                         velPacket.motionX = 0;

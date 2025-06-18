@@ -31,7 +31,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.network.play.server.S30PacketWindowItems
 import net.minecraft.util.ResourceLocation
 import kotlin.random.Random
-import kevin.utils.entity.combatAndInventory.InventoryUtils.MouseSimulator.SHARED as mouseSimulator
+import kevin.utils.entity.ci.InventoryUtils.MouseSimulator.SHARED as mouseSimulator
 
 class ChestStealer : ClientModule("ChestStealer", "Automatically steals all items from a chest.", ModuleCategory.WORLD) {
 

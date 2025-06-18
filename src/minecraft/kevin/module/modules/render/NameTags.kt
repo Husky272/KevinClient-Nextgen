@@ -20,7 +20,7 @@ import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.modules.misc.AntiBot
 import kevin.utils.render.ColorUtils
-import kevin.utils.entity.combatAndInventory.EntityUtils
+import kevin.utils.entity.ci.EntityUtils
 import kevin.utils.RenderUtils.drawBorderedRect
 import kevin.utils.RenderUtils.drawRect
 import net.minecraft.client.renderer.GlStateManager.*

@@ -6,7 +6,7 @@ import kevin.event.impl.*;
 import kevin.event.struct.EventState;
 import kevin.module.*;
 import kevin.utils.*;
-import kevin.utils.entity.combatAndInventory.InventoryUtils;
+import kevin.utils.entity.ci.InventoryUtils;
 import kevin.utils.entity.rotation.RotationUtils;
 import kevin.utils.system.timer.MSTimer;
 import net.minecraft.block.*;

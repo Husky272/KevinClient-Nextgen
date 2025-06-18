@@ -21,7 +21,7 @@ import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.modules.world.Scaffold
 import kevin.utils.*
-import kevin.utils.entity.FallingPlayer
+import kevin.utils.entity.player.FallingPlayer
 import net.minecraft.block.BlockAir
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.network.Packet

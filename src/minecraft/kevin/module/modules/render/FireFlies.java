@@ -17,9 +17,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
-import org.openjdk.nashorn.internal.objects.annotations.Getter;
 
 import java.awt.*;
 import java.util.ArrayList;

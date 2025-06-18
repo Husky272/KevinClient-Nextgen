@@ -1,7 +1,7 @@
 package kevin.utils.system.timer;
 
 import kevin.module.IntegerValue;
-import static kevin.utils.entity.combatAndInventory.InventoryUtils.*;
+import static kevin.utils.entity.ci.InventoryUtils.*;
 
 public abstract class DelayTimer {
     private IntegerValue minDelayValue = null;

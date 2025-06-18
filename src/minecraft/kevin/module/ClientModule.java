@@ -19,6 +19,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
+/**
+ * Client module
+ */
 public class ClientModule extends MinecraftInstance implements Listenable {
 
     @NotNull
@@ -71,19 +74,14 @@ public class ClientModule extends MinecraftInstance implements Listenable {
 
 
     public static String[] arrayOf(String... args){
-        StringBuilder temp = new StringBuilder();
-        String toSplit = "😂";
-        for(String s : args){
-            temp.append(s);
-            temp.append(toSplit);
-        }
-        return temp.toString().split(toSplit);
+        // 🤣
+        return args;
     }
 
     @Nullable
     public String getTag() {
         // Null Check
-        return tag == null ? "" : tag;
+        return tag == null ? "Nothing" : tag;
     }
 
     @NotNull

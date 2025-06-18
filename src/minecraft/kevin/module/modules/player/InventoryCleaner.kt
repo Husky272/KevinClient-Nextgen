@@ -20,8 +20,8 @@ import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.modules.combat.AutoArmor
 import kevin.utils.*
-import kevin.utils.entity.combatAndInventory.ArmorPiece
-import kevin.utils.entity.combatAndInventory.InventoryUtils
+import kevin.utils.entity.ci.ArmorPiece
+import kevin.utils.entity.ci.InventoryUtils
 import kevin.utils.system.timer.TimeUtils
 import net.minecraft.block.BlockBush
 import net.minecraft.client.gui.inventory.GuiInventory

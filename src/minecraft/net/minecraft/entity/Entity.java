@@ -128,6 +128,9 @@ public abstract class Entity implements ICommandSender
      */
     public boolean isCollided;
     public boolean velocityChanged;
+    /**
+     * Is entity trapped in spider web
+     */
     public boolean isInWeb;
     private boolean isOutsideBorder;
 

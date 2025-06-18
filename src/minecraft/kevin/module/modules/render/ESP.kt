@@ -21,11 +21,11 @@ import kevin.module.*
 import kevin.module.modules.misc.KillerDetector
 import kevin.utils.render.ColorUtils
 import kevin.utils.render.ColorUtils.rainbow
-import kevin.utils.entity.combatAndInventory.EntityUtils
+import kevin.utils.entity.ci.EntityUtils
 import kevin.font.GameFontRenderer.Companion.getColorIndex
 import kevin.utils.RenderUtils.*
 import kevin.utils.WorldToScreen
-import kevin.utils.entity.isClientFriend
+import kevin.utils.entity.player.isClientFriend
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.RenderGlobal.drawSelectionBoundingBox
 import net.minecraft.client.renderer.Tessellator

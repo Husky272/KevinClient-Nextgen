@@ -27,7 +27,7 @@ import kevin.main.KevinClient
 import kevin.utils.system.timer.MSTimer
 import kevin.utils.RenderUtils
 import kevin.utils.system.timer.TimeList
-import kevin.utils.entity.getPing
+import kevin.utils.entity.player.getPing
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.C0APacketAnimation
 import net.minecraft.network.play.server.S02PacketChat

@@ -63,7 +63,7 @@ public final class CoordinateStrafe extends ClientModule {
         if (canStrafe())
             setSpeed(
                     event,
-                    MovementUtils.getSpeed(),
+                    MovementUtils.getPlayerXZ_sqrtSpeed(),
                     // Get rotation to target block position(x, y, z)
                     RotationUtils.getRotationsBlock(posX.get(), posY.get(), posZ.get()).getYaw(),
                     direction,

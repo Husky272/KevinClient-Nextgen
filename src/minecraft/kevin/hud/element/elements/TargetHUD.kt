@@ -24,8 +24,8 @@ import kevin.module.FloatValue
 import kevin.module.ListValue
 import kevin.module.modules.combat.KillAura
 import kevin.utils.*
-import kevin.utils.entity.getDistanceToEntityBox
-import kevin.utils.entity.getPing
+import kevin.utils.entity.player.getDistanceToEntityBox
+import kevin.utils.entity.player.getPing
 import kevin.utils.render.ColorUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui.drawScaledCustomSizeModalRect

@@ -12,16 +12,16 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package kevin.utils.entity.combatAndInventory
+package kevin.utils.entity.ci
 
 import kevin.main.KevinClient
 import kevin.module.modules.misc.AntiBot.isBot
 import kevin.module.modules.misc.AntiShop
 import kevin.module.modules.misc.Teams
 import kevin.utils.MinecraftInstance
-import kevin.utils.entity.isAnimal
-import kevin.utils.entity.isClientFriend
-import kevin.utils.entity.isMob
+import kevin.utils.entity.player.isAnimal
+import kevin.utils.entity.player.isClientFriend
+import kevin.utils.entity.player.isMob
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -79,5 +79,10 @@ object EntityUtils : MinecraftInstance() {
         if (entityPlayer == null) return 0
         val networkPlayerInfo = mc.netHandler.getPlayerInfo(entityPlayer.uniqueID)
         return networkPlayerInfo?.responseTime ?: 0
+    }
+
+    @JvmStatic
+    fun getAirTicks(e: Entity): Int {
+        return e.offGroundTicks;
     }
 }

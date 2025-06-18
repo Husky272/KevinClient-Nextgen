@@ -65,7 +65,7 @@ public final class TargetStrafe extends ClientModule {
         if (canStrafe(target))
             setSpeed(
                     event,
-                    MovementUtils.getSpeed(),
+                    MovementUtils.getPlayerXZ_sqrtSpeed(),
                     RotationUtils.getRotationsEntity(target).getYaw(),
                     direction,
                     mc.thePlayer.getDistanceToEntity(target) <= radius.get() ? 0.0 : 1.0

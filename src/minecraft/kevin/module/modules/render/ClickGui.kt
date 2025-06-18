@@ -700,8 +700,9 @@ class ClickGui : ClientModule("ClickGui","Opens the ClickGUI.", Keyboard.KEY_RSH
                 lastModule[it] = -1
             }
             KevinClient.moduleManager.getModules().forEach {
-                if(!(it is Targets||it is ClickGui||it is CapeManager||it is HudDesigner))
-                    cateMaxY[it.category] = cateMaxY[it.category]!! + 1
+
+                if(!(it!! is Targets||it!! is ClickGui||it!! is CapeManager||it!! is HudDesigner))
+                    cateMaxY[it!!.category] = cateMaxY[it!!.category]!! + 1
             }
             ModuleCategory.values().forEach{
                 cateMaxY[it] = if (cateMaxY[it]!!-8<=0) 0 else cateMaxY[it]!! - 8

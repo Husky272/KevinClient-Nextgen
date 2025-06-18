@@ -7,7 +7,7 @@ import java.util.*
 
 class FriendClientCommand : IClientCommand {
     override fun run(args: Array<String>) {
-        if (args == null || args.size == 0) {
+        if (args.isEmpty()) {
             ChatUtils.messageWithStart("§cUsage: §c.friend §c<add/remove> <player> §cor .friend§c list")
             return
         }

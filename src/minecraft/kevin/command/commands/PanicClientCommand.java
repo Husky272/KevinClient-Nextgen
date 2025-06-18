@@ -9,8 +9,4 @@ public class PanicClientCommand implements IClientCommand {
     public void run(String[] args) {
         MainUtil.freeMemory();
     }
-
-    public void showUsage(){
-        ChatUtils.message(".panic");
-    }
 }

@@ -21,7 +21,7 @@ import kevin.event.WorldEvent
 import kevin.module.IntegerValue
 import kevin.module.ClientModule
 import kevin.module.ModuleCategory
-import kevin.utils.entity.combatAndInventory.EntityUtils
+import kevin.utils.entity.ci.EntityUtils
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.EntityLivingBase
 import org.lwjgl.opengl.GL11

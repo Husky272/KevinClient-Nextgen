@@ -280,10 +280,13 @@ public final class ModuleManager implements Listenable {
     public ClientModule getModuleByName(@NotNull final String name) {
         /*EL:239*/
         for (ClientModule next : this.clientModules) {
+            // Null check 🤣😂👎
+            if(next == null) continue;
             /*SL:240*/
             if (StringsKt.equals(next.getName(), name, true)) {
                 return next;
             }
+            // TODO: fix
         }
         /*SL:242*/
         return null;

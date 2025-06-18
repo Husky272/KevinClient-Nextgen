@@ -1,10 +1,8 @@
 package kevin.utils;
 
-import kotlin.Metadata;
-import kotlin.jvm.JvmOverloads;
-import kotlin.jvm.JvmStatic;
 import kotlin.jvm.internal.Intrinsics;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.Entity;
 import net.minecraft.potion.Potion;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,13 +19,11 @@ public final class MovementUtils extends MinecraftInstance {
     public static double speed = 0.0d;
 
     static{
-        isMoving = isMoving();
+        isMoving = isPlayerMoving();
         direction = getDirection();
         movingYaw = getMovingYaw();
-        speed = getSpeed();
+        speed = getPlayerXZ_sqrtSpeed();
     }
-
-
 
 
     @NotNull
@@ -36,32 +32,26 @@ public final class MovementUtils extends MinecraftInstance {
     private MovementUtils() {
     }
 
-    public static float getSpeed() {
-        EntityPlayerSP var10000 = MinecraftInstance.mc.thePlayer;
-        Intrinsics.checkNotNull(var10000);
-        double var0 = var10000.motionX;
-        EntityPlayerSP var10001 = MinecraftInstance.mc.thePlayer;
-        Intrinsics.checkNotNull(var10001);
-        var0 *= var10001.motionX;
-        var10001 = MinecraftInstance.mc.thePlayer;
-        Intrinsics.checkNotNull(var10001);
-        double var3 = var10001.motionZ;
-        EntityPlayerSP var10002 = MinecraftInstance.mc.thePlayer;
-        Intrinsics.checkNotNull(var10002);
-        return (float)Math.sqrt(var0 + var3 * var10002.motionZ);
+    public static float getPlayerXZ_sqrtSpeed() {
+        EntityPlayerSP player = MinecraftInstance.mc.thePlayer;
+        double motionX = player.motionX;
+        double motionZ = player.motionZ;
+
+        return (float) Math.sqrt(motionX * motionX + motionZ * motionZ);
+    }
+    public static float getSqrtSpeed(Entity entity) {
+        double motionX = entity.motionX;
+        double motionZ = entity.motionZ;
+
+        return (float) Math.sqrt(motionX * motionX + motionZ * motionZ);
     }
 
     public static void setSpeed(float value) {
         setMotion(value);
     }
 
-    /** @deprecated */
-    // $FF: synthetic method
 
-    public static void getSpeed$annotations() {
-    }
-
-    public static boolean isMoving() {
+    public static boolean isPlayerMoving() {
         boolean var1;
         label38: {
             if (MinecraftInstance.mc.thePlayer != null) {
@@ -114,7 +104,7 @@ public final class MovementUtils extends MinecraftInstance {
     }
     public static void strafe(double speed) {
         MovementUtils var10000 = INSTANCE;
-        if (isMoving()) {
+        if (isPlayerMoving()) {
             var10000 = INSTANCE;
             double yaw = getDirection();
             EntityPlayerSP var5 = MinecraftInstance.mc.thePlayer;
@@ -128,7 +118,7 @@ public final class MovementUtils extends MinecraftInstance {
 
     public static void strafe(float speed) {
         MovementUtils var10000 = INSTANCE;
-        if (isMoving()) {
+        if (isPlayerMoving()) {
             var10000 = INSTANCE;
             double yaw = getDirection();
             EntityPlayerSP var5 = MinecraftInstance.mc.thePlayer;
@@ -143,7 +133,7 @@ public final class MovementUtils extends MinecraftInstance {
     public static void strafe$default(float var0, int var1, Object var2) {
         if ((var1 & 1) != 0) {
             MovementUtils var10000 = INSTANCE;
-            var0 = getSpeed();
+            var0 = getPlayerXZ_sqrtSpeed();
         }
 
         strafe(var0);
@@ -152,7 +142,7 @@ public final class MovementUtils extends MinecraftInstance {
 
     public static void strafeDouble(double speed) {
         MovementUtils var10000 = INSTANCE;
-        if (isMoving()) {
+        if (isPlayerMoving()) {
             var10000 = INSTANCE;
             double yaw = getDirection();
             EntityPlayerSP var6 = MinecraftInstance.mc.thePlayer;
@@ -210,7 +200,7 @@ public final class MovementUtils extends MinecraftInstance {
     }
 
     public  static void move(float speed) {
-        if (isMoving()) {
+        if (isPlayerMoving()) {
             double yaw = getDirection();
             EntityPlayerSP var4 = MinecraftInstance.mc.thePlayer;
             var4.motionX += -Math.sin(yaw) * (double)speed;
@@ -223,6 +213,7 @@ public final class MovementUtils extends MinecraftInstance {
         double forward = MinecraftInstance.mc.thePlayer.movementInput.moveForward;
         double strafe = MinecraftInstance.mc.thePlayer.movementInput.moveStrafe;
         float yaw = MinecraftInstance.mc.thePlayer.rotationYaw;
+
         if (forward == (double)0.0F && strafe == (double)0.0F) {
             MinecraftInstance.mc.thePlayer.motionX = 0.0F;
             MinecraftInstance.mc.thePlayer.motionZ = 0.0F;

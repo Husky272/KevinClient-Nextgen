@@ -21,9 +21,9 @@ import kevin.main.KevinClient
 import kevin.module.*
 import kevin.module.ClientModule
 import kevin.utils.*
-import kevin.utils.entity.combatAndInventory.EntityUtils
+import kevin.utils.entity.ci.EntityUtils
 import kevin.utils.entity.rotation.RaycastUtils
-import kevin.utils.entity.getNearestPointBB
+import kevin.utils.entity.player.getNearestPointBB
 import net.minecraft.client.entity.EntityOtherPlayerMP
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase

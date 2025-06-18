@@ -13,5 +13,9 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EventTarget {
+    /**
+     * Ignore condition
+     * @return use your brain LOL
+     */
     public boolean ignoreCondition() default false;
 }

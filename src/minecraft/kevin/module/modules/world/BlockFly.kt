@@ -20,9 +20,9 @@ import kevin.utils.RandomUtils.nextFloat
 import kevin.utils.RenderUtils.drawBlockBox
 import kevin.utils.RenderUtils.drawBorderedRect
 import kevin.utils.entity.rotation.RotationUtils.*
-import kevin.utils.entity.combatAndInventory.InventoryUtils
-import kevin.utils.entity.eyesLoc
-import kevin.utils.entity.interpolatedPosition
+import kevin.utils.entity.ci.InventoryUtils
+import kevin.utils.entity.player.eyesLoc
+import kevin.utils.entity.player.interpolatedPosition
 import kevin.utils.system.timer.DelayTimer
 import kevin.utils.system.timer.TimeUtils.randomClickDelay
 import kevin.utils.system.timer.TimeUtils.randomDelay

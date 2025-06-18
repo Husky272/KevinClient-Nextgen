@@ -83,7 +83,7 @@ public final class Timer extends ClientModule {
             }
         }
 
-        if (!MovementUtils.isMoving() && this.onMoveValue.get() || this.balanceState && this.getBalanceValue()) {
+        if (!MovementUtils.isPlayerMoving() && this.onMoveValue.get() || this.balanceState && this.getBalanceValue()) {
             ClientModule.mc.getTimer().timerSpeed = 1.0F;
         } else {
             ClientModule.mc.getTimer().timerSpeed = this.speedValue.get().floatValue();

@@ -20,7 +20,7 @@ import kevin.event.Render3DEvent
 import kevin.event.UpdateEvent
 import kevin.module.*
 import kevin.utils.*
-import kevin.utils.entity.combatAndInventory.EntityUtils
+import kevin.utils.entity.ci.EntityUtils
 import kevin.utils.render.ColorUtils
 import kevin.utils.system.timer.MSTimer
 import net.minecraft.entity.EntityLivingBase
