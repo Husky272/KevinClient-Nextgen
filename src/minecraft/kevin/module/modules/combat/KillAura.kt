@@ -497,7 +497,7 @@ class KillAura : ClientModule("KillAura","Automatically attacks targets around y
     fun onClick(event: ClickUpdateEvent) {
         if (attackTimingValue equal "Legit") {
             if (mc.thePlayer == null || mc.theWorld == null) return
-            updateTarget()
+            //updateTarget()
             updateHitable()
             runAttackLoop()
         }
