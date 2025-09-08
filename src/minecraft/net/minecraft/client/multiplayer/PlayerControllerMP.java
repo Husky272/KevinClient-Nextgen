@@ -3,6 +3,7 @@ package net.minecraft.client.multiplayer;
 import kevin.event.impl.AttackEvent;
 import kevin.event.ClickWindowEvent;
 import kevin.main.KevinClient;
+import kevin.module.modules.exploit.AbortBreaking;
 import kevin.module.modules.player.AutoTool;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -657,6 +658,6 @@ public class PlayerControllerMP
      */
     public boolean getIsHittingBlock()
     {
-        return this.isHittingBlock;
+        if(KevinClient.moduleManager.getModule(AbortBreaking.class).getState()) return false; else return this.isHittingBlock;
     }
 }
