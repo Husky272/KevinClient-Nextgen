@@ -35,6 +35,8 @@ import kevin.module.modules.player.Blink
 import kevin.module.modules.render.FreeCam
 import kevin.module.modules.world.Scaffold
 import kevin.utils.*
+import kevin.utils.RotationUtils.getVectorForRotation
+import kevin.utils.RotationUtils.isVisible
 import kevin.utils.entity.ci.EntityUtils
 import kevin.utils.entity.rotation.RaycastUtils
 import kevin.utils.entity.rotation.RotationUtils
@@ -1026,6 +1028,15 @@ class KillAura : ClientModule("KillAura","Automatically attacks targets around y
             hitable = if (yawMaxTurnSpeed.get() > 0F) currentTarget == raycastedEntity else true
         } else
             hitable = RotationUtils.isFaced(currentTarget, reach)
+
+        if (!hitable) return
+
+        val size = currentTarget!!.collisionBorderSize.toDouble()
+        val intercept = currentTarget!!.entityBoundingBox.expand(size,size,size).calculateIntercept(
+            mc.thePlayer.eyesLoc, mc.thePlayer.eyesLoc + getVectorForRotation(RotationUtils.bestServerRotation()) * rangeValue.get()
+        )
+
+        hitable = isVisible(intercept.hitVec) || mc.thePlayer.getDistanceToEntityBox(currentTarget!!) <= throughWallsRangeValue.get()
     }
 
     /**
