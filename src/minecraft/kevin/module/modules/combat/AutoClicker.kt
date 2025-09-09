@@ -27,6 +27,7 @@ import kevin.module.ModuleCategory
 import kevin.utils.RandomUtils
 import kevin.utils.system.timer.TimeUtils
 import net.minecraft.client.settings.KeyBinding
+import net.minecraft.util.MovingObjectPosition
 import kotlin.random.Random
 
 class AutoClicker : ClientModule("AutoClicker", "Constantly clicks when holding down a mouse button.", ModuleCategory.COMBAT) {
@@ -60,12 +61,15 @@ class AutoClicker : ClientModule("AutoClicker", "Constantly clicks when holding 
     private var leftDelay = TimeUtils.randomClickDelay(minCPSValue.get(), maxCPSValue.get())
     private var leftLastSwing = 0L
 
-    @EventTarget
+   @EventTarget
     fun onRender(event: Render3DEvent) {
         if (mc.currentScreen != null) return
         // Left click
         if (mc.gameSettings.keyBindAttack.isKeyDown && leftValue.get() &&
-            System.currentTimeMillis() - leftLastSwing >= leftDelay && mc.playerController.curBlockDamageMP == 0F) {
+            System.currentTimeMillis() - leftLastSwing >= leftDelay
+            && mc.playerController.curBlockDamageMP == 0F
+            && mc.objectMouseOver.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK
+            ) {
             KeyBinding.onTick(mc.gameSettings.keyBindAttack.keyCode)
 
             leftLastSwing = System.currentTimeMillis()
